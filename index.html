@@ -3,6 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Team Emeritus — Effort Calculator</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <style>
 :root{--navy:#0d1b3e;--navy2:#142250;--navy3:#1a2d6b;--blue:#1e40af;--blue2:#2563eb;--sky:#3b82f6;--gold:#d97706;--gold2:#f59e0b;--gold3:#fbbf24;--green:#059669;--green2:#10b981;--red:#dc2626;--white:#ffffff;--off:#f8fafc;--light:#f1f5f9;--mid:#e2e8f0;--border:#cbd5e1;--dim:#94a3b8;--body:#334155;--head:#0f172a;--mono:'Inter',system-ui,sans-serif;--sans:'Plus Jakarta Sans',sans-serif}
@@ -172,7 +173,7 @@ tbody tr:last-child td{border-bottom:none}
     <span class="topbar-name">Team <span>Emeritus</span> — Effort Calculator</span>
   </div>
   <div class="topbar-pills" style="display:flex;align-items:center;gap:8px">
-    <span class="pill gold">10AM → 10AM Shift</span>
+    <span class="pill gold">&gt;10AM → 10AM Shift</span>
     <span class="pill">Dialer Connected Flag</span>
   <button onclick="exportAsIndex()" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; background: rgba(251, 191, 36, 0.15); border: 1px solid rgba(251, 191, 36, 0.4); color: rgba(255, 255, 255, 0.85); border-radius: 6px; font-family: var(--sans); font-size: 11px; font-weight: 600; cursor: pointer; transition: 0.15s; letter-spacing: 0.3px;" onmouseover="this.style.background='rgba(251,191,36,0.15)';this.style.borderColor='rgba(251,191,36,0.4)'" onmouseout="this.style.background='rgba(255,255,255,0.08)';this.style.borderColor='rgba(255,255,255,0.2)'">⬇ Export index.html</button>
   </div>
@@ -216,8 +217,8 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
             <button class="btn btn-ghost" onclick="loadSample()">Load Sample</button>
           </div>
           <div class="progress-wrap" id="progressWrap">
-            <div class="progress-track"><div class="progress-fill" id="progressFill" style="width: 99%;"></div></div>
-            <span class="progress-text" id="progressText">Row 9,321 of 9,321…</span>
+            <div class="progress-track"><div class="progress-fill" id="progressFill" style="width: 0%;"></div></div>
+            <span class="progress-text" id="progressText"></span>
           </div>
         </div>
       </div>
@@ -230,8 +231,8 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
           <div class="rule-box">
             <div class="rule-label">Shift Date Logic</div>
             <div class="rule-line">
-              <span class="tag">Hour ≥ 10</span> → Shift = <b>Created Date</b> (same day)<br>
-              <span class="tag">Hour &lt; 10</span> → Shift = <b>Created Date − 1</b> (prev day)
+              <span class="tag">Hour &gt; 10</span> → Shift = <b>Created Date</b> (same day)<br>
+              <span class="tag">Hour ≤ 10</span> → Shift = <b>Created Date − 1</b> (prev day)
             </div>
           </div>
           <div class="rule-box">
@@ -258,14 +259,14 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
     <div class="filter-group">
       <span class="filter-label">Shift Date</span>
       <div class="ms-wrap" id="msDate">
-        <div class="ms-trigger" id="dateTrigger" onclick="toggleMs('msDate')">08-May-2026</div>
+        <div class="ms-trigger" id="dateTrigger" onclick="toggleMs('msDate')">08-May-2026, 09-May-2026</div>
         <div class="ms-dropdown" id="msDateDropdown">
           <div class="ms-search-wrap"><input class="ms-search" placeholder="Search date…" oninput="filterMsOpts(this,'msDateDropdown')"></div>
           <div class="ms-action-row">
             <span class="ms-action" onclick="msAll('msDateDropdown')">All</span>
             <span class="ms-action" onclick="msNone('msDateDropdown')">None</span>
           </div>
-          <div id="dateOptions"><label class="ms-option"><input type="checkbox" value="2026-05-01" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>01-May-2026</span></label><label class="ms-option"><input type="checkbox" value="2026-05-03" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>03-May-2026</span></label><label class="ms-option"><input type="checkbox" value="2026-05-04" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>04-May-2026</span></label><label class="ms-option"><input type="checkbox" value="2026-05-05" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>05-May-2026</span></label><label class="ms-option"><input type="checkbox" value="2026-05-06" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>06-May-2026</span></label><label class="ms-option"><input type="checkbox" value="2026-05-07" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>07-May-2026</span></label><label class="ms-option"><input type="checkbox" value="2026-05-08" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>08-May-2026</span></label></div>
+          <div id="dateOptions"><label class="ms-option"><input type="checkbox" value="2026-05-03" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>03-May-2026</span></label><label class="ms-option"><input type="checkbox" value="2026-05-04" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>04-May-2026</span></label><label class="ms-option"><input type="checkbox" value="2026-05-05" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>05-May-2026</span></label><label class="ms-option"><input type="checkbox" value="2026-05-06" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>06-May-2026</span></label><label class="ms-option"><input type="checkbox" value="2026-05-07" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>07-May-2026</span></label><label class="ms-option"><input type="checkbox" value="2026-05-08" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>08-May-2026</span></label><label class="ms-option"><input type="checkbox" value="2026-05-09" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>09-May-2026</span></label></div>
         </div>
       </div>
     </div>
@@ -301,14 +302,21 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
     <div class="filter-right">
       <button class="btn btn-green" onclick="copyOutput()">⎘ Copy for Teams / Excel</button>
       <button class="btn btn-outline" onclick="copyRawFiltered()">⎘ Copy Raw</button>
+      <button class="btn" id="imgBtn" onclick="exportAsImage()" style="background:#7c3aed;color:#fff;font-size:12px" title="Export table as PNG image">📸 Export Image</button>
     </div>
   </div>
 
-  <div class="stat-row" id="summaryRow" style="display: none;">
-    <div class="stat-card s-blue"><div class="stat-label">Total Calls</div><div class="stat-value" id="sTotal">890</div><div class="stat-sub" id="sAdvisors">16 advisors</div></div>
-    <div class="stat-card s-green"><div class="stat-label">Connected</div><div class="stat-value" id="sConnected">96</div><div class="stat-sub" id="sRate">10.8% connection rate</div></div>
-    <div class="stat-card s-gold"><div class="stat-label">Pure Talk Time</div><div class="stat-value" id="sTalk">705.60</div><div class="stat-sub">minutes total</div></div>
-    <div class="stat-card s-navy"><div class="stat-label">Avg Talk / Connected</div><div class="stat-value" id="sAvg">7.35</div><div class="stat-sub">min per connected call</div></div>
+  <div id="shiftSummaryBar" style="display: none; background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 10px 18px; margin-bottom: 14px; font-family: var(--mono); font-size: 11px; color: var(--body); box-shadow: rgba(0, 0, 0, 0.04) 0px 1px 3px;">
+  <span style="color:var(--dim);text-transform:uppercase;letter-spacing:1px;font-size:10px;font-weight:700">Shift Coverage</span>
+  &nbsp;&nbsp;<span id="shiftCoverageText" style="color:var(--head)">Multiple shift dates selected</span>
+  &nbsp;&nbsp;<span style="color:var(--dim)">|</span>&nbsp;&nbsp;
+  <span id="shiftRowBreakdown" style="color:var(--blue2)"></span>
+</div>
+<div class="stat-row" id="summaryRow" style="display: none;">
+    <div class="stat-card s-blue"><div class="stat-label">Total Calls</div><div class="stat-value" id="sTotal">1,023</div><div class="stat-sub" id="sAdvisors">16 advisors</div></div>
+    <div class="stat-card s-green"><div class="stat-label">Connected</div><div class="stat-value" id="sConnected">102</div><div class="stat-sub" id="sRate">10.0% connection rate</div></div>
+    <div class="stat-card s-gold"><div class="stat-label">Pure Talk Time</div><div class="stat-value" id="sTalk">739.06</div><div class="stat-sub">minutes total</div></div>
+    <div class="stat-card s-navy"><div class="stat-label">Avg Talk / Connected</div><div class="stat-value" id="sAvg">7.25</div><div class="stat-sub">min per connected call</div></div>
   </div>
 
   <div class="best-time-bar" id="bestTimeBar" style="display: none;">
@@ -325,7 +333,7 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
     <div class="sec-label" style="margin-bottom:12px"><div class="bar" style="background:var(--green)"></div><h2>Output Summary</h2></div>
     <div class="out-card">
       <div class="out-head">
-        <div class="out-head-title"><span class="dot"></span>By Advisor — <span id="headDateLabel" style="color:var(--gold3);font-size:12px;margin-left:4px">08-May-2026</span></div>
+        <div class="out-head-title"><span class="dot"></span>By Advisor — <span id="headDateLabel" style="color:var(--gold3);font-size:12px;margin-left:4px">08-May-2026, 09-May-2026</span></div>
         <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
           <div class="search-wrap">
             <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke="rgba(255,255,255,0.4)" stroke-width="2"></circle><path d="m21 21-4.35-4.35" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round"></path></svg>
@@ -338,13 +346,13 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
         <table id="outputTable">
           <thead><tr>
             <th onclick="sortBy('advisor')">Row Labels</th>
-            <th onclick="sortBy('total')" class="sort-desc">Sum of Total Calls</th>
+            <th onclick="sortBy('total')" class="">Sum of Total Calls</th>
             <th onclick="sortBy('connected')">Sum of Connected Calls</th>
-            <th onclick="sortBy('talk')">Sum of Pure Talk Time</th>
+            <th onclick="sortBy('talk')" class="sort-desc">Sum of Pure Talk Time</th>
             <th onclick="sortBy('rate')">Conn. Rate</th>
             <th onclick="sortBy('avg')">Avg Talk / Connected</th>
           </tr></thead>
-          <tbody id="outputBody"><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Sonal Braganza</span><span class="mini-bar" style="width:80px"></span></div></td><td class="col-total">111</td><td class="col-conn">15</td><td class="col-talk">144.84</td><td><span class="rate-pill rate-mid">13.5%</span></td><td class="col-avg">9.66</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Joel Fernandes</span><span class="mini-bar" style="width:72px"></span></div></td><td class="col-total">100</td><td class="col-conn">14</td><td class="col-talk">97.08</td><td><span class="rate-pill rate-mid">14.0%</span></td><td class="col-avg">6.93</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Pushpanjli Mani Singh</span><span class="mini-bar" style="width:67px"></span></div></td><td class="col-total">93</td><td class="col-conn">15</td><td class="col-talk">81.86</td><td><span class="rate-pill rate-mid">16.1%</span></td><td class="col-avg">5.46</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Ghanshyam Shankerlal Yadav</span><span class="mini-bar" style="width:63px"></span></div></td><td class="col-total">88</td><td class="col-conn">15</td><td class="col-talk">164.66</td><td><span class="rate-pill rate-mid">17.0%</span></td><td class="col-avg">10.98</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Aasheesh Ahluwalia</span><span class="mini-bar" style="width:62px"></span></div></td><td class="col-total">86</td><td class="col-conn">7</td><td class="col-talk">35.66</td><td><span class="rate-pill rate-low">8.1%</span></td><td class="col-avg">5.09</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Subhash Madhavan</span><span class="mini-bar" style="width:46px"></span></div></td><td class="col-total">64</td><td class="col-conn">5</td><td class="col-talk">31.17</td><td><span class="rate-pill rate-low">7.8%</span></td><td class="col-avg">6.23</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Sadanand Patel</span><span class="mini-bar" style="width:43px"></span></div></td><td class="col-total">59</td><td class="col-conn">1</td><td class="col-talk">1.63</td><td><span class="rate-pill rate-low">1.7%</span></td><td class="col-avg">1.63</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Shubhi Mishra</span><span class="mini-bar" style="width:42px"></span></div></td><td class="col-total">58</td><td class="col-conn">5</td><td class="col-talk">17.98</td><td><span class="rate-pill rate-low">8.6%</span></td><td class="col-avg">3.60</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Rakshith Gaikwad</span><span class="mini-bar" style="width:37px"></span></div></td><td class="col-total">51</td><td class="col-conn">5</td><td class="col-talk">35.36</td><td><span class="rate-pill rate-low">9.8%</span></td><td class="col-avg">7.07</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Raunak Narvekar</span><span class="mini-bar" style="width:31px"></span></div></td><td class="col-total">43</td><td class="col-conn">1</td><td class="col-talk">20.57</td><td><span class="rate-pill rate-low">2.3%</span></td><td class="col-avg">20.57</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Priya Chaudhary</span><span class="mini-bar" style="width:28px"></span></div></td><td class="col-total">39</td><td class="col-conn">9</td><td class="col-talk">49.58</td><td><span class="rate-pill rate-high">23.1%</span></td><td class="col-avg">5.51</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Nandita N</span><span class="mini-bar" style="width:27px"></span></div></td><td class="col-total">38</td><td class="col-conn">2</td><td class="col-talk">18.00</td><td><span class="rate-pill rate-low">5.3%</span></td><td class="col-avg">9.00</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Melroy Mascarenhas</span><span class="mini-bar" style="width:27px"></span></div></td><td class="col-total">37</td><td class="col-conn">2</td><td class="col-talk">7.21</td><td><span class="rate-pill rate-low">5.4%</span></td><td class="col-avg">3.60</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Nandini Nandu Borade</span><span class="mini-bar" style="width:14px"></span></div></td><td class="col-total">20</td><td class="col-conn">0</td><td class="col-talk">0.00</td><td><span class="rate-pill rate-zero">0.0%</span></td><td class="col-avg">—</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Jaydeep Parmar</span><span class="mini-bar" style="width:1px"></span></div></td><td class="col-total">2</td><td class="col-conn">0</td><td class="col-talk">0.00</td><td><span class="rate-pill rate-zero">0.0%</span></td><td class="col-avg">—</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Samson Rebello</span><span class="mini-bar" style="width:1px"></span></div></td><td class="col-total">1</td><td class="col-conn">0</td><td class="col-talk">0.00</td><td><span class="rate-pill rate-zero">0.0%</span></td><td class="col-avg">—</td></tr><tr class="total-row"><td style="font-weight:800">Grand Total</td><td style="text-align:center;font-weight:800">890</td><td style="text-align:center;font-weight:800">96</td><td style="text-align:center;font-weight:800">705.60</td><td style="text-align:center;font-weight:800">10.8%</td><td style="text-align:center;font-weight:800">7.35</td></tr></tbody>
+          <tbody id="outputBody"></tbody>
         </table>
       </div>
     </div>
@@ -363,7 +371,7 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
     </div>
   </div>
 </div>
-<div class="toast" id="toast" style="border-color: var(--gold2);">✓ 9,319 rows processed successfully</div>
+<div class="toast" id="toast" style="border-color: var(--gold2);">✓ Image downloaded — upload to Teams as file attachment</div>
 
 <script>
 let allData=[],filteredData=[];
@@ -374,13 +382,11 @@ function parseDate(v){v=String(v).trim();const m=v.match(/^(\d{1,2})\/(\d{1,2})\
 const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 function fmtDate(d){return d?`${String(d.getDate()).padStart(2,'0')}-${MONTHS[d.getMonth()]}-${d.getFullYear()}`:''}
 function dateKey(d){return d?`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`:''}
-// Parse dateKey back to Date for date picker comparison
-function keyToDate(k){const p=k.split('-');return new Date(+p[0],+p[1]-1,+p[2]);}
 
 // Multi-select
 function toggleMs(id){
   document.querySelectorAll('.ms-dropdown').forEach(d=>{if(d.id!==id+'Dropdown'){d.classList.remove('open');}});
-  document.querySelectorAll('.ms-trigger').forEach(t=>{if(t.id!==id.replace('ms',''). toLowerCase()+'Trigger'&&t.closest('.ms-wrap').id!==id){t.classList.remove('open');}});
+  document.querySelectorAll('.ms-trigger').forEach(t=>{if(t.id!==id.replace('ms','').toLowerCase()+'Trigger'&&t.closest('.ms-wrap').id!==id){t.classList.remove('open');}});
   document.getElementById(id+'Dropdown').classList.toggle('open');
   document.querySelector('#'+id+' .ms-trigger').classList.toggle('open');
 }
@@ -415,25 +421,57 @@ function startProcess(){
 }
 
 function parseChunked(raw){
-  const lines=raw.split('\n'),total=lines.length,CHUNK=3000,result=[];
+  const lines=raw.split('\n');
+  const total=lines.length,CHUNK=3000,result=[];
+  // Skip header row if first cell is not a number
   let i=isNaN(parseFloat(lines[0].split('\t')[0]))?1:0;
+
+  function parseHour(val){
+    const s=String(val||'').trim();
+    if(/^\d+$/.test(s)) return parseInt(s);                        // plain int: 10
+    if(/^(\d+):/.test(s)) return parseInt(s.match(/^(\d+)/)[1]); // time: 10:00 AM
+    const n=parseFloat(s);
+    if(!isNaN(n)&&n>0&&n<1) return Math.floor(n*24);               // Excel fraction
+    return parseInt(s)||0;
+  }
+
   function next(){
     const end=Math.min(i+CHUNK,total);
     for(;i<end;i++){
       const line=lines[i];if(!line.trim())continue;
       const c=line.split('\t');if(c.length<6)continue;
-      const duration=parseFloat(c[0])||0,type=c[1]?.trim()||'',advisor=c[4]?.trim()||'',hour=parseInt(c[5])||0;
+
+      const duration  = parseFloat(c[0])||0;
+      const type      = (c[1]||'').trim();
+      const dialerConn= parseInt(c[2])||0;
+      const advisor   = (c[4]||'').trim();
+      const hour      = parseHour(c[5]);
+
       if(!advisor)continue;
       const cd=parseDate(c[3]);if(!cd)continue;
-      const sd=new Date(cd);if(hour<10)sd.setDate(sd.getDate()-1);
-      const conn=parseInt(c[2])||0;
-      result.push({duration,type,advisor,hour,createdDateDisplay:fmtDate(cd),shiftDateDisplay:fmtDate(sd),shiftDateKey:dateKey(sd),createdDateKey:dateKey(cd),connected:conn,pureTalk:conn?duration:0});
+
+      // Shift: hour>10 → same day, hour<=10 → previous day
+      const sd=new Date(cd.getFullYear(),cd.getMonth(),cd.getDate());
+      if(hour<=10) sd.setDate(sd.getDate()-1);
+
+      const conn=dialerConn;
+      result.push({
+        duration,type,advisor,hour,
+        createdDateDisplay:fmtDate(cd),
+        shiftDateDisplay:fmtDate(sd),
+        shiftDateKey:dateKey(sd),
+        createdDateKey:dateKey(cd),
+        connected:conn,
+        pureTalk:conn?duration:0
+      });
     }
-    setProgress(Math.min(Math.round((i/total)*100),99),`Row ${Math.min(i,total).toLocaleString()} of ${total.toLocaleString()}…`);
+    setProgress(Math.min(Math.round((i/total)*100),99),
+      `Row ${Math.min(i,total).toLocaleString()} of ${total.toLocaleString()}…`);
     if(i<total)setTimeout(next,0);else finalise(result);
   }
   next();
 }
+
 
 function setProgress(p,t){document.getElementById('progressFill').style.width=p+'%';document.getElementById('progressText').textContent=t;}
 
@@ -444,6 +482,7 @@ function finalise(result){
   if(!allData.length){showToast('No valid rows. Check column order.','#dc2626');return;}
   populateFilters();applyFilters();
   document.getElementById('bestTimeBar').style.display='flex';
+  document.getElementById('shiftSummaryBar').style.display='block';
   ['filterBar','outputSection','rawSection'].forEach(id=>{document.getElementById(id).style.display=id==='filterBar'?'flex':'block';});
   document.getElementById('summaryRow').style.display='grid';
   rawBuilt=false;
@@ -466,10 +505,32 @@ function applyFilters(){
   updateLabel('msDateDropdown');updateLabel('msAdvisorDropdown');
   const sd=new Set(getSelected('msDateDropdown')),sa=new Set(getSelected('msAdvisorDropdown')),tf=document.getElementById('typeFilter').value;
   filteredData=allData.filter(r=>sd.has(r.shiftDateKey)&&sa.has(r.advisor)&&(tf==='ALL'||r.type===tf));
-  // Update header date label
+  // Update header date label - for single date show the shift window
   const selDates=getSelected('msDateDropdown');
-  const dateLabel=selDates.length===allShiftDates.length?'All Dates':selDates.map(k=>allData.find(r=>r.shiftDateKey===k)?.shiftDateDisplay||k).join(', ');
+  let dateLabel='';
+  if(selDates.length===allShiftDates.length){
+    dateLabel='All Dates';
+  } else if(selDates.length===1){
+    const d=allData.find(r=>r.shiftDateKey===selDates[0])?.shiftDateDisplay||selDates[0];
+    dateLabel=d+' (10:01 AM → 10:00 AM next day)';
+  } else {
+    dateLabel=selDates.map(k=>allData.find(r=>r.shiftDateKey===k)?.shiftDateDisplay||k).join(', ');
+  }
   document.getElementById('headDateLabel').textContent=dateLabel;
+
+  // Show shift coverage
+  if(selDates.length===1){
+    const d=allData.find(r=>r.shiftDateKey===selDates[0])?.shiftDateDisplay||selDates[0];
+    const createdDates=[...new Set(filteredData.map(r=>r.createdDateDisplay))].sort();
+    document.getElementById('shiftCoverageText').textContent=
+      `10:01 AM ${d}  →  10:00 AM next day`;
+    document.getElementById('shiftRowBreakdown').textContent=
+      `Calls from: ${createdDates.join(', ')}`;
+  } else {
+    document.getElementById('shiftCoverageText').textContent='Multiple shift dates selected';
+    document.getElementById('shiftRowBreakdown').textContent='';
+  }
+
   updateSummary();renderTable();updateBestTime();
 }
 
@@ -510,7 +571,7 @@ function renderTable(){
 
 function sortBy(col){sortDir=sortCol===col?sortDir*-1:-1;sortCol=col;renderTable();}
 
-function jumpToDate(val){if(!val)return;if(!allShiftDates.includes(val)){showToast('No data for that date','#1e293b');return;}document.querySelectorAll('#msDateDropdown .ms-option input').forEach(cb=>{cb.checked=(cb.value===val);});updateLabel('msDateDropdown');applyFilters();}
+function jumpToDate(val){if(!val)return;if(!allShiftDates.includes(val)){showToast('No data for that date','#d97706');return;}document.querySelectorAll('#msDateDropdown .ms-option input').forEach(cb=>{cb.checked=(cb.value===val);});updateLabel('msDateDropdown');applyFilters();}
 
 async function copyOutput(){
   const map={};
@@ -530,48 +591,60 @@ async function copyOutput(){
     'Grand Total'+T+g.total+T+g.connected+T+g.talk.toFixed(2)
   ].join('\n');
 
-  // HTML table — exact format matching screenshot
-  const NAVY='#1F3864', ROW_ALT='#DEEAF1', WHITE='#ffffff', BORDER='#9DC3E6', FONT="'Calibri','Cambria',Arial,sans-serif";
+  // ── Office HTML with inline styles only (no <style> block) ──────────
+  const N='#1F3864', W='#FFFFFF', A='#DEEAF1', BO='#9DC3E6';
+  const FF='Cambria,Calibri,Arial,sans-serif', SZ='9pt';
 
-  const sTitle   = `background:${NAVY};color:${WHITE};font-family:${FONT};font-size:12pt;font-weight:700;padding:8px 12px;border:1px solid ${NAVY}`;
-  const sColHead = `background:${NAVY};color:${WHITE};font-family:${FONT};font-size:11pt;font-weight:700;padding:8px 12px;border:1px solid ${NAVY};white-space:nowrap`;
-  const sData    = (bg) => `background:${bg};font-family:${FONT};font-size:11pt;padding:6px 12px;border:1px solid ${BORDER};color:#000000;vertical-align:middle`;
-  const sGT      = `background:${WHITE};font-family:${FONT};font-size:11pt;font-weight:700;padding:7px 12px;border-top:2px solid ${NAVY};border-bottom:2px solid ${NAVY};border-left:1px solid ${BORDER};border-right:1px solid ${BORDER};color:#000000`;
+  const sBase   = `font-family:${FF};font-size:${SZ};padding:5px 10px;`;
+  const sHdrL   = `${sBase}font-weight:700;background:${N};color:${W};border:1px solid ${N};text-align:left;white-space:nowrap;`;
+  const sHdrC   = `${sBase}font-weight:700;background:${N};color:${W};border:1px solid ${N};text-align:center;white-space:nowrap;`;
+  const sTitleS = `${sBase}font-weight:700;background:${N};color:${W};border:1px solid ${N};text-align:left;`;
+  const sGTL    = `${sBase}font-weight:700;background:${N};color:${W};border:1px solid ${N};text-align:left;`;
+  const sGTC    = `${sBase}font-weight:700;background:${N};color:${W};border:1px solid ${N};text-align:center;mso-number-format:"@";`;
+  const sDatL   = (bg)=>`${sBase}color:#000000;background:${bg};border:1px solid ${BO};text-align:left;`;
+  const sDatC   = (bg)=>`${sBase}color:#000000;background:${bg};border:1px solid ${BO};text-align:center;mso-number-format:"@";`;
 
-  const dataRows = rows.map((r,i) => {
-    const bg = i%2===0 ? WHITE : ROW_ALT;
-    return `<tr>
-      <td style="${sData(bg)}">${r.advisor}</td>
-      <td align="center" style="${sData(bg)};text-align:center"><center>${r.total}</center></td>
-      <td align="center" style="${sData(bg)};text-align:center"><center>${r.connected}</center></td>
-      <td align="center" style="${sData(bg)};text-align:center"><center>${r.talk.toFixed(2)}</center></td>
-    </tr>`;
+  const dataRows=rows.map((r,i)=>{
+    const bg=i%2===0?W:A;
+    return`<tr>
+<td style="${sDatL(bg)}">${r.advisor}</td>
+<td align="center" style="${sDatC(bg)}">${r.total}</td>
+<td align="center" style="${sDatC(bg)}">${r.connected}</td>
+<td align="center" style="${sDatC(bg)}">${r.talk.toFixed(2)}</td>
+</tr>`;
   }).join('');
 
-  const html = `<meta charset="utf-8">
-<table style="border-collapse:collapse;font-family:'Calibri',Arial,sans-serif;min-width:580px">
-  <thead>
-    <tr>
-      <td colspan="2" style="${sTitle}">&#128202; Team Effort Summary</td>
-      <td colspan="2" style="${sTitle}">&#128197; Shift Date: ${dateLabel}</td>
-    </tr>
-    <tr>
-      <th align="left"   style="${sColHead}">Row Labels</th>
-      <th align="center" style="${sColHead}"><center>Sum of Total Calls</center></th>
-      <th align="center" style="${sColHead}"><center>Sum of Connected Calls</center></th>
-      <th align="center" style="${sColHead}"><center>Sum of Pure Talk Time</center></th>
-    </tr>
-  </thead>
-  <tbody>${dataRows}</tbody>
-  <tfoot>
-    <tr>
-      <td style="${sGT}"><b>Grand Total</b></td>
-      <td align="center" style="${sGT};text-align:center"><center><b>${g.total}</b></center></td>
-      <td align="center" style="${sGT};text-align:center"><center><b>${g.connected}</b></center></td>
-      <td align="center" style="${sGT};text-align:center"><center><b>${g.talk.toFixed(2)}</b></center></td>
-    </tr>
-  </tfoot>
-</table>`;
+  const html=`<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
+<head><meta charset="utf-8">
+<!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>Effort</x:Name></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]-->
+</head>
+<body>
+<table border="1" cellspacing="0" cellpadding="0" style="border-collapse:collapse;font-family:${FF};font-size:${SZ}">
+<thead>
+<tr>
+<td style="${sTitleS}">&#128202; Team Effort Summary</td>
+<td style="${sTitleS}">&#128197; Shift Date: ${dateLabel}</td>
+<td style="${sTitleS}"></td>
+<td style="${sTitleS}"></td>
+</tr>
+<tr>
+<td style="${sHdrL}">Row Labels</td>
+<td align="center" style="${sHdrC}">Sum of Total Calls</td>
+<td align="center" style="${sHdrC}">Sum of Connected Calls</td>
+<td align="center" style="${sHdrC}">Sum of Pure Talk Time</td>
+</tr>
+</thead>
+<tbody>${dataRows}</tbody>
+<tfoot>
+<tr>
+<td style="${sGTL}"><b>Grand Total</b></td>
+<td align="center" style="${sGTC}"><b>${g.total}</b></td>
+<td align="center" style="${sGTC}"><b>${g.connected}</b></td>
+<td align="center" style="${sGTC}"><b>${g.talk.toFixed(2)}</b></td>
+</tr>
+</tfoot>
+</table>
+</body></html>`;
 
   try {
     await navigator.clipboard.write([new ClipboardItem({
@@ -594,7 +667,11 @@ function toggleRaw(){
   const wrap=document.getElementById('rawTableWrap'),btn=document.getElementById('rawToggle');
   if(wrap.style.display==='none'){
     if(!rawBuilt){
-      document.getElementById('rawBody').innerHTML=allData.map(r=>`<tr><td>${r.duration}</td><td>${r.type}</td><td>${r.createdDateDisplay}</td><td style="font-weight:600;color:var(--head)">${r.advisor}</td><td>${r.hour}</td><td style="color:${r.shiftDateKey!==r.createdDateKey?'var(--gold)':'var(--green)'};font-weight:600">${r.shiftDateDisplay}</td><td style="color:var(--blue2)">1</td><td style="color:${r.pureTalk>0?'var(--gold)':'var(--dim)'}">${r.pureTalk.toFixed(2)}</td><td style="color:${r.connected?'var(--green)':'var(--dim)'}">${r.connected}</td></tr>`).join('');
+      const LIMIT=500;
+      const preview=allData.slice(0,LIMIT);
+      const rows=preview.map(r=>`<tr><td>${r.duration}</td><td>${r.type}</td><td>${r.createdDateDisplay}</td><td style="font-weight:600;color:var(--head)">${r.advisor}</td><td>${r.hour}</td><td style="color:${r.shiftDateKey!==r.createdDateKey?'var(--gold)':'var(--green)'};font-weight:600">${r.shiftDateDisplay}</td><td style="color:var(--blue2)">1</td><td style="color:${r.pureTalk>0?'var(--gold)':'var(--dim)'}">${r.pureTalk.toFixed(2)}</td><td style="color:${r.connected?'var(--green)':'var(--dim)'}">${r.connected}</td></tr>`).join('');
+      const notice=allData.length>LIMIT?`<tr><td colspan="9" style="text-align:center;padding:12px;background:var(--light);color:var(--dim);font-family:var(--mono);font-size:11px">⚠ Showing first ${LIMIT.toLocaleString()} of ${allData.length.toLocaleString()} rows — use Copy Raw to get all data</td></tr>`:'';
+      document.getElementById('rawBody').innerHTML=rows+notice;
       rawBuilt=true;
     }
     wrap.style.display='block';btn.textContent='Hide ▲';
@@ -602,12 +679,32 @@ function toggleRaw(){
 }
 
 function clearAll(){
-  document.getElementById('rawInput').value='';allData=[];filteredData=[];rawBuilt=false;
-  ['filterBar','summaryRow','outputSection','rawSection','bestTimeBar'].forEach(id=>document.getElementById(id).style.display='none');
+  // Reset data
+  allData=[];filteredData=[];rawBuilt=false;
+  allShiftDates=[];allAdvisors=[];
+  // Reset inputs
+  document.getElementById('rawInput').value='';
+  document.getElementById('uploadStatus').textContent='';
+  document.getElementById('searchBox').value='';
+  // Re-enable process button (in case it was left disabled)
+  document.getElementById('processBtn').disabled=false;
+  // Clear raw table DOM to free memory
+  document.getElementById('rawBody').innerHTML='';
+  document.getElementById('outputBody').innerHTML='';
+  // Reset file input so same file can be re-uploaded
+  const fi=document.querySelector('#uploadZone input[type=file]');
+  if(fi) fi.value='';
+  // Hide all output panels
+  ['filterBar','summaryRow','outputSection','rawSection','bestTimeBar','shiftSummaryBar'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.style.display='none';
+  });
   document.getElementById('rawTableWrap').style.display='none';
   document.getElementById('rawToggle').textContent='Show ▼';
+  document.getElementById('progressWrap').classList.remove('active');
+  setProgress(0,'');
   // Clear best hours history
-  try { localStorage.removeItem(BT_KEY); } catch(e){}
+  try{localStorage.removeItem(BT_KEY);}catch(e){}
 }
 
 function loadSample(){
@@ -675,6 +772,14 @@ function processFile(file){
 }
 
 
+const BT_KEY='emeritus_best_hours_v1';
+
+function resetBestTimeHistory(){
+  if(!confirm('Reset all stored best-hours history?')) return;
+  try{localStorage.removeItem(BT_KEY);}catch(e){}
+  showToast('History cleared');
+}
+
 function fmtHour(h){
   const suffix=h>=12?'PM':'AM';
   const hr=h===0?12:h>12?h-12:h;
@@ -727,6 +832,108 @@ function updateBestTime(){
       el.style.opacity='0.35';
     }
   });
+}
+
+
+async function exportAsImage(){
+  const btn = document.getElementById('imgBtn');
+  btn.textContent = '⏳ Rendering…';
+  btn.disabled = true;
+
+  // Build a clean standalone table for capture
+  const selDates = getSelected('msDateDropdown');
+  const dateLabel = selDates.length===allShiftDates.length?'All Dates':
+    selDates.map(k=>allData.find(r=>r.shiftDateKey===k)?.shiftDateDisplay||k).join(', ');
+
+  const map={};
+  for(const r of filteredData){
+    if(!map[r.advisor])map[r.advisor]={advisor:r.advisor,total:0,connected:0,talk:0};
+    map[r.advisor].total++;map[r.advisor].connected+=r.connected;map[r.advisor].talk+=r.pureTalk;
+  }
+  let rows=Object.values(map);
+  rows.sort((a,b)=>{const va=a[sortCol]??a.advisor,vb=b[sortCol]??b.advisor;return typeof va==='string'?va.localeCompare(vb)*sortDir:(va-vb)*sortDir;});
+  const g=rows.reduce((s,r)=>({total:s.total+r.total,connected:s.connected+r.connected,talk:s.talk+r.talk}),{total:0,connected:0,talk:0});
+
+  const NAVY='#1F3864', W='#FFFFFF', ALT='#DEEAF1';
+
+  const dataRowsHtml = rows.map((r,i)=>`
+    <tr style="background:${i%2===0?W:ALT}">
+      <td style="padding:14px 24px;border-bottom:1px solid #e2e8f0;font-size:15px;color:#0f172a;font-weight:500">${r.advisor}</td>
+      <td style="padding:14px 24px;border-bottom:1px solid #e2e8f0;font-size:16px;font-weight:700;text-align:center;color:#1e293b">${r.total}</td>
+      <td style="padding:14px 24px;border-bottom:1px solid #e2e8f0;font-size:16px;font-weight:700;text-align:center;color:#1e293b">${r.connected}</td>
+      <td style="padding:14px 24px;border-bottom:1px solid #e2e8f0;font-size:16px;font-weight:700;text-align:center;color:#1e293b">${r.talk.toFixed(2)}</td>
+    </tr>`).join('');
+
+  const tableHtml = `
+    <div style="font-family:'Segoe UI',Calibri,Arial,sans-serif;background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.18);width:1300px;min-width:1300px">
+      <div style="background:${NAVY};padding:22px 32px;display:flex;align-items:center;justify-content:space-between">
+        <div style="color:${W};font-size:20px;font-weight:800;letter-spacing:0.3px">&#128202;&nbsp; Team Effort Summary</div>
+        <div style="color:#93c5fd;font-size:16px;font-weight:600">&#128197;&nbsp; Shift Date: ${dateLabel}</div>
+      </div>
+      <table style="width:100%;border-collapse:collapse">
+        <thead>
+          <tr style="background:#f0f4ff">
+            <th style="padding:16px 24px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:#1e40af;text-align:left;border-bottom:3px solid #c7d7f5;min-width:280px">Row Labels</th>
+            <th style="padding:16px 24px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:#1e40af;text-align:center;border-bottom:3px solid #c7d7f5">Sum of Total Calls</th>
+            <th style="padding:16px 24px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:#1e40af;text-align:center;border-bottom:3px solid #c7d7f5">Sum of Connected Calls</th>
+            <th style="padding:16px 24px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:#1e40af;text-align:center;border-bottom:3px solid #c7d7f5">Sum of Pure Talk Time</th>
+          </tr>
+        </thead>
+        <tbody>${dataRowsHtml}</tbody>
+        <tfoot>
+          <tr style="background:${NAVY}">
+            <td style="padding:16px 24px;font-size:16px;font-weight:800;color:${W}">Grand Total</td>
+            <td style="padding:16px 24px;font-size:16px;font-weight:800;color:${W};text-align:center">${g.total}</td>
+            <td style="padding:16px 24px;font-size:16px;font-weight:800;color:${W};text-align:center">${g.connected}</td>
+            <td style="padding:16px 24px;font-size:16px;font-weight:800;color:${W};text-align:center">${g.talk.toFixed(2)}</td>
+          </tr>
+        </tfoot>
+      </table>
+      <div style="background:#f0f4ff;padding:10px 24px;font-size:12px;color:#64748b;text-align:right;font-style:italic">Team Emeritus — Effort Calculator</div>
+    </div>`;
+
+  // Render in hidden container
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'position:fixed;left:-9999px;top:0;padding:40px;background:#f1f5f9;width:1400px';
+  wrap.innerHTML = tableHtml;
+  document.body.appendChild(wrap);
+
+  try {
+    const canvas = await html2canvas(wrap.firstElementChild, {
+      scale: 3,
+      backgroundColor: '#f1f5f9',
+      useCORS: true,
+      logging: false,
+      windowWidth: 1600,
+      width: 1380
+    });
+    document.body.removeChild(wrap);
+
+    // Download as JPEG — most reliable for Teams upload
+    const fileName = `Team_Effort_${dateLabel.replace(/[^a-z0-9]/gi,'_')}.jpg`;
+    const jpegUrl  = canvas.toDataURL('image/jpeg', 0.95);
+
+    const a = document.createElement('a');
+    a.href = jpegUrl;
+    a.download = fileName;
+    a.click();
+    showToast('\u2713 Image downloaded — upload to Teams as file attachment');
+
+    // Also try copying to clipboard as bonus
+    try {
+      canvas.toBlob(async (blob) => {
+        try {
+          await navigator.clipboard.write([new ClipboardItem({'image/png': blob})]);
+        } catch(e){ /* clipboard not supported — download is the primary */ }
+      }, 'image/png');
+    } catch(e){}
+  } catch(err) {
+    document.body.removeChild(wrap);
+    showToast('Image export failed: '+err.message,'#dc2626');
+  }
+
+  btn.textContent = '📸 Export Image';
+  btn.disabled = false;
 }
 
 function showToast(msg,color){
