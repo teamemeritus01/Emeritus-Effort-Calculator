@@ -2,11 +2,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Team Emeritus — Effort Calculator</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <style>
 :root{--navy:#0d1b3e;--navy2:#142250;--navy3:#1a2d6b;--blue:#1e40af;--blue2:#2563eb;--sky:#3b82f6;--gold:#d97706;--gold2:#f59e0b;--gold3:#fbbf24;--green:#059669;--green2:#10b981;--red:#dc2626;--white:#ffffff;--off:#f8fafc;--light:#f1f5f9;--mid:#e2e8f0;--border:#cbd5e1;--dim:#94a3b8;--body:#334155;--head:#0f172a;--mono:'Inter',system-ui,sans-serif;--sans:'Plus Jakarta Sans',sans-serif}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--off);color:var(--body);font-family:var(--sans);min-height:100vh}
+
+.input-tabs{display:flex;gap:0;margin-bottom:12px}
+.input-tab{padding:8px 18px;font-family:var(--sans);font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid var(--border);color:var(--dim);background:var(--off);transition:all .15s}
+.input-tab:first-child{border-radius:7px 0 0 7px}
+.input-tab:last-child{border-radius:0 7px 7px 0;border-left:none}
+.input-tab.active{background:var(--navy);color:var(--white);border-color:var(--navy)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+.upload-zone{border:2px dashed var(--border);border-radius:10px;padding:32px 20px;text-align:center;background:var(--off);cursor:pointer;transition:all .2s;position:relative}
+.upload-zone:hover,.upload-zone.dragover{border-color:var(--blue2);background:#eff6ff}
+.upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.upload-icon{font-size:32px;margin-bottom:8px}
+.upload-title{font-size:13px;font-weight:600;color:var(--head);margin-bottom:4px}
+.upload-sub{font-size:11px;color:var(--dim);font-family:var(--mono)}
+.upload-status{margin-top:10px;font-size:11px;font-family:var(--mono);color:var(--blue2);font-weight:600;min-height:16px}
+
 .topbar{background:var(--navy);padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 12px rgba(13,27,62,0.4)}
 .topbar-brand{display:flex;align-items:center;gap:12px}
 .topbar-logo{width:32px;height:32px;background:linear-gradient(135deg,var(--gold2),var(--gold3));border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:var(--navy)}
@@ -156,7 +173,12 @@ tbody tr:last-child td{border-bottom:none}
       <div class="card">
         <div class="card-head"><span class="card-head-title"><span class="dot"></span>Dialer Data</span><span style="font-size:10px;color:rgba(255,255,255,.4);font-family:var(--mono)">Cols A–F</span></div>
         <div class="card-body">
-          <textarea class="paste-area" id="rawInput" placeholder="Paste your Excel data here (Ctrl+A → Ctrl+C from Excel, then Ctrl+V)...
+          <div class="input-tabs">
+            <div class="input-tab active" id="tabPaste" onclick="switchTab('paste')">📋 Paste Data</div>
+            <div class="input-tab" id="tabUpload" onclick="switchTab('upload')">📂 Upload File</div>
+          </div>
+          <div class="tab-panel active" id="panelPaste">
+            <textarea class="paste-area" id="rawInput" placeholder="Paste your Excel data here (Ctrl+A → Ctrl+C from Excel, then Ctrl+V)...
 
 Expected columns:
 A - Dialer Duration (min)
@@ -165,7 +187,17 @@ C - Dialer Call Connected
 D - Created Date
 E - Advisor
 F - Dialer Call Hour Of Day (Agent)"></textarea>
-          <div class="hint"><b>Tip:</b> Copy directly from Excel with or without header row. Supports M/D/YYYY and Excel serial dates.</div>
+            <div class="hint"><b>Tip:</b> Copy directly from Excel with or without header row.</div>
+          </div>
+          <div class="tab-panel" id="panelUpload">
+            <div class="upload-zone" id="uploadZone" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
+              <input type="file" accept=".xlsx,.xls,.csv" onchange="handleFileSelect(event)">
+              <div class="upload-icon">📊</div>
+              <div class="upload-title">Drop your Excel or CSV file here</div>
+              <div class="upload-sub">Supports .xlsx · .xls · .csv</div>
+              <div class="upload-status" id="uploadStatus" style="color: var(--blue2);"></div>
+            </div>
+          </div>
           <div class="btn-row">
             <button class="btn btn-primary" id="processBtn" onclick="startProcess()">⚡ Process Data</button>
             <button class="btn btn-outline" onclick="clearAll()">✕ Clear</button>
@@ -173,7 +205,7 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
           </div>
           <div class="progress-wrap" id="progressWrap">
             <div class="progress-track"><div class="progress-fill" id="progressFill" style="width: 99%;"></div></div>
-            <span class="progress-text" id="progressText">Row 11,556 of 11,556…</span>
+            <span class="progress-text" id="progressText">Row 11,757 of 11,757…</span>
           </div>
         </div>
       </div>
@@ -210,7 +242,7 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
     </div>
   </div>
 
-  <div class="filter-bar" id="filterBar" style="display: flex;">
+  <div class="filter-bar" id="filterBar" style="display: none;">
     <div class="filter-group">
       <span class="filter-label">Shift Date</span>
       <div class="ms-wrap" id="msDate">
@@ -229,7 +261,7 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
     <div class="filter-group">
       <span class="filter-label">Advisor</span>
       <div class="ms-wrap" id="msAdvisor">
-        <div class="ms-trigger" id="advisorTrigger" onclick="toggleMs('msAdvisor')">16 selected</div>
+        <div class="ms-trigger" id="advisorTrigger" onclick="toggleMs('msAdvisor')">17 selected</div>
         <div class="ms-dropdown" id="msAdvisorDropdown">
           <div class="ms-search-wrap"><input class="ms-search" placeholder="Search advisor…" oninput="filterMsOpts(this,'msAdvisorDropdown')"></div>
           <div class="ms-action-row">
@@ -260,14 +292,14 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
     </div>
   </div>
 
-  <div class="stat-row" id="summaryRow" style="display: grid;">
-    <div class="stat-card s-blue"><div class="stat-label">Total Calls</div><div class="stat-value" id="sTotal">277</div><div class="stat-sub" id="sAdvisors">13 advisors</div></div>
-    <div class="stat-card s-green"><div class="stat-label">Connected</div><div class="stat-value" id="sConnected">35</div><div class="stat-sub" id="sRate">12.6% connection rate</div></div>
-    <div class="stat-card s-gold"><div class="stat-label">Pure Talk Time</div><div class="stat-value" id="sTalk">338.87</div><div class="stat-sub">minutes total</div></div>
-    <div class="stat-card s-navy"><div class="stat-label">Avg Talk / Connected</div><div class="stat-value" id="sAvg">9.68</div><div class="stat-sub">min per connected call</div></div>
+  <div class="stat-row" id="summaryRow" style="display: none;">
+    <div class="stat-card s-blue"><div class="stat-label">Total Calls</div><div class="stat-value" id="sTotal">456</div><div class="stat-sub" id="sAdvisors">14 advisors</div></div>
+    <div class="stat-card s-green"><div class="stat-label">Connected</div><div class="stat-value" id="sConnected">52</div><div class="stat-sub" id="sRate">11.4% connection rate</div></div>
+    <div class="stat-card s-gold"><div class="stat-label">Pure Talk Time</div><div class="stat-value" id="sTalk">415.56</div><div class="stat-sub">minutes total</div></div>
+    <div class="stat-card s-navy"><div class="stat-label">Avg Talk / Connected</div><div class="stat-value" id="sAvg">7.99</div><div class="stat-sub">min per connected call</div></div>
   </div>
 
-  <div id="outputSection" style="display: block;">
+  <div id="outputSection" style="display: none;">
     <div class="sec-label" style="margin-bottom:12px"><div class="bar" style="background:var(--green)"></div><h2>Output Summary</h2></div>
     <div class="out-card">
       <div class="out-head">
@@ -277,26 +309,26 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
             <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke="rgba(255,255,255,0.4)" stroke-width="2"></circle><path d="m21 21-4.35-4.35" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round"></path></svg>
             <input type="text" class="search-input" id="searchBox" placeholder="Search advisor…" oninput="renderTable()">
           </div>
-          <span class="row-count" id="rowCount">13 advisors</span>
+          <span class="row-count" id="rowCount">14 advisors</span>
         </div>
       </div>
       <div style="overflow-x:auto">
         <table id="outputTable">
           <thead><tr>
             <th onclick="sortBy('advisor')">Row Labels</th>
-            <th onclick="sortBy('total')" class="">Sum of Total Calls</th>
+            <th onclick="sortBy('total')" class="sort-desc">Sum of Total Calls</th>
             <th onclick="sortBy('connected')">Sum of Connected Calls</th>
-            <th onclick="sortBy('talk')" class="sort-desc">Sum of Pure Talk Time</th>
+            <th onclick="sortBy('talk')">Sum of Pure Talk Time</th>
             <th onclick="sortBy('rate')">Conn. Rate</th>
             <th onclick="sortBy('avg')">Avg Talk / Connected</th>
           </tr></thead>
-          <tbody id="outputBody"><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Sonal Braganza</span><span class="mini-bar" style="width:80px"></span></div></td><td class="col-total">69</td><td class="col-conn">5</td><td class="col-talk">103.11</td><td><span class="rate-pill rate-low">7.2%</span></td><td class="col-avg">20.62</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Ghanshyam Shankerlal Yadav</span><span class="mini-bar" style="width:58px"></span></div></td><td class="col-total">50</td><td class="col-conn">7</td><td class="col-talk">91.74</td><td><span class="rate-pill rate-mid">14.0%</span></td><td class="col-avg">13.11</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Joel Fernandes</span><span class="mini-bar" style="width:80px"></span></div></td><td class="col-total">69</td><td class="col-conn">10</td><td class="col-talk">70.95</td><td><span class="rate-pill rate-mid">14.5%</span></td><td class="col-avg">7.10</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Pushpanjli Mani Singh</span><span class="mini-bar" style="width:65px"></span></div></td><td class="col-total">56</td><td class="col-conn">10</td><td class="col-talk">56.88</td><td><span class="rate-pill rate-mid">17.9%</span></td><td class="col-avg">5.69</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Priya Chaudhary</span><span class="mini-bar" style="width:6px"></span></div></td><td class="col-total">5</td><td class="col-conn">1</td><td class="col-talk">12.58</td><td><span class="rate-pill rate-high">20.0%</span></td><td class="col-avg">12.58</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Aasheesh Ahluwalia</span><span class="mini-bar" style="width:13px"></span></div></td><td class="col-total">11</td><td class="col-conn">2</td><td class="col-talk">3.61</td><td><span class="rate-pill rate-mid">18.2%</span></td><td class="col-avg">1.80</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Melroy Mascarenhas</span><span class="mini-bar" style="width:3px"></span></div></td><td class="col-total">3</td><td class="col-conn">0</td><td class="col-talk">0.00</td><td><span class="rate-pill rate-zero">0.0%</span></td><td class="col-avg">—</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Nandini Nandu Borade</span><span class="mini-bar" style="width:1px"></span></div></td><td class="col-total">1</td><td class="col-conn">0</td><td class="col-talk">0.00</td><td><span class="rate-pill rate-zero">0.0%</span></td><td class="col-avg">—</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Nandita N</span><span class="mini-bar" style="width:3px"></span></div></td><td class="col-total">3</td><td class="col-conn">0</td><td class="col-talk">0.00</td><td><span class="rate-pill rate-zero">0.0%</span></td><td class="col-avg">—</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Raunak Narvekar</span><span class="mini-bar" style="width:2px"></span></div></td><td class="col-total">2</td><td class="col-conn">0</td><td class="col-talk">0.00</td><td><span class="rate-pill rate-zero">0.0%</span></td><td class="col-avg">—</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Sadanand Patel</span><span class="mini-bar" style="width:3px"></span></div></td><td class="col-total">3</td><td class="col-conn">0</td><td class="col-talk">0.00</td><td><span class="rate-pill rate-zero">0.0%</span></td><td class="col-avg">—</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Shubhi Mishra</span><span class="mini-bar" style="width:2px"></span></div></td><td class="col-total">2</td><td class="col-conn">0</td><td class="col-talk">0.00</td><td><span class="rate-pill rate-zero">0.0%</span></td><td class="col-avg">—</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Subhash Madhavan</span><span class="mini-bar" style="width:3px"></span></div></td><td class="col-total">3</td><td class="col-conn">0</td><td class="col-talk">0.00</td><td><span class="rate-pill rate-zero">0.0%</span></td><td class="col-avg">—</td></tr><tr class="total-row"><td style="font-weight:800">Grand Total</td><td style="text-align:center;font-weight:800">277</td><td style="text-align:center;font-weight:800">35</td><td style="text-align:center;font-weight:800">338.87</td><td style="text-align:center;font-weight:800">12.6%</td><td style="text-align:center;font-weight:800">9.68</td></tr></tbody>
+          <tbody id="outputBody"><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Sonal Braganza</span><span class="mini-bar" style="width:80px"></span></div></td><td class="col-total">84</td><td class="col-conn">8</td><td class="col-talk">120.74</td><td><span class="rate-pill rate-low">9.5%</span></td><td class="col-avg">15.09</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Joel Fernandes</span><span class="mini-bar" style="width:74px"></span></div></td><td class="col-total">78</td><td class="col-conn">12</td><td class="col-talk">87.42</td><td><span class="rate-pill rate-mid">15.4%</span></td><td class="col-avg">7.29</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Pushpanjli Mani Singh</span><span class="mini-bar" style="width:61px"></span></div></td><td class="col-total">64</td><td class="col-conn">10</td><td class="col-talk">56.88</td><td><span class="rate-pill rate-mid">15.6%</span></td><td class="col-avg">5.69</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Ghanshyam Shankerlal Yadav</span><span class="mini-bar" style="width:60px"></span></div></td><td class="col-total">63</td><td class="col-conn">8</td><td class="col-talk">95.02</td><td><span class="rate-pill rate-mid">12.7%</span></td><td class="col-avg">11.88</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Aasheesh Ahluwalia</span><span class="mini-bar" style="width:44px"></span></div></td><td class="col-total">46</td><td class="col-conn">3</td><td class="col-talk">6.04</td><td><span class="rate-pill rate-low">6.5%</span></td><td class="col-avg">2.01</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Nandita N</span><span class="mini-bar" style="width:22px"></span></div></td><td class="col-total">23</td><td class="col-conn">0</td><td class="col-talk">0.00</td><td><span class="rate-pill rate-zero">0.0%</span></td><td class="col-avg">—</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Priya Chaudhary</span><span class="mini-bar" style="width:17px"></span></div></td><td class="col-total">18</td><td class="col-conn">4</td><td class="col-talk">29.97</td><td><span class="rate-pill rate-high">22.2%</span></td><td class="col-avg">7.49</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Shubhi Mishra</span><span class="mini-bar" style="width:14px"></span></div></td><td class="col-total">15</td><td class="col-conn">1</td><td class="col-talk">1.47</td><td><span class="rate-pill rate-low">6.7%</span></td><td class="col-avg">1.47</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Melroy Mascarenhas</span><span class="mini-bar" style="width:13px"></span></div></td><td class="col-total">14</td><td class="col-conn">0</td><td class="col-talk">0.00</td><td><span class="rate-pill rate-zero">0.0%</span></td><td class="col-avg">—</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Rakshith Gaikwad</span><span class="mini-bar" style="width:13px"></span></div></td><td class="col-total">14</td><td class="col-conn">2</td><td class="col-talk">11.20</td><td><span class="rate-pill rate-mid">14.3%</span></td><td class="col-avg">5.60</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Sadanand Patel</span><span class="mini-bar" style="width:12px"></span></div></td><td class="col-total">13</td><td class="col-conn">2</td><td class="col-talk">2.75</td><td><span class="rate-pill rate-mid">15.4%</span></td><td class="col-avg">1.38</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Raunak Narvekar</span><span class="mini-bar" style="width:10px"></span></div></td><td class="col-total">10</td><td class="col-conn">0</td><td class="col-talk">0.00</td><td><span class="rate-pill rate-zero">0.0%</span></td><td class="col-avg">—</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Subhash Madhavan</span><span class="mini-bar" style="width:9px"></span></div></td><td class="col-total">9</td><td class="col-conn">1</td><td class="col-talk">2.72</td><td><span class="rate-pill rate-mid">11.1%</span></td><td class="col-avg">2.72</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Nandini Nandu Borade</span><span class="mini-bar" style="width:5px"></span></div></td><td class="col-total">5</td><td class="col-conn">1</td><td class="col-talk">1.35</td><td><span class="rate-pill rate-high">20.0%</span></td><td class="col-avg">1.35</td></tr><tr class="total-row"><td style="font-weight:800">Grand Total</td><td style="text-align:center;font-weight:800">456</td><td style="text-align:center;font-weight:800">52</td><td style="text-align:center;font-weight:800">415.56</td><td style="text-align:center;font-weight:800">11.4%</td><td style="text-align:center;font-weight:800">7.99</td></tr></tbody>
         </table>
       </div>
     </div>
   </div>
 
-  <div id="rawSection" class="raw-section" style="display: block; margin-top: 20px;">
+  <div id="rawSection" class="raw-section" style="display: none; margin-top: 20px;">
     <div class="out-head" style="background:var(--navy2)">
       <div class="out-head-title" style="font-size:12px"><span class="dot" style="background:var(--sky)"></span>Processed Raw Data</div>
       <button class="btn btn-ghost" onclick="toggleRaw()" id="rawToggle" style="color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.15)">Show ▼</button>
@@ -476,20 +508,20 @@ async function copyOutput(){
   ].join('\n');
 
   // HTML table for Teams (centered numerics, styled header & grand total)
-  const thStyle='background:#0d1b3e;color:#ffffff;padding:10px 16px;text-align:{a};font-family:Calibri,sans-serif;font-size:13px;font-weight:700;border:1px solid #1e3a8a;white-space:nowrap';
-  const tdStyle='padding:9px 16px;font-family:Calibri,sans-serif;font-size:13px;border:1px solid #e2e8f0;text-align:{a};mso-number-format:"\\@";color:{c};vertical-align:middle';
-  const gtStyle='padding:10px 16px;font-family:Calibri,sans-serif;font-size:14px;font-weight:800;color:#ffffff;background:#0d1b3e;border:2px solid #0d1b3e;text-align:{a}';
+  const thStyle='background:#1F3864;color:#ffffff;padding:11px 16px;text-align:{a};font-family:Calibri,Arial,sans-serif;font-size:12px;font-weight:700;border:1px solid #1F3864;white-space:nowrap;letter-spacing:0.3px';
+  const tdStyle='padding:9px 14px;font-family:Calibri,Arial,sans-serif;font-size:12px;border:1px solid #BDD7EE;text-align:{a};color:{c};vertical-align:middle;background:{bg}';
+  const gtStyle='padding:10px 16px;font-family:Calibri,Arial,sans-serif;font-size:13px;font-weight:700;color:#1F3864;background:#DDEBF7;border:2px solid #1F3864;text-align:{a};border-top:2px solid #1F3864';
 
   function th(txt,align){const inner=align==='center'?'<center>'+txt+'</center>':txt;return '<th align="'+align+'" style="'+thStyle.replace('{a}',align)+'">'+inner+'</th>';}
-  function td(txt,align,color){const inner=align==='center'?'<center>'+txt+'</center>':txt;return '<td align="'+align+'" style="'+tdStyle.replace('{a}',align).replace('{c}',color||'#334155')+'">'+inner+'</td>';}
-  function gt(txt,align){const inner=align==='center'?'<center><b>'+txt+'</b></center>':'<b>'+txt+'</b>';return '<td align="'+align+'" bgcolor="#0d1b3e" style="'+gtStyle.replace('{a}',align)+'">'+inner+'</td>';}
+  function td(txt,align,color,bg){const inner=align==='center'?'<center>'+txt+'</center>':txt;return '<td align="'+align+'" style="'+tdStyle.replace('{a}',align).replace('{c}',color||'#1e293b').replace('{bg}',bg||'transparent')+'">'+inner+'</td>';}
+  function gt(txt,align){const inner=align==='center'?'<center><b>'+txt+'</b></center>':'<b>'+txt+'</b>';return '<td align="'+align+'" bgcolor="#DDEBF7" style="'+gtStyle.replace('{a}',align)+'">'+inner+'</td>';}
 
-  const htmlRows=rows.map(r=>`<tr>
-    ${td(r.advisor,'left','#0f172a')}
-    ${td(r.total,'center','#1e293b')}
-    ${td(r.connected,'center','#1e293b')}
-    ${td(r.talk.toFixed(2),'center','#1e293b')}
-  </tr>`).join('');
+  const htmlRows=rows.map((r,i)=>{const bg=i%2===0?'#ffffff':'#EBF3FB';return`<tr>
+    ${td(r.advisor,'left','#1e293b',bg)}
+    ${td(r.total,'center','#1e293b',bg)}
+    ${td(r.connected,'center','#1e293b',bg)}
+    ${td(r.talk.toFixed(2),'center','#1e293b',bg)}
+  </tr>`;}).join('');
 
   const html=`<meta charset="utf-8">
 <p style="font-family:Calibri,sans-serif;font-size:13px;font-weight:700;color:#0d1b3e;margin:0 0 4px">&#128202; Team Effort Summary</p>
@@ -558,6 +590,55 @@ function exportAsIndex(){
   a.click();
   URL.revokeObjectURL(a.href);
   showToast('\u2713 index.html downloaded — ready for GitHub');
+}
+
+
+function switchTab(tab){
+  document.getElementById('tabPaste').classList.toggle('active', tab==='paste');
+  document.getElementById('tabUpload').classList.toggle('active', tab==='upload');
+  document.getElementById('panelPaste').classList.toggle('active', tab==='paste');
+  document.getElementById('panelUpload').classList.toggle('active', tab==='upload');
+}
+
+function handleDragOver(e){e.preventDefault();document.getElementById('uploadZone').classList.add('dragover');}
+function handleDragLeave(e){document.getElementById('uploadZone').classList.remove('dragover');}
+function handleDrop(e){
+  e.preventDefault();
+  document.getElementById('uploadZone').classList.remove('dragover');
+  const file=e.dataTransfer.files[0];
+  if(file) processFile(file);
+}
+function handleFileSelect(e){
+  const file=e.target.files[0];
+  if(file) processFile(file);
+}
+
+function processFile(file){
+  const status=document.getElementById('uploadStatus');
+  status.textContent='Reading '+file.name+'...';
+  const reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      const data=new Uint8Array(e.target.result);
+      const wb=XLSX.read(data,{type:'array',cellDates:true,dateNF:'M/D/YYYY'});
+      const ws=wb.Sheets[wb.SheetNames[0]];
+      const rows=XLSX.utils.sheet_to_json(ws,{header:1,raw:false,dateNF:'M/D/YYYY'});
+      if(!rows||rows.length<2){status.style.color='#dc2626';status.textContent='No data found in file';return;}
+      // Convert to TSV for the existing pipeline
+      const tsv=rows.map(r=>r.join('\t')).join('\n');
+      document.getElementById('rawInput').value=tsv;
+      switchTab('paste');
+      status.textContent='';
+      status.style.color='var(--blue2)';
+      // Auto-process
+      showToast('\u2713 '+file.name+' loaded — '+rows.length+' rows');
+      startProcess();
+    }catch(err){
+      status.style.color='#dc2626';
+      status.textContent='Error reading file: '+err.message;
+    }
+  };
+  reader.readAsArrayBuffer(file);
 }
 
 function showToast(msg,color){
