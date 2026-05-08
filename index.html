@@ -24,6 +24,18 @@ body{background:var(--off);color:var(--body);font-family:var(--sans);min-height:
 .upload-sub{font-size:11px;color:var(--dim);font-family:var(--mono)}
 .upload-status{margin-top:10px;font-size:11px;font-family:var(--mono);color:var(--blue2);font-weight:600;min-height:16px}
 
+
+.best-time-bar{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+.bt-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:14px 18px;flex:1;min-width:140px;box-shadow:0 1px 4px rgba(0,0,0,.05);position:relative;overflow:hidden}
+.bt-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--navy)}
+.bt-card.gold::before{background:var(--gold2)}
+.bt-card.silver::before{background:var(--dim)}
+.bt-card.bronze::before{background:#cd7f32}
+.bt-rank{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:4px}
+.bt-time{font-size:22px;font-weight:700;color:var(--head);font-family:var(--sans);line-height:1.1}
+.bt-rate{font-size:11px;color:var(--blue2);font-weight:600;margin-top:3px}
+.bt-calls{font-size:10px;color:var(--dim);margin-top:2px;font-family:var(--mono)}
+
 .topbar{background:var(--navy);padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 12px rgba(13,27,62,0.4)}
 .topbar-brand{display:flex;align-items:center;gap:12px}
 .topbar-logo{width:32px;height:32px;background:linear-gradient(135deg,var(--gold2),var(--gold3));border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:var(--navy)}
@@ -299,7 +311,17 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
     <div class="stat-card s-navy"><div class="stat-label">Avg Talk / Connected</div><div class="stat-value" id="sAvg">7.35</div><div class="stat-sub">min per connected call</div></div>
   </div>
 
-  <div id="outputSection" style="display: none;">
+  <div class="best-time-bar" id="bestTimeBar" style="display: none;">
+  <div style="display:flex;align-items:center;gap:10px;width:100%;margin-bottom:4px">
+    <div class="sec-label" style="margin:0"><div class="bar" style="background:var(--gold2)"></div><h2>Best Connectivity Hours</h2><span id="btSubtitle">All shifts · sorted by connection rate</span></div>
+  </div>
+  <div class="bt-card gold" id="bt1" style="opacity: 1;"><div class="bt-rank">🥇 Best Hour</div><div class="bt-time" id="bt1time">01:00 PM</div><div class="bt-rate" id="bt1rate"><span style="color:var(--green2);font-weight:700">20.7%</span> connect rate</div><div class="bt-calls" id="bt1calls" style="margin-top:4px;font-size:10px;color:var(--dim)">☀️ Day &nbsp;|&nbsp; 6/29 calls</div></div>
+  <div class="bt-card silver" id="bt2" style="opacity: 1;"><div class="bt-rank">🥈 2nd Hour</div><div class="bt-time" id="bt2time">06:00 PM</div><div class="bt-rate" id="bt2rate"><span style="color:var(--green2);font-weight:700">17.3%</span> connect rate</div><div class="bt-calls" id="bt2calls" style="margin-top:4px;font-size:10px;color:var(--dim)">🌆 Evening &nbsp;|&nbsp; 9/52 calls</div></div>
+  <div class="bt-card bronze" id="bt3" style="opacity: 1;"><div class="bt-rank">🥉 3rd Hour</div><div class="bt-time" id="bt3time">03:00 PM</div><div class="bt-rate" id="bt3rate"><span style="color:var(--green2);font-weight:700">14.7%</span> connect rate</div><div class="bt-calls" id="bt3calls" style="margin-top:4px;font-size:10px;color:var(--dim)">☀️ Day &nbsp;|&nbsp; 5/34 calls</div></div>
+  <div class="bt-card" id="bt4" style="opacity: 1;"><div class="bt-rank">4th Hour</div><div class="bt-time" id="bt4time">12:00 PM</div><div class="bt-rate" id="bt4rate"><span style="color:var(--green2);font-weight:700">14.3%</span> connect rate</div><div class="bt-calls" id="bt4calls" style="margin-top:4px;font-size:10px;color:var(--dim)">☀️ Day &nbsp;|&nbsp; 2/14 calls</div></div>
+  <div class="bt-card" id="bt5" style="opacity: 1;"><div class="bt-rank">5th Hour</div><div class="bt-time" id="bt5time">08:00 PM</div><div class="bt-rate" id="bt5rate"><span style="color:var(--green2);font-weight:700">13.7%</span> connect rate</div><div class="bt-calls" id="bt5calls" style="margin-top:4px;font-size:10px;color:var(--dim)">🌆 Evening &nbsp;|&nbsp; 21/153 calls</div></div>
+</div>
+<div id="outputSection" style="display: none;">
     <div class="sec-label" style="margin-bottom:12px"><div class="bar" style="background:var(--green)"></div><h2>Output Summary</h2></div>
     <div class="out-card">
       <div class="out-head">
@@ -316,13 +338,13 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
         <table id="outputTable">
           <thead><tr>
             <th onclick="sortBy('advisor')">Row Labels</th>
-            <th onclick="sortBy('total')" class="">Sum of Total Calls</th>
+            <th onclick="sortBy('total')" class="sort-desc">Sum of Total Calls</th>
             <th onclick="sortBy('connected')">Sum of Connected Calls</th>
-            <th onclick="sortBy('talk')" class="sort-desc">Sum of Pure Talk Time</th>
+            <th onclick="sortBy('talk')">Sum of Pure Talk Time</th>
             <th onclick="sortBy('rate')">Conn. Rate</th>
             <th onclick="sortBy('avg')">Avg Talk / Connected</th>
           </tr></thead>
-          <tbody id="outputBody"><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Ghanshyam Shankerlal Yadav</span><span class="mini-bar" style="width:63px"></span></div></td><td class="col-total">88</td><td class="col-conn">15</td><td class="col-talk">164.66</td><td><span class="rate-pill rate-mid">17.0%</span></td><td class="col-avg">10.98</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Sonal Braganza</span><span class="mini-bar" style="width:80px"></span></div></td><td class="col-total">111</td><td class="col-conn">15</td><td class="col-talk">144.84</td><td><span class="rate-pill rate-mid">13.5%</span></td><td class="col-avg">9.66</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Joel Fernandes</span><span class="mini-bar" style="width:72px"></span></div></td><td class="col-total">100</td><td class="col-conn">14</td><td class="col-talk">97.08</td><td><span class="rate-pill rate-mid">14.0%</span></td><td class="col-avg">6.93</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Pushpanjli Mani Singh</span><span class="mini-bar" style="width:67px"></span></div></td><td class="col-total">93</td><td class="col-conn">15</td><td class="col-talk">81.86</td><td><span class="rate-pill rate-mid">16.1%</span></td><td class="col-avg">5.46</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Priya Chaudhary</span><span class="mini-bar" style="width:28px"></span></div></td><td class="col-total">39</td><td class="col-conn">9</td><td class="col-talk">49.58</td><td><span class="rate-pill rate-high">23.1%</span></td><td class="col-avg">5.51</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Aasheesh Ahluwalia</span><span class="mini-bar" style="width:62px"></span></div></td><td class="col-total">86</td><td class="col-conn">7</td><td class="col-talk">35.66</td><td><span class="rate-pill rate-low">8.1%</span></td><td class="col-avg">5.09</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Rakshith Gaikwad</span><span class="mini-bar" style="width:37px"></span></div></td><td class="col-total">51</td><td class="col-conn">5</td><td class="col-talk">35.36</td><td><span class="rate-pill rate-low">9.8%</span></td><td class="col-avg">7.07</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Subhash Madhavan</span><span class="mini-bar" style="width:46px"></span></div></td><td class="col-total">64</td><td class="col-conn">5</td><td class="col-talk">31.17</td><td><span class="rate-pill rate-low">7.8%</span></td><td class="col-avg">6.23</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Raunak Narvekar</span><span class="mini-bar" style="width:31px"></span></div></td><td class="col-total">43</td><td class="col-conn">1</td><td class="col-talk">20.57</td><td><span class="rate-pill rate-low">2.3%</span></td><td class="col-avg">20.57</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Nandita N</span><span class="mini-bar" style="width:27px"></span></div></td><td class="col-total">38</td><td class="col-conn">2</td><td class="col-talk">18.00</td><td><span class="rate-pill rate-low">5.3%</span></td><td class="col-avg">9.00</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Shubhi Mishra</span><span class="mini-bar" style="width:42px"></span></div></td><td class="col-total">58</td><td class="col-conn">5</td><td class="col-talk">17.98</td><td><span class="rate-pill rate-low">8.6%</span></td><td class="col-avg">3.60</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Melroy Mascarenhas</span><span class="mini-bar" style="width:27px"></span></div></td><td class="col-total">37</td><td class="col-conn">2</td><td class="col-talk">7.21</td><td><span class="rate-pill rate-low">5.4%</span></td><td class="col-avg">3.60</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Sadanand Patel</span><span class="mini-bar" style="width:43px"></span></div></td><td class="col-total">59</td><td class="col-conn">1</td><td class="col-talk">1.63</td><td><span class="rate-pill rate-low">1.7%</span></td><td class="col-avg">1.63</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Jaydeep Parmar</span><span class="mini-bar" style="width:1px"></span></div></td><td class="col-total">2</td><td class="col-conn">0</td><td class="col-talk">0.00</td><td><span class="rate-pill rate-zero">0.0%</span></td><td class="col-avg">—</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Nandini Nandu Borade</span><span class="mini-bar" style="width:14px"></span></div></td><td class="col-total">20</td><td class="col-conn">0</td><td class="col-talk">0.00</td><td><span class="rate-pill rate-zero">0.0%</span></td><td class="col-avg">—</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Samson Rebello</span><span class="mini-bar" style="width:1px"></span></div></td><td class="col-total">1</td><td class="col-conn">0</td><td class="col-talk">0.00</td><td><span class="rate-pill rate-zero">0.0%</span></td><td class="col-avg">—</td></tr><tr class="total-row"><td style="font-weight:800">Grand Total</td><td style="text-align:center;font-weight:800">890</td><td style="text-align:center;font-weight:800">96</td><td style="text-align:center;font-weight:800">705.60</td><td style="text-align:center;font-weight:800">10.8%</td><td style="text-align:center;font-weight:800">7.35</td></tr></tbody>
+          <tbody id="outputBody"><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Sonal Braganza</span><span class="mini-bar" style="width:80px"></span></div></td><td class="col-total">111</td><td class="col-conn">15</td><td class="col-talk">144.84</td><td><span class="rate-pill rate-mid">13.5%</span></td><td class="col-avg">9.66</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Joel Fernandes</span><span class="mini-bar" style="width:72px"></span></div></td><td class="col-total">100</td><td class="col-conn">14</td><td class="col-talk">97.08</td><td><span class="rate-pill rate-mid">14.0%</span></td><td class="col-avg">6.93</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Pushpanjli Mani Singh</span><span class="mini-bar" style="width:67px"></span></div></td><td class="col-total">93</td><td class="col-conn">15</td><td class="col-talk">81.86</td><td><span class="rate-pill rate-mid">16.1%</span></td><td class="col-avg">5.46</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Ghanshyam Shankerlal Yadav</span><span class="mini-bar" style="width:63px"></span></div></td><td class="col-total">88</td><td class="col-conn">15</td><td class="col-talk">164.66</td><td><span class="rate-pill rate-mid">17.0%</span></td><td class="col-avg">10.98</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Aasheesh Ahluwalia</span><span class="mini-bar" style="width:62px"></span></div></td><td class="col-total">86</td><td class="col-conn">7</td><td class="col-talk">35.66</td><td><span class="rate-pill rate-low">8.1%</span></td><td class="col-avg">5.09</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Subhash Madhavan</span><span class="mini-bar" style="width:46px"></span></div></td><td class="col-total">64</td><td class="col-conn">5</td><td class="col-talk">31.17</td><td><span class="rate-pill rate-low">7.8%</span></td><td class="col-avg">6.23</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Sadanand Patel</span><span class="mini-bar" style="width:43px"></span></div></td><td class="col-total">59</td><td class="col-conn">1</td><td class="col-talk">1.63</td><td><span class="rate-pill rate-low">1.7%</span></td><td class="col-avg">1.63</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Shubhi Mishra</span><span class="mini-bar" style="width:42px"></span></div></td><td class="col-total">58</td><td class="col-conn">5</td><td class="col-talk">17.98</td><td><span class="rate-pill rate-low">8.6%</span></td><td class="col-avg">3.60</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Rakshith Gaikwad</span><span class="mini-bar" style="width:37px"></span></div></td><td class="col-total">51</td><td class="col-conn">5</td><td class="col-talk">35.36</td><td><span class="rate-pill rate-low">9.8%</span></td><td class="col-avg">7.07</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Raunak Narvekar</span><span class="mini-bar" style="width:31px"></span></div></td><td class="col-total">43</td><td class="col-conn">1</td><td class="col-talk">20.57</td><td><span class="rate-pill rate-low">2.3%</span></td><td class="col-avg">20.57</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Priya Chaudhary</span><span class="mini-bar" style="width:28px"></span></div></td><td class="col-total">39</td><td class="col-conn">9</td><td class="col-talk">49.58</td><td><span class="rate-pill rate-high">23.1%</span></td><td class="col-avg">5.51</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Nandita N</span><span class="mini-bar" style="width:27px"></span></div></td><td class="col-total">38</td><td class="col-conn">2</td><td class="col-talk">18.00</td><td><span class="rate-pill rate-low">5.3%</span></td><td class="col-avg">9.00</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Melroy Mascarenhas</span><span class="mini-bar" style="width:27px"></span></div></td><td class="col-total">37</td><td class="col-conn">2</td><td class="col-talk">7.21</td><td><span class="rate-pill rate-low">5.4%</span></td><td class="col-avg">3.60</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Nandini Nandu Borade</span><span class="mini-bar" style="width:14px"></span></div></td><td class="col-total">20</td><td class="col-conn">0</td><td class="col-talk">0.00</td><td><span class="rate-pill rate-zero">0.0%</span></td><td class="col-avg">—</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Jaydeep Parmar</span><span class="mini-bar" style="width:1px"></span></div></td><td class="col-total">2</td><td class="col-conn">0</td><td class="col-talk">0.00</td><td><span class="rate-pill rate-zero">0.0%</span></td><td class="col-avg">—</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Samson Rebello</span><span class="mini-bar" style="width:1px"></span></div></td><td class="col-total">1</td><td class="col-conn">0</td><td class="col-talk">0.00</td><td><span class="rate-pill rate-zero">0.0%</span></td><td class="col-avg">—</td></tr><tr class="total-row"><td style="font-weight:800">Grand Total</td><td style="text-align:center;font-weight:800">890</td><td style="text-align:center;font-weight:800">96</td><td style="text-align:center;font-weight:800">705.60</td><td style="text-align:center;font-weight:800">10.8%</td><td style="text-align:center;font-weight:800">7.35</td></tr></tbody>
         </table>
       </div>
     </div>
@@ -341,7 +363,7 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
     </div>
   </div>
 </div>
-<div class="toast" id="toast" style="border-color: var(--gold2);">✓ Copied! Paste into Teams (table) or Excel (cells)</div>
+<div class="toast" id="toast" style="border-color: var(--gold2);">✓ 9,319 rows processed successfully</div>
 
 <script>
 let allData=[],filteredData=[];
@@ -421,6 +443,7 @@ function finalise(result){
   document.getElementById('progressWrap').classList.remove('active');
   if(!allData.length){showToast('No valid rows. Check column order.','#dc2626');return;}
   populateFilters();applyFilters();
+  document.getElementById('bestTimeBar').style.display='flex';
   ['filterBar','outputSection','rawSection'].forEach(id=>{document.getElementById(id).style.display=id==='filterBar'?'flex':'block';});
   document.getElementById('summaryRow').style.display='grid';
   rawBuilt=false;
@@ -447,7 +470,7 @@ function applyFilters(){
   const selDates=getSelected('msDateDropdown');
   const dateLabel=selDates.length===allShiftDates.length?'All Dates':selDates.map(k=>allData.find(r=>r.shiftDateKey===k)?.shiftDateDisplay||k).join(', ');
   document.getElementById('headDateLabel').textContent=dateLabel;
-  updateSummary();renderTable();
+  updateSummary();renderTable();updateBestTime();
 }
 
 function updateSummary(){
@@ -499,7 +522,7 @@ async function copyOutput(){
   const selDates=getSelected('msDateDropdown');
   const dateLabel=selDates.length===allShiftDates.length?'All Dates':selDates.map(k=>allData.find(r=>r.shiftDateKey===k)?.shiftDateDisplay||k).join(', ');
 
-  // TSV fallback for plain paste
+  // TSV fallback
   const T='\t';
   const tsv=[
     'Row Labels'+T+'Sum of Total Calls'+T+'Sum of Connected Calls'+T+'Sum of Pure Talk Time',
@@ -507,48 +530,45 @@ async function copyOutput(){
     'Grand Total'+T+g.total+T+g.connected+T+g.talk.toFixed(2)
   ].join('\n');
 
-  // HTML table matching the exact corporate format
-  const NAVY='#1F3864', ALT='#D9E2F3', WHITE='#ffffff', BORDER='#BDD7EE';
-  const FF='Calibri,Arial,sans-serif';
+  // HTML table — exact format matching screenshot
+  const NAVY='#1F3864', ROW_ALT='#DEEAF1', WHITE='#ffffff', BORDER='#9DC3E6', FONT="'Calibri','Cambria',Arial,sans-serif";
 
-  const sTitleL=`background:${NAVY};color:${WHITE};font-family:${FF};font-size:13px;font-weight:700;padding:10px 16px;border:1px solid ${NAVY}`;
-  const sHead=`background:${NAVY};color:${WHITE};font-family:${FF};font-size:12px;font-weight:700;padding:10px 16px;border:1px solid ${NAVY};white-space:nowrap`;
-  const sRow=(bg)=>`background:${bg};font-family:${FF};font-size:12px;padding:8px 16px;border:1px solid ${BORDER};color:#1e293b;vertical-align:middle`;
-  const sGT=`background:${NAVY};color:${WHITE};font-family:${FF};font-size:12px;font-weight:700;padding:10px 16px;border:1px solid ${NAVY}`;
+  const sTitle   = `background:${NAVY};color:${WHITE};font-family:${FONT};font-size:12pt;font-weight:700;padding:8px 12px;border:1px solid ${NAVY}`;
+  const sColHead = `background:${NAVY};color:${WHITE};font-family:${FONT};font-size:11pt;font-weight:700;padding:8px 12px;border:1px solid ${NAVY};white-space:nowrap`;
+  const sData    = (bg) => `background:${bg};font-family:${FONT};font-size:11pt;padding:6px 12px;border:1px solid ${BORDER};color:#000000;vertical-align:middle`;
+  const sGT      = `background:${WHITE};font-family:${FONT};font-size:11pt;font-weight:700;padding:7px 12px;border-top:2px solid ${NAVY};border-bottom:2px solid ${NAVY};border-left:1px solid ${BORDER};border-right:1px solid ${BORDER};color:#000000`;
 
-  const C=(tag,txt,style,align='left')=>`<${tag} align="${align}" style="${style}"><center>${align==='center'?txt:''}</center>${align!=='center'?txt:''}</${tag}>`;
-
-  const dataRows=rows.map((r,i)=>{
-    const bg=i%2===0?WHITE:ALT;
+  const dataRows = rows.map((r,i) => {
+    const bg = i%2===0 ? WHITE : ROW_ALT;
     return `<tr>
-      <td style="${sRow(bg)}">${r.advisor}</td>
-      <td align="center" style="${sRow(bg)}"><center>${r.total}</center></td>
-      <td align="center" style="${sRow(bg)}"><center>${r.connected}</center></td>
-      <td align="center" style="${sRow(bg)}"><center>${r.talk.toFixed(2)}</center></td>
+      <td style="${sData(bg)}">${r.advisor}</td>
+      <td align="center" style="${sData(bg)};text-align:center"><center>${r.total}</center></td>
+      <td align="center" style="${sData(bg)};text-align:center"><center>${r.connected}</center></td>
+      <td align="center" style="${sData(bg)};text-align:center"><center>${r.talk.toFixed(2)}</center></td>
     </tr>`;
   }).join('');
 
-  const html=`<meta charset="utf-8">
-<table style="border-collapse:collapse;min-width:600px">
+  const html = `<meta charset="utf-8">
+<table style="border-collapse:collapse;font-family:'Calibri',Arial,sans-serif;min-width:580px">
   <thead>
     <tr>
-      <td colspan="2" style="${sTitleL}">&#128202; Team Effort Summary</td>
-      <td colspan="2" style="${sTitleL}">&#128197; Shift Date: ${dateLabel}</td>
+      <td colspan="2" style="${sTitle}">&#128202; Team Effort Summary</td>
+      <td colspan="2" style="${sTitle}">&#128197; Shift Date: ${dateLabel}</td>
     </tr>
     <tr>
-      <th align="left" style="${sHead}">Row Labels</th>
-      <th align="center" style="${sHead}"><center>Sum of Total Calls</center></th>
-      <th align="center" style="${sHead}"><center>Sum of Connected Calls</center></th>
-      <th align="center" style="${sHead}"><center>Sum of Pure Talk Time</center></th>
+      <th align="left"   style="${sColHead}">Row Labels</th>
+      <th align="center" style="${sColHead}"><center>Sum of Total Calls</center></th>
+      <th align="center" style="${sColHead}"><center>Sum of Connected Calls</center></th>
+      <th align="center" style="${sColHead}"><center>Sum of Pure Talk Time</center></th>
     </tr>
   </thead>
   <tbody>${dataRows}</tbody>
   <tfoot>
     <tr>
       <td style="${sGT}"><b>Grand Total</b></td>
-      <td align="center" style="${sGT}"><center><b>${g.total}</b></center></td>
-      <td align="center" style="${sGT}"><center><b>${g.connected}</b></center></td>
-      <td align="center" style="${sGT}"><center><b>${g.talk.toFixed(2)}</b></center></td>
+      <td align="center" style="${sGT};text-align:center"><center><b>${g.total}</b></center></td>
+      <td align="center" style="${sGT};text-align:center"><center><b>${g.connected}</b></center></td>
+      <td align="center" style="${sGT};text-align:center"><center><b>${g.talk.toFixed(2)}</b></center></td>
     </tr>
   </tfoot>
 </table>`;
@@ -583,9 +603,11 @@ function toggleRaw(){
 
 function clearAll(){
   document.getElementById('rawInput').value='';allData=[];filteredData=[];rawBuilt=false;
-  ['filterBar','summaryRow','outputSection','rawSection'].forEach(id=>document.getElementById(id).style.display='none');
+  ['filterBar','summaryRow','outputSection','rawSection','bestTimeBar'].forEach(id=>document.getElementById(id).style.display='none');
   document.getElementById('rawTableWrap').style.display='none';
   document.getElementById('rawToggle').textContent='Show ▼';
+  // Clear best hours history
+  try { localStorage.removeItem(BT_KEY); } catch(e){}
 }
 
 function loadSample(){
@@ -650,6 +672,61 @@ function processFile(file){
     }
   };
   reader.readAsArrayBuffer(file);
+}
+
+
+function fmtHour(h){
+  const suffix=h>=12?'PM':'AM';
+  const hr=h===0?12:h>12?h-12:h;
+  return `${String(hr).padStart(2,'0')}:00 ${suffix}`;
+}
+
+function getShiftLabel(h){
+  // Day:  12:30 PM – 10:00 PM  → hours 12–21
+  // Evening: 6:30 PM – 5:00 AM → hours 18–23, 0–4
+  // Night:  10:00 PM – 8:00 AM → hours 22–23, 0–7
+  const inDay     = h>=12 && h<=21;
+  const inEvening = h>=18 || h<=4;
+  const inNight   = h>=22 || h<=7;
+  if(inNight && inEvening) return '🌙 Night/Eve';
+  if(inNight)   return '🌙 Night';
+  if(inEvening) return '🌆 Evening';
+  if(inDay)     return '☀️ Day';
+  return '🌅 Early';
+}
+
+function updateBestTime(){
+  if(!filteredData.length) return;
+  const hourMap={};
+  for(const r of filteredData){
+    const h=r.hour;
+    if(!hourMap[h]) hourMap[h]={total:0,connected:0};
+    hourMap[h].total++;
+    hourMap[h].connected+=r.connected;
+  }
+  // No minimum threshold — show all hours that have at least 1 call
+  const ranked=Object.entries(hourMap)
+    .filter(([h,v])=>v.total>=1)
+    .map(([h,v])=>({hour:+h,total:v.total,connected:v.connected,rate:v.total>0?v.connected/v.total*100:0}))
+    .sort((a,b)=>b.rate-a.rate||b.connected-a.connected||b.total-a.total);
+
+  const labels=['bt1','bt2','bt3','bt4','bt5'];
+  labels.forEach((id,i)=>{
+    const el=document.getElementById(id);
+    if(ranked[i]){
+      const r=ranked[i];
+      const shift=getShiftLabel(r.hour);
+      document.getElementById(id+'time').textContent=fmtHour(r.hour);
+      document.getElementById(id+'rate').innerHTML=`<span style="color:var(--green2);font-weight:700">${r.rate.toFixed(1)}%</span> connect rate`;
+      document.getElementById(id+'calls').innerHTML=`${shift} &nbsp;|&nbsp; ${r.connected}/${r.total} calls`;
+      el.style.opacity='1';
+    } else {
+      document.getElementById(id+'time').textContent='—';
+      document.getElementById(id+'rate').textContent='No data';
+      document.getElementById(id+'calls').textContent='';
+      el.style.opacity='0.35';
+    }
+  });
 }
 
 function showToast(msg,color){
