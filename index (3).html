@@ -1,0 +1,571 @@
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Team Emeritus — Effort Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0d1b3e;--navy2:#142250;--navy3:#1a2d6b;--blue:#1e40af;--blue2:#2563eb;--sky:#3b82f6;--gold:#d97706;--gold2:#f59e0b;--gold3:#fbbf24;--green:#059669;--green2:#10b981;--red:#dc2626;--white:#ffffff;--off:#f8fafc;--light:#f1f5f9;--mid:#e2e8f0;--border:#cbd5e1;--dim:#94a3b8;--body:#334155;--head:#0f172a;--mono:'Inter',system-ui,sans-serif;--sans:'Plus Jakarta Sans',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--off);color:var(--body);font-family:var(--sans);min-height:100vh}
+.topbar{background:var(--navy);padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 12px rgba(13,27,62,0.4)}
+.topbar-brand{display:flex;align-items:center;gap:12px}
+.topbar-logo{width:32px;height:32px;background:linear-gradient(135deg,var(--gold2),var(--gold3));border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:var(--navy)}
+.topbar-name{color:var(--white);font-weight:700;font-size:15px}
+.topbar-name span{color:var(--gold3)}
+.topbar-pills{display:flex;gap:8px}
+.pill{font-family:var(--mono);font-size:10px;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.7);letter-spacing:.5px;text-transform:uppercase}
+.pill.gold{background:rgba(217,119,6,0.2);border-color:rgba(251,191,36,0.3);color:var(--gold3)}
+.wrap{max-width:1380px;margin:0 auto;padding:28px 24px 60px}
+.sec-label{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.sec-label .bar{width:3px;height:18px;border-radius:2px;background:var(--blue2)}
+.sec-label h2{font-size:13px;font-weight:700;color:var(--head)}
+.sec-label span{font-size:11px;color:var(--dim);font-family:var(--mono)}
+.card{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.card-head{background:var(--navy);padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.card-head-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,.85);display:flex;align-items:center;gap:8px}
+.card-head-title .dot{width:6px;height:6px;border-radius:50%;background:var(--gold2)}
+.card-body{padding:18px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px}
+@media(max-width:900px){.two-col{grid-template-columns:1fr}}
+.paste-area{width:100%;height:240px;background:var(--off);border:1.5px solid var(--border);border-radius:8px;color:var(--head);font-family:var(--mono);font-size:11px;line-height:1.7;padding:14px;resize:vertical;outline:none;transition:border-color .2s}
+.paste-area:focus{border-color:var(--blue2);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.paste-area::placeholder{color:var(--dim)}
+.hint{margin-top:8px;font-size:11px;color:var(--dim);font-family:var(--mono)}
+.hint b{color:var(--blue2);font-weight:500}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:7px;font-family:var(--sans);font-size:12px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn-primary{background:var(--blue2);color:var(--white)}
+.btn-primary:hover:not(:disabled){background:var(--blue);transform:translateY(-1px);box-shadow:0 4px 12px rgba(37,99,235,.3)}
+.btn-outline{background:var(--white);color:var(--body);border:1.5px solid var(--border)}
+.btn-outline:hover{border-color:var(--blue2);color:var(--blue2)}
+.btn-ghost{background:transparent;color:var(--dim);border:1.5px solid var(--border);font-size:11px;padding:7px 14px}
+.btn-ghost:hover{color:var(--head);border-color:var(--body)}
+.btn-green{background:var(--green);color:var(--white)}
+.btn-green:hover{background:#047857;transform:translateY(-1px);box-shadow:0 4px 12px rgba(5,150,105,.3)}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.progress-wrap{display:none;margin-top:12px;background:var(--light);border:1px solid var(--border);border-radius:8px;padding:8px 14px;align-items:center;gap:10px}
+.progress-wrap.active{display:flex}
+.progress-track{flex:1;background:var(--mid);border-radius:4px;height:6px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--blue2),var(--sky));border-radius:4px;transition:width .15s;width:0%}
+.progress-text{font-family:var(--mono);font-size:10px;color:var(--dim);white-space:nowrap;min-width:150px}
+.rule-box{background:var(--off);border:1px solid var(--border);border-radius:8px;padding:14px 16px}
+.rule-box+.rule-box{margin-top:10px}
+.rule-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--blue2);margin-bottom:8px}
+.rule-line{font-family:var(--mono);font-size:12px;line-height:2;color:var(--body)}
+.rule-line b{color:var(--navy)}
+.tag{background:var(--navy);color:var(--gold3);font-size:10px;padding:2px 7px;border-radius:4px}
+.tag-green{background:#d1fae5;color:var(--green);font-size:10px;padding:2px 7px;border-radius:4px}
+.tag-red{background:#fee2e2;color:var(--red);font-size:10px;padding:2px 7px;border-radius:4px}
+.filter-bar{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.filter-group{display:flex;flex-direction:column;gap:5px}
+.filter-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim)}
+.ms-wrap{position:relative}
+.ms-trigger{background:var(--off);border:1.5px solid var(--border);border-radius:7px;padding:8px 32px 8px 12px;font-family:var(--sans);font-size:12px;color:var(--head);cursor:pointer;min-width:170px;user-select:none;transition:border-color .2s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;position:relative}
+.ms-trigger:hover,.ms-trigger.open{border-color:var(--blue2)}
+.ms-trigger::after{content:'▾';position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--dim);font-size:10px}
+.ms-dropdown{display:none;position:absolute;top:calc(100% + 4px);left:0;background:var(--white);border:1.5px solid var(--blue2);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.12);z-index:100;min-width:200px;max-height:260px;overflow-y:auto}
+.ms-dropdown.open{display:block}
+.ms-search-wrap{padding:8px;border-bottom:1px solid var(--border)}
+.ms-search{width:100%;background:var(--off);border:1px solid var(--border);border-radius:5px;padding:5px 8px;font-family:var(--mono);font-size:11px;outline:none;color:var(--head)}
+.ms-search:focus{border-color:var(--blue2)}
+.ms-action-row{padding:6px 8px;display:flex;gap:8px;border-bottom:1px solid var(--border)}
+.ms-action{font-size:10px;color:var(--blue2);cursor:pointer;font-weight:600;padding:2px 6px;border-radius:4px}
+.ms-action:hover{background:var(--light)}
+.ms-option{padding:8px 12px;display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12px;transition:background .1s}
+.ms-option:hover{background:var(--light)}
+.ms-option input[type=checkbox]{accent-color:var(--blue2);width:14px;height:14px;cursor:pointer}
+.filter-right{margin-left:auto;display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap}
+.filter-divider{width:1px;align-self:stretch;background:var(--border);margin:0 4px}
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+@media(max-width:700px){.stat-row{grid-template-columns:repeat(2,1fr)}}
+.stat-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px 18px;box-shadow:0 1px 4px rgba(0,0,0,.05);position:relative;overflow:hidden}
+.stat-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px}
+.stat-card.s-blue::after{background:var(--blue2)}
+.stat-card.s-green::after{background:var(--green2)}
+.stat-card.s-gold::after{background:var(--gold2)}
+.stat-card.s-navy::after{background:var(--navy3)}
+.stat-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:8px}
+.stat-value{font-size:28px;font-family:var(--mono);font-weight:700;line-height:1}
+.stat-card.s-blue .stat-value{color:var(--blue2)}
+.stat-card.s-green .stat-value{color:var(--green)}
+.stat-card.s-gold .stat-value{color:var(--gold)}
+.stat-card.s-navy .stat-value{color:var(--navy3)}
+.stat-sub{font-size:11px;color:var(--dim);margin-top:4px;font-family:var(--mono)}
+.out-card{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.out-head{background:var(--navy);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.out-head-title{color:var(--white);font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px}
+.out-head-title .dot{width:7px;height:7px;border-radius:50%;background:var(--gold2)}
+.search-wrap{position:relative}
+.search-wrap svg{position:absolute;left:9px;top:50%;transform:translateY(-50%);pointer-events:none}
+.search-input{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:var(--white);border-radius:7px;padding:7px 12px 7px 30px;font-family:var(--sans);font-size:12px;outline:none;width:200px;transition:all .2s}
+.search-input::placeholder{color:rgba(255,255,255,.4)}
+.search-input:focus{background:rgba(255,255,255,.15);border-color:var(--gold3)}
+table{width:100%;border-collapse:collapse}
+thead tr{background:#f8faff}
+th{padding:12px 18px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--blue);text-align:left;cursor:pointer;user-select:none;white-space:nowrap;border-bottom:2px solid var(--mid)}
+th:hover{color:var(--navy)}
+th.sort-asc::after{content:' ↑';color:var(--gold)}
+th.sort-desc::after{content:' ↓';color:var(--gold)}
+td{padding:12px 18px;font-size:13px;border-bottom:1px solid var(--light);white-space:nowrap;vertical-align:middle}
+tbody tr:hover{background:#f0f6ff}
+tbody tr:last-child td{border-bottom:none}
+.total-row{background:var(--navy) !important}
+.total-row td{color:var(--white) !important;font-weight:700;font-family:var(--mono);font-size:13px;border:none}
+.total-row:hover{background:var(--navy2) !important}
+.col-advisor{color:var(--head);font-weight:600;font-size:13px}
+.col-total{text-align:center;color:#0f172a;font-family:var(--sans);font-weight:700;font-size:14px;letter-spacing:.3px}
+.col-conn{text-align:center;color:#0f172a;font-family:var(--sans);font-weight:700;font-size:14px;letter-spacing:.3px}
+.col-talk{text-align:center;color:#0f172a;font-family:var(--sans);font-weight:700;font-size:14px;letter-spacing:.3px}
+.col-avg{text-align:center;color:#475569;font-family:var(--sans);font-size:13px;font-weight:600}
+.rate-pill{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700;font-family:var(--mono)}
+.rate-high{background:#e8f5e9;color:#2e7d32}
+.rate-mid{background:#fff8e1;color:#ef6c00}
+.rate-low{background:#fce4ec;color:#c62828}
+.rate-zero{background:var(--light);color:var(--dim)}
+.mini-bar-wrap{display:flex;align-items:center;gap:8px}
+.mini-bar{height:4px;border-radius:2px;background:var(--blue2);opacity:.25;min-width:2px}
+.row-count{font-size:11px;color:rgba(255,255,255,.5);font-family:var(--mono)}
+.raw-section{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-top:20px}
+.raw-scroll{overflow-x:auto;max-height:300px;overflow-y:auto}
+.raw-section th{color:var(--blue);font-size:10px}
+.raw-section td{font-size:11px;font-family:var(--mono)}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--navy);color:var(--white);border-left:4px solid var(--gold2);padding:12px 20px;border-radius:8px;font-size:13px;font-weight:600;transform:translateY(80px);opacity:0;transition:all .3s;z-index:999;box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.toast.show{transform:translateY(0);opacity:1}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--off)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-brand">
+    <div class="topbar-logo">TE</div>
+    <span class="topbar-name">Team <span>Emeritus</span> — Effort Calculator</span>
+  </div>
+  <div class="topbar-pills" style="display:flex;align-items:center;gap:8px">
+    <span class="pill gold">10AM → 10AM Shift</span>
+    <span class="pill">Connected &gt; 1.30 min</span>
+  <button onclick="exportAsIndex()" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; background: rgba(251, 191, 36, 0.15); border: 1px solid rgba(251, 191, 36, 0.4); color: rgba(255, 255, 255, 0.85); border-radius: 6px; font-family: var(--sans); font-size: 11px; font-weight: 600; cursor: pointer; transition: 0.15s; letter-spacing: 0.3px;" onmouseover="this.style.background='rgba(251,191,36,0.15)';this.style.borderColor='rgba(251,191,36,0.4)'" onmouseout="this.style.background='rgba(255,255,255,0.08)';this.style.borderColor='rgba(255,255,255,0.2)'">⬇ Export index.html</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="two-col">
+    <div>
+      <div class="sec-label"><div class="bar"></div><h2>Raw Data Input</h2><span>Paste from Excel</span></div>
+      <div class="card">
+        <div class="card-head"><span class="card-head-title"><span class="dot"></span>Dialer Data</span><span style="font-size:10px;color:rgba(255,255,255,.4);font-family:var(--mono)">Cols A–F</span></div>
+        <div class="card-body">
+          <textarea class="paste-area" id="rawInput" placeholder="Paste your Excel data here (Ctrl+A → Ctrl+C from Excel, then Ctrl+V)...
+
+Expected columns:
+A - Dialer Duration (min)
+B - Calls/SMS
+C - Dialer Call Connected
+D - Created Date
+E - Advisor
+F - Dialer Call Hour Of Day (Agent)"></textarea>
+          <div class="hint"><b>Tip:</b> Copy directly from Excel with or without header row. Supports M/D/YYYY and Excel serial dates.</div>
+          <div class="btn-row">
+            <button class="btn btn-primary" id="processBtn" onclick="startProcess()">⚡ Process Data</button>
+            <button class="btn btn-outline" onclick="clearAll()">✕ Clear</button>
+            <button class="btn btn-ghost" onclick="loadSample()">Load Sample</button>
+          </div>
+          <div class="progress-wrap" id="progressWrap">
+            <div class="progress-track"><div class="progress-fill" id="progressFill" style="width: 99%;"></div></div>
+            <span class="progress-text" id="progressText">Row 11,556 of 11,556…</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="sec-label"><div class="bar" style="background:var(--gold)"></div><h2>Processing Rules</h2></div>
+      <div class="card">
+        <div class="card-head"><span class="card-head-title"><span class="dot"></span>Business Logic</span></div>
+        <div class="card-body">
+          <div class="rule-box">
+            <div class="rule-label">Shift Date Logic</div>
+            <div class="rule-line">
+              <span class="tag">Hour ≥ 10</span> → Shift = <b>Created Date</b> (same day)<br>
+              <span class="tag">Hour &lt; 10</span> → Shift = <b>Created Date − 1</b> (prev day)
+            </div>
+          </div>
+          <div class="rule-box">
+            <div class="rule-label">Connected Call Logic</div>
+            <div class="rule-line">
+              <span class="tag-green">Duration &gt; 1.30 min</span> → <b>Connected = 1</b><br>
+              <span class="tag-red">Duration ≤ 1.30 min</span> → <b>Connected = 0</b><br>
+              <span style="color:var(--dim);font-size:11px">Pure Talk Time = Duration only if Connected</span>
+            </div>
+          </div>
+          <div class="rule-box">
+            <div class="rule-label">Column Mapping</div>
+            <div class="rule-line" style="font-size:11px;color:var(--body)">
+              <b>A</b> Duration &nbsp;|&nbsp; <b>B</b> Type &nbsp;|&nbsp; <b>C</b> Dialer Flag<br>
+              <b>D</b> Created Date &nbsp;|&nbsp; <b>E</b> Advisor &nbsp;|&nbsp; <b>F</b> Hour
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="filter-bar" id="filterBar" style="display: flex;">
+    <div class="filter-group">
+      <span class="filter-label">Shift Date</span>
+      <div class="ms-wrap" id="msDate">
+        <div class="ms-trigger" id="dateTrigger" onclick="toggleMs('msDate')">08-May-2026</div>
+        <div class="ms-dropdown" id="msDateDropdown">
+          <div class="ms-search-wrap"><input class="ms-search" placeholder="Search date…" oninput="filterMsOpts(this,'msDateDropdown')"></div>
+          <div class="ms-action-row">
+            <span class="ms-action" onclick="msAll('msDateDropdown')">All</span>
+            <span class="ms-action" onclick="msNone('msDateDropdown')">None</span>
+          </div>
+          <div id="dateOptions"><label class="ms-option"><input type="checkbox" value="2026-05-01" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>01-May-2026</span></label><label class="ms-option"><input type="checkbox" value="2026-05-03" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>03-May-2026</span></label><label class="ms-option"><input type="checkbox" value="2026-05-04" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>04-May-2026</span></label><label class="ms-option"><input type="checkbox" value="2026-05-05" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>05-May-2026</span></label><label class="ms-option"><input type="checkbox" value="2026-05-06" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>06-May-2026</span></label><label class="ms-option"><input type="checkbox" value="2026-05-07" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>07-May-2026</span></label><label class="ms-option"><input type="checkbox" value="2026-05-08" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>08-May-2026</span></label></div>
+        </div>
+      </div>
+    </div>
+    <div class="filter-divider"></div>
+    <div class="filter-group">
+      <span class="filter-label">Advisor</span>
+      <div class="ms-wrap" id="msAdvisor">
+        <div class="ms-trigger" id="advisorTrigger" onclick="toggleMs('msAdvisor')">16 selected</div>
+        <div class="ms-dropdown" id="msAdvisorDropdown">
+          <div class="ms-search-wrap"><input class="ms-search" placeholder="Search advisor…" oninput="filterMsOpts(this,'msAdvisorDropdown')"></div>
+          <div class="ms-action-row">
+            <span class="ms-action" onclick="msAll('msAdvisorDropdown')">All</span>
+            <span class="ms-action" onclick="msNone('msAdvisorDropdown')">None</span>
+          </div>
+          <div id="advisorOptions"><label class="ms-option"><input type="checkbox" value="Aasheesh Ahluwalia" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Aasheesh Ahluwalia</span></label><label class="ms-option"><input type="checkbox" value="Anoop Upadhyay" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Anoop Upadhyay</span></label><label class="ms-option"><input type="checkbox" value="Archit Kumar" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Archit Kumar</span></label><label class="ms-option"><input type="checkbox" value="Ghanshyam Shankerlal Yadav" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Ghanshyam Shankerlal Yadav</span></label><label class="ms-option"><input type="checkbox" value="Haya Quadri" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Haya Quadri</span></label><label class="ms-option"><input type="checkbox" value="Himanshu Tholia" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Himanshu Tholia</span></label><label class="ms-option"><input type="checkbox" value="Jaydeep Parmar" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Jaydeep Parmar</span></label><label class="ms-option"><input type="checkbox" value="Joel Fernandes" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Joel Fernandes</span></label><label class="ms-option"><input type="checkbox" value="Karan Sachwani" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Karan Sachwani</span></label><label class="ms-option"><input type="checkbox" value="Komal Bhatt" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Komal Bhatt</span></label><label class="ms-option"><input type="checkbox" value="Melroy Mascarenhas" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Melroy Mascarenhas</span></label><label class="ms-option"><input type="checkbox" value="Nandini Nandu Borade" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Nandini Nandu Borade</span></label><label class="ms-option"><input type="checkbox" value="Nandita N" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Nandita N</span></label><label class="ms-option"><input type="checkbox" value="Pramod Kumar" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Pramod Kumar</span></label><label class="ms-option"><input type="checkbox" value="Praveen Dubey" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Praveen Dubey</span></label><label class="ms-option"><input type="checkbox" value="Priya Chaudhary" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Priya Chaudhary</span></label><label class="ms-option"><input type="checkbox" value="Pushpanjli Mani Singh" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Pushpanjli Mani Singh</span></label><label class="ms-option"><input type="checkbox" value="Rakshith Gaikwad" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Rakshith Gaikwad</span></label><label class="ms-option"><input type="checkbox" value="Raunak Narvekar" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Raunak Narvekar</span></label><label class="ms-option"><input type="checkbox" value="Sadanand Patel" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Sadanand Patel</span></label><label class="ms-option"><input type="checkbox" value="Samson Rebello" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Samson Rebello</span></label><label class="ms-option"><input type="checkbox" value="Shubhi Mishra" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Shubhi Mishra</span></label><label class="ms-option"><input type="checkbox" value="Sonal Braganza" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Sonal Braganza</span></label><label class="ms-option"><input type="checkbox" value="Subhash Madhavan" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Subhash Madhavan</span></label><label class="ms-option"><input type="checkbox" value="Tanzeel Ahmed" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Tanzeel Ahmed</span></label><label class="ms-option"><input type="checkbox" value="Zuber Haque" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Zuber Haque</span></label></div>
+        </div>
+      </div>
+    </div>
+    <div class="filter-divider"></div>
+    <div class="filter-group">
+      <span class="filter-label">Type</span>
+      <select id="typeFilter" onchange="applyFilters()" style="background:var(--off);border:1.5px solid var(--border);color:var(--head);border-radius:7px;padding:8px 12px;font-family:var(--sans);font-size:12px;outline:none;cursor:pointer">
+        <option value="ALL">All Types</option>
+        <option value="Calls">Calls</option>
+        <option value="SMS">SMS</option>
+      </select>
+    </div>
+    <div class="filter-divider"></div>
+    <div class="filter-group">
+      <span class="filter-label">Jump to Date</span>
+      <input type="date" id="datePicker" onchange="jumpToDate(this.value)" style="background:var(--off);border:1.5px solid var(--border);color:var(--head);border-radius:7px;padding:8px 12px;font-family:var(--sans);font-size:12px;outline:none;cursor:pointer;transition:border-color .2s" onfocus="this.style.borderColor='var(--blue2)'" onblur="this.style.borderColor='var(--border)'">
+    </div>
+    <div class="filter-right">
+      <button class="btn btn-green" onclick="copyOutput()">⎘ Copy for Teams / Excel</button>
+      <button class="btn btn-outline" onclick="copyRawFiltered()">⎘ Copy Raw</button>
+    </div>
+  </div>
+
+  <div class="stat-row" id="summaryRow" style="display: grid;">
+    <div class="stat-card s-blue"><div class="stat-label">Total Calls</div><div class="stat-value" id="sTotal">277</div><div class="stat-sub" id="sAdvisors">13 advisors</div></div>
+    <div class="stat-card s-green"><div class="stat-label">Connected</div><div class="stat-value" id="sConnected">35</div><div class="stat-sub" id="sRate">12.6% connection rate</div></div>
+    <div class="stat-card s-gold"><div class="stat-label">Pure Talk Time</div><div class="stat-value" id="sTalk">338.87</div><div class="stat-sub">minutes total</div></div>
+    <div class="stat-card s-navy"><div class="stat-label">Avg Talk / Connected</div><div class="stat-value" id="sAvg">9.68</div><div class="stat-sub">min per connected call</div></div>
+  </div>
+
+  <div id="outputSection" style="display: block;">
+    <div class="sec-label" style="margin-bottom:12px"><div class="bar" style="background:var(--green)"></div><h2>Output Summary</h2></div>
+    <div class="out-card">
+      <div class="out-head">
+        <div class="out-head-title"><span class="dot"></span>By Advisor — <span id="headDateLabel" style="color:var(--gold3);font-size:12px;margin-left:4px">08-May-2026</span></div>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <div class="search-wrap">
+            <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke="rgba(255,255,255,0.4)" stroke-width="2"></circle><path d="m21 21-4.35-4.35" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round"></path></svg>
+            <input type="text" class="search-input" id="searchBox" placeholder="Search advisor…" oninput="renderTable()">
+          </div>
+          <span class="row-count" id="rowCount">13 advisors</span>
+        </div>
+      </div>
+      <div style="overflow-x:auto">
+        <table id="outputTable">
+          <thead><tr>
+            <th onclick="sortBy('advisor')">Row Labels</th>
+            <th onclick="sortBy('total')" class="">Sum of Total Calls</th>
+            <th onclick="sortBy('connected')">Sum of Connected Calls</th>
+            <th onclick="sortBy('talk')" class="sort-desc">Sum of Pure Talk Time</th>
+            <th onclick="sortBy('rate')">Conn. Rate</th>
+            <th onclick="sortBy('avg')">Avg Talk / Connected</th>
+          </tr></thead>
+          <tbody id="outputBody"><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Sonal Braganza</span><span class="mini-bar" style="width:80px"></span></div></td><td class="col-total">69</td><td class="col-conn">5</td><td class="col-talk">103.11</td><td><span class="rate-pill rate-low">7.2%</span></td><td class="col-avg">20.62</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Ghanshyam Shankerlal Yadav</span><span class="mini-bar" style="width:58px"></span></div></td><td class="col-total">50</td><td class="col-conn">7</td><td class="col-talk">91.74</td><td><span class="rate-pill rate-mid">14.0%</span></td><td class="col-avg">13.11</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Joel Fernandes</span><span class="mini-bar" style="width:80px"></span></div></td><td class="col-total">69</td><td class="col-conn">10</td><td class="col-talk">70.95</td><td><span class="rate-pill rate-mid">14.5%</span></td><td class="col-avg">7.10</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Pushpanjli Mani Singh</span><span class="mini-bar" style="width:65px"></span></div></td><td class="col-total">56</td><td class="col-conn">10</td><td class="col-talk">56.88</td><td><span class="rate-pill rate-mid">17.9%</span></td><td class="col-avg">5.69</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Priya Chaudhary</span><span class="mini-bar" style="width:6px"></span></div></td><td class="col-total">5</td><td class="col-conn">1</td><td class="col-talk">12.58</td><td><span class="rate-pill rate-high">20.0%</span></td><td class="col-avg">12.58</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Aasheesh Ahluwalia</span><span class="mini-bar" style="width:13px"></span></div></td><td class="col-total">11</td><td class="col-conn">2</td><td class="col-talk">3.61</td><td><span class="rate-pill rate-mid">18.2%</span></td><td class="col-avg">1.80</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Melroy Mascarenhas</span><span class="mini-bar" style="width:3px"></span></div></td><td class="col-total">3</td><td class="col-conn">0</td><td class="col-talk">0.00</td><td><span class="rate-pill rate-zero">0.0%</span></td><td class="col-avg">—</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Nandini Nandu Borade</span><span class="mini-bar" style="width:1px"></span></div></td><td class="col-total">1</td><td class="col-conn">0</td><td class="col-talk">0.00</td><td><span class="rate-pill rate-zero">0.0%</span></td><td class="col-avg">—</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Nandita N</span><span class="mini-bar" style="width:3px"></span></div></td><td class="col-total">3</td><td class="col-conn">0</td><td class="col-talk">0.00</td><td><span class="rate-pill rate-zero">0.0%</span></td><td class="col-avg">—</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Raunak Narvekar</span><span class="mini-bar" style="width:2px"></span></div></td><td class="col-total">2</td><td class="col-conn">0</td><td class="col-talk">0.00</td><td><span class="rate-pill rate-zero">0.0%</span></td><td class="col-avg">—</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Sadanand Patel</span><span class="mini-bar" style="width:3px"></span></div></td><td class="col-total">3</td><td class="col-conn">0</td><td class="col-talk">0.00</td><td><span class="rate-pill rate-zero">0.0%</span></td><td class="col-avg">—</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Shubhi Mishra</span><span class="mini-bar" style="width:2px"></span></div></td><td class="col-total">2</td><td class="col-conn">0</td><td class="col-talk">0.00</td><td><span class="rate-pill rate-zero">0.0%</span></td><td class="col-avg">—</td></tr><tr><td><div class="mini-bar-wrap"><span class="col-advisor">Subhash Madhavan</span><span class="mini-bar" style="width:3px"></span></div></td><td class="col-total">3</td><td class="col-conn">0</td><td class="col-talk">0.00</td><td><span class="rate-pill rate-zero">0.0%</span></td><td class="col-avg">—</td></tr><tr class="total-row"><td style="font-weight:800">Grand Total</td><td style="text-align:center;font-weight:800">277</td><td style="text-align:center;font-weight:800">35</td><td style="text-align:center;font-weight:800">338.87</td><td style="text-align:center;font-weight:800">12.6%</td><td style="text-align:center;font-weight:800">9.68</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div id="rawSection" class="raw-section" style="display: block; margin-top: 20px;">
+    <div class="out-head" style="background:var(--navy2)">
+      <div class="out-head-title" style="font-size:12px"><span class="dot" style="background:var(--sky)"></span>Processed Raw Data</div>
+      <button class="btn btn-ghost" onclick="toggleRaw()" id="rawToggle" style="color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.15)">Show ▼</button>
+    </div>
+    <div id="rawTableWrap" style="display:none" class="raw-scroll">
+      <table>
+        <thead><tr><th>Duration</th><th>Type</th><th>Created Date</th><th>Advisor</th><th>Hour</th><th>Shift Date</th><th>Total Calls</th><th>Pure Talk Time</th><th>Connected</th></tr></thead>
+        <tbody id="rawBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast" style="border-color: var(--gold2);">✓ Copied! Paste into Teams (table) or Excel (cells)</div>
+
+<script>
+let allData=[],filteredData=[];
+let sortCol='total',sortDir=-1,rawBuilt=false;
+let allShiftDates=[],allAdvisors=[];
+
+function parseDate(v){v=String(v).trim();const m=v.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);if(m)return new Date(+m[3],+m[1]-1,+m[2]);const n=parseFloat(v);if(!isNaN(n)&&n>40000&&n<55000)return new Date(Math.round((n-25569)*86400000));const d=new Date(v);return isNaN(d)?null:d;}
+const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function fmtDate(d){return d?`${String(d.getDate()).padStart(2,'0')}-${MONTHS[d.getMonth()]}-${d.getFullYear()}`:''}
+function dateKey(d){return d?`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`:''}
+// Parse dateKey back to Date for date picker comparison
+function keyToDate(k){const p=k.split('-');return new Date(+p[0],+p[1]-1,+p[2]);}
+
+// Multi-select
+function toggleMs(id){
+  document.querySelectorAll('.ms-dropdown').forEach(d=>{if(d.id!==id+'Dropdown'){d.classList.remove('open');}});
+  document.querySelectorAll('.ms-trigger').forEach(t=>{if(t.id!==id.replace('ms',''). toLowerCase()+'Trigger'&&t.closest('.ms-wrap').id!==id){t.classList.remove('open');}});
+  document.getElementById(id+'Dropdown').classList.toggle('open');
+  document.querySelector('#'+id+' .ms-trigger').classList.toggle('open');
+}
+document.addEventListener('click',e=>{if(!e.target.closest('.ms-wrap')){document.querySelectorAll('.ms-dropdown').forEach(d=>d.classList.remove('open'));document.querySelectorAll('.ms-trigger').forEach(t=>t.classList.remove('open'));}});
+
+function filterMsOpts(input,dropId){
+  const q=input.value.toLowerCase();
+  document.querySelectorAll('#'+dropId+' .ms-option').forEach(o=>{o.style.display=o.querySelector('span').textContent.toLowerCase().includes(q)?'flex':'none';});
+}
+function msAll(dropId){document.querySelectorAll('#'+dropId+' .ms-option input').forEach(cb=>cb.checked=true);updateLabel(dropId);applyFilters();}
+function msNone(dropId){document.querySelectorAll('#'+dropId+' .ms-option input').forEach(cb=>cb.checked=false);updateLabel(dropId);applyFilters();}
+function getSelected(dropId){return[...document.querySelectorAll('#'+dropId+' .ms-option input:checked')].map(cb=>cb.value);}
+function updateLabel(dropId){
+  const all=[...document.querySelectorAll('#'+dropId+' .ms-option input')];
+  const sel=all.filter(cb=>cb.checked);
+  const isDate=dropId==='msDateDropdown';
+  const wrap=document.querySelector('#'+dropId).closest('.ms-wrap');
+  const trigger=wrap.querySelector('.ms-trigger');
+  if(sel.length===0)trigger.textContent='None selected';
+  else if(sel.length===all.length)trigger.textContent=isDate?'All Dates':'All Advisors';
+  else if(sel.length<=2)trigger.textContent=sel.map(cb=>isDate?(allData.find(r=>r.shiftDateKey===cb.value)?.shiftDateDisplay||cb.value):cb.value).join(', ');
+  else trigger.textContent=sel.length+' selected';
+}
+
+function startProcess(){
+  const raw=document.getElementById('rawInput').value;
+  if(!raw.trim()){showToast('Paste data first!','#dc2626');return;}
+  document.getElementById('processBtn').disabled=true;
+  document.getElementById('progressWrap').classList.add('active');
+  setProgress(0,'Splitting rows…');
+  setTimeout(()=>parseChunked(raw),40);
+}
+
+function parseChunked(raw){
+  const lines=raw.split('\n'),total=lines.length,CHUNK=3000,result=[];
+  let i=isNaN(parseFloat(lines[0].split('\t')[0]))?1:0;
+  function next(){
+    const end=Math.min(i+CHUNK,total);
+    for(;i<end;i++){
+      const line=lines[i];if(!line.trim())continue;
+      const c=line.split('\t');if(c.length<6)continue;
+      const duration=parseFloat(c[0])||0,type=c[1]?.trim()||'',advisor=c[4]?.trim()||'',hour=parseInt(c[5])||0;
+      if(!advisor)continue;
+      const cd=parseDate(c[3]);if(!cd)continue;
+      const sd=new Date(cd);if(hour<10)sd.setDate(sd.getDate()-1);
+      const conn=duration>1.30?1:0;
+      result.push({duration,type,advisor,hour,createdDateDisplay:fmtDate(cd),shiftDateDisplay:fmtDate(sd),shiftDateKey:dateKey(sd),createdDateKey:dateKey(cd),connected:conn,pureTalk:conn?duration:0});
+    }
+    setProgress(Math.min(Math.round((i/total)*100),99),`Row ${Math.min(i,total).toLocaleString()} of ${total.toLocaleString()}…`);
+    if(i<total)setTimeout(next,0);else finalise(result);
+  }
+  next();
+}
+
+function setProgress(p,t){document.getElementById('progressFill').style.width=p+'%';document.getElementById('progressText').textContent=t;}
+
+function finalise(result){
+  allData=result;
+  document.getElementById('processBtn').disabled=false;
+  document.getElementById('progressWrap').classList.remove('active');
+  if(!allData.length){showToast('No valid rows. Check column order.','#dc2626');return;}
+  populateFilters();applyFilters();
+  ['filterBar','outputSection','rawSection'].forEach(id=>{document.getElementById(id).style.display=id==='filterBar'?'flex':'block';});
+  document.getElementById('summaryRow').style.display='grid';
+  rawBuilt=false;
+  showToast(`✓ ${allData.length.toLocaleString()} rows processed successfully`);
+}
+
+function populateFilters(){
+  allShiftDates=[...new Set(allData.map(r=>r.shiftDateKey))].sort();
+  allAdvisors=[...new Set(allData.map(r=>r.advisor))].sort();
+  document.getElementById('dateOptions').innerHTML=allShiftDates.map(k=>`<label class="ms-option"><input type="checkbox" value="${k}" checked onchange="updateLabel('msDateDropdown');applyFilters()"><span>${allData.find(r=>r.shiftDateKey===k)?.shiftDateDisplay||k}</span></label>`).join('');
+  document.getElementById('advisorOptions').innerHTML=allAdvisors.map(a=>`<label class="ms-option"><input type="checkbox" value="${a}" checked onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>${a}</span></label>`).join('');
+  // Default: latest date only
+  if(allShiftDates.length>1){
+    document.querySelectorAll('#msDateDropdown .ms-option input').forEach((cb,i)=>{cb.checked=(i===allShiftDates.length-1);});
+    updateLabel('msDateDropdown');
+  }
+}
+
+function applyFilters(){
+  updateLabel('msDateDropdown');updateLabel('msAdvisorDropdown');
+  const sd=new Set(getSelected('msDateDropdown')),sa=new Set(getSelected('msAdvisorDropdown')),tf=document.getElementById('typeFilter').value;
+  filteredData=allData.filter(r=>sd.has(r.shiftDateKey)&&sa.has(r.advisor)&&(tf==='ALL'||r.type===tf));
+  // Update header date label
+  const selDates=getSelected('msDateDropdown');
+  const dateLabel=selDates.length===allShiftDates.length?'All Dates':selDates.map(k=>allData.find(r=>r.shiftDateKey===k)?.shiftDateDisplay||k).join(', ');
+  document.getElementById('headDateLabel').textContent=dateLabel;
+  updateSummary();renderTable();
+}
+
+function updateSummary(){
+  let total=0,conn=0,talk=0;const adv=new Set();
+  for(const r of filteredData){total++;conn+=r.connected;talk+=r.pureTalk;adv.add(r.advisor);}
+  document.getElementById('sTotal').textContent=total.toLocaleString();
+  document.getElementById('sConnected').textContent=conn.toLocaleString();
+  document.getElementById('sTalk').textContent=talk.toFixed(2);
+  document.getElementById('sAvg').textContent=conn>0?(talk/conn).toFixed(2):'0.00';
+  document.getElementById('sAdvisors').textContent=`${adv.size} advisor${adv.size!==1?'s':''}`;
+  document.getElementById('sRate').textContent=`${total>0?(conn/total*100).toFixed(1):0}% connection rate`;
+}
+
+function renderTable(){
+  const search=document.getElementById('searchBox').value.toLowerCase();
+  const map={};
+  for(const r of filteredData){if(!map[r.advisor])map[r.advisor]={advisor:r.advisor,total:0,connected:0,talk:0};map[r.advisor].total++;map[r.advisor].connected+=r.connected;map[r.advisor].talk+=r.pureTalk;}
+  let rows=Object.values(map);
+  if(search)rows=rows.filter(r=>r.advisor.toLowerCase().includes(search));
+  rows.sort((a,b)=>{const va=a[sortCol]??a.advisor,vb=b[sortCol]??b.advisor;return typeof va==='string'?va.localeCompare(vb)*sortDir:(va-vb)*sortDir;});
+  const maxT=Math.max(...rows.map(r=>r.total),1);
+  const parts=rows.map(r=>{
+    const rate=r.total>0?(r.connected/r.total*100):0;
+    const rClass=rate>=20?'rate-high':rate>=10?'rate-mid':rate>0?'rate-low':'rate-zero';
+    return`<tr><td><div class="mini-bar-wrap"><span class="col-advisor">${r.advisor}</span><span class="mini-bar" style="width:${Math.round(r.total/maxT*80)}px"></span></div></td><td class="col-total">${r.total}</td><td class="col-conn">${r.connected}</td><td class="col-talk">${r.talk.toFixed(2)}</td><td><span class="rate-pill ${rClass}">${rate.toFixed(1)}%</span></td><td class="col-avg">${r.connected>0?(r.talk/r.connected).toFixed(2):'—'}</td></tr>`;
+  });
+  if(rows.length){
+    const g=rows.reduce((s,r)=>({total:s.total+r.total,connected:s.connected+r.connected,talk:s.talk+r.talk}),{total:0,connected:0,talk:0});
+    parts.push(`<tr class="total-row"><td style="font-weight:800">Grand Total</td><td style="text-align:center;font-weight:800">${g.total}</td><td style="text-align:center;font-weight:800">${g.connected}</td><td style="text-align:center;font-weight:800">${g.talk.toFixed(2)}</td><td style="text-align:center;font-weight:800">${g.total>0?(g.connected/g.total*100).toFixed(1):0}%</td><td style="text-align:center;font-weight:800">${g.connected>0?(g.talk/g.connected).toFixed(2):'—'}</td></tr>`);
+  }
+  document.getElementById('outputBody').innerHTML=parts.join('');
+  document.querySelectorAll('#outputTable th').forEach(th=>th.classList.remove('sort-asc','sort-desc'));
+  const idx={advisor:0,total:1,connected:2,talk:3,rate:4,avg:5}[sortCol];
+  if(idx!=null)document.querySelectorAll('#outputTable th')[idx]?.classList.add(sortDir===1?'sort-asc':'sort-desc');
+  document.getElementById('rowCount').textContent=`${rows.length} advisor${rows.length!==1?'s':''}`;
+}
+
+function sortBy(col){sortDir=sortCol===col?sortDir*-1:-1;sortCol=col;renderTable();}
+
+function jumpToDate(val){if(!val)return;if(!allShiftDates.includes(val)){showToast('No data for that date','#1e293b');return;}document.querySelectorAll('#msDateDropdown .ms-option input').forEach(cb=>{cb.checked=(cb.value===val);});updateLabel('msDateDropdown');applyFilters();}
+
+async function copyOutput(){
+  const map={};
+  for(const r of filteredData){if(!map[r.advisor])map[r.advisor]={advisor:r.advisor,total:0,connected:0,talk:0};map[r.advisor].total++;map[r.advisor].connected+=r.connected;map[r.advisor].talk+=r.pureTalk;}
+  const search=document.getElementById('searchBox').value.toLowerCase();
+  let rows=Object.values(map);rows.sort((a,b)=>{const va=a[sortCol]??a.advisor,vb=b[sortCol]??b.advisor;return typeof va==='string'?va.localeCompare(vb)*sortDir:(va-vb)*sortDir;});
+  if(search)rows=rows.filter(r=>r.advisor.toLowerCase().includes(search));
+  const g=rows.reduce((s,r)=>({total:s.total+r.total,connected:s.connected+r.connected,talk:s.talk+r.talk}),{total:0,connected:0,talk:0});
+  const selDates=getSelected('msDateDropdown');
+  const dateLabel=selDates.length===allShiftDates.length?'All Dates':selDates.map(k=>allData.find(r=>r.shiftDateKey===k)?.shiftDateDisplay||k).join(', ');
+
+  // TSV for Excel
+  const T='\t';
+  const tsv=[
+    'Row Labels'+T+'Sum of Total Calls'+T+'Sum of Connected Calls'+T+'Sum of Pure Talk Time',
+    ...rows.map(r=>r.advisor+T+r.total+T+r.connected+T+r.talk.toFixed(2)),
+    'Grand Total'+T+g.total+T+g.connected+T+g.talk.toFixed(2)
+  ].join('\n');
+
+  // HTML table for Teams (centered numerics, styled header & grand total)
+  const thStyle='background:#0d1b3e;color:#ffffff;padding:10px 16px;text-align:{a};font-family:Calibri,sans-serif;font-size:13px;font-weight:700;border:1px solid #1e3a8a;white-space:nowrap';
+  const tdStyle='padding:9px 16px;font-family:Calibri,sans-serif;font-size:13px;border:1px solid #e2e8f0;text-align:{a};mso-number-format:"\\@";color:{c};vertical-align:middle';
+  const gtStyle='padding:10px 16px;font-family:Calibri,sans-serif;font-size:14px;font-weight:800;color:#ffffff;background:#0d1b3e;border:2px solid #0d1b3e;text-align:{a}';
+
+  function th(txt,align){const inner=align==='center'?'<center>'+txt+'</center>':txt;return '<th align="'+align+'" style="'+thStyle.replace('{a}',align)+'">'+inner+'</th>';}
+  function td(txt,align,color){const inner=align==='center'?'<center>'+txt+'</center>':txt;return '<td align="'+align+'" style="'+tdStyle.replace('{a}',align).replace('{c}',color||'#334155')+'">'+inner+'</td>';}
+  function gt(txt,align){const inner=align==='center'?'<center><b>'+txt+'</b></center>':'<b>'+txt+'</b>';return '<td align="'+align+'" bgcolor="#0d1b3e" style="'+gtStyle.replace('{a}',align)+'">'+inner+'</td>';}
+
+  const htmlRows=rows.map(r=>`<tr>
+    ${td(r.advisor,'left','#0f172a')}
+    ${td(r.total,'center','#1e293b')}
+    ${td(r.connected,'center','#1e293b')}
+    ${td(r.talk.toFixed(2),'center','#1e293b')}
+  </tr>`).join('');
+
+  const html=`<meta charset="utf-8">
+<p style="font-family:Calibri,sans-serif;font-size:13px;font-weight:700;color:#0d1b3e;margin:0 0 4px">&#128202; Team Effort Summary</p>
+<p style="font-family:Calibri,sans-serif;font-size:12px;color:#64748b;margin:0 0 10px">&#128197; Shift Date: ${dateLabel}</p>
+<table style="border-collapse:collapse;min-width:520px">
+  <thead><tr>
+    ${th('Row Labels','left')}
+    ${th('Sum of Total Calls','center')}
+    ${th('Sum of Connected Calls','center')}
+    ${th('Sum of Pure Talk Time','center')}
+  </tr></thead>
+  <tbody>${htmlRows}</tbody>
+  <tfoot><tr>
+    ${gt('Grand Total','left')}
+    ${gt(g.total,'center')}
+    ${gt(g.connected,'center')}
+    ${gt(g.talk.toFixed(2),'center')}
+  </tr></tfoot>
+</table>`;
+
+  try {
+    await navigator.clipboard.write([new ClipboardItem({
+      'text/html': new Blob([html],{type:'text/html'}),
+      'text/plain': new Blob([tsv],{type:'text/plain'})
+    })]);
+    showToast('\u2713 Copied! Paste into Teams (table) or Excel (cells)');
+  } catch(e) {
+    navigator.clipboard.writeText(tsv).then(()=>showToast('\u2713 TSV copied \u2014 paste into Excel'));
+  }
+}
+
+function copyRawFiltered(){
+  const lines=['Duration\tType\tCreated Date\tAdvisor\tHour\tShift Date\tTotal Calls\tPure Talk Time\tConnected'];
+  filteredData.forEach(r=>lines.push(`${r.duration}\t${r.type}\t${r.createdDateDisplay}\t${r.advisor}\t${r.hour}\t${r.shiftDateDisplay}\t1\t${r.pureTalk.toFixed(2)}\t${r.connected}`));
+  navigator.clipboard.writeText(lines.join('\n')).then(()=>showToast('✓ Raw filtered data copied!'));
+}
+
+function toggleRaw(){
+  const wrap=document.getElementById('rawTableWrap'),btn=document.getElementById('rawToggle');
+  if(wrap.style.display==='none'){
+    if(!rawBuilt){
+      document.getElementById('rawBody').innerHTML=allData.map(r=>`<tr><td>${r.duration}</td><td>${r.type}</td><td>${r.createdDateDisplay}</td><td style="font-weight:600;color:var(--head)">${r.advisor}</td><td>${r.hour}</td><td style="color:${r.shiftDateKey!==r.createdDateKey?'var(--gold)':'var(--green)'};font-weight:600">${r.shiftDateDisplay}</td><td style="color:var(--blue2)">1</td><td style="color:${r.pureTalk>0?'var(--gold)':'var(--dim)'}">${r.pureTalk.toFixed(2)}</td><td style="color:${r.connected?'var(--green)':'var(--dim)'}">${r.connected}</td></tr>`).join('');
+      rawBuilt=true;
+    }
+    wrap.style.display='block';btn.textContent='Hide ▲';
+  }else{wrap.style.display='none';btn.textContent='Show ▼';}
+}
+
+function clearAll(){
+  document.getElementById('rawInput').value='';allData=[];filteredData=[];rawBuilt=false;
+  ['filterBar','summaryRow','outputSection','rawSection'].forEach(id=>document.getElementById(id).style.display='none');
+  document.getElementById('rawTableWrap').style.display='none';
+  document.getElementById('rawToggle').textContent='Show ▼';
+}
+
+function loadSample(){
+  document.getElementById('rawInput').value=`0.03\tCalls\t0\t5/8/2026\tAasheesh Ahluwalia\t0\n1.58\tCalls\t1\t5/8/2026\tAasheesh Ahluwalia\t0\n5.12\tCalls\t1\t5/8/2026\tPushpanjli Mani Singh\t0\n3.17\tCalls\t1\t5/8/2026\tPushpanjli Mani Singh\t0\n0.62\tCalls\t0\t5/8/2026\tPushpanjli Mani Singh\t0\n2.97\tCalls\t1\t5/8/2026\tJoel Fernandes\t12\n0.37\tCalls\t0\t5/8/2026\tJoel Fernandes\t12\n4.07\tCalls\t1\t5/8/2026\tJoel Fernandes\t13\n7.77\tCalls\t1\t5/8/2026\tHimanshu Tholia\t13\n1.72\tCalls\t1\t5/8/2026\tHimanshu Tholia\t13\n0.75\tCalls\t0\t5/8/2026\tHimanshu Tholia\t13\n1.80\tCalls\t1\t5/8/2026\tSonal Braganza\t13\n0.92\tCalls\t0\t5/8/2026\tSonal Braganza\t13\n2.38\tCalls\t1\t5/9/2026\tRakshith Gaikwad\t1\n0.88\tCalls\t0\t5/9/2026\tRakshith Gaikwad\t1`;
+}
+
+function exportAsIndex(){
+  const html=document.documentElement.outerHTML;
+  const blob=new Blob([html],{type:'text/html'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='index.html';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  showToast('\u2713 index.html downloaded — ready for GitHub');
+}
+
+function showToast(msg,color){
+  const t=document.getElementById('toast');t.textContent=msg;
+  if(color)t.style.borderColor=color;else t.style.borderColor='var(--gold2)';
+  t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);
+}
+</script>
+
+
+</body></html>
