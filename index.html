@@ -366,7 +366,7 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
               <div class="upload-icon">📊</div>
               <div class="upload-title">Drop your Excel or CSV file here</div>
               <div class="upload-sub">Supports .xlsx · .xls · .csv</div>
-              <div class="upload-status" id="uploadStatus"></div>
+              <div class="upload-status" id="uploadStatus" style="color: var(--blue2);"></div>
             </div>
           </div>
           <div class="btn-row">
@@ -414,7 +414,7 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
     </div>
   </div>
 
-  <div class="filter-bar" id="filterBar" style="display:none">
+  <div class="filter-bar" id="filterBar" style="display: none;">
     <div class="filter-group">
       <span class="filter-label">Shift Date</span>
       <div class="ms-wrap" id="msDate">
@@ -425,7 +425,7 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
             <span class="ms-action" onclick="msAll('msDateDropdown')">All</span>
             <span class="ms-action" onclick="msNone('msDateDropdown')">None</span>
           </div>
-          <div id="dateOptions"></div>
+          <div id="dateOptions"><label class="ms-option"><input type="checkbox" value="2026-05-03" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>03-May-2026</span></label><label class="ms-option"><input type="checkbox" value="2026-05-04" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>04-May-2026</span></label><label class="ms-option"><input type="checkbox" value="2026-05-05" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>05-May-2026</span></label><label class="ms-option"><input type="checkbox" value="2026-05-06" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>06-May-2026</span></label><label class="ms-option"><input type="checkbox" value="2026-05-07" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>07-May-2026</span></label><label class="ms-option"><input type="checkbox" value="2026-05-08" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>08-May-2026</span></label><label class="ms-option"><input type="checkbox" value="2026-05-09" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>09-May-2026</span></label></div>
         </div>
       </div>
     </div>
@@ -440,7 +440,7 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
             <span class="ms-action" onclick="msAll('msAdvisorDropdown')">All</span>
             <span class="ms-action" onclick="msNone('msAdvisorDropdown')">None</span>
           </div>
-          <div id="advisorOptions"></div>
+          <div id="advisorOptions"><label class="ms-option"><input type="checkbox" value="Aasheesh Ahluwalia" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Aasheesh Ahluwalia</span></label><label class="ms-option"><input type="checkbox" value="Ghanshyam Shankerlal Yadav" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Ghanshyam Shankerlal Yadav</span></label><label class="ms-option"><input type="checkbox" value="Haya Quadri" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Haya Quadri</span></label><label class="ms-option"><input type="checkbox" value="Jaydeep Parmar" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Jaydeep Parmar</span></label><label class="ms-option"><input type="checkbox" value="Joel Fernandes" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Joel Fernandes</span></label><label class="ms-option"><input type="checkbox" value="Melroy Mascarenhas" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Melroy Mascarenhas</span></label><label class="ms-option"><input type="checkbox" value="Nandini Nandu Borade" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Nandini Nandu Borade</span></label><label class="ms-option"><input type="checkbox" value="Nandita N" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Nandita N</span></label><label class="ms-option"><input type="checkbox" value="Pramod Kumar" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Pramod Kumar</span></label><label class="ms-option"><input type="checkbox" value="Priya Chaudhary" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Priya Chaudhary</span></label><label class="ms-option"><input type="checkbox" value="Pushpanjli Mani Singh" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Pushpanjli Mani Singh</span></label><label class="ms-option"><input type="checkbox" value="Rakshith Gaikwad" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Rakshith Gaikwad</span></label><label class="ms-option"><input type="checkbox" value="Raunak Narvekar" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Raunak Narvekar</span></label><label class="ms-option"><input type="checkbox" value="Sadanand Patel" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Sadanand Patel</span></label><label class="ms-option"><input type="checkbox" value="Samson Rebello" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Samson Rebello</span></label><label class="ms-option"><input type="checkbox" value="Shubhi Mishra" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Shubhi Mishra</span></label><label class="ms-option"><input type="checkbox" value="Sonal Braganza" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Sonal Braganza</span></label><label class="ms-option"><input type="checkbox" value="Subhash Madhavan" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Subhash Madhavan</span></label><label class="ms-option"><input type="checkbox" value="Zuber Haque" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Zuber Haque</span></label></div>
         </div>
       </div>
     </div>
@@ -456,7 +456,9 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
     <div class="filter-divider"></div>
     <div class="filter-group">
       <span class="filter-label">Jump to Date</span>
-      <input type="date" id="datePicker" onchange="jumpToDate(this.value)" style="background:var(--off);border:1.5px solid var(--border);color:var(--head);border-radius:7px;padding:8px 12px;font-family:var(--sans);font-size:12px;outline:none;cursor:pointer;transition:border-color .2s" onfocus="this.style.borderColor='var(--blue2)'" onblur="this.style.borderColor='var(--border)'">
+      <input type="date" id="datePicker" style="background:var(--off);border:1.5px solid var(--border);color:var(--head);border-radius:7px;
+             padding:8px 12px;font-family:var(--mono);font-size:12px;outline:none;cursor:pointer;
+             transition:border-color .2s" onfocus="this.style.borderColor='var(--blue2)'" onblur="this.style.borderColor='var(--border)'" onchange="jumpToDate(this.value)">
     </div>
     <div class="filter-right">
       <button class="btn btn-green" onclick="copyOutput()">⎘ Copy for Teams / Excel</button>
@@ -464,13 +466,13 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
     </div>
   </div>
 
-  <div id="shiftSummaryBar" style="display:none;background:var(--white);border:1px solid var(--border);border-radius:10px;padding:10px 18px;margin-bottom:14px;font-family:var(--mono);font-size:11px;color:var(--body);box-shadow:0 1px 3px rgba(0,0,0,.04)">
+  <div id="shiftSummaryBar" style="display: none; background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 10px 18px; margin-bottom: 14px; font-family: var(--mono); font-size: 11px; color: var(--body); box-shadow: rgba(0, 0, 0, 0.04) 0px 1px 3px;">
   <span style="color:var(--dim);text-transform:uppercase;letter-spacing:1px;font-size:10px;font-weight:700">Shift Coverage</span>
-  &nbsp;&nbsp;<span id="shiftCoverageText" style="color:var(--head)">—</span>
+  &nbsp;&nbsp;<span id="shiftCoverageText" style="color:var(--head)">Multiple shift dates selected</span>
   &nbsp;&nbsp;<span style="color:var(--dim)">|</span>&nbsp;&nbsp;
-  <span id="shiftRowBreakdown" style="color:var(--blue2)">—</span>
+  <span id="shiftRowBreakdown" style="color:var(--blue2)"></span>
 </div>
-<div id="execCardWrap" style="display:none">
+<div id="execCardWrap" style="display: none;">
   <div class="exec-card" id="execCard">
     <div class="exec-head">
       <span class="exec-title">✍️ Executive Summary</span>
@@ -480,58 +482,58 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
       </div>
     </div>
     <div class="exec-body">
-      <div class="exec-text" id="execText">Generating summary…</div>
+      <div class="exec-text" id="execText">On <span class="hl">the selected period</span>, the team dialed <span class="hl">10,069 calls</span> with a <span class="hl">10.1% connection rate</span> (1018 connected). Total pure talk time was <span class="hl">8186 minutes</span>, averaging <span class="hl-green">8.04 minutes per connected call</span>.<br><br>Top performer was <span class="hl-green">Pushpanjli Mani Singh</span> with a <span class="hl-green">18.6% connection rate</span> (65 connected from 349 calls).</div>
     </div>
   </div>
 </div>
 
 <div class="anomaly-bar" id="anomalyBar">
   <div class="anomaly-head" onclick="toggleAnomalies()">
-    <span class="anomaly-head-title">⚠️ <span id="anomalyCount">0</span> Anomalies Detected — click to expand</span>
+    <span class="anomaly-head-title">⚠️ <span id="anomalyCount">1</span> Anomalies Detected — click to expand</span>
     <span style="font-size:11px;color:#9a3412;font-family:var(--mono)" id="anomalyToggleText">Show ▼</span>
   </div>
-  <div class="anomaly-list" id="anomalyList"></div>
+  <div class="anomaly-list" id="anomalyList"><div class="anomaly-item"><span class="anomaly-icon">🟠</span><span><strong>Aasheesh Ahluwalia</strong> has a very low connection rate of <strong>3.7%</strong> (30/816 calls).</span></div></div>
 </div>
 
-<div class="stat-row" id="summaryRow" style="display:none">
-    <div class="stat-card s-blue"><div class="stat-label">Total Calls</div><div class="stat-value" id="sTotal">0</div><div class="stat-sub" id="sAdvisors">0 advisors</div></div>
-    <div class="stat-card s-green"><div class="stat-label">Connected</div><div class="stat-value" id="sConnected">0</div><div class="stat-sub" id="sRate">0.0% rate</div></div>
-    <div class="stat-card s-gold"><div class="stat-label">Pure Talk Time</div><div class="stat-value" id="sTalk">0</div><div class="stat-sub">minutes total</div></div>
-    <div class="stat-card s-navy"><div class="stat-label">Avg Talk / Connected</div><div class="stat-value" id="sAvg">0</div><div class="stat-sub">min per connected call</div></div>
+<div class="stat-row" id="summaryRow" style="display: none;">
+    <div class="stat-card s-blue"><div class="stat-label">Total Calls</div><div class="stat-value" id="sTotal">10,069</div><div class="stat-sub" id="sAdvisors">19 advisors</div></div>
+    <div class="stat-card s-green"><div class="stat-label">Connected</div><div class="stat-value" id="sConnected">1,018</div><div class="stat-sub" id="sRate">10.1% connection rate</div></div>
+    <div class="stat-card s-gold"><div class="stat-label">Pure Talk Time</div><div class="stat-value" id="sTalk">8185.90</div><div class="stat-sub">minutes total</div></div>
+    <div class="stat-card s-navy"><div class="stat-label">Avg Talk / Connected</div><div class="stat-value" id="sAvg">8.04</div><div class="stat-sub">min per connected call</div></div>
   </div>
 
-  <div class="best-time-bar" id="bestTimeBar" style="display:none">
+  <div class="best-time-bar" id="bestTimeBar" style="display: none;">
   <div style="display:flex;align-items:center;gap:10px;width:100%;margin-bottom:4px">
     <div class="sec-label" style="margin:0"><div class="bar" style="background:var(--gold2)"></div><h2>Best Connectivity Hours</h2><span id="btSubtitle">All shifts · sorted by connection rate</span></div>
   </div>
-  <div class="bt-card gold" id="bt1"><div class="bt-rank">🥇 Best Hour</div><div class="bt-time" id="bt1time">—</div><div class="bt-rate" id="bt1rate">—</div><div class="bt-calls" id="bt1calls" style="margin-top:4px;font-size:10px;color:var(--dim)">—</div></div>
-  <div class="bt-card silver" id="bt2"><div class="bt-rank">🥈 2nd Hour</div><div class="bt-time" id="bt2time">—</div><div class="bt-rate" id="bt2rate">—</div><div class="bt-calls" id="bt2calls" style="margin-top:4px;font-size:10px;color:var(--dim)">—</div></div>
-  <div class="bt-card bronze" id="bt3"><div class="bt-rank">🥉 3rd Hour</div><div class="bt-time" id="bt3time">—</div><div class="bt-rate" id="bt3rate">—</div><div class="bt-calls" id="bt3calls" style="margin-top:4px;font-size:10px;color:var(--dim)">—</div></div>
-  <div class="bt-card" id="bt4"><div class="bt-rank">4th Hour</div><div class="bt-time" id="bt4time">—</div><div class="bt-rate" id="bt4rate">—</div><div class="bt-calls" id="bt4calls" style="margin-top:4px;font-size:10px;color:var(--dim)">—</div></div>
-  <div class="bt-card" id="bt5"><div class="bt-rank">5th Hour</div><div class="bt-time" id="bt5time">—</div><div class="bt-rate" id="bt5rate">—</div><div class="bt-calls" id="bt5calls" style="margin-top:4px;font-size:10px;color:var(--dim)">—</div></div>
+  <div class="bt-card gold" id="bt1" style="opacity: 1;"><div class="bt-rank">🥇 Best Hour</div><div class="bt-time" id="bt1time">11:00 AM</div><div class="bt-rate" id="bt1rate"><span style="color:var(--green2);font-weight:700">33.3%</span> connect rate</div><div class="bt-calls" id="bt1calls" style="margin-top:4px;font-size:10px;color:var(--dim)">🌅 Early &nbsp;|&nbsp; 8/24 calls</div></div>
+  <div class="bt-card silver" id="bt2" style="opacity: 1;"><div class="bt-rank">🥈 2nd Hour</div><div class="bt-time" id="bt2time">01:00 PM</div><div class="bt-rate" id="bt2rate"><span style="color:var(--green2);font-weight:700">14.2%</span> connect rate</div><div class="bt-calls" id="bt2calls" style="margin-top:4px;font-size:10px;color:var(--dim)">☀️ Day &nbsp;|&nbsp; 40/282 calls</div></div>
+  <div class="bt-card bronze" id="bt3" style="opacity: 1;"><div class="bt-rank">🥉 3rd Hour</div><div class="bt-time" id="bt3time">02:00 PM</div><div class="bt-rate" id="bt3rate"><span style="color:var(--green2);font-weight:700">13.3%</span> connect rate</div><div class="bt-calls" id="bt3calls" style="margin-top:4px;font-size:10px;color:var(--dim)">☀️ Day &nbsp;|&nbsp; 46/345 calls</div></div>
+  <div class="bt-card" id="bt4" style="opacity: 1;"><div class="bt-rank">4th Hour</div><div class="bt-time" id="bt4time">12:00 PM</div><div class="bt-rate" id="bt4rate"><span style="color:var(--green2);font-weight:700">13.3%</span> connect rate</div><div class="bt-calls" id="bt4calls" style="margin-top:4px;font-size:10px;color:var(--dim)">☀️ Day &nbsp;|&nbsp; 19/143 calls</div></div>
+  <div class="bt-card" id="bt5" style="opacity: 1;"><div class="bt-rank">5th Hour</div><div class="bt-time" id="bt5time">08:00 AM</div><div class="bt-rate" id="bt5rate"><span style="color:var(--green2);font-weight:700">13.0%</span> connect rate</div><div class="bt-calls" id="bt5calls" style="margin-top:4px;font-size:10px;color:var(--dim)">🌅 Early &nbsp;|&nbsp; 3/23 calls</div></div>
 </div>
-<div id="outputSection" style="display:none">
+<div id="outputSection" style="display: none;">
     <div class="sec-label" style="margin-bottom:12px"><div class="bar" style="background:var(--green)"></div><h2>Output Summary</h2></div>
     <div class="out-card">
       <!-- Tab bar -->
       <div class="out-tab-bar">
         <div style="display:flex;gap:4px;flex:1;flex-wrap:wrap">
-          <div class="out-tab active" id="tab-summary" onclick="switchOutTab('summary')">📊 Summary</div>
+          <div class="out-tab" id="tab-summary" onclick="switchOutTab('summary')">📊 Summary</div>
           <div class="out-tab" id="tab-leaderboard" onclick="switchOutTab('leaderboard')">🏆 Leaderboard</div>
           <div class="out-tab" id="tab-shifts" onclick="switchOutTab('shifts')">🔄 Shift Split</div>
           <div class="out-tab" id="tab-trends" onclick="switchOutTab('trends')">📈 Trends</div>
           <div class="out-tab" id="tab-heatmap" onclick="switchOutTab('heatmap')">🔥 Heatmap</div>
           <div class="out-tab" id="tab-wow" onclick="switchOutTab('wow')">🔁 Week vs Week</div>
-          <div class="out-tab" id="tab-dialpattern" onclick="switchOutTab('dialpattern')">📞 Dial Pattern</div>
+          <div class="out-tab active" id="tab-dialpattern" onclick="switchOutTab('dialpattern')">📞 Dial Pattern</div>
         </div>
         <!-- Action buttons — always visible on every tab -->
 
       </div>
 
       <!-- Summary Panel -->
-      <div class="out-panel active" id="panel-summary">
+      <div class="out-panel" id="panel-summary">
         <div class="out-head" style="background:var(--navy);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
-          <div class="out-head-title"><span class="dot"></span>By Advisor — <span id="headDateLabel" style="color:var(--gold3);font-size:12px;margin-left:4px"></span></div>
+          <div class="out-head-title"><span class="dot"></span>By Advisor — <span id="headDateLabel" style="color:var(--gold3);font-size:12px;margin-left:4px">All Dates</span></div>
           <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
             <div class="search-wrap">
               <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke="rgba(255,255,255,0.4)" stroke-width="2"></circle><path d="m21 21-4.35-4.35" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round"></path></svg>
@@ -542,7 +544,7 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
           <span class="tab-info-text"><strong>Output Summary — Per Advisor</strong>Shows total calls dialled, connected calls, and pure talk time for each advisor in the selected date range. <b>Click any advisor name</b> to see their hourly drilldown. Click column headers to sort. Use the search box to filter by name.</span>
           <span class="tab-info-close" onclick="this.closest('.tab-info').style.display='none'" title="Dismiss">✕</span>
         </div>
-            <span class="row-count" id="rowCount">—</span>
+            <span class="row-count" id="rowCount">19 advisors</span>
           </div>
           <div style="display:flex;gap:6px;flex-wrap:wrap">
             <button onclick="captureTab('summary','copy')" class="btn btn-green" style="font-size:10px;padding:5px 12px">💬 Teams</button>
@@ -554,9 +556,9 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
           <table id="outputTable">
             <thead><tr>
               <th onclick="sortBy('advisor')">Row Labels</th>
-              <th onclick="sortBy('total')">Sum of Total Calls</th>
+              <th onclick="sortBy('total')" class="">Sum of Total Calls</th>
               <th onclick="sortBy('connected')">Sum of Connected Calls</th>
-              <th onclick="sortBy('talk')">Sum of Pure Talk Time</th>
+              <th onclick="sortBy('talk')" class="sort-desc">Sum of Pure Talk Time</th>
               <th onclick="sortBy('rate')">Conn. Rate</th>
               <th onclick="sortBy('avg')">Avg Talk / Connected</th>
             </tr></thead>
@@ -583,8 +585,191 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
           <span class="tab-info-close" onclick="this.closest('.tab-info').style.display='none'" title="Dismiss">✕</span>
         </div>
         <div style="padding:20px" id="leaderboardBody">
-          <div class="trend-empty">Process data to see leaderboard</div>
-        </div>
+    <div class="lb-podium-row">
+    <div class="lb-pod gold">
+      <div class="lb-medal">🥇</div>
+      <div class="lb-name">Pushpanjli Mani Singh</div>
+      <div class="lb-rate">18.6%</div>
+      <div class="lb-detail">65 connected / 349 calls</div>
+      <div class="lb-detail">494.53 min talk time</div>
+    </div>
+    <div class="lb-pod silver">
+      <div class="lb-medal">🥈</div>
+      <div class="lb-name">Pramod Kumar</div>
+      <div class="lb-rate">17.5%</div>
+      <div class="lb-detail">66 connected / 377 calls</div>
+      <div class="lb-detail">597.61 min talk time</div>
+    </div>
+    <div class="lb-pod bronze">
+      <div class="lb-medal">🥉</div>
+      <div class="lb-name">Joel Fernandes</div>
+      <div class="lb-rate">13.8%</div>
+      <div class="lb-detail">74 connected / 537 calls</div>
+      <div class="lb-detail">619.22 min talk time</div>
+    </div></div>
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;overflow:hidden">
+      <div class="lb-row" style="background:var(--off)">
+        <span class="lb-num">#</span>
+        <span class="lb-adv" onclick="sortTabBy('leaderboard','advisor')" style="cursor:pointer;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim)">Advisor <span style="color:var(--dim);opacity:0.4">↕</span></span>
+        <span class="lb-col" onclick="sortTabBy('leaderboard','total')" style="cursor:pointer;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim)">Total <span style="color:var(--dim);opacity:0.4">↕</span></span>
+        <span class="lb-col" onclick="sortTabBy('leaderboard','connected')" style="cursor:pointer;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim)">Connected <span style="color:var(--dim);opacity:0.4">↕</span></span>
+        <span class="lb-col" onclick="sortTabBy('leaderboard','talk')" style="cursor:pointer;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim)">Talk <span style="color:var(--dim);opacity:0.4">↕</span></span>
+        <span class="lb-col" onclick="sortTabBy('leaderboard','rate')" style="cursor:pointer;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim)">Rate <span style="color:var(--gold2)">↓</span></span>
+      </div>
+      
+    <div class="lb-row">
+      <span class="lb-num">🥇</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Pushpanjli Mani Singh">Pushpanjli Mani Singh</span>
+      <span class="lb-col">349</span>
+      <span class="lb-col">65</span>
+      <span class="lb-col">494.53</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-m">18.6%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">🥈</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Pramod Kumar">Pramod Kumar</span>
+      <span class="lb-col">377</span>
+      <span class="lb-col">66</span>
+      <span class="lb-col">597.61</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-m">17.5%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">🥉</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Joel Fernandes">Joel Fernandes</span>
+      <span class="lb-col">537</span>
+      <span class="lb-col">74</span>
+      <span class="lb-col">619.22</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-m">13.8%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">4</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Haya Quadri">Haya Quadri</span>
+      <span class="lb-col">421</span>
+      <span class="lb-col">58</span>
+      <span class="lb-col">740.03</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-m">13.8%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">5</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Nandita N">Nandita N</span>
+      <span class="lb-col">460</span>
+      <span class="lb-col">63</span>
+      <span class="lb-col">466.53</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-m">13.7%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">6</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Priya Chaudhary">Priya Chaudhary</span>
+      <span class="lb-col">558</span>
+      <span class="lb-col">73</span>
+      <span class="lb-col">427.33</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-m">13.1%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">7</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Ghanshyam Shankerlal Yadav">Ghanshyam Shankerlal Yadav</span>
+      <span class="lb-col">524</span>
+      <span class="lb-col">68</span>
+      <span class="lb-col">559.89</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-m">13.0%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">8</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Rakshith Gaikwad">Rakshith Gaikwad</span>
+      <span class="lb-col">432</span>
+      <span class="lb-col">51</span>
+      <span class="lb-col">396.68</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-m">11.8%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">9</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Samson Rebello">Samson Rebello</span>
+      <span class="lb-col">462</span>
+      <span class="lb-col">53</span>
+      <span class="lb-col">438.47</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-m">11.5%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">10</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Sadanand Patel">Sadanand Patel</span>
+      <span class="lb-col">363</span>
+      <span class="lb-col">39</span>
+      <span class="lb-col">172.92</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-m">10.7%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">11</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Sonal Braganza">Sonal Braganza</span>
+      <span class="lb-col">671</span>
+      <span class="lb-col">71</span>
+      <span class="lb-col">680.41</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-m">10.6%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">12</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Subhash Madhavan">Subhash Madhavan</span>
+      <span class="lb-col">609</span>
+      <span class="lb-col">57</span>
+      <span class="lb-col">430.07</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-l">9.4%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">13</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Jaydeep Parmar">Jaydeep Parmar</span>
+      <span class="lb-col">507</span>
+      <span class="lb-col">45</span>
+      <span class="lb-col">331.82</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-l">8.9%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">14</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Nandini Nandu Borade">Nandini Nandu Borade</span>
+      <span class="lb-col">554</span>
+      <span class="lb-col">47</span>
+      <span class="lb-col">268.40</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-l">8.5%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">15</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Melroy Mascarenhas">Melroy Mascarenhas</span>
+      <span class="lb-col">576</span>
+      <span class="lb-col">48</span>
+      <span class="lb-col">389.23</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-l">8.3%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">16</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Shubhi Mishra">Shubhi Mishra</span>
+      <span class="lb-col">665</span>
+      <span class="lb-col">43</span>
+      <span class="lb-col">338.39</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-l">6.5%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">17</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Zuber Haque">Zuber Haque</span>
+      <span class="lb-col">548</span>
+      <span class="lb-col">33</span>
+      <span class="lb-col">382.58</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-l">6.0%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">18</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Raunak Narvekar">Raunak Narvekar</span>
+      <span class="lb-col">640</span>
+      <span class="lb-col">34</span>
+      <span class="lb-col">313.51</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-l">5.3%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">19</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Aasheesh Ahluwalia">Aasheesh Ahluwalia</span>
+      <span class="lb-col">816</span>
+      <span class="lb-col">30</span>
+      <span class="lb-col">138.28</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-l">3.7%</span></span>
+    </div>
+    </div></div>
       </div>
 
       <!-- Shift Split Panel -->
@@ -603,9 +788,53 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
           <span class="tab-info-text"><strong>Performance by Time Window</strong>Groups calls into three <b>non-overlapping</b> 8-hour windows. Every call falls into exactly one window. ☀️ 10AM–6PM · 🌆 6PM–2AM · 🌙 2AM–10AM. Together they cover the full 24-hour shift. Use this to identify which time window drives the best connection rates for your team.</span>
           <span class="tab-info-close" onclick="this.closest('.tab-info').style.display='none'" title="Dismiss">✕</span>
         </div>
-        <div style="padding:20px" id="shiftsBody">
-          <div class="trend-empty">Process data to see shift comparison</div>
+        <div style="padding:20px" id="shiftsBody"><div class="shift-3col"><div class="shift-card">
+      <div class="shift-head day">
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="shift-icon">☀️</span>
+          <div><div class="shift-title">10AM – 6PM</div><div class="shift-hours">Hours 10:00 to 17:59</div></div>
         </div>
+      </div>
+      <div class="shift-body">
+        <div class="shift-stat"><span class="shift-stat-l">Total Calls</span><span class="shift-stat-v">1694</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Connected</span><span class="shift-stat-v" style="color:var(--green)">223</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Not Connected</span><span class="shift-stat-v" style="color:var(--red)">1471</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Talk Time</span><span class="shift-stat-v">2436.26 min</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Conn. Rate</span><span class="shift-stat-v" style="color:var(--blue2)">13.2%</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Avg Talk</span><span class="shift-stat-v">10.92 min</span></div>
+      </div>
+    </div><div class="shift-card">
+      <div class="shift-head eve">
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="shift-icon">🌆</span>
+          <div><div class="shift-title">6PM – 2AM</div><div class="shift-hours">Hours 18:00 to 01:59</div></div>
+        </div>
+      </div>
+      <div class="shift-body">
+        <div class="shift-stat"><span class="shift-stat-l">Total Calls</span><span class="shift-stat-v">5526</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Connected</span><span class="shift-stat-v" style="color:var(--green)">566</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Not Connected</span><span class="shift-stat-v" style="color:var(--red)">4960</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Talk Time</span><span class="shift-stat-v">4354.17 min</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Conn. Rate</span><span class="shift-stat-v" style="color:var(--blue2)">10.2%</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Avg Talk</span><span class="shift-stat-v">7.69 min</span></div>
+      </div>
+    </div><div class="shift-card">
+      <div class="shift-head night">
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="shift-icon">🌙</span>
+          <div><div class="shift-title">2AM – 10AM</div><div class="shift-hours">Hours 02:00 to 09:59</div></div>
+        </div>
+      </div>
+      <div class="shift-body">
+        <div class="shift-stat"><span class="shift-stat-l">Total Calls</span><span class="shift-stat-v">2849</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Connected</span><span class="shift-stat-v" style="color:var(--green)">229</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Not Connected</span><span class="shift-stat-v" style="color:var(--red)">2620</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Talk Time</span><span class="shift-stat-v">1395.47 min</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Conn. Rate</span><span class="shift-stat-v" style="color:var(--blue2)">8.0%</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Avg Talk</span><span class="shift-stat-v">6.09 min</span></div>
+      </div>
+    </div></div>
+    <p style="font-size:11px;color:var(--dim);font-family:var(--mono);margin-top:12px">ℹ Three non-overlapping 8-hour windows. Every call falls into exactly one window — totals across all three equal your actual call volume.</p></div>
       </div>
 
       <!-- Trends Panel -->
@@ -628,14 +857,24 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
           <span class="tab-info-close" onclick="this.closest('.tab-info').style.display='none'" title="Dismiss">✕</span>
         </div>
         <div style="padding:20px" id="trendsBody">
-          <div class="trend-empty">Trends accumulate as you process data each day</div>
-        </div>
+    <div class="trend-ctrl">
+      <select id="trendAdvisor" class="trend-adv-select" onchange="drawTrendChart()">
+        <option value="ALL">All Advisors (Team Total)</option>
+        <option value="Aasheesh Ahluwalia">Aasheesh Ahluwalia</option><option value="Ghanshyam Shankerlal Yadav">Ghanshyam Shankerlal Yadav</option><option value="Haya Quadri">Haya Quadri</option><option value="Jaydeep Parmar">Jaydeep Parmar</option><option value="Joel Fernandes">Joel Fernandes</option><option value="Melroy Mascarenhas">Melroy Mascarenhas</option><option value="Nandini Nandu Borade">Nandini Nandu Borade</option><option value="Nandita N">Nandita N</option><option value="Pramod Kumar">Pramod Kumar</option><option value="Priya Chaudhary">Priya Chaudhary</option><option value="Pushpanjli Mani Singh">Pushpanjli Mani Singh</option><option value="Rakshith Gaikwad">Rakshith Gaikwad</option><option value="Raunak Narvekar">Raunak Narvekar</option><option value="Sadanand Patel">Sadanand Patel</option><option value="Samson Rebello">Samson Rebello</option><option value="Shubhi Mishra">Shubhi Mishra</option><option value="Sonal Braganza">Sonal Braganza</option><option value="Subhash Madhavan">Subhash Madhavan</option><option value="Zuber Haque">Zuber Haque</option>
+      </select>
+      <div class="trend-period-btns">
+        <button class="t-btn" onclick="setTrendDays(7,this)">7 Days</button>
+        <button class="t-btn active" onclick="setTrendDays(14,this)">14 Days</button>
+        <button class="t-btn" onclick="setTrendDays(30,this)">30 Days</button>
+      </div>
+    </div>
+    <div class="trend-chart-box"><canvas id="trendCanvas" height="685" style="box-sizing: border-box; display: block; height: 457px; width: 1142px;" width="1713"></canvas></div></div>
       </div>
     </div>
   </div>
 
         <!-- Dial Pattern Panel -->
-      <div class="out-panel" id="panel-dialpattern">
+      <div class="out-panel active" id="panel-dialpattern">
         <div class="out-head" style="background:var(--navy);padding:14px 20px">
           <div class="out-head-title"><span class="dot" style="background:#f59e0b"></span>Hourly Dial Pattern by Advisor
           <div style="display:flex;gap:6px;flex-wrap:wrap">
@@ -651,8 +890,156 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
           <span class="tab-info-close" onclick="this.closest('.tab-info').style.display='none'">✕</span>
         </div>
         <div style="padding:20px" id="dialPatternBody">
-          <div class="trend-empty">Process data to see dial patterns</div>
+    <!-- Controls -->
+    <div style="background:var(--off);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:16px">
+      <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end">
+        <div>
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:5px">Advisor</div>
+          <select id="dialAdvisor" class="trend-adv-select" onchange="renderDialPattern()">
+            <option value="ALL">All Advisors (Team)</option>
+            <option value="Aasheesh Ahluwalia">Aasheesh Ahluwalia</option><option value="Ghanshyam Shankerlal Yadav">Ghanshyam Shankerlal Yadav</option><option value="Haya Quadri">Haya Quadri</option><option value="Jaydeep Parmar">Jaydeep Parmar</option><option value="Joel Fernandes">Joel Fernandes</option><option value="Melroy Mascarenhas">Melroy Mascarenhas</option><option value="Nandini Nandu Borade">Nandini Nandu Borade</option><option value="Nandita N">Nandita N</option><option value="Pramod Kumar">Pramod Kumar</option><option value="Priya Chaudhary">Priya Chaudhary</option><option value="Pushpanjli Mani Singh">Pushpanjli Mani Singh</option><option value="Rakshith Gaikwad">Rakshith Gaikwad</option><option value="Raunak Narvekar">Raunak Narvekar</option><option value="Sadanand Patel">Sadanand Patel</option><option value="Samson Rebello">Samson Rebello</option><option value="Shubhi Mishra">Shubhi Mishra</option><option value="Sonal Braganza">Sonal Braganza</option><option value="Subhash Madhavan">Subhash Madhavan</option><option value="Zuber Haque">Zuber Haque</option>
+          </select>
         </div>
+        <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:10px 14px">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#1e40af;margin-bottom:6px">📅 Period 1 (Blue)</div>
+          <div style="display:flex;align-items:center;gap:6px">
+            <select id="dialFrom1" onchange="renderDialPattern()" style="background:var(--white);border:1.5px solid #3b82f6;color:var(--head);border-radius:6px;padding:5px 8px;font-family:var(--mono);font-size:11px;outline:none"><option value="2026-05-03">03-May-2026</option><option value="2026-05-04">04-May-2026</option><option value="2026-05-05">05-May-2026</option><option value="2026-05-06">06-May-2026</option><option value="2026-05-07">07-May-2026</option><option value="2026-05-08">08-May-2026</option><option value="2026-05-09">09-May-2026</option></select>
+            <span style="font-size:11px;color:#3b82f6;font-weight:700">to</span>
+            <select id="dialTo1" onchange="renderDialPattern()" style="background:var(--white);border:1.5px solid #3b82f6;color:var(--head);border-radius:6px;padding:5px 8px;font-family:var(--mono);font-size:11px;outline:none"><option value="2026-05-03">03-May-2026</option><option value="2026-05-04">04-May-2026</option><option value="2026-05-05">05-May-2026</option><option value="2026-05-06">06-May-2026</option><option value="2026-05-07">07-May-2026</option><option value="2026-05-08">08-May-2026</option><option value="2026-05-09">09-May-2026</option></select>
+          </div>
+        </div>
+        <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px 14px">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#166534;margin-bottom:6px">📅 Period 2 (Green) — optional</div>
+          <div style="display:flex;align-items:center;gap:6px">
+            <select id="dialFrom2" onchange="renderDialPattern()" style="background:var(--white);border:1.5px solid #10b981;color:var(--head);border-radius:6px;padding:5px 8px;font-family:var(--mono);font-size:11px;outline:none">
+              <option value="">— None —</option><option value="2026-05-03">03-May-2026</option><option value="2026-05-04">04-May-2026</option><option value="2026-05-05">05-May-2026</option><option value="2026-05-06">06-May-2026</option><option value="2026-05-07">07-May-2026</option><option value="2026-05-08">08-May-2026</option><option value="2026-05-09">09-May-2026</option>
+            </select>
+            <span style="font-size:11px;color:#10b981;font-weight:700">to</span>
+            <select id="dialTo2" onchange="renderDialPattern()" style="background:var(--white);border:1.5px solid #10b981;color:var(--head);border-radius:6px;padding:5px 8px;font-family:var(--mono);font-size:11px;outline:none">
+              <option value="">— None —</option><option value="2026-05-03">03-May-2026</option><option value="2026-05-04">04-May-2026</option><option value="2026-05-05">05-May-2026</option><option value="2026-05-06">06-May-2026</option><option value="2026-05-07">07-May-2026</option><option value="2026-05-08">08-May-2026</option><option value="2026-05-09">09-May-2026</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart 1: Hourly Bar + Rate Line -->
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:10px">📊 Chart 1 — Hourly Call Volume &amp; Connection Rate</div>
+      <div style="font-size:11px;color:var(--dim);margin-bottom:10px;font-family:var(--mono)">Bars = Total Calls (solid = Connected) · Dashed line = Connect Rate %</div>
+      <canvas id="dialCanvas" height="750" style="display: block; box-sizing: border-box; height: 500px; width: 1154px;" width="1731"></canvas>
+    </div>
+
+    <!-- Chart 2: Time Window Breakdown (layman-friendly) -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:10px">📊 Chart 2 — Where Are Calls Being Made?</div>
+        <div style="font-size:11px;color:var(--dim);margin-bottom:10px;font-family:var(--mono)">Call distribution across 3 time windows</div>
+        <canvas id="dialDonutCanvas" height="829" width="829" style="display: block; box-sizing: border-box; height: 553px; width: 553px;"></canvas>
+      </div>
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:10px">🌡️ Chart 3 — Hour-by-Hour Heat Score</div>
+        <div style="font-size:11px;color:var(--dim);margin-bottom:10px;font-family:var(--mono)">Green = high connect rate · Red = low rate · Grey = no calls</div>
+        <div id="dialHeatGrid" style="display:flex;flex-wrap:wrap;gap:4px;align-items:center"><div title="12AM: 63/616 = 10.2%" style="width:38px;height:38px;border-radius:6px;background:#fde68a;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
+        <span style="font-size:9px;font-weight:700;color:#92400e">12a</span>
+        <span style="font-size:9px;color:#92400e">10%</span>
+      </div><div title="1AM: 47/652 = 7.2%" style="width:38px;height:38px;border-radius:6px;background:#fca5a5;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
+        <span style="font-size:9px;font-weight:700;color:#991b1b">1a</span>
+        <span style="font-size:9px;color:#991b1b">7%</span>
+      </div><div title="2AM: 81/888 = 9.1%" style="width:38px;height:38px;border-radius:6px;background:#fca5a5;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
+        <span style="font-size:9px;font-weight:700;color:#991b1b">2a</span>
+        <span style="font-size:9px;color:#991b1b">9%</span>
+      </div><div title="3AM: 68/904 = 7.5%" style="width:38px;height:38px;border-radius:6px;background:#fca5a5;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
+        <span style="font-size:9px;font-weight:700;color:#991b1b">3a</span>
+        <span style="font-size:9px;color:#991b1b">8%</span>
+      </div><div title="4AM: 37/503 = 7.4%" style="width:38px;height:38px;border-radius:6px;background:#fca5a5;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
+        <span style="font-size:9px;font-weight:700;color:#991b1b">4a</span>
+        <span style="font-size:9px;color:#991b1b">7%</span>
+      </div><div title="5AM: 19/291 = 6.5%" style="width:38px;height:38px;border-radius:6px;background:#fca5a5;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
+        <span style="font-size:9px;font-weight:700;color:#991b1b">5a</span>
+        <span style="font-size:9px;color:#991b1b">7%</span>
+      </div><div title="6AM: 17/151 = 11.3%" style="width:38px;height:38px;border-radius:6px;background:#fde68a;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
+        <span style="font-size:9px;font-weight:700;color:#92400e">6a</span>
+        <span style="font-size:9px;color:#92400e">11%</span>
+      </div><div title="7AM: 4/89 = 4.5%" style="width:38px;height:38px;border-radius:6px;background:#fca5a5;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
+        <span style="font-size:9px;font-weight:700;color:#991b1b">7a</span>
+        <span style="font-size:9px;color:#991b1b">4%</span>
+      </div><div title="8AM: 3/23 = 13.0%" style="width:38px;height:38px;border-radius:6px;background:#fde68a;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
+        <span style="font-size:9px;font-weight:700;color:#92400e">8a</span>
+        <span style="font-size:9px;color:#92400e">13%</span>
+      </div><div title="9AM: No calls" style="width:38px;height:38px;border-radius:6px;background:#e2e8f0;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
+        <span style="font-size:9px;font-weight:700;color:#94a3b8">9a</span>
+        <span style="font-size:9px;color:#94a3b8"></span>
+      </div><div title="10AM: 1/4 = 25.0%" style="width:38px;height:38px;border-radius:6px;background:#86efac;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
+        <span style="font-size:9px;font-weight:700;color:#166534">10a</span>
+        <span style="font-size:9px;color:#166534">25%</span>
+      </div><div title="11AM: 8/24 = 33.3%" style="width:38px;height:38px;border-radius:6px;background:#4ade80;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
+        <span style="font-size:9px;font-weight:700;color:#14532d">11a</span>
+        <span style="font-size:9px;color:#14532d">33%</span>
+      </div><div title="12PM: 19/143 = 13.3%" style="width:38px;height:38px;border-radius:6px;background:#fde68a;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
+        <span style="font-size:9px;font-weight:700;color:#92400e">12p</span>
+        <span style="font-size:9px;color:#92400e">13%</span>
+      </div><div title="1PM: 40/282 = 14.2%" style="width:38px;height:38px;border-radius:6px;background:#fde68a;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
+        <span style="font-size:9px;font-weight:700;color:#92400e">1p</span>
+        <span style="font-size:9px;color:#92400e">14%</span>
+      </div><div title="2PM: 46/345 = 13.3%" style="width:38px;height:38px;border-radius:6px;background:#fde68a;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
+        <span style="font-size:9px;font-weight:700;color:#92400e">2p</span>
+        <span style="font-size:9px;color:#92400e">13%</span>
+      </div><div title="3PM: 35/270 = 13.0%" style="width:38px;height:38px;border-radius:6px;background:#fde68a;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
+        <span style="font-size:9px;font-weight:700;color:#92400e">3p</span>
+        <span style="font-size:9px;color:#92400e">13%</span>
+      </div><div title="4PM: 31/295 = 10.5%" style="width:38px;height:38px;border-radius:6px;background:#fde68a;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
+        <span style="font-size:9px;font-weight:700;color:#92400e">4p</span>
+        <span style="font-size:9px;color:#92400e">11%</span>
+      </div><div title="5PM: 43/331 = 13.0%" style="width:38px;height:38px;border-radius:6px;background:#fde68a;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
+        <span style="font-size:9px;font-weight:700;color:#92400e">5p</span>
+        <span style="font-size:9px;color:#92400e">13%</span>
+      </div><div title="6PM: 62/503 = 12.3%" style="width:38px;height:38px;border-radius:6px;background:#fde68a;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
+        <span style="font-size:9px;font-weight:700;color:#92400e">6p</span>
+        <span style="font-size:9px;color:#92400e">12%</span>
+      </div><div title="7PM: 104/869 = 12.0%" style="width:38px;height:38px;border-radius:6px;background:#fde68a;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
+        <span style="font-size:9px;font-weight:700;color:#92400e">7p</span>
+        <span style="font-size:9px;color:#92400e">12%</span>
+      </div><div title="8PM: 110/932 = 11.8%" style="width:38px;height:38px;border-radius:6px;background:#fde68a;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
+        <span style="font-size:9px;font-weight:700;color:#92400e">8p</span>
+        <span style="font-size:9px;color:#92400e">12%</span>
+      </div><div title="9PM: 83/766 = 10.8%" style="width:38px;height:38px;border-radius:6px;background:#fde68a;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
+        <span style="font-size:9px;font-weight:700;color:#92400e">9p</span>
+        <span style="font-size:9px;color:#92400e">11%</span>
+      </div><div title="10PM: 50/515 = 9.7%" style="width:38px;height:38px;border-radius:6px;background:#fca5a5;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
+        <span style="font-size:9px;font-weight:700;color:#991b1b">10p</span>
+        <span style="font-size:9px;color:#991b1b">10%</span>
+      </div><div title="11PM: 47/673 = 7.0%" style="width:38px;height:38px;border-radius:6px;background:#fca5a5;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
+        <span style="font-size:9px;font-weight:700;color:#991b1b">11p</span>
+        <span style="font-size:9px;color:#991b1b">7%</span>
+      </div></div>
+      </div>
+    </div>
+
+    <!-- Summary Cards -->
+    <div id="dialSummaryRow" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px">
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.05)">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:6px">Peak Calling Hour</div>
+      <div style="font-size:18px;font-weight:800;color:#2563eb;font-family:var(--mono);line-height:1.2">8PM</div>
+      <div style="font-size:11px;color:var(--dim);margin-top:3px;font-family:var(--mono)">932 calls</div>
+    </div>
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.05)">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:6px">Best Connect Hour</div>
+      <div style="font-size:18px;font-weight:800;color:#059669;font-family:var(--mono);line-height:1.2">11AM</div>
+      <div style="font-size:11px;color:var(--dim);margin-top:3px;font-family:var(--mono)">33.3% (≥3 conn)</div>
+    </div>
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.05)">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:6px">Total Calls</div>
+      <div style="font-size:18px;font-weight:800;color:#0f172a;font-family:var(--mono);line-height:1.2">10,069</div>
+      <div style="font-size:11px;color:var(--dim);margin-top:3px;font-family:var(--mono)">across all hours</div>
+    </div>
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.05)">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:6px">Overall Rate</div>
+      <div style="font-size:18px;font-weight:800;color:#f59e0b;font-family:var(--mono);line-height:1.2">10.1%</div>
+      <div style="font-size:11px;color:var(--dim);margin-top:3px;font-family:var(--mono)">1018 connected</div>
+    </div></div>
+    <!-- Insights -->
+    <div id="dialInsights"><div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:16px;margin-bottom:12px"><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#0369a1;margin-bottom:10px">📊 Pattern Insights</div><div style="font-size:12px;color:#1e293b;margin-bottom:7px;line-height:1.6">✅ <b>High-performing hours:</b> 11AM — connection rate above 15%</div><div style="font-size:12px;color:#1e293b;margin-bottom:7px;line-height:1.6">📊 <b>Mismatch:</b> Most calls at 8PM (932) but best rate at 11AM (33.3%)</div><div style="font-size:12px;color:#1e293b;margin-bottom:7px;line-height:1.6">📊 <b>Strongest time window:</b> ☀️ 10AM–6PM — 223 connected from 1694 calls (13.2% rate)</div></div><div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:16px"><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#166534;margin-bottom:10px">💡 Recommendations</div><div style="font-size:12px;color:#1e293b;margin-bottom:7px;line-height:1.6"><b>1.</b> Shift more volume to 11AM — best connect hour but not highest volume.</div></div></div></div>
       </div>
 
       <!-- Heatmap Panel -->
@@ -671,7 +1058,23 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
           <span class="tab-info-text"><strong>Hour × Advisor Connection Rate Heatmap</strong>Each cell shows the connection rate (%) for one advisor at one hour of the day. <b>Green = high rate, Red = low/zero rate, Grey = no calls.</b> Hover any cell for exact numbers. Use this to identify the best calling hours for each advisor.</span>
           <span class="tab-info-close" onclick="this.closest('.tab-info').style.display='none'" title="Dismiss">✕</span>
         </div>
-        <div style="padding:20px" id="heatmapBody"><div class="trend-empty">Process data to see heatmap</div></div>
+        <div style="padding:20px" id="heatmapBody">
+    <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center"><span style="font-size:11px;color:var(--dim);font-family:var(--mono)">Sort rows:</span><button onclick="sortHeatmap('name')" class="exec-btn" style="padding:4px 10px;font-size:11px">A→Z</button><button onclick="sortHeatmap('rate')" class="exec-btn" style="padding:4px 10px;font-size:11px">Best Rate First</button></div>
+    <div class="heatmap-wrap" style="cursor: grab;">
+      <table class="heatmap-table">
+        <thead><tr><th style="min-width:180px;border-right:2px solid var(--border)"></th><th class="hm-hour-head">12 AM</th><th class="hm-hour-head">01 AM</th><th class="hm-hour-head">02 AM</th><th class="hm-hour-head">03 AM</th><th class="hm-hour-head">04 AM</th><th class="hm-hour-head">05 AM</th><th class="hm-hour-head">06 AM</th><th class="hm-hour-head">07 AM</th><th class="hm-hour-head">08 AM</th><th class="hm-hour-head">10 AM</th><th class="hm-hour-head">11 AM</th><th class="hm-hour-head">12 PM</th><th class="hm-hour-head">01 PM</th><th class="hm-hour-head">02 PM</th><th class="hm-hour-head">03 PM</th><th class="hm-hour-head">04 PM</th><th class="hm-hour-head">05 PM</th><th class="hm-hour-head">06 PM</th><th class="hm-hour-head">07 PM</th><th class="hm-hour-head">08 PM</th><th class="hm-hour-head">09 PM</th><th class="hm-hour-head">10 PM</th><th class="hm-hour-head">11 PM</th></tr></thead>
+        <tbody><tr><td class="hm-advisor">Aasheesh Ahluwalia</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Aasheesh Ahluwalia @ 12:00 AM: 1/67 (1%)">1%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Aasheesh Ahluwalia @ 01:00 AM: 2/44 (5%)">5%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Aasheesh Ahluwalia @ 02:00 AM: 1/43 (2%)">2%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Aasheesh Ahluwalia @ 03:00 AM: 0/2 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Aasheesh Ahluwalia @ 06:00 AM: 0/1 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Aasheesh Ahluwalia @ 05:00 PM: 0/3 (0%)">0%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Aasheesh Ahluwalia @ 06:00 PM: 5/83 (6%)">6%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Aasheesh Ahluwalia @ 07:00 PM: 6/135 (4%)">4%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Aasheesh Ahluwalia @ 08:00 PM: 1/131 (1%)">1%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Aasheesh Ahluwalia @ 09:00 PM: 8/105 (8%)">8%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Aasheesh Ahluwalia @ 10:00 PM: 3/93 (3%)">3%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Aasheesh Ahluwalia @ 11:00 PM: 3/109 (3%)">3%</td></tr><tr><td class="hm-advisor">Ghanshyam Shankerlal Yadav</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Ghanshyam Shankerlal Yadav @ 12:00 PM: 2/13 (15%)">15%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Ghanshyam Shankerlal Yadav @ 01:00 PM: 6/45 (13%)">13%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Ghanshyam Shankerlal Yadav @ 02:00 PM: 8/42 (19%)">19%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Ghanshyam Shankerlal Yadav @ 03:00 PM: 5/41 (12%)">12%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Ghanshyam Shankerlal Yadav @ 04:00 PM: 6/41 (15%)">15%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Ghanshyam Shankerlal Yadav @ 05:00 PM: 4/41 (10%)">10%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Ghanshyam Shankerlal Yadav @ 06:00 PM: 7/35 (20%)">20%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Ghanshyam Shankerlal Yadav @ 07:00 PM: 10/77 (13%)">13%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Ghanshyam Shankerlal Yadav @ 08:00 PM: 11/67 (16%)">16%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Ghanshyam Shankerlal Yadav @ 09:00 PM: 6/103 (6%)">6%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Ghanshyam Shankerlal Yadav @ 10:00 PM: 3/19 (16%)">16%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td></tr><tr><td class="hm-advisor">Haya Quadri</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Haya Quadri @ 12:00 AM: 0/1 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Haya Quadri @ 10:00 AM: 1/4 (25%)">25%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Haya Quadri @ 11:00 AM: 3/13 (23%)">23%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Haya Quadri @ 12:00 PM: 7/32 (22%)">22%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Haya Quadri @ 01:00 PM: 4/53 (8%)">8%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Haya Quadri @ 02:00 PM: 10/55 (18%)">18%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Haya Quadri @ 03:00 PM: 6/33 (18%)">18%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Haya Quadri @ 04:00 PM: 2/40 (5%)">5%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Haya Quadri @ 05:00 PM: 6/47 (13%)">13%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Haya Quadri @ 06:00 PM: 6/29 (21%)">21%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Haya Quadri @ 07:00 PM: 6/41 (15%)">15%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Haya Quadri @ 08:00 PM: 3/35 (9%)">9%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Haya Quadri @ 09:00 PM: 4/38 (11%)">11%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td></tr><tr><td class="hm-advisor">Jaydeep Parmar</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Jaydeep Parmar @ 12:00 AM: 5/41 (12%)">12%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Jaydeep Parmar @ 01:00 AM: 1/35 (3%)">3%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Jaydeep Parmar @ 02:00 AM: 4/65 (6%)">6%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Jaydeep Parmar @ 03:00 AM: 6/61 (10%)">10%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Jaydeep Parmar @ 04:00 AM: 6/71 (8%)">8%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Jaydeep Parmar @ 05:00 AM: 5/81 (6%)">6%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Jaydeep Parmar @ 06:00 AM: 9/53 (17%)">17%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Jaydeep Parmar @ 07:00 AM: 2/13 (15%)">15%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Jaydeep Parmar @ 08:00 AM: 0/10 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Jaydeep Parmar @ 08:00 PM: 0/1 (0%)">0%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Jaydeep Parmar @ 09:00 PM: 1/8 (13%)">13%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Jaydeep Parmar @ 10:00 PM: 4/39 (10%)">10%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Jaydeep Parmar @ 11:00 PM: 2/29 (7%)">7%</td></tr><tr><td class="hm-advisor">Joel Fernandes</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Joel Fernandes @ 11:00 AM: 1/5 (20%)">20%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Joel Fernandes @ 12:00 PM: 5/48 (10%)">10%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Joel Fernandes @ 01:00 PM: 11/53 (21%)">21%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Joel Fernandes @ 02:00 PM: 12/80 (15%)">15%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Joel Fernandes @ 03:00 PM: 6/59 (10%)">10%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Joel Fernandes @ 04:00 PM: 6/49 (12%)">12%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Joel Fernandes @ 05:00 PM: 6/64 (9%)">9%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Joel Fernandes @ 06:00 PM: 5/44 (11%)">11%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Joel Fernandes @ 07:00 PM: 10/54 (19%)">19%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Joel Fernandes @ 08:00 PM: 12/78 (15%)">15%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Joel Fernandes @ 09:00 PM: 0/3 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td></tr><tr><td class="hm-advisor">Melroy Mascarenhas</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Melroy Mascarenhas @ 12:00 AM: 8/69 (12%)">12%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Melroy Mascarenhas @ 01:00 AM: 4/62 (6%)">6%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Melroy Mascarenhas @ 02:00 AM: 6/92 (7%)">7%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Melroy Mascarenhas @ 03:00 AM: 7/93 (8%)">8%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Melroy Mascarenhas @ 04:00 AM: 3/42 (7%)">7%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Melroy Mascarenhas @ 06:00 PM: 2/19 (11%)">11%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Melroy Mascarenhas @ 07:00 PM: 3/35 (9%)">9%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Melroy Mascarenhas @ 08:00 PM: 5/39 (13%)">13%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Melroy Mascarenhas @ 09:00 PM: 3/27 (11%)">11%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Melroy Mascarenhas @ 10:00 PM: 4/39 (10%)">10%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Melroy Mascarenhas @ 11:00 PM: 3/59 (5%)">5%</td></tr><tr><td class="hm-advisor">Nandini Nandu Borade</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Nandini Nandu Borade @ 12:00 AM: 4/52 (8%)">8%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Nandini Nandu Borade @ 01:00 AM: 2/21 (10%)">10%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Nandini Nandu Borade @ 02:00 AM: 7/49 (14%)">14%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Nandini Nandu Borade @ 03:00 AM: 5/63 (8%)">8%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Nandini Nandu Borade @ 04:00 AM: 4/54 (7%)">7%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Nandini Nandu Borade @ 05:00 AM: 2/56 (4%)">4%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Nandini Nandu Borade @ 06:00 AM: 8/86 (9%)">9%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Nandini Nandu Borade @ 07:00 AM: 2/75 (3%)">3%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Nandini Nandu Borade @ 08:00 AM: 3/12 (25%)">25%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Nandini Nandu Borade @ 11:00 AM: 0/1 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#86efac;color:#14532d" title="Nandini Nandu Borade @ 08:00 PM: 2/5 (40%)">40%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Nandini Nandu Borade @ 09:00 PM: 2/17 (12%)">12%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Nandini Nandu Borade @ 10:00 PM: 3/32 (9%)">9%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Nandini Nandu Borade @ 11:00 PM: 3/31 (10%)">10%</td></tr><tr><td class="hm-advisor">Nandita N</td><td class="hm-cell" style="background:#d9f99d;color:#14532d" title="Nandita N @ 12:00 AM: 10/29 (34%)">34%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Nandita N @ 01:00 AM: 2/41 (5%)">5%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Nandita N @ 02:00 AM: 5/74 (7%)">7%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Nandita N @ 03:00 AM: 8/67 (12%)">12%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Nandita N @ 04:00 AM: 11/46 (24%)">24%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Nandita N @ 05:00 AM: 7/27 (26%)">26%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Nandita N @ 06:00 PM: 1/7 (14%)">14%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Nandita N @ 07:00 PM: 1/47 (2%)">2%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Nandita N @ 08:00 PM: 5/40 (13%)">13%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Nandita N @ 09:00 PM: 7/25 (28%)">28%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Nandita N @ 10:00 PM: 4/20 (20%)">20%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Nandita N @ 11:00 PM: 2/37 (5%)">5%</td></tr><tr><td class="hm-advisor">Pramod Kumar</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#4ade80;color:#14532d" title="Pramod Kumar @ 11:00 AM: 3/4 (75%)">75%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Pramod Kumar @ 12:00 PM: 2/16 (13%)">13%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Pramod Kumar @ 01:00 PM: 3/38 (8%)">8%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Pramod Kumar @ 02:00 PM: 5/61 (8%)">8%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Pramod Kumar @ 03:00 PM: 6/46 (13%)">13%</td><td class="hm-cell" style="background:#d9f99d;color:#14532d" title="Pramod Kumar @ 04:00 PM: 7/20 (35%)">35%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Pramod Kumar @ 05:00 PM: 9/40 (23%)">23%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Pramod Kumar @ 06:00 PM: 7/34 (21%)">21%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Pramod Kumar @ 07:00 PM: 9/42 (21%)">21%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Pramod Kumar @ 08:00 PM: 8/38 (21%)">21%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Pramod Kumar @ 09:00 PM: 7/38 (18%)">18%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td></tr><tr><td class="hm-advisor">Priya Chaudhary</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Priya Chaudhary @ 12:00 AM: 7/51 (14%)">14%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Priya Chaudhary @ 01:00 AM: 11/57 (19%)">19%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Priya Chaudhary @ 02:00 AM: 13/111 (12%)">12%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Priya Chaudhary @ 03:00 AM: 6/84 (7%)">7%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Priya Chaudhary @ 05:00 AM: 0/1 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#86efac;color:#14532d" title="Priya Chaudhary @ 06:00 PM: 2/5 (40%)">40%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Priya Chaudhary @ 07:00 PM: 7/54 (13%)">13%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Priya Chaudhary @ 08:00 PM: 8/45 (18%)">18%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Priya Chaudhary @ 09:00 PM: 5/47 (11%)">11%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Priya Chaudhary @ 10:00 PM: 3/27 (11%)">11%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Priya Chaudhary @ 11:00 PM: 11/76 (14%)">14%</td></tr><tr><td class="hm-advisor">Pushpanjli Mani Singh</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Pushpanjli Mani Singh @ 07:00 AM: 0/1 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#4ade80;color:#14532d" title="Pushpanjli Mani Singh @ 11:00 AM: 1/1 (100%)">100%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Pushpanjli Mani Singh @ 12:00 PM: 1/12 (8%)">8%</td><td class="hm-cell" style="background:#d9f99d;color:#14532d" title="Pushpanjli Mani Singh @ 01:00 PM: 10/28 (36%)">36%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Pushpanjli Mani Singh @ 02:00 PM: 3/33 (9%)">9%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Pushpanjli Mani Singh @ 03:00 PM: 3/20 (15%)">15%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Pushpanjli Mani Singh @ 04:00 PM: 2/45 (4%)">4%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Pushpanjli Mani Singh @ 05:00 PM: 8/37 (22%)">22%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Pushpanjli Mani Singh @ 06:00 PM: 5/33 (15%)">15%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Pushpanjli Mani Singh @ 07:00 PM: 10/52 (19%)">19%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Pushpanjli Mani Singh @ 08:00 PM: 14/72 (19%)">19%</td><td class="hm-cell" style="background:#4ade80;color:#14532d" title="Pushpanjli Mani Singh @ 09:00 PM: 8/15 (53%)">53%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td></tr><tr><td class="hm-advisor">Rakshith Gaikwad</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Rakshith Gaikwad @ 12:00 AM: 5/37 (14%)">14%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Rakshith Gaikwad @ 01:00 AM: 4/38 (11%)">11%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Rakshith Gaikwad @ 02:00 AM: 8/54 (15%)">15%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Rakshith Gaikwad @ 03:00 AM: 12/61 (20%)">20%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Rakshith Gaikwad @ 04:00 AM: 0/8 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Rakshith Gaikwad @ 06:00 AM: 0/1 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Rakshith Gaikwad @ 06:00 PM: 3/21 (14%)">14%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Rakshith Gaikwad @ 07:00 PM: 3/48 (6%)">6%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Rakshith Gaikwad @ 08:00 PM: 3/24 (13%)">13%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Rakshith Gaikwad @ 09:00 PM: 3/51 (6%)">6%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Rakshith Gaikwad @ 10:00 PM: 3/30 (10%)">10%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Rakshith Gaikwad @ 11:00 PM: 7/59 (12%)">12%</td></tr><tr><td class="hm-advisor">Raunak Narvekar</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Raunak Narvekar @ 12:00 AM: 4/46 (9%)">9%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Raunak Narvekar @ 01:00 AM: 1/63 (2%)">2%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Raunak Narvekar @ 02:00 AM: 5/51 (10%)">10%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Raunak Narvekar @ 03:00 AM: 5/119 (4%)">4%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Raunak Narvekar @ 04:00 AM: 5/69 (7%)">7%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Raunak Narvekar @ 05:00 AM: 2/56 (4%)">4%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Raunak Narvekar @ 06:00 PM: 0/9 (0%)">0%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Raunak Narvekar @ 07:00 PM: 2/29 (7%)">7%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Raunak Narvekar @ 08:00 PM: 4/41 (10%)">10%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Raunak Narvekar @ 09:00 PM: 2/60 (3%)">3%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Raunak Narvekar @ 10:00 PM: 3/44 (7%)">7%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Raunak Narvekar @ 11:00 PM: 1/53 (2%)">2%</td></tr><tr><td class="hm-advisor">Sadanand Patel</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Sadanand Patel @ 12:00 AM: 6/57 (11%)">11%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Sadanand Patel @ 01:00 AM: 4/38 (11%)">11%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Sadanand Patel @ 02:00 AM: 6/55 (11%)">11%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Sadanand Patel @ 03:00 AM: 3/23 (13%)">13%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Sadanand Patel @ 06:00 PM: 2/12 (17%)">17%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Sadanand Patel @ 07:00 PM: 4/32 (13%)">13%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Sadanand Patel @ 08:00 PM: 4/39 (10%)">10%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Sadanand Patel @ 09:00 PM: 1/24 (4%)">4%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Sadanand Patel @ 10:00 PM: 5/39 (13%)">13%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Sadanand Patel @ 11:00 PM: 4/44 (9%)">9%</td></tr><tr><td class="hm-advisor">Samson Rebello</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Samson Rebello @ 12:00 AM: 7/46 (15%)">15%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Samson Rebello @ 01:00 AM: 5/63 (8%)">8%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Samson Rebello @ 02:00 AM: 4/71 (6%)">6%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Samson Rebello @ 03:00 AM: 3/68 (4%)">4%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Samson Rebello @ 04:00 AM: 0/1 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Samson Rebello @ 05:00 PM: 1/4 (25%)">25%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Samson Rebello @ 06:00 PM: 5/18 (28%)">28%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Samson Rebello @ 07:00 PM: 8/32 (25%)">25%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Samson Rebello @ 08:00 PM: 4/40 (10%)">10%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Samson Rebello @ 09:00 PM: 5/34 (15%)">15%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Samson Rebello @ 10:00 PM: 5/30 (17%)">17%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Samson Rebello @ 11:00 PM: 6/55 (11%)">11%</td></tr><tr><td class="hm-advisor">Shubhi Mishra</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Shubhi Mishra @ 12:00 AM: 1/43 (2%)">2%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Shubhi Mishra @ 01:00 AM: 2/85 (2%)">2%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Shubhi Mishra @ 02:00 AM: 8/73 (11%)">11%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Shubhi Mishra @ 03:00 AM: 4/119 (3%)">3%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Shubhi Mishra @ 04:00 AM: 3/52 (6%)">6%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Shubhi Mishra @ 05:00 PM: 0/1 (0%)">0%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Shubhi Mishra @ 06:00 PM: 3/40 (8%)">8%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Shubhi Mishra @ 07:00 PM: 6/54 (11%)">11%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Shubhi Mishra @ 08:00 PM: 5/53 (9%)">9%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Shubhi Mishra @ 09:00 PM: 8/60 (13%)">13%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Shubhi Mishra @ 10:00 PM: 2/42 (5%)">5%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Shubhi Mishra @ 11:00 PM: 1/43 (2%)">2%</td></tr><tr><td class="hm-advisor">Sonal Braganza</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Sonal Braganza @ 01:00 AM: 0/1 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Sonal Braganza @ 12:00 PM: 2/22 (9%)">9%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Sonal Braganza @ 01:00 PM: 6/65 (9%)">9%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Sonal Braganza @ 02:00 PM: 8/74 (11%)">11%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Sonal Braganza @ 03:00 PM: 9/71 (13%)">13%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Sonal Braganza @ 04:00 PM: 8/100 (8%)">8%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Sonal Braganza @ 05:00 PM: 9/94 (10%)">10%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Sonal Braganza @ 06:00 PM: 5/73 (7%)">7%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Sonal Braganza @ 07:00 PM: 9/65 (14%)">14%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Sonal Braganza @ 08:00 PM: 10/88 (11%)">11%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Sonal Braganza @ 09:00 PM: 5/18 (28%)">28%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td></tr><tr><td class="hm-advisor">Subhash Madhavan</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Subhash Madhavan @ 12:00 AM: 3/46 (7%)">7%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Subhash Madhavan @ 01:00 AM: 4/65 (6%)">6%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Subhash Madhavan @ 02:00 AM: 9/54 (17%)">17%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Subhash Madhavan @ 03:00 AM: 8/88 (9%)">9%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Subhash Madhavan @ 04:00 AM: 3/74 (4%)">4%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Subhash Madhavan @ 05:00 AM: 0/12 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Subhash Madhavan @ 06:00 PM: 3/20 (15%)">15%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Subhash Madhavan @ 07:00 PM: 8/41 (20%)">20%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Subhash Madhavan @ 08:00 PM: 7/52 (13%)">13%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Subhash Madhavan @ 09:00 PM: 6/68 (9%)">9%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Subhash Madhavan @ 10:00 PM: 4/42 (10%)">10%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Subhash Madhavan @ 11:00 PM: 2/47 (4%)">4%</td></tr><tr><td class="hm-advisor">Zuber Haque</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Zuber Haque @ 12:00 AM: 2/31 (6%)">6%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Zuber Haque @ 01:00 AM: 5/39 (13%)">13%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Zuber Haque @ 02:00 AM: 5/96 (5%)">5%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Zuber Haque @ 03:00 AM: 1/56 (2%)">2%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Zuber Haque @ 04:00 AM: 2/86 (2%)">2%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Zuber Haque @ 05:00 AM: 3/58 (5%)">5%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Zuber Haque @ 06:00 AM: 0/10 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Zuber Haque @ 08:00 AM: 0/1 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Zuber Haque @ 06:00 PM: 1/21 (5%)">5%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Zuber Haque @ 07:00 PM: 2/31 (6%)">6%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Zuber Haque @ 08:00 PM: 4/44 (9%)">9%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Zuber Haque @ 09:00 PM: 2/25 (8%)">8%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Zuber Haque @ 10:00 PM: 4/19 (21%)">21%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Zuber Haque @ 11:00 PM: 2/31 (6%)">6%</td></tr></tbody>
+      </table>
+    </div>
+    <div class="hm-scroll-hint">← Scroll horizontally or drag to see all hours →</div>
+    <div class="hm-legend">
+      <span>Low</span>
+      <div class="hm-legend-bar">
+        <div style="flex:1;background:#fee2e2"></div><div style="flex:1;background:#fecaca"></div><div style="flex:1;background:#fed7aa"></div><div style="flex:1;background:#fde68a"></div><div style="flex:1;background:#d9f99d"></div><div style="flex:1;background:#86efac"></div><div style="flex:1;background:#4ade80"></div>
+      </div>
+      <span>High</span>
+      <span style="margin-left:12px;color:var(--dim)">· Hover cells for details · % = connection rate</span>
+    </div></div>
       </div>
       <!-- Week-on-Week Panel -->
       <div class="out-panel" id="panel-wow">
@@ -700,11 +1103,207 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
 📌 <b>Right now empty?</b> Upload at least 2 different days and the comparison will populate automatically.</span>
           <span class="tab-info-close" onclick="this.closest('.tab-info').style.display='none'" title="Dismiss">✕</span>
         </div>
-        <div style="padding:20px" id="wowBody"><div class="trend-empty">Accumulates as you process multiple days of data</div></div>
+        <div style="padding:20px" id="wowBody">
+    <div style="display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap">
+      <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:10px 16px;flex:1;min-width:200px">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#1e40af;margin-bottom:4px">📅 Current Period</div>
+        <div style="font-size:13px;font-weight:600;color:var(--head)">03-May-2026, 04-May-2026, 05-May-2026, 06-May-2026, 07-May-2026, 08-May-2026, 09-May-2026</div>
+      </div>
+      <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px 16px;flex:1;min-width:200px">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#166534;margin-bottom:4px">📅 Compared Against</div>
+        <div style="font-size:13px;font-weight:600;color:var(--head)">2026-04-27, 2026-04-28, 2026-04-29, 2026-04-30, 2026-05-01</div>
+      </div>
+      <div style="background:var(--off);border:1px solid var(--border);border-radius:8px;padding:10px 16px;flex:0 0 auto">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:4px">Legend</div>
+        <div style="font-size:12px;font-family:var(--mono)"><span style="color:var(--green);font-weight:700">↑ Better</span> &nbsp; <span style="color:var(--red);font-weight:700">↓ Worse</span> &nbsp; <span style="color:var(--dim)">→ Same</span></div>
+      </div>
+    </div>
+    <table class="wow-table">
+      <thead><tr>
+        <th onclick="sortTabBy('wow','adv')" style="cursor:pointer;white-space:nowrap">Advisor <span style="color:var(--dim);opacity:0.4">↕</span></th> <th onclick="sortTabBy('wow','total')" style="cursor:pointer;white-space:nowrap">Total (Now) <span style="color:var(--dim);opacity:0.4">↕</span></th> <th>Total (Prev)</th> <th>Change</th>
+        <th onclick="sortTabBy('wow','connected')" style="cursor:pointer;white-space:nowrap">Connected (Now) <span style="color:var(--gold2)">↑</span></th> <th>Change</th>
+        <th onclick="sortTabBy('wow','rate')" style="cursor:pointer;white-space:nowrap">Rate (Now) <span style="color:var(--dim);opacity:0.4">↕</span></th> <th>Change</th>
+      </tr></thead>
+      <tbody><tr>
+    <td style="font-weight:600;color:var(--head)">Pushpanjli Mani Singh</td>
+    <td style="font-family:var(--mono);text-align:center">349</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">522</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -33.1%</span></td>
+    <td style="font-family:var(--mono);text-align:center">65</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 44.4%</span></td>
+    <td style="font-family:var(--mono);text-align:center">18.6%</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 116.0%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Sadanand Patel</td>
+    <td style="font-family:var(--mono);text-align:center">363</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">524</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -30.7%</span></td>
+    <td style="font-family:var(--mono);text-align:center">39</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -49.4%</span></td>
+    <td style="font-family:var(--mono);text-align:center">10.7%</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -26.9%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Pramod Kumar</td>
+    <td style="font-family:var(--mono);text-align:center">377</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">494</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -23.7%</span></td>
+    <td style="font-family:var(--mono);text-align:center">66</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -4.3%</span></td>
+    <td style="font-family:var(--mono);text-align:center">17.5%</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 25.3%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Haya Quadri</td>
+    <td style="font-family:var(--mono);text-align:center">425</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">496</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -14.3%</span></td>
+    <td style="font-family:var(--mono);text-align:center">59</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 37.2%</span></td>
+    <td style="font-family:var(--mono);text-align:center">13.9%</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 60.1%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Rakshith Gaikwad</td>
+    <td style="font-family:var(--mono);text-align:center">432</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">335</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 29.0%</span></td>
+    <td style="font-family:var(--mono);text-align:center">51</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 37.8%</span></td>
+    <td style="font-family:var(--mono);text-align:center">11.8%</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 6.9%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Nandita N</td>
+    <td style="font-family:var(--mono);text-align:center">460</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">378</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 21.7%</span></td>
+    <td style="font-family:var(--mono);text-align:center">63</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 28.6%</span></td>
+    <td style="font-family:var(--mono);text-align:center">13.7%</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 5.7%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Samson Rebello</td>
+    <td style="font-family:var(--mono);text-align:center">462</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">465</td>
+    <td style="text-align:center"><span class="wow-badge flat">→ -0.6%</span></td>
+    <td style="font-family:var(--mono);text-align:center">53</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 20.5%</span></td>
+    <td style="font-family:var(--mono);text-align:center">11.5%</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 21.2%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Jaydeep Parmar</td>
+    <td style="font-family:var(--mono);text-align:center">507</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">354</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 43.2%</span></td>
+    <td style="font-family:var(--mono);text-align:center">45</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 87.5%</span></td>
+    <td style="font-family:var(--mono);text-align:center">8.9%</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 30.9%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Ghanshyam Shankerlal Yadav</td>
+    <td style="font-family:var(--mono);text-align:center">524</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">402</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 30.3%</span></td>
+    <td style="font-family:var(--mono);text-align:center">68</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 36.0%</span></td>
+    <td style="font-family:var(--mono);text-align:center">13.0%</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 4.3%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Joel Fernandes</td>
+    <td style="font-family:var(--mono);text-align:center">537</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">469</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 14.5%</span></td>
+    <td style="font-family:var(--mono);text-align:center">74</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 54.2%</span></td>
+    <td style="font-family:var(--mono);text-align:center">13.8%</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 34.6%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Zuber Haque</td>
+    <td style="font-family:var(--mono);text-align:center">548</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">492</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 11.4%</span></td>
+    <td style="font-family:var(--mono);text-align:center">33</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 65.0%</span></td>
+    <td style="font-family:var(--mono);text-align:center">6.0%</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 48.1%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Nandini Nandu Borade</td>
+    <td style="font-family:var(--mono);text-align:center">554</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">231</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 139.8%</span></td>
+    <td style="font-family:var(--mono);text-align:center">47</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 34.3%</span></td>
+    <td style="font-family:var(--mono);text-align:center">8.5%</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -44.0%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Priya Chaudhary</td>
+    <td style="font-family:var(--mono);text-align:center">558</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">482</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 15.8%</span></td>
+    <td style="font-family:var(--mono);text-align:center">73</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 58.7%</span></td>
+    <td style="font-family:var(--mono);text-align:center">13.1%</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 37.1%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Melroy Mascarenhas</td>
+    <td style="font-family:var(--mono);text-align:center">576</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">397</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 45.1%</span></td>
+    <td style="font-family:var(--mono);text-align:center">48</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 14.3%</span></td>
+    <td style="font-family:var(--mono);text-align:center">8.3%</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -21.2%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Subhash Madhavan</td>
+    <td style="font-family:var(--mono);text-align:center">609</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">400</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 52.3%</span></td>
+    <td style="font-family:var(--mono);text-align:center">57</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 67.6%</span></td>
+    <td style="font-family:var(--mono);text-align:center">9.4%</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 10.1%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Raunak Narvekar</td>
+    <td style="font-family:var(--mono);text-align:center">640</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">329</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 94.5%</span></td>
+    <td style="font-family:var(--mono);text-align:center">34</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 36.0%</span></td>
+    <td style="font-family:var(--mono);text-align:center">5.3%</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -30.1%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Shubhi Mishra</td>
+    <td style="font-family:var(--mono);text-align:center">665</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">503</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 32.2%</span></td>
+    <td style="font-family:var(--mono);text-align:center">43</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 22.9%</span></td>
+    <td style="font-family:var(--mono);text-align:center">6.5%</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -7.1%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Sonal Braganza</td>
+    <td style="font-family:var(--mono);text-align:center">671</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">366</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 83.3%</span></td>
+    <td style="font-family:var(--mono);text-align:center">71</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 115.2%</span></td>
+    <td style="font-family:var(--mono);text-align:center">10.6%</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 17.4%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Aasheesh Ahluwalia</td>
+    <td style="font-family:var(--mono);text-align:center">816</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">284</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 187.3%</span></td>
+    <td style="font-family:var(--mono);text-align:center">30</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 76.5%</span></td>
+    <td style="font-family:var(--mono);text-align:center">3.7%</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -38.6%</span></td>
+  </tr></tbody>
+    </table></div>
       </div>
 <!-- PDF Export Button (below output) -->
-  <div id="pdfBtnWrap" style="display:none;margin-top:12px;text-align:right">
-    <button class="btn btn-pdf" onclick="exportPDF()">📄 Export PDF</button>
+  <div id="pdfBtnWrap" style="display: none; margin-top: 12px; flex-flow: wrap; gap: 10px; justify-content: flex-end;">
+    <button class="btn btn-pdf" onclick="exportPDF()">📄 Current Tab PDF</button>
+    <button onclick="exportFullReport()" id="fullReportBtn" style="background:linear-gradient(135deg,#1F3864,#1B4FD8);color:#fff;border:none;border-radius:8px;
+             padding:10px 20px;font-family:var(--sans);font-size:13px;font-weight:700;cursor:pointer;
+             box-shadow:0 2px 12px rgba(27,79,216,0.35);display:flex;align-items:center;gap:8px;transition:all .2s">📋 Export Full Report PDF</button>
   </div>
 
   <!-- Advisor Drilldown Modal -->
@@ -718,7 +1317,7 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
     </div>
   </div>
 
-  <div id="rawSection" class="raw-section" style="display:none;margin-top:20px">
+  <div id="rawSection" class="raw-section" style="display: none; margin-top: 20px;">
     <div class="out-head" style="background:var(--navy2)">
       <div class="out-head-title" style="font-size:12px"><span class="dot" style="background:var(--sky)"></span>Processed Raw Data</div>
       <button class="btn btn-ghost" onclick="toggleRaw()" id="rawToggle" style="color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.15)">Show ▼</button>
@@ -731,9 +1330,12 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
     </div>
   </div>
 </div>
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast" style="border-color: var(--gold2);">✓ Trends exported!</div>
 
 <script>
+// Embedded PDF Guide (base64)
+const _PDF_B64='JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUiAvRjMgNSAwIFIgL0Y0IDcgMCBSIC9GNSAxMCAwIFIKPj4KZW5kb2JqCjIgMCBvYmoKPDwKL0Jhc2VGb250IC9IZWx2ZXRpY2EgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YxIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKMyAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYS1Cb2xkIC9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nIC9OYW1lIC9GMiAvU3VidHlwZSAvVHlwZTEgL1R5cGUgL0ZvbnQKPj4KZW5kb2JqCjQgMCBvYmoKPDwKL0NvbnRlbnRzIDE4IDAgUiAvTWVkaWFCb3ggWyAwIDAgNTk1LjI3NTYgODQxLjg4OTggXSAvUGFyZW50IDE3IDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iago1IDAgb2JqCjw8Ci9CYXNlRm9udCAvWmFwZkRpbmdiYXRzIC9OYW1lIC9GMyAvU3VidHlwZSAvVHlwZTEgL1R5cGUgL0ZvbnQKPj4KZW5kb2JqCjYgMCBvYmoKPDwKL0NvbnRlbnRzIDE5IDAgUiAvTWVkaWFCb3ggWyAwIDAgNTk1LjI3NTYgODQxLjg4OTggXSAvUGFyZW50IDE3IDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iago3IDAgb2JqCjw8Ci9CYXNlRm9udCAvSGVsdmV0aWNhLU9ibGlxdWUgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0Y0IC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKOCAwIG9iago8PAovQ29udGVudHMgMjAgMCBSIC9NZWRpYUJveCBbIDAgMCA1OTUuMjc1NiA4NDEuODg5OCBdIC9QYXJlbnQgMTcgMCBSIC9SZXNvdXJjZXMgPDwKL0ZvbnQgMSAwIFIgL1Byb2NTZXQgWyAvUERGIC9UZXh0IC9JbWFnZUIgL0ltYWdlQyAvSW1hZ2VJIF0KPj4gL1JvdGF0ZSAwIC9UcmFucyA8PAoKPj4gCiAgL1R5cGUgL1BhZ2UKPj4KZW5kb2JqCjkgMCBvYmoKPDwKL0NvbnRlbnRzIDIxIDAgUiAvTWVkaWFCb3ggWyAwIDAgNTk1LjI3NTYgODQxLjg4OTggXSAvUGFyZW50IDE3IDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iagoxMCAwIG9iago8PAovQmFzZUZvbnQgL0NvdXJpZXIgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0Y1IC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKMTEgMCBvYmoKPDwKL0NvbnRlbnRzIDIyIDAgUiAvTWVkaWFCb3ggWyAwIDAgNTk1LjI3NTYgODQxLjg4OTggXSAvUGFyZW50IDE3IDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iagoxMiAwIG9iago8PAovQ29udGVudHMgMjMgMCBSIC9NZWRpYUJveCBbIDAgMCA1OTUuMjc1NiA4NDEuODg5OCBdIC9QYXJlbnQgMTcgMCBSIC9SZXNvdXJjZXMgPDwKL0ZvbnQgMSAwIFIgL1Byb2NTZXQgWyAvUERGIC9UZXh0IC9JbWFnZUIgL0ltYWdlQyAvSW1hZ2VJIF0KPj4gL1JvdGF0ZSAwIC9UcmFucyA8PAoKPj4gCiAgL1R5cGUgL1BhZ2UKPj4KZW5kb2JqCjEzIDAgb2JqCjw8Ci9Db250ZW50cyAyNCAwIFIgL01lZGlhQm94IFsgMCAwIDU5NS4yNzU2IDg0MS44ODk4IF0gL1BhcmVudCAxNyAwIFIgL1Jlc291cmNlcyA8PAovRm9udCAxIDAgUiAvUHJvY1NldCBbIC9QREYgL1RleHQgL0ltYWdlQiAvSW1hZ2VDIC9JbWFnZUkgXQo+PiAvUm90YXRlIDAgL1RyYW5zIDw8Cgo+PiAKICAvVHlwZSAvUGFnZQo+PgplbmRvYmoKMTQgMCBvYmoKPDwKL0NvbnRlbnRzIDI1IDAgUiAvTWVkaWFCb3ggWyAwIDAgNTk1LjI3NTYgODQxLjg4OTggXSAvUGFyZW50IDE3IDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iagoxNSAwIG9iago8PAovUGFnZU1vZGUgL1VzZU5vbmUgL1BhZ2VzIDE3IDAgUiAvVHlwZSAvQ2F0YWxvZwo+PgplbmRvYmoKMTYgMCBvYmoKPDwKL0F1dGhvciAoXChhbm9ueW1vdXNcKSkgL0NyZWF0aW9uRGF0ZSAoRDoyMDI2MDUwOTExMDYyNSswMCcwMCcpIC9DcmVhdG9yIChcKHVuc3BlY2lmaWVkXCkpIC9LZXl3b3JkcyAoKSAvTW9kRGF0ZSAoRDoyMDI2MDUwOTExMDYyNSswMCcwMCcpIC9Qcm9kdWNlciAoUmVwb3J0TGFiIFBERiBMaWJyYXJ5IC0gXChvcGVuc291cmNlXCkpIAogIC9TdWJqZWN0IChcKHVuc3BlY2lmaWVkXCkpIC9UaXRsZSAoXChhbm9ueW1vdXNcKSkgL1RyYXBwZWQgL0ZhbHNlCj4+CmVuZG9iagoxNyAwIG9iago8PAovQ291bnQgOCAvS2lkcyBbIDQgMCBSIDYgMCBSIDggMCBSIDkgMCBSIDExIDAgUiAxMiAwIFIgMTMgMCBSIDE0IDAgUiBdIC9UeXBlIC9QYWdlcwo+PgplbmRvYmoKMTggMCBvYmoKPDwKL0ZpbHRlciBbIC9BU0NJSTg1RGVjb2RlIC9GbGF0ZURlY29kZSBdIC9MZW5ndGggMTY3Ngo+PgpzdHJlYW0KR2F0bTw5MmprPyZBSWBkcU5RJC9NVE5NJEYlVlJTK2UpWUMhS2dXLWRGcEAjQG5ScmRdMVouUUkhWUZOT11FPFAkV0VNXmwsVkJkRmkvYWhMWlJFTy9cbDlncixUcjFFVVsmRixhJSM3S1hsVSlHWFJNQGU5RjVAVHQkQl9mQWYxKDhGREteOm11KEAvSF91LjpmN1JcKl5eRXFyIUpTdTxwdScpWWFkLUU2bjJuIjd0T1xTKSxOU3RlSz9ORltBP1ZcQVlqW1tJKS0qWyheIzZxWmhKSUg9dGRjQT42YyxCTE48UmhENCVFMj5tX1tKLzUuNk1eLmxNO18+YVQ5NCIkLkVXbUdRKSFZbllzSy8/UVxnJnFtbEQ/LydJLTg6R2s6dCUvWDtmRU5TQ01DOkZVb0dCJlFVVm9fTTVPMi1AYlk9aV1pJWxEOHJbcyVMYnM2RkJjdHBTZ2FGOj1CaHQnZGojdCc7OFppdGZPNmBQQkJxITRgRStMa2UtRWdvXj5ET0c3YFFeYFUxMFBTI2AjK00jIWIuKEwnciJnJC8pMy9SaStibnM8WTRBMWlSbmlVcnF0Z3NrMylAJSYsdHJqTCFYaCsuMGxwViknSWJnX1tEK0RHNVVeLWY5TFpVU1UtXilhLDx1O2NSW1BsPTAiPSZpLWhoNGxvJS1GLWFhN2RgWj5mI0JxK1RzMVcrL2VAN3FcJUZrVW8oVjZib0QsLmciKUMhbzs3UVZESyoxSkdka2M/PlNdbi5VMUFpXks2M0UjcSt1a11BKkVSJjNqOzFyOUQwN1VSTy1sImkpIzwqK3BOSlRIZ0VBLVMoZWlNZSEjRk0zITQidCM8QGtocG5WVUlOczZJYjZHO1ljOG4/WzVsQnRpcz9wM1hUTmtOTWc1LSckKnQxSz1iVEVhL15VN1BKYWRIQjROMS8nXTYjKEw2JD0+Lkk6Lm82QD10NU46TUNTXkNSaSMySFoxJiJdckdkWC86Jlc4RSh0Q1sxRVs8Mj9xST1ZNyckXy48Z1ReaGA9JVdmLyUlSzVGbCNVdCdvQmZtVTYtRzJhX11MV0QsbylXQ0c9KFAkKldldVQ2cXBYRS0+MDxAaSYuOWdoSzd0MUokWyxvQ1ZVYmVORCRGZ3FWS2xDS1lBJkE+Pzk0UEAwIUBXYjU7WktwK11pKy5QSClbXzBPTVkpO3Unal43V0ZSb2ZGLWxVaEUhYkxgVzRKIkYyIVd1QThxcEoqVWMwWCh1NnFwMDhELzBQQmJWdGQ6QXBvPThraTstc11PS0lRQTRNLy4yWTs0YktHTyVcO0U0MVZQMWU9M0VpSHNFMUI/cCNYUVBaanI/K2VGKSdONUREa0o3aD8tKkgya0JNVCVgNHVpYEVgODw1Iz8xbidcTG5XQVZXajpHPTA0OTFdXmVJUnNtO3B1QVZAP21qajExUE5ZKSo+bzs8bDIyRC1iKVg4ZUlBIU1oIlMsVHJxXCFZaF5dSUgrOnNuTyhjZG0jOFtlQWMxI3VJYk4zX1MrRF1NRz8rbDRjWEspX1lJYzkvbTdyZ2tALV4kVW4pb1AqaTMjWmM3bShNIzBWYjVNS082dGVcPmpcNXBoM0I5ciMhODIoM2BqNFtXOm9fKUE2Tyw7ODNAaVRMYCgyZzZxazZKTTBSYWxFbGEnWmdnNHFyXShGOkcxV2sjIVY3N111VGZENmNWc0o4O2tPODlqSzY8JmknKV89XEdrOjcqO1JdNSJEKCJwTz1JXkY8KUFXdSJZTk1IL1RsOTVpLUElVkc2WXNIRitvRmsuJUMtZzdga2A6OiYkaGtsbmljJSowXTNWVHFnLG83U0hzLWdOZCYwO14oVG5oQkdpLjIoLj8+XDY4RU1qYjh0Z0VwYykkLVVIT2FHSmVCW1RbKUs6ZG5FdUQ3PF1XOFJoSnNUUzojQ1xMM0xNJkkzMDQ8ci9oYCwjRCZoYnJdXEgucXAlI0pVQ2EsN3MzNl8lJm5DbDk3cSksciZFWEFYUE9SODUjIm8oalJoQidFLWpuUmgtMz1XXUsqOGU2LipsVG1jJTZERi5tNT48cWxWNFVEX1c8YygnRF0wRFshPVtZQE5xPmUzNmxHSUYwOV1QYFA2QHRzJHQjOE5JZUw+I08jbiJnciVlYWExN19kP2EvYigwdD1wRGkrJzFbaTpQY3VpKTwoWzhbViImVmkhMTxbMmxoUnJFc0ptVV0xP0xbZ0Fsfj5lbmRzdHJlYW0KZW5kb2JqCjE5IDAgb2JqCjw8Ci9GaWx0ZXIgWyAvQVNDSUk4NURlY29kZSAvRmxhdGVEZWNvZGUgXSAvTGVuZ3RoIDI3OTcKPj4Kc3RyZWFtCkdiITtlRC9cL2cnKW5KMDBkIik1UmsnQUIlPCs6TypOLEFxWkxQclcnYUdGJChsUGkxZD5MWj44SWFJOV5FTjhaM0tbNWZcUl9sUVJiNlZdUy9GTTxqcm0xMF5gVFMrY090YjgiOEx1QiFdOy1nIjE8cGdfKVtJLFVUWzFAKVJlZ3M1YV5NV0wnPk4lPmY2OCQvcmlpNipUSGprOlZlaCxAYkhiTFE6SGVwcSZZcEEidDxzWm8rPkVGOFNvOWpfIiVwU2FnUSIqOTkjVUIyOE1eY1NDYXFrYE1eKjZZRjMzIUh0JDZNIz0vRik/cCkpUG5cdDpnL0BfOFFIbz50UihuW0MrPzNOIyRTcl4mI0xWYChQaC9HTHQ/YnNlS1pdam9UJkd1XkpjWTxzTHFNc05cKF8zbEg/XFJVMGJbcUMmWj5AQm9NbTcsJCM9aDJuTTJHLnM0XEJpblVGX3MrVGgoKXRhNjoodV9EaSxfLmI2Vk1WMWshWzUvLDwyNCwzXSw7XkwjRCVNNVBVIl9xS1IlIVRhRyQiIXJsPjtRMjYhMnQ2KEIiXG5dNl5WQVAjYjJvZm05ODFEQSsxSz0pMVo8bkVYMkI5YmNbWVtndWFiPClPUCs9YkpsJj9qWVVZJzVAa0FaVFxFQGFXRCQ6NGVzWV8+J0wiKm8hRHM/RyZxOidmKEI4RydDX2JRb2VfZUNSWVJOcHVuTCtFQiIyZiFiXkAiJiNDa1tgTDBPZFlSSzNtQDlbP1hmQzlZWjVoXy8sTVNYSTAhQkpLYUJIIWpuOkRUWlhWWCNiR2pwMTdsZko9aG9qNlpaWEtNOU5MbDNjb2krI0xEdVo7azxdWXJHVjI+QExvakFgYyNPKTheOl9SdCRvJ0soVE9LTSUqJGk6UyY1YTtRJCk/YiJsOWxONEc9RSJgRSZJL3E6T0hDKmo+ZlZCT2w8TFZpK15SRDR0RT9ZallzR3BRJnQzOV9VRm9MbUVvQyJlZipnZmVLSURbZENRTSZUUlYvUGxBbSlBMzVnRis3SGprM2ZpbWg9ZCRuVWdDNWxHTjRCZldtOUI1ZSpuU0Y5UiJnQD0oTjwrWF9CPEd0JzVeV2Y2bF1fWlJZYmQnWl4vJUY7M1xYQjs5Jik8UTlVZik1YT82IU1GXE9eY0NdPGcvW0RZJjFCLTxJJW0sZSZGOjxfS1g0QXNQdDdxXEFGRlpKbzcpPUhxPCMpZ2IiQ2ElWDk/ZlNoRFFKck9iZXUuNlMmJWNeXCJET1knXzY4XWtDS0dVcUdIKzFNI0EmNGpUQz04YzFdVC1vJEQyWyRBQjYkVF5XZjFFcSdZaVRgVWNFaFRiT2c3SGQkJmVQZydfSEZcKCNCP2dkT0JqZ29cTmkvVmVyaTcuLk9naGgzbWVySUA1Z3VsXjM+cGZyRlJtKj5NKlhcbCpIUVQtLkJPOEpyJ2g+Y0QiIkRZUG4mJydxKEM9SUFpS0ZoXksuSiVBXlxwM1hoTUVeXSc0Lldrb1JbS1NIRWhjdWRVYD9Pb046YS5cPHQ/UithSzRWKGwhNjNTazgiOz9EdFw8ODNYWFNZIUg9XjFrWk1PTTovJ0FAOGM8YkMpXFQ5WSZwOVAsZjsxTDE2S3MpVDVAbyElZUd0P2pEJ1pSWU4xSFFSIjZbOTRCaVUvIWU0MCNOMl1EPyxmM09sJCUwblZEJT42SCpfMzJbOV1bUEYmNkBhVy05Yytka1MtXlc+W2VJVVBRTFFpJSNkaG9pJGVfWGhaMiFdcFc8Mj8rIXJBNXJATDYlTSxIblM5Ql1pLyZePWpQQj1OWHAzUjZTSS5bSEczIU9GYlNoMCwnW2hzcF9Sa1VFOk5BTEpUTUQsY2RnWCxrblxoXDtNaS8hOD81KG9GbWRCSyRiaU8sXUg2Ykc4WEBJNm5jVitLWSw3TWMkTiZJXUtCYGltVllYRGZsMDpFTExgbVZFNy9tSERuRjMtbDpXbDtnXDtRLFgnXCdZREJNaj9ZZlBQLDBrP0AnRVU4Tz9EViVUTjwrWFZkLjNnXUFcZls5IjIpQkNqZFBbQ0ZxNGwpRjUyc3VVMzxeVT5MUHA/aStBYmEqajBnK2I5RkNgNGNwNzs7VWJwLlEyTitGOVRMbU5aKCxdW2UkTlNaQU1eJ0FAOV5vZlVsSD9oamomKzQ0JEExTF0+NkAhWzpPcSRIRjF1R0AoNSpXYlthYzlGP1NnOTgkb0I3QiZjPDFObyZraVVhWDA4NStxOG1bYVsnaGlOUXQhP2FqNGNaUlBuTTtCSTojUGZKVjZnWiZFPigua1RiX2U9bmw4OCYjPS9xYmhmRCNyT01LTipiZkVtUzoyLWc4VVJrYmoncipobWInQGVZZz4jYlRuOmgmK29sU2M+Pk9CWUdJSUhQOkUiKiddO15yaUpTPlU2N0hqQG9cTXIkNDFvJUhtdUkmSTtXaEYhYSJDSSlVIS4sWlJmRTEuPmxyRltCLlo7Xy5HIiVkV0xlTi5AK20vU10/LSpMUVAhKC5sOWJSNHEpS3BSXGg7LFY6KCdyS1UhNSgqODxGQCNcQyhqRCgmPSY/OCVpZig1UERZbGUiRUlUPF9QVkdBZTYsITpdWVJXRGVNPE0zO210Y2AhJmNtLihaKCpsQ1A1NWNFaS5MYzBabmFAMiU5LzBSMzxAXGhET2EwM09WZmJmUUhBJVJITTZIMSslTGZqPW9lPzphLyZ0dT0lJ05jZD8mWVtdZyxMZTZTYEgoST8kY0ZhTC8zYzhNPXReLUhoTGxsIWVJalRdN1wsQXVJcmhFT1pSSCMvVWQzajxvOVEtQEFtSCpSOGpGSmNlXkdIaSteYTZGTzh1XWNMMSxIMEZcSUhnZmg0MSRwKDUlKjFkb1d0JmFaaFQlSjA8XS1oRkR0M1xBWjQ/Ij1AQ15tN1wsRUIiM2NxRkJVQnFyTnBwVDdtQSQzQSgmITxRVl8qVW1hYFdAWSpiJVgtTVRVaUFPT2U8PHFoZFtqJSNXYUozaGgkTnN1czAqbiotWlhiJ21kR1M+ZWdbYFlMRjNqXVVIZldyKVIzJCsibnNTS0lLV1ovVkZLRm9KZjB1IUVJO0tiN0EmNjJfP0AuNSEhVmsxP1JnckFxLWZZV3ElSlwzRm5Zc2FgTWwjUmRsN090cm4hcWAsIWxNT1pQSm91Mz0lSjxJZVNrdDcsbkc1TDVIQE0vMyxQZ1xIWSc8ZF1kI0VRNDg8JkxyPiU2JWhDXlhlZlhRWHFUJT0/Rz9dLztHWUpkNDVDY2pWPl4/UlEqZ2JzblttUUNOOUM6KmtdUEwjUWs/PzwpIXJhQ1pILVdcY0A0PVg+YSRKQTFIRlNrcD1vc0Q8a3I2TV9HPDhnJEVlKV1UXlhWJ0ZGRF9dXWVxU1UmRS9ebmhcIjRgPk1DR0RqVyw+RG83JTVIVkVGayk3U1NyYCtTPyNFQVwtKURQbFMuP0YqUHFTVFtmQlsjQWInLG5YTipgWEhyVjFdYV1tMlFrJUFCQS8iJmNnJVRaNDZGXyFqWmZSWF44MVhaZHE/VjtiXFs9Qi5kLkVjbkQ+KzpZQD4wbGU0bk8mZkJqcm5tanVxJDNNTmY7WWRpVyQrPiZXMmZAJztKXlVpY1Q9YD5gMCUiVGpXQFs8XT0jMlw7ZjlzN01xPl0hVk1BSGkyZzQkT21UIjxhI287TG45dEMnVjg1NUgxJnR1IScuMy86JklJJ2VTfj5lbmRzdHJlYW0KZW5kb2JqCjIwIDAgb2JqCjw8Ci9GaWx0ZXIgWyAvQVNDSUk4NURlY29kZSAvRmxhdGVEZWNvZGUgXSAvTGVuZ3RoIDIyOTAKPj4Kc3RyZWFtCkdiIi8oRCxdMVkmSDl0WWZJcmQ9U2JUX0RsKl1DZzBGOGEqYCJwZ0YtPTtGS2BYOSQ0OGh1JnBJc2RtO1MpbiNZOFNCS0ZfMTZyWFgxZDgjcFwqOSUkZlpEZm8pRWV0b1pGKUY2VUFSM0luJTpjLU1iXD1ub3QpZ0A9aF5kQ0NsXWJGMUZsZDInJFJbUFszXSZBRCwzIyRyO3UuRC5adFs2YClCJGxadDAkYmJAZVltLG9COTRbVzxdNiw8K1AxZy1bWj8hOVRVWFsqRy0wcz1ZU01JJy9gWUZXSUs0X0MuYzlFJ05kclIoK2Y3T091JE9hZlA8SD5kMiMpQkJsak5kXVYnKnEsXkMmLGpzczFONU1xTlRwLTNkRD4jTXEmZF1YPWpPbyhjZlU1cUYvM0FsZys6ajtRTWVaUGRwZ2BcVi1LTV9CV0snXVhISi9BPSw+OydyQTlwMlRoOjFqTHA7ITxVIVoyPDs2ZTouLW4vLF1UX2dpUT5vV1dHO1psP08kWGlbbyxtWFNhRStgWWVCPkxEZ2ZwVWU+IWhhaFUyQiNYVjJOdFJYK0UwNEFmIlNINjxXRTA9MixaPWVtYjNEKiZKTEp0Zyw3PEsrUCktKzViZ1o0UVRFYCMkPTNxNmQ9dTVFLlsmPT1PTVJ1RDZGPi1XQzpjOzhGXyRoMGx1R1xcOFo4ci0jYS1sNi91YjNnRXAuVUYvNjwjTl8qdShoSk4hKClySSxPbE1fY09PKkFsPUtWU2NmTmglLGpXKDNqNiUhQTw1X01hJnEkWkB0cU5NKk5URDQtVV1PaDUhSSU7bUJWc1M9YztbYSspbVxZMGVtcylwVXFaUidpcGxIWjQlK0g2X1pzUkguQ3FXajlpaFI7NGxcISxGc1VYa2dIYyklRkxMLXI3MF0tJWVxNj9EazRhWXRfUmonJGg5LzVtMk83akdMcXBYc0FjaVpPSSRBQk4zOGpUaFgrNShrYEM9JTtGOVYyR3FhXmEkQj9LQFRSSzI0JjkhZ2dKY2whJGExZTNgYjEnXC9WJVlLbUNlP245PD1ATDdSbU1oQC5OSVBbbjFLPCtFPm5jMiVdaV03UWxfXkoqb3VUUzgnKz0nLk4oK2paSXVxKzw9NDAzNmttWjFlZVQ/L1FDQUVALWljLkJWRi5iLXF1KXQkOlIva1tRRmBGLmF0cjInZUgrLFcxbyRvbE82Kz4oJWtnN0g6J3RhKE1RYUIkZUIqZjluckJmOC0yP1E6R21EXCR0bCZFXkQrdWwzMT0uU1gqRCRDQldfRS0pbFpAN0JHP0NQLmBlSy5SL1c0WzstYD1pTWQmZipLam4iRVxeSy5mTlk4anAjLWYvRikqWjluPD5PSyNCU0tZKGEnajpYY3FSS2BPWk5iVUUoYFdzUDQxWTdicFMkYG9fVExVS1NTTk5PJS5VUiFpQV9aPyM2IUhcVlc8QS5Ua2FIY1ZKJGMsYCdFdD1BY0hQRVZWUUQlbTxQOGtpMzspV2NWcmNqInEkX3FYbltzcUQva1cqPzgqYEwqam1sIXI0WlRXXCZKb01TQlw4bCROPlMjPFVrQFMiO1NrMktFNSJQOXRpNWVwUSRkaTgmanJkRVU5YCpKcUNDUW42aylGVmFBJ1U9RXBFVCdRbFk8PVJgcWw5OU5LZEEiKFw3cmBHTkA3c1xSODdsZGtAI01GQ1ksQkV1QjMpdGhiXEJOOj5IXFF0OCZLdSxwc25WSkkuM2NZI19wTj0uPzEyb2ZPKitEPU9ZKUc4P1BiaFtlOEtiO3VZYEpfMy5qTjJhOGRHRGxsblNgYzhtZjNEK2hfJDYwNkNxUDVfRGtHTj0wUVVgYltLPiEwbzomW0lST0c7LnQ7M0clRC9lTVE3XDpRVjVNSWlzOTRwZGg6V3IjLSVsLTIjYiYtZVlFRFZHQT1la0xZKU9KdE5HMGlTM3U4cUU8KjssYlxrWEM0MVE9ZzksNi9DR2BSTC1sbENHV0RIXVQrcW9fKllsUVtJXXRBKFJFQjZAai9FTUU/J2RHXTw+PlZJJjY1WWhiNWQ0Z1xrJ2cnNz9DMVRBU0k2W3EpMU07Y2c4PDgpbyR1cC9KJXVKTS1iNTJwZltZMGlEcD0/RD5ZTF5PXzAxRHBIWyNmMmIvV2U6IVNjW3FXJVVUYWRHXkQlKE5KIkFrP3BpQThtRC8qIWFaYF42XDxeYW0/SmI2LTw6YzF1RVFDQD42XSVMNGY9Pmc+TycsRzUrMy9NU1VyUkJeJ0VwaDEoLVA6JXVENUJOJzopNlIqN0QwKWMjRCU4UjMlZmE1QEw0VT5yX15OYD1gJSNnbkooZ1gwRjYocEJmMSFsWlllX3VaWlFoMDU4JFYkbGthNCxKSDxPPyxpIkxRQ2NoY3BjKzckJi81Qm9ZalswQDBEUihiO0U0JyRRWVEobGlQJ0FUQFA1RXFqaC84SmIjb1xpOTNkME5GSyFGViU9Py5MMHI4LSg4NF5KL0hOPGIsOTpxWSUjJ1o2VCdqRDwoZ0Y1azwjS3RxVE4xWitJWltnTW51T1phOVdlOGZKXyhbLDBFQk9LYFQqP2UjZnNSOk01Oy0qV0ElMEQ8ODRURCo/XCYvXmRJLidXaiRfZ0lDTFBbZWdFQzI1Uyw/Z1wsc1hlZURtI0kyM1RLXWQudDcyY2NaOl1DZT5WWFptbD80bTVcRjpKSjc2SkhpMGcubUY8NnBtMDJkb3FZP1ktL2w6I11EOU9jNm4/TGtmREhjRkRpSkZrVUk8S0QjSSEtUk1YWUFIPmdtLCwjVXFEclE+cCpsJVhnP3FqImZKMUFoMjsnYkgtU0NKXXQmR2dNXVl0YzdRNkhEcHFfMFwnJD1uV1o2XGxEaUU1UVU9JD04ZDInTG5KdGAxWC5HJzlsal5rTzdmYjxNPmo7S3QhXi9aWixvc1kxMiRNJmUtWkNCOFtoTV48OyZaVl9WKWw5XEspNEEncidNOioubjtoWlNLYiJ1JlVoOUlWcWglSSFSQyVhal40SnRSWyxGOjw8KWNJT3JyQ1FvXy5pfj5lbmRzdHJlYW0KZW5kb2JqCjIxIDAgb2JqCjw8Ci9GaWx0ZXIgWyAvQVNDSUk4NURlY29kZSAvRmxhdGVEZWNvZGUgXSAvTGVuZ3RoIDE5OTEKPj4Kc3RyZWFtCkdiIi8naGMmOSEmOldmR2ZMST0uTEpCby9hcFxkalFwPTwlQSZQMjFuMDFMMTxbc1hbOF1EcCdJRDp0VmZhXGtJLUJoIzdsaUM4I110TjA9cFwqPlYtTmReXnMsU3EwUU4/SW9FVC87Sz0yWTdVJ1YqVCpmUWs2TFw3J2BVOF4mcjtjT2UjV2k+VC4jYFYjNjhnTDYrXHFPQltjQERbMW0mZnRcV2tCZ19wUmdNX2djWmJjPFMoci9uIWw/bWhhVkhkVkJhc2FALUZvNVdccGg3PlQoNyZTaCNhYkIxRWVsQUpyRyNsRTpCPE5ZRDsvJWk4VTlqZF9zIVo0Pz5NQiNCVlhaNGgqSGwiRD9jVl5yPytnOVdwJ0QlWXJAWUdYb1NrXWByUCthKUYyL0EoZGBfYzE0UU9bUVpFPWZaXlhUQVphMlFDb2Q/bz1DbEtsNGpJaTwlV1pdV2ApOVQsUXQjNlU5PmFGPThNcjBjNnJnTmhHXk5CMkZXN2QkVj9QUE8ybyhyMVtfUFUmQCg3Llsoa3BTKWA3YlE6Ji0wbGtOayc3Y2xTLUw6OWEmYXJecmZgZWtRREdeTC45PC9BcEJAI2c7TE1nR1lYMSg1bk5AdG1HaycwZjtOaHBZaUo3b1F0QC8jaDYraDZRQFRJWWJtYEd0XCdUOzQsaGc+Qk9tIVl1U14iNGddVjZPPVBdWVQ6RWtuaj8xOzguRUBEK1NmOW1hUjNLNUU8Zk48YUYsPFdeKDFOQSpLIz5TQilhQ0NwZGtOLS0sIVlEZSthaVA6b3JYcWc6RD1XQCl1PD8odDs9SEFKdEtBY0UxRjllODJJUzJaaS5YV2FNO24hak9jIUJRSVVBI3RUQ0NYIUkpKW1xPk5zQ2RpVlZaO1YwQmBLSWlnWmFmJGM1MiwxOS1MQmRBbklKUWIyTyRjSiVRdWM5NzIsZkE1SHBjPForJmhoM0BhM2xcTUkyNDNQZDViakMwYFxBTFhDLExsN2tbOS1aM1JrTyhVIS5uLz5QTSVdbCckKCFRSGVsZkZlPS1OWT1bYTk/XGFIVEpUPjhmS0EjUl5cPl85QE5YRV9CcT0zLm1vPCNpWm0qSFpaTiE/ND5nTFtKX0YoWkJZMlg+PVEvWzo9OVlCLGYnZ0BOcDhuZD9yPDdDYUt1K10uVClQYysrSFEyPUtOUFJOKmNWOnFPZ2YyRjA5OSgoLSIxLzdBWklPPSljVCdhcy5gciE6J3FeQEFNR0lkQWZCJjJtVVM+JV0zVSNcMkpPVGdJKFE2T1BNLyZbblMmNFJENkdyQ2RlQXVqL2RSSnA5PSg8QkJtVkNDaE5JKEtPWT9oJDkxX0o/L2wuXGUyQ14halZiNHNDUj9OKkFkN0d1PCtiZSJIXlchSyo1TFhDciNda3BTIickNS05I1xzT2hsUGE3Plw/Zz5PIycuazUqKlJwJ05qL2lQbydPTG1ZaT8nOVkhZnVBU0k1Wks0NTRqUk9BZjtqNix1R15RZG1SSldSLj9ZNSI8b2prMWVVMzRuRyMyIkomVTxXWGJoKXJDJ1dfKT0/bF1mQUsuJGFWPVM4RWIjWmBrMklOVU4yYDtdci8lSU5vXTUhXjVuJW1AMkMyRlovOTVWYTpDQk0oXiJzMlJtMkJtaCVdWDwnRGlpUTJII2QhIUJYXEEpS2gpSEIsZy1QcCJRQExPcStwLlQyIzlgJDhfcjVOVTtxQlE9YTJUYTwzOkdMRUtWQzthcW1rdU5eVkluQy8xYmM8ZVZdNUNWRUBWbVtjT1tmazlncG1JblpxTC81JUkoTVgycypSUGhmTC9DIlRKUE46cSphdFQlWDwzIzghZygjbyJSImJyMmA/XkRHQWJncDFBaD9xV0E7LT1dYFBkUS02SWQ/cCEvWjY/IzZoJl1DNDdlOUUwQUFBYGtDVHNrYnVTL11jYTRUUE5qXVVyXk1sNU01JHNYQGheK3BrI2JxOThsQEshWCNzVTtSUjRIYko2THA7ayZLbCZVSl4/PCVib1E3LXV1Ji0pSlxHaEYvVDE0NzVgVVsuNjdyaUAmRFtcOyI8Yz1XMkFhM1BeZlU/Li10RWM6dT10OjQmLS4kMHVhUiJWcWtSQHIxPkVhJFVvTEY3R0FTak5XZ1E3RU88dGwhckIkTWpvRmE1WnJiOjdbST9QKmJELkh0O102KnM/b1wvYVJ1dCczUj4zaDxdaydbIys1aFw4XG9hVV5vWDdIKVNDJC4tSiIzMGNsKWQmMS1VV0IlJSNvTSdMLkdpLmtkJjVeVDI/Ty1QSFxeKUJUWjdnRGJQcm0wXk5Bc0tcMF85anFYMEZqRS1kPUk1IkI1V0NlcSYpKEdnc2Y8NkIwPVBoVz4nXSFiIS80RThyPipUN2tWV2FCOGtHVCJNLHVvKj4lUGdYUihsVWRVcDUyVUVNJENYQ2xWJ0YsOzRfPnNgRCpdMmVHMCFUL3NOOmRPWj4rcT1oYDhFJkFaXiJadCFfJjY4IjEwZW9dWD05LnFUJj5hImQnWkU5RjRxbFpbYl8nXnFiPEptQXMmWEhWbU0wQFlAXTghS1M/RzIyVyNlbTZhNCc5b2ZTQltrMEVSN1JiWTxSa21QTl1MJmxrXjVIME1ObCZtUEk9LTQ5IzlyYFpTSX4+ZW5kc3RyZWFtCmVuZG9iagoyMiAwIG9iago8PAovRmlsdGVyIFsgL0FTQ0lJODVEZWNvZGUgL0ZsYXRlRGVjb2RlIF0gL0xlbmd0aCAxOTE3Cj4+CnN0cmVhbQpHYiEjXD4+czk7JjpXZURsbShtSGBmX24rbVRVIylEMi9sNmsrJTRUQD9lXUVnY0RsWi8oIjRrWmdwUCkrOl51XFI1bmVLN1tDXVJuKFYsXjdEUW5SLkRKQS9KOU0jNiVnV15SXyQjUigzPXFdSjU8L0ZcP2tKbFQqWC5KVF4xVE44SCZjWl0rN2VrKiQjajtaVERBW1E+P0RATy9pWG9XNE88YlA9cmQpRS1FZHEyayM5LSZeXWZhOlVFbzhIUGJmW2pDKzZbJihBN08zO0xEKU9xaHRVLm8uQSNRNDojUDwpImAwSVRgOyFAb2NeaVUjLlVNLikjQW0kYERsbWNeJTdHV28zUUJVZVArYidwVE5OQWsvMXA1J2EtYERHY2Mqalh0T1ZDNlsnQkZeMzdccE4zYyNsM1NcKiFAO1AyWmVtPUpVXU9KZicqWy5AWS1ZWT5tYGFQU2MpNUg8Q0wmTlhJLDtoLjQ2X19GW184ZUsnZl8yIy5STW87MzFyJ2A+OUhZI21ZaF4kLTAnMmc9R1k+cGolIlJJTDVvVjpZQDUxJXMjMHRBQy0hL2tWJFNbKkk2PHE+PVc7OVJMX1Y/JkQpZlYyR3BCViE9XG9vTkRNJ11GTV5uYDsuTkUqYkQyN05pVGVKbEZwXCJpb004Q1djLSwmckVAb21eVWdZIT09RFw9UTtsSEJHMFQ5bzlcS1s8SCFDaGtyL0lnRU9UKEwtYlVLPWImNCRiYlo8OHBCQGlKLlUrYjFTP3I6M188cTxtPi9TQCE9Q1QtaD5aUmZ1PEpWOGdfWGMjMDctLG5QOFZGPUhCYURWZTtYNlNuSyJjcVJCcTVPMnItUDAoXDxVKmgxVyZBQmhoViIvUFQ3UD4oKGRHSGRZQHRYOzVHMCRvRHRcXl5xOylZYFxSUSNkbmwoQiovNjR1JGAuRlQiMUJDMFdMcD4uSmZwO2FpbHQ2JTwpS3NVNC11aUkkXEUqJiEjXCNCNzArWCRXQXQjIV1eSCI1UCklY08xbDMlIilKaFh0cnNzZGlhcUtdYkZPbCJhRmBwJDNbWUgyU0IkOVxbOyUyKDxLXF8pcFk8OTdbbFdQZzFNRDdeP0Q5cTM0Y1pcSCluLzU4QWdbRT5vOjBrMWtRTnBlZSJeJjJcVy9MSTtcRj4vIyVuKTRTSDRbaGQmIVFEQilRMSIzKjNsQXE9Rk9DbSZAYj9sRV1yQ0lmISEwZWZNM1ZsUCdGWi5bIWUsX0ZpRiY5ZSF0Q1M9aUBibG82NGJgRlhBdTNHPkFNKF1WKjokOC9LbFFOS2lDNmpDM1tiM0s0aHJRLUU9LDdgTFBzLl9NKjkyKFRGTWRlbzZRYStcbytpMEolZVIhUCQyZW1BJEZjO1tUNVdiM28jbFBMbyhUKFZvVC5VR1BIVTlSJGxJUWkpXFVHUm8kVVhZTzc7JmovYjw5RTQiT05CaENuLjtRSlM+XFJMbGdIRT1WZ2w6M0VVW11VLlRGYldnYjZJMVpVRmpqYTVVPFVqSy04X2I8LV5BS1ZDUnVUXnAuOUJaMkphcWRMQTFYJCgsUGNecmRRayM6JlhqJkQkSHBpdElWSzErIU9LQUU1RWtjUi48VEdfclwiJC06JnBbcUxjbj0wKHFxdS9eZ1QiPnJOS1FpUjVbYztadFMmcCV0QjhqNDJVSkdwOGQzUVc/OlxVXXU1RWVyTFNmVVA1QEBoMyoyTl1WXj50RSInYCtJJCJaUj1kR0AxcV9EQEtBVXNAZT9KM0YlV0FHNlRTQjRvZlVSKi0uMUVHNE9cXHUvRGNFTzE/LEJPKTMwcEQjbzw2SyJDaVVJQERlQGMzcitZcmtxJW4iM0QxRjZmKl1eMm9pSmgzW19UZyVMJS9hajlvbnFFL0NuTy5xMihUOC5xY2FeUCpqL10kXE1UMUFrIyVYUis0SkxBTTZMN0FbcnRDVUhCTnFHXyRVOFs7VGs+YHBjUjVJSko3TE81X21XPTFSNVhcaFJWRElrIShTak1QUlZcKm50I1JiKkktQ2k1S2U+OmFmPzwucFtoZmY9ZTYpOi00ZyVhPUZdWEklWC5LLCs+N3I0VScoQy89UyJrKFFFP1F0OCRaJ1tcc1tsXmsnOGVjcElGZSNoaG9VIi09MGlEclwjRW9Ia3RXMHQrc1VCb1Y3cCxpZyhNN1VUPDpaOE9HX1QmPC1LOzMlUVpeJkY3VGU0SGstWD03bjRgLiM1L0E3XVU8MDxtO2MhV1FYKishV19rS1RaZm1xaEdQLSdiOi9wKCFrQi9HUmNcUi1OdW1KIzBpKlxdWU1RP3RlZCRcTT5HU0Q6QChWcFtgS1tvbVJIXCk4Ll1dLzVrcyI2ZFFXWXM1aVhnN0MmV29EQGBYO0FdPEVhajRkWFJsXz9tc2ZUJ1M/RV9gSVNaUm0uWzRfbjhQLDMuKzpNMEEiUzsjZiY5OGVJcm1ObTNcPjhsMURwbnRdMCgxcCwmUlcyX1cyKl1LOGtjTl5yMiUrLUl0MkknRi1kLXVQIlp1Py9nXGsvR0JXbztsQ1FCRmVWfj5lbmRzdHJlYW0KZW5kb2JqCjIzIDAgb2JqCjw8Ci9GaWx0ZXIgWyAvQVNDSUk4NURlY29kZSAvRmxhdGVEZWNvZGUgXSAvTGVuZ3RoIDE3NTAKPj4Kc3RyZWFtCkdhdUhLPyEjYz8mOk5fQ2JmY1NGPjdkKVAtWytBcUtKJVcqViQxcjZWKF1cZExsNixIUTQ5Pl5vbTghN2A3WTMvKy11IUtfcFczZnBXZj43YmZSYmxdQzMqUEhDKiIrKSg0aU5aNlYmaVRdPzIsUC5iZFxOLWV0SXE4PD1mTl1dVFkmcCNeYldQNzJoLiVJUEZtKVBWP0RvUDEpUyEvWGZNa1cwVFQ3cDVwPi8maic2MSIyXjosITZhIz5fJCFpUUhPZEA9PVReKDMvQHUtcThLc15HM01kTU8+I1E2cUt1SWFsPCg/L050ZD5jXWRaRlUrXFwzZSlLYFxpXEkza2l0IU5oKy0pUENiQDBFLEMybGk2WUtvdVxZOjAzPWFfTWlKYy9ZM05OclVPNXJSZXVFciNjRkkiJiI6dSNYbztAQEpyIzRyXExKU2M/Ujo8IipMPz1BWSxtJGFecCRvcWY+cipXbTcqYmQhPTA/XSMqc0U7LFttIVZrdGgiRVo4RG04JS0zXTp1S1RCW2RabEYuW2onVUkiaFdVJ2YxPjFgSSxbV1JJPEwmM3NPR0VLamxsaEo0KTZjazkyUUYmZzhWLClaY1dtVkVLT2E4RkBXUjNkKltMRjM+bShTMXNuPVFLLCtya2ViKz5tcXI6TmVMYD0pYj0mT01hMkdcLmRXJ0ZgWCZOWVBWSVwwLGIzWWUwWVdoZnJocj41MWBqdGgjSUtAcDZAJ1ZNQigoL3A4KCIiLyRHaltwZ2kkUyNmWCw0T1oqamFib2FeYkA7SHVeQlprVkpoL1AiWTxuV2FBO2swRFtNI1ozVSE6RnFKOEhdNys7XihqQUVmVFIrQCtdWU0ybCM2ciJQZCZrcyg+WnJLX3FmLXFbOUxDNT04dTU3MlQvUl9jPys3NitjMXRhYigjXmU0YEk9UTUnW2ssQmRgbU5wSV51VltRQW0pcGRMUik3KWgib2c9bENURCRIOzUnLlE3NyJMVi1iZW43R2MvcTUoQUYlIjJvJk9ZOFkhZnJvMTZPI0NCOiVbdTAzSCQqPT4uYmFONGotR2U7O1wnX0A5SyYnXWVMRm9hPDYtIV5CNkc1InI0R3U3PV83R1xJNCtKOHBIL3BtUU1dXTdRUCxmLihUTUElNWwhaSMubD0oQSQsVUc/bGE7bkFhLUVbXVAwRT84VU1GJSk2YmA7bGtMK0FKTy9obGdaOHEtc1BMWHRyTGtpYVkrbixWcFwyX15uTD8tJUpkSisyQFtNcE85REZuSVdySDpGM2UmXk9PaiJ0JnA5YzRRYkksLGBWJUonNkVgRkFoXTpqaSRQYEpfSzJnLVhHTFkxZzFHcCNeT2NPNSEsRzUyXiYlVy9CLj1GT1k/RWxEODs4Zm1xZzwxVDUpV0Q1YmpkMHFdbnRuMkNBUGBxI2xzUjI2OSMiWzduXFZFMDVWPVItVUtBXGVrWTgjRm48P0tySDwzQGxdT29GP2YyKW8+Rz9lYyhkK105SjtXKEApayJwKU1WJnI1KXEyNzxpIyE3PWUoM1NuR1dlLkI8b2M8TW8lKlk1aT5MRVs7a106b2AsPDZgRGtFXVFLMjlbO2xCN24jWkJnZ3NbU2ZxMT5KUy42XFo9KTtIN1tUPVBuI1NyUi8lIigsQFQlKkFoUjdiX3VRO2xfQ1NaRT4tOUJAb2VVQVwsMkciWjlnXlFhWSkqa0JQJTxyQykhLWdtNSxeRC84bGtjNTQ5SlksWUUzJHRzVDtEWnQmVXEmKVIvRXFQJk5IUlVlOSQ/aHQ5ZXFIQC43XCU1WFxpXEVsVSZDZ1cyRDZoI2Y0OjA3M2VFWCNEK2wyPWdAZnBLVi5jVy44bVRrXjk2T29kY25zKExwa0Eway1TN1RNRkQ/MFpNKFswVlRaOC0mcTdQRW1gUjhqQ2NgV21WWGsiJ0s9Zm9sQjcoWkpiQ0pgc2NKbShNNFhvZCQrUCNZdG8xSWUhVW4mbVNLXVxOU1Asb0lFOWFEN0tMPkk9LltmVWU4N0tzXEciYVtDZCZENEIzQGBwK1pASSF0UyxKLCtPKHBgQEhIPVpMYmBfLj5vNkRUXEdER1dXaCJgLEsyVkxhKlpESl0tdWhmUXNwZlxdTClMKjJkYXRSbmhwX1IpNFxzMTR1Vzk2TDVnLXJCP2Z0RjkhK2RCODldKSInbW4/InVsZlJFP2ZuZD8kZGUvay4vTVUoM1cyOigzWzgvWDtxamoiTk5XYmo+XzVIJ2kuaSJjWSkzRW1fRiltPzVAW3RgPStDXkpwRylUa1s8YFdITk9GSTRiISVDKlFGXDltYDgxTnJyUEVQY0BRfj5lbmRzdHJlYW0KZW5kb2JqCjI0IDAgb2JqCjw8Ci9GaWx0ZXIgWyAvQVNDSUk4NURlY29kZSAvRmxhdGVEZWNvZGUgXSAvTGVuZ3RoIDE3MjkKPj4Kc3RyZWFtCkdhdUhLOWxKY0cmQUA3LmJnQlhmPl5oS2xSJSdRcGgoRmtmRlZIQTZscFwmQDZzXEo8LSldR3FxXS9TMTlaOW9yIWw2M3MqSTI2Vm8sY2VKOC1UY1hSSm0wTylXND0iXlJtO2kqOmFpS0xkWz4zNWFKJGk1OVohLjIhJHQqPEBOb1hVZXNJVEsnKWM7IiM7NC5pZWcjb0BoUW1DSkxHKFQ5aVZPajg4J2ldP0NfWSQzME9aQTZfbC01LFU4Ll1SMidPQSVMTXVAP0tJQDBcJzNDUy1WLi0oVSpyX1o/YytHQGsqTTA4QXJIRVpicio7byoidFxfSVhcXUdpRzxzX0cmb0NhWTg1dTZGLkZvQGg5R2krZmwpdCVLRF8iVjVuWHBdLFhqW1pFYi9YVD5ZK0FmPFs8TmBPVXNUVjgjJ1A2VEchM2ZQVkVSMlhQVSYkVjs/JTNVO0cmdSFuZ2E5am4+QyVwUkE6JjJZY3I+WCRbPEU+TjpONkQja24nLj1sSzdKMG9tXTRyMVVHT3MlWGknUyk3I1xfaThpLTZoUmxLZW1dI20/TldWIzhDIUxHcC0lRDVLRlomTEBMOjskTCQjXXFcZ1A7RWlFPmI3alhwMlFiNkMyP1BKO0skaThlIihWdEU7N2c+OCZfP25zMDByJEkuaGooNW9dSWdRMTAnXzNeQ0llLyxGbjpaIzZNPj8mXjk7Vz8rTW85Imo/RTtlT2QlT2hwRitdVG49QEprQD8icl9WRyo0dUBLbGA6OVVcIU9FN0paWWkkTk5DMUxZYkUuZV5dTG1aSUYjayRjYFVXaT1UWCRURzpxcGwqVSE4biEyNSUvbWFuZltmclZsNGNaRGxBWU8+Rl1IdFFqbFI+bSg3IWAtTVsjS2Q6QkcvdDxPSyVgUTVbTCQ8SzZtczlMYUUuQzM4PWBTa1dyMmNISzA9Ni5AOWxEdEsqcklWQUkzW2ciLzNnUTZpVFc+UUBLOWttVkg7PUIlaFVvJyZbJ1AvM1M2aXBkUDoxTjglYVdfViRQOjxFVD8+SixJYS5aO29hK05zU2BOQUpqSTIjQ0dVUG9qNS0tRDVtcjlRSyI3NEM4NTFhamExI0AxbTRDciVUWFVQJlkmKzRyInA4M0RyUjRHXHVLJHNWOSlEUi1faDVKMGRFPzRwTm8iXykpXFtfMiMiQF5DYSM+akZzIVolcydOYkolNjw1TysjOTNoOGw3LC1mYSswJkxRTDlrRytrK19LWkk+Z2U8WWczVz85aVI4QiZndVZwUGdoKDBdb0x1czRgJV9KXTw6bU1zPjssTDZcJmNTbURJXm03OyJrYWpoWDxGWDdEXVdebikqayxPP0xOZl1zSDMmcCZuXzZlTUhLKjE3TzxvQUsrPDBxZ1MpLFhXKHA1IStTaUZhTXFWMDpYXDMyKGsldGMtMmEmYkNnOyVNRUg8STkvO2BKLkNpa0E6a09WLGtRa05QZ1YkKE0yKWxRVCc5dWs6RDVCXiFLOzdHWWFTUk5qOTZVbF9QalBwOC0+UjZOLERPdXUwbCNCZGNgLUhNc0EtXGJaZiVNOUw6O3Q2YmUlcGRFO2dHbSUoVzQ0Q3FTVF81WU1YV1pxUlFCZHFCUEZIZUgrVUsjaCRdXWtPZzdRVGVrXGpFXWJtQD0mOS1PVWM3JUY9XU5pOWRCaTVeVUIpPW1AOzFsNklha1VdbSFpTl8nbSo8Wz5JWkpSZT5tKWBgcmtQR05NYl9fZG46KXI9NGBSdVdONUAmb0VbM1ByZV5aaDlqU1NPbidNIWIqdTNEPmR1Sl5UaTdhVzVCVjohXUMjQmk8TiVAQU06UEBvVWQjTzA5Nzw+Qzk6JipwSEM5WFlqPElzPlBeam81O0o+Xj8kSjU+I0UjNUxdTElbSnE9Qi1PY0YwR1hBdEdHcHFoU0gsYkU1T0BgZzB0VVowbS9RZTFhbTU9WVcyYkxzZSRmPUdvRjw5MUFRPUpfPUVnVENLM05rOl8ncC1BSWY1LVJJbzUhIiNIYiVkTDtjTlZjKWtpVmY2W0JhOlMwOTpYNz5FOEVMNz8rWVIxN19YXDhDODQyNHMwSUBHRyVaRmVHalZNKjpLRmUxMkFjOUpyLCk5aF1DMVZXKixrJU5WMGItLUMmRitgPCJGbGNLRU1ZbTpOZUVELjQsSiYtUGYnP2RMaV8/Y1VNKVdgYm9GS2Q5TjVGbS5aSSUqXkBvbCJLWlAtbD1TamNPIXJSUV1JQj8wW11tbDArL2NKMGNaSywsLXVKOUVAaE44ZjVuZzRiYWohLl1sMyhdfj5lbmRzdHJlYW0KZW5kb2JqCjI1IDAgb2JqCjw8Ci9GaWx0ZXIgWyAvQVNDSUk4NURlY29kZSAvRmxhdGVEZWNvZGUgXSAvTGVuZ3RoIDI2NjkKPj4Kc3RyZWFtCkdhdG09PkFyOSsmcTgwMVIkUm09RFFTYEVJPVlrZC0+bFRxb2QzQlEvL0lGVyxMX1tdXSFyQz9YOk5VOzU9OCY7VXRDamplLVQ8NmljJE8tPlc8ckEwXyhMLnMyK3V0X1tKLl0mZy5tIyRRdWxkX3NAYilBbk8/UiR0OzkzOlZqOVpeYy0qYUkrcEhKITpvNVMkQkFvMyE9XT4wVkpGaEVsW2VGOl90TzZUVzhVImVASV9PL0AwTWxUKlskIlNSKW1DUypUU00sLidYSUtVZF9nWyxudXU3OGo9b0NvKWxuPUkzMyYtU0JpUEIuODZWJmdYITUnNCtNNWAiaUtFXWE2Vkl0PmBRUihoTD9FaFkmRVdjcW4ncyVJKEs/KjIwZlM5SXBodS5QW1NmZkNPLzE1QGxaQi1CKTBxc1hDbC51TmFYclZBTW4pNWZJSEcpWCI3XWtUK0dTYEFYNHNDM0RXKV5AYXBvbzBNLUwxTTAvaWs7by8mPis1W21JRCp1J1IuVVtcJEpEb29uSlBfJDhvSyJKV1lVJ09oLS9nP1k1XmdNR1s0PUFrWVpzZFRFJm4sXVk4Z2FbP2laVC0uMk5FQUdIJ2JVNW9lTCMvIzVtKTEoRVhXKEY/WWlpbjdeMjlHTnBvTFNgUS9YQVRKVGksPG1ta2lmSU8+blZ1RFo1IiM4Ql9MJiMnUmtnQV4+TSJJNk9rWjxfbCNJRSRDNVRsIShbTDQ8aEkhIzMyU3V0XEg+OGY1VjVcYVFxS1NHPj1yWyxCbWxEZ2xRZW9pSiNvRTgtUSI7T05pIm5QRSEiSGdAK1o5S1tNIWdRSyQickw+IilydEQmVS9hTFZQN1Q2ZEEhPjs6PmQ0NTRUMVZOdWw5ZlluKGxeZ25RaWxdZEMtMzhpZTNcJTcsVUFFc1VaYEsuVTRFOGYlX0RRJnFUZzU0M1BEYGZFQ2w0Zi0pOikiTnNNRjgxcUZdS2AnZm0zNnEkRSdoWzFJcCcoN0gqOWJzQFwiW2YjcG9TPU0mZDglPS42Olk+QzldXj5aRSlqQVRiXmprPWU5SGdLPytDbUFdQnQnaW9JS2xVMTEvNEdoTClEdGJAKT9yci1SMCY5PCo2V0RILVVOREoyNkZNRStgQSxSQTxIUmIvPFFAOmYjMGpTLElfXz85XmExYGgwKCxUXCNMbVtVJWlcPkJXZiltayQ2ZGZ0TlhOIW0xK2o8XlJrcy5MYHBhI3JYJkc5NlVmUGFmaFtjKVBTTV9TNkpJTDoyT2NvSElib0dZayE5WC84JytiWj5NS09pQzhsZTZ0YCQoYVAjOzEpQ1VvPTgrZzZWI1dFdE1ZUlBJZVpfPDVkN0RYLEZhXyM4VUk2MFtaZF08RUlmSlVzc2lVaGFCbyErIyc/SzFHNFB1UjdhXEtwMjdkJ1s0VHFmNUkvPERtWkwrJyVVMmtvPScnKm4sbkstQ1BZUFwnT2VIS085ViQkPWpKaF9tOURlXlBYVWM8NG1ZJSltIlA0JCdlLyMrI0dfdTFpXyliRDUrbmdLJi51VCpFSEhbbHVXUEJgOl1FZTsmQnU4LSVgQlkzbTVPZFBwXXROcSZWX11scjpWJkRTUlRpWkJBJTVIQUFwX0deND5wRHMvV3I4VSUnKC5zckMpJlRRU2xnVkYjJURzQDA9cDJeZkEoIVhbNmUqPTdsYlUjZCJQQGVKazs3XWJWWGxWKXRMWHAidGFDZTJCcmFhX2VfKXArOiMvI0tjQjBtcztJUFtyZCNQMElhJFFmMzo6clZbN2dcXCpSc1tHPU5FMUJNJVQ1Py4/N1RbPnRFLFFbUUMiRkloSDpnP3JDQHFxS25UVCYjXVYwMkZlbE1QWHIsalFNW0BNKyVxKWZxWClaOyRVPSVecjo4M109cFRPJGpSIj9TQGBgX29cYC9jbiRwXmBrXihkVS11XSZnXVk8O3VJZmpMaVY5NGQ6UFk4JWhnZXBAYiteYXRlKkxVJSg8STRmPUJTNGUuKiQyT0JiNjYsRWpeU20yPSxcUHAjMFwsS1hSW2RVMWs/Q2Y8Sj9eNUEmOllVS2dyOGtMbTc0dCNjWDpOXG5UMURta0AsSj8zJDFUcig8PksvPFptOCdOLW5PV2JIPzsiXVVmLT42RjpsUTUzN1U7cUknSmxIQjI6aiMoOi0jU0BpcmRtLGJILzUoWEtwLDdZUjVcXiV0IktMZFVGdVZYQzFdc1ZGJ2hEV0dPIztoP1l1VWFLUT5VcVJXLTVpayJOaUpxIk91NztaazFSXGBCSk9SZTVzTDNdK1dmbDRAU0tzSFwrU2c+WFtnU2VzR3BWVzA2UCFAb0RqZiknWkBdIltrPFVXNF8vWy1zSUthOD5RUl1kRjcrJGlxJV47Nj9SKUI7ZlJHTlFNVGwvPkNja2hVLWNqbmZNazZZaVY1TDljTFMpdTcqUExNLWhqaGBXTTpUQTE4WWlBK2MoXnA/VXNjaixHJUVZKiwuJHVxTkR0VDhrWFhjO0dTMVNqWGxWJEZHV1InQiQjcVBKbD8nbzhhT3FTYGY0ZkdpSiVbN21TcG1XcWh0KDdVRltHLWNRUlp1bFU6Tkg5KDgxKXBfVWwxKEFnXjMvL1xdVktdNHI3VF5kLWJoRnFxKV5iT20oZ05TMSsmS1QlIlA3OjtCTm9XUVQwVHI3LG9HWGMrKUQqJkNaY0kydVlfLCtPMS0laltna2RScGI4NkJiL2JiT1c+ZDVeNmIsQWBgYXI7KDNLKXBUWm5yVFZeMFJNZGYxQzorRmRLZHJtYlouM1U5VDViOV0/RUEwJG0qdGRBRWNxXz1PKmx1WjR0PlY8LXNTIVVIIjJFSTxmL0BWTEtEWENSJWBjXnAoPywhI2AtKTtWTShWU25FMmIuQm44WjgoYm9RPVZgPE9MQFtOMyglOjQxJl0lVUo1J3U0LXAvSik/bV85WFhsVTVdbzxvbS88OEonbFQvXGZHMUFeU2p0RVhnaSMtSmhiMFc0dGZIaThUVDddWCtoNTIyXj1fWVBRc2EtMzdFNT1iN09mN1RPPGFdWVdTKT0oZXFwI0xVYDhGNG5APGsjVCQ/ZDxPTFptTjlkQHJGUzFkbUkjTVtiZ15aNENOJjAwRHFVXCw+OyNTTHMsMlNePHJrOXVbPD9NYz9Oa1EkcERTQnVTOCxlRytIO1RxLm9OXyVfaVxLLihFKmchJklTdVRpRGUzLmJ1YSpCVTYkOVdoRTFANjJOXTRnbW9POV0wXkpaWnJQTW9SRk11L2dobDMwSEwwX29hSF1wcj0oQT5MSUUwIVEqck09OUxhNE1TSitZTzFqQD81NjRpYjs3akZmXzY8a2RSaVxXaUViKz1wK1JlOj5IMVEhQGMoVCYoW2RAQSRUZzhbMSV0JU9bTU1vPWRaKjxgUC1yZSlnVjNHYVtNUSpjSj4yVitMVCM5Ij1uMDJRZzF1W2w9UjpwUUJIOl4sWVAuRlRobWNZLGxeLSZsMFJrdW1EN1QwRlNmIk9nPUFUbGM6XidSJUw0Y14qSjpxMCghMUZnSW41IUdpV34+ZW5kc3RyZWFtCmVuZG9iagp4cmVmCjAgMjYKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDYxIDAwMDAwIG4gCjAwMDAwMDAxMzMgMDAwMDAgbiAKMDAwMDAwMDI0MCAwMDAwMCBuIAowMDAwMDAwMzUyIDAwMDAwIG4gCjAwMDAwMDA1NTcgMDAwMDAgbiAKMDAwMDAwMDY0MCAwMDAwMCBuIAowMDAwMDAwODQ1IDAwMDAwIG4gCjAwMDAwMDA5NjAgMDAwMDAgbiAKMDAwMDAwMTE2NSAwMDAwMCBuIAowMDAwMDAxMzcwIDAwMDAwIG4gCjAwMDAwMDE0NzYgMDAwMDAgbiAKMDAwMDAwMTY4MiAwMDAwMCBuIAowMDAwMDAxODg4IDAwMDAwIG4gCjAwMDAwMDIwOTQgMDAwMDAgbiAKMDAwMDAwMjMwMCAwMDAwMCBuIAowMDAwMDAyMzcwIDAwMDAwIG4gCjAwMDAwMDI2NTEgMDAwMDAgbiAKMDAwMDAwMjc1NyAwMDAwMCBuIAowMDAwMDA0NTI1IDAwMDAwIG4gCjAwMDAwMDc0MTQgMDAwMDAgbiAKMDAwMDAwOTc5NiAwMDAwMCBuIAowMDAwMDExODc5IDAwMDAwIG4gCjAwMDAwMTM4ODggMDAwMDAgbiAKMDAwMDAxNTczMCAwMDAwMCBuIAowMDAwMDE3NTUxIDAwMDAwIG4gCnRyYWlsZXIKPDwKL0lEIApbPDk5NWVjYmUyYjY3Y2M3YTdhMTAyMzI2NDYyNzE1NmFlPjw5OTVlY2JlMmI2N2NjN2E3YTEwMjMyNjQ2MjcxNTZhZT5dCiUgUmVwb3J0TGFiIGdlbmVyYXRlZCBQREYgZG9jdW1lbnQgLS0gZGlnZXN0IChvcGVuc291cmNlKQoKL0luZm8gMTYgMCBSCi9Sb290IDE1IDAgUgovU2l6ZSAyNgo+PgpzdGFydHhyZWYKMjAzMTIKJSVFT0YK';
+
 let allData=[],filteredData=[];
 let sortCol='total',sortDir=-1,rawBuilt=false;
 let allShiftDates=[],allAdvisors=[];
@@ -782,7 +1384,7 @@ function startProcess(){
 
 function parseChunked(raw){
   const lines=raw.split('\n');
-  const total=lines.length,CHUNK=3000,result=[];
+  const total=lines.length,CHUNK=5000,result=[];
 
   // ── Smart column detection ──────────────────────────────────────────
   const firstCells=lines[0].split('\t');
@@ -867,7 +1469,7 @@ function finalise(result){
   document.getElementById('bestTimeBar').style.display='flex';
   document.getElementById('shiftSummaryBar').style.display='block';
   storeTrendData(allData);
-  document.getElementById('pdfBtnWrap').style.display='block';
+  const pbw=document.getElementById('pdfBtnWrap'); if(pbw){pbw.style.display='flex';}
   document.getElementById('execCardWrap').style.display='block';
   ['filterBar','outputSection','rawSection'].forEach(id=>{document.getElementById(id).style.display=id==='filterBar'?'flex':'block';});
   document.getElementById('summaryRow').style.display='grid';
@@ -972,7 +1574,10 @@ function renderTable(){
 
 function sortBy(col){sortDir=sortCol===col?sortDir*-1:-1;sortCol=col;renderTable();}
 
-function jumpToDate(val){if(!val)return;if(!allShiftDates.includes(val)){showToast('No data for that date','#d97706');return;}document.querySelectorAll('#msDateDropdown .ms-option input').forEach(cb=>{cb.checked=(cb.value===val);});updateLabel('msDateDropdown');applyFilters();}
+function jumpToDate(val){
+  // If no val passed, try to read from text input (DD-MM-YYYY format)
+  if(!val) return;
+  if(!allShiftDates.includes(val)){showToast('No data for that date','#d97706');return;}document.querySelectorAll('#msDateDropdown .ms-option input').forEach(cb=>{cb.checked=(cb.value===val);});updateLabel('msDateDropdown');applyFilters();}
 
 async function copyOutput(){
   const _cm={};
@@ -1057,18 +1662,12 @@ async function copyOutput(){
 </tfoot>
 </table>
 
+<!-- PDF Guide Data (stored outside script tags — safe) -->
 
-
-
-<!-- PDF Guide stored in template tag — browser-safe, never executed -->
-<template id="pdfGuideData">JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUiAvRjMgNSAwIFIgL0Y0IDcgMCBSIC9GNSAxMCAwIFIKPj4KZW5kb2JqCjIgMCBvYmoKPDwKL0Jhc2VGb250IC9IZWx2ZXRpY2EgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YxIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKMyAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYS1Cb2xkIC9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nIC9OYW1lIC9GMiAvU3VidHlwZSAvVHlwZTEgL1R5cGUgL0ZvbnQKPj4KZW5kb2JqCjQgMCBvYmoKPDwKL0NvbnRlbnRzIDE4IDAgUiAvTWVkaWFCb3ggWyAwIDAgNTk1LjI3NTYgODQxLjg4OTggXSAvUGFyZW50IDE3IDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iago1IDAgb2JqCjw8Ci9CYXNlRm9udCAvWmFwZkRpbmdiYXRzIC9OYW1lIC9GMyAvU3VidHlwZSAvVHlwZTEgL1R5cGUgL0ZvbnQKPj4KZW5kb2JqCjYgMCBvYmoKPDwKL0NvbnRlbnRzIDE5IDAgUiAvTWVkaWFCb3ggWyAwIDAgNTk1LjI3NTYgODQxLjg4OTggXSAvUGFyZW50IDE3IDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iago3IDAgb2JqCjw8Ci9CYXNlRm9udCAvSGVsdmV0aWNhLU9ibGlxdWUgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0Y0IC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKOCAwIG9iago8PAovQ29udGVudHMgMjAgMCBSIC9NZWRpYUJveCBbIDAgMCA1OTUuMjc1NiA4NDEuODg5OCBdIC9QYXJlbnQgMTcgMCBSIC9SZXNvdXJjZXMgPDwKL0ZvbnQgMSAwIFIgL1Byb2NTZXQgWyAvUERGIC9UZXh0IC9JbWFnZUIgL0ltYWdlQyAvSW1hZ2VJIF0KPj4gL1JvdGF0ZSAwIC9UcmFucyA8PAoKPj4gCiAgL1R5cGUgL1BhZ2UKPj4KZW5kb2JqCjkgMCBvYmoKPDwKL0NvbnRlbnRzIDIxIDAgUiAvTWVkaWFCb3ggWyAwIDAgNTk1LjI3NTYgODQxLjg4OTggXSAvUGFyZW50IDE3IDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iagoxMCAwIG9iago8PAovQmFzZUZvbnQgL0NvdXJpZXIgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0Y1IC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKMTEgMCBvYmoKPDwKL0NvbnRlbnRzIDIyIDAgUiAvTWVkaWFCb3ggWyAwIDAgNTk1LjI3NTYgODQxLjg4OTggXSAvUGFyZW50IDE3IDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iagoxMiAwIG9iago8PAovQ29udGVudHMgMjMgMCBSIC9NZWRpYUJveCBbIDAgMCA1OTUuMjc1NiA4NDEuODg5OCBdIC9QYXJlbnQgMTcgMCBSIC9SZXNvdXJjZXMgPDwKL0ZvbnQgMSAwIFIgL1Byb2NTZXQgWyAvUERGIC9UZXh0IC9JbWFnZUIgL0ltYWdlQyAvSW1hZ2VJIF0KPj4gL1JvdGF0ZSAwIC9UcmFucyA8PAoKPj4gCiAgL1R5cGUgL1BhZ2UKPj4KZW5kb2JqCjEzIDAgb2JqCjw8Ci9Db250ZW50cyAyNCAwIFIgL01lZGlhQm94IFsgMCAwIDU5NS4yNzU2IDg0MS44ODk4IF0gL1BhcmVudCAxNyAwIFIgL1Jlc291cmNlcyA8PAovRm9udCAxIDAgUiAvUHJvY1NldCBbIC9QREYgL1RleHQgL0ltYWdlQiAvSW1hZ2VDIC9JbWFnZUkgXQo+PiAvUm90YXRlIDAgL1RyYW5zIDw8Cgo+PiAKICAvVHlwZSAvUGFnZQo+PgplbmRvYmoKMTQgMCBvYmoKPDwKL0NvbnRlbnRzIDI1IDAgUiAvTWVkaWFCb3ggWyAwIDAgNTk1LjI3NTYgODQxLjg4OTggXSAvUGFyZW50IDE3IDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iagoxNSAwIG9iago8PAovUGFnZU1vZGUgL1VzZU5vbmUgL1BhZ2VzIDE3IDAgUiAvVHlwZSAvQ2F0YWxvZwo+PgplbmRvYmoKMTYgMCBvYmoKPDwKL0F1dGhvciAoXChhbm9ueW1vdXNcKSkgL0NyZWF0aW9uRGF0ZSAoRDoyMDI2MDUwOTExMDYyNSswMCcwMCcpIC9DcmVhdG9yIChcKHVuc3BlY2lmaWVkXCkpIC9LZXl3b3JkcyAoKSAvTW9kRGF0ZSAoRDoyMDI2MDUwOTExMDYyNSswMCcwMCcpIC9Qcm9kdWNlciAoUmVwb3J0TGFiIFBERiBMaWJyYXJ5IC0gXChvcGVuc291cmNlXCkpIAogIC9TdWJqZWN0IChcKHVuc3BlY2lmaWVkXCkpIC9UaXRsZSAoXChhbm9ueW1vdXNcKSkgL1RyYXBwZWQgL0ZhbHNlCj4+CmVuZG9iagoxNyAwIG9iago8PAovQ291bnQgOCAvS2lkcyBbIDQgMCBSIDYgMCBSIDggMCBSIDkgMCBSIDExIDAgUiAxMiAwIFIgMTMgMCBSIDE0IDAgUiBdIC9UeXBlIC9QYWdlcwo+PgplbmRvYmoKMTggMCBvYmoKPDwKL0ZpbHRlciBbIC9BU0NJSTg1RGVjb2RlIC9GbGF0ZURlY29kZSBdIC9MZW5ndGggMTY3Ngo+PgpzdHJlYW0KR2F0bTw5MmprPyZBSWBkcU5RJC9NVE5NJEYlVlJTK2UpWUMhS2dXLWRGcEAjQG5ScmRdMVouUUkhWUZOT11FPFAkV0VNXmwsVkJkRmkvYWhMWlJFTy9cbDlncixUcjFFVVsmRixhJSM3S1hsVSlHWFJNQGU5RjVAVHQkQl9mQWYxKDhGREteOm11KEAvSF91LjpmN1JcKl5eRXFyIUpTdTxwdScpWWFkLUU2bjJuIjd0T1xTKSxOU3RlSz9ORltBP1ZcQVlqW1tJKS0qWyheIzZxWmhKSUg9dGRjQT42YyxCTE48UmhENCVFMj5tX1tKLzUuNk1eLmxNO18+YVQ5NCIkLkVXbUdRKSFZbllzSy8/UVxnJnFtbEQ/LydJLTg6R2s6dCUvWDtmRU5TQ01DOkZVb0dCJlFVVm9fTTVPMi1AYlk9aV1pJWxEOHJbcyVMYnM2RkJjdHBTZ2FGOj1CaHQnZGojdCc7OFppdGZPNmBQQkJxITRgRStMa2UtRWdvXj5ET0c3YFFeYFUxMFBTI2AjK00jIWIuKEwnciJnJC8pMy9SaStibnM8WTRBMWlSbmlVcnF0Z3NrMylAJSYsdHJqTCFYaCsuMGxwViknSWJnX1tEK0RHNVVeLWY5TFpVU1UtXilhLDx1O2NSW1BsPTAiPSZpLWhoNGxvJS1GLWFhN2RgWj5mI0JxK1RzMVcrL2VAN3FcJUZrVW8oVjZib0QsLmciKUMhbzs3UVZESyoxSkdka2M/PlNdbi5VMUFpXks2M0UjcSt1a11BKkVSJjNqOzFyOUQwN1VSTy1sImkpIzwqK3BOSlRIZ0VBLVMoZWlNZSEjRk0zITQidCM8QGtocG5WVUlOczZJYjZHO1ljOG4/WzVsQnRpcz9wM1hUTmtOTWc1LSckKnQxSz1iVEVhL15VN1BKYWRIQjROMS8nXTYjKEw2JD0+Lkk6Lm82QD10NU46TUNTXkNSaSMySFoxJiJdckdkWC86Jlc4RSh0Q1sxRVs8Mj9xST1ZNyckXy48Z1ReaGA9JVdmLyUlSzVGbCNVdCdvQmZtVTYtRzJhX11MV0QsbylXQ0c9KFAkKldldVQ2cXBYRS0+MDxAaSYuOWdoSzd0MUokWyxvQ1ZVYmVORCRGZ3FWS2xDS1lBJkE+Pzk0UEAwIUBXYjU7WktwK11pKy5QSClbXzBPTVkpO3Unal43V0ZSb2ZGLWxVaEUhYkxgVzRKIkYyIVd1QThxcEoqVWMwWCh1NnFwMDhELzBQQmJWdGQ6QXBvPThraTstc11PS0lRQTRNLy4yWTs0YktHTyVcO0U0MVZQMWU9M0VpSHNFMUI/cCNYUVBaanI/K2VGKSdONUREa0o3aD8tKkgya0JNVCVgNHVpYEVgODw1Iz8xbidcTG5XQVZXajpHPTA0OTFdXmVJUnNtO3B1QVZAP21qajExUE5ZKSo+bzs8bDIyRC1iKVg4ZUlBIU1oIlMsVHJxXCFZaF5dSUgrOnNuTyhjZG0jOFtlQWMxI3VJYk4zX1MrRF1NRz8rbDRjWEspX1lJYzkvbTdyZ2tALV4kVW4pb1AqaTMjWmM3bShNIzBWYjVNS082dGVcPmpcNXBoM0I5ciMhODIoM2BqNFtXOm9fKUE2Tyw7ODNAaVRMYCgyZzZxazZKTTBSYWxFbGEnWmdnNHFyXShGOkcxV2sjIVY3N111VGZENmNWc0o4O2tPODlqSzY8JmknKV89XEdrOjcqO1JdNSJEKCJwTz1JXkY8KUFXdSJZTk1IL1RsOTVpLUElVkc2WXNIRitvRmsuJUMtZzdga2A6OiYkaGtsbmljJSowXTNWVHFnLG83U0hzLWdOZCYwO14oVG5oQkdpLjIoLj8+XDY4RU1qYjh0Z0VwYykkLVVIT2FHSmVCW1RbKUs6ZG5FdUQ3PF1XOFJoSnNUUzojQ1xMM0xNJkkzMDQ8ci9oYCwjRCZoYnJdXEgucXAlI0pVQ2EsN3MzNl8lJm5DbDk3cSksciZFWEFYUE9SODUjIm8oalJoQidFLWpuUmgtMz1XXUsqOGU2LipsVG1jJTZERi5tNT48cWxWNFVEX1c8YygnRF0wRFshPVtZQE5xPmUzNmxHSUYwOV1QYFA2QHRzJHQjOE5JZUw+I08jbiJnciVlYWExN19kP2EvYigwdD1wRGkrJzFbaTpQY3VpKTwoWzhbViImVmkhMTxbMmxoUnJFc0ptVV0xP0xbZ0Fsfj5lbmRzdHJlYW0KZW5kb2JqCjE5IDAgb2JqCjw8Ci9GaWx0ZXIgWyAvQVNDSUk4NURlY29kZSAvRmxhdGVEZWNvZGUgXSAvTGVuZ3RoIDI3OTcKPj4Kc3RyZWFtCkdiITtlRC9cL2cnKW5KMDBkIik1UmsnQUIlPCs6TypOLEFxWkxQclcnYUdGJChsUGkxZD5MWj44SWFJOV5FTjhaM0tbNWZcUl9sUVJiNlZdUy9GTTxqcm0xMF5gVFMrY090YjgiOEx1QiFdOy1nIjE8cGdfKVtJLFVUWzFAKVJlZ3M1YV5NV0wnPk4lPmY2OCQvcmlpNipUSGprOlZlaCxAYkhiTFE6SGVwcSZZcEEidDxzWm8rPkVGOFNvOWpfIiVwU2FnUSIqOTkjVUIyOE1eY1NDYXFrYE1eKjZZRjMzIUh0JDZNIz0vRik/cCkpUG5cdDpnL0BfOFFIbz50UihuW0MrPzNOIyRTcl4mI0xWYChQaC9HTHQ/YnNlS1pdam9UJkd1XkpjWTxzTHFNc05cKF8zbEg/XFJVMGJbcUMmWj5AQm9NbTcsJCM9aDJuTTJHLnM0XEJpblVGX3MrVGgoKXRhNjoodV9EaSxfLmI2Vk1WMWshWzUvLDwyNCwzXSw7XkwjRCVNNVBVIl9xS1IlIVRhRyQiIXJsPjtRMjYhMnQ2KEIiXG5dNl5WQVAjYjJvZm05ODFEQSsxSz0pMVo8bkVYMkI5YmNbWVtndWFiPClPUCs9YkpsJj9qWVVZJzVAa0FaVFxFQGFXRCQ6NGVzWV8+J0wiKm8hRHM/RyZxOidmKEI4RydDX2JRb2VfZUNSWVJOcHVuTCtFQiIyZiFiXkAiJiNDa1tgTDBPZFlSSzNtQDlbP1hmQzlZWjVoXy8sTVNYSTAhQkpLYUJIIWpuOkRUWlhWWCNiR2pwMTdsZko9aG9qNlpaWEtNOU5MbDNjb2krI0xEdVo7azxdWXJHVjI+QExvakFgYyNPKTheOl9SdCRvJ0soVE9LTSUqJGk6UyY1YTtRJCk/YiJsOWxONEc9RSJgRSZJL3E6T0hDKmo+ZlZCT2w8TFZpK15SRDR0RT9ZallzR3BRJnQzOV9VRm9MbUVvQyJlZipnZmVLSURbZENRTSZUUlYvUGxBbSlBMzVnRis3SGprM2ZpbWg9ZCRuVWdDNWxHTjRCZldtOUI1ZSpuU0Y5UiJnQD0oTjwrWF9CPEd0JzVeV2Y2bF1fWlJZYmQnWl4vJUY7M1xYQjs5Jik8UTlVZik1YT82IU1GXE9eY0NdPGcvW0RZJjFCLTxJJW0sZSZGOjxfS1g0QXNQdDdxXEFGRlpKbzcpPUhxPCMpZ2IiQ2ElWDk/ZlNoRFFKck9iZXUuNlMmJWNeXCJET1knXzY4XWtDS0dVcUdIKzFNI0EmNGpUQz04YzFdVC1vJEQyWyRBQjYkVF5XZjFFcSdZaVRgVWNFaFRiT2c3SGQkJmVQZydfSEZcKCNCP2dkT0JqZ29cTmkvVmVyaTcuLk9naGgzbWVySUA1Z3VsXjM+cGZyRlJtKj5NKlhcbCpIUVQtLkJPOEpyJ2g+Y0QiIkRZUG4mJydxKEM9SUFpS0ZoXksuSiVBXlxwM1hoTUVeXSc0Lldrb1JbS1NIRWhjdWRVYD9Pb046YS5cPHQ/UithSzRWKGwhNjNTazgiOz9EdFw8ODNYWFNZIUg9XjFrWk1PTTovJ0FAOGM8YkMpXFQ5WSZwOVAsZjsxTDE2S3MpVDVAbyElZUd0P2pEJ1pSWU4xSFFSIjZbOTRCaVUvIWU0MCNOMl1EPyxmM09sJCUwblZEJT42SCpfMzJbOV1bUEYmNkBhVy05Yytka1MtXlc+W2VJVVBRTFFpJSNkaG9pJGVfWGhaMiFdcFc8Mj8rIXJBNXJATDYlTSxIblM5Ql1pLyZePWpQQj1OWHAzUjZTSS5bSEczIU9GYlNoMCwnW2hzcF9Sa1VFOk5BTEpUTUQsY2RnWCxrblxoXDtNaS8hOD81KG9GbWRCSyRiaU8sXUg2Ykc4WEBJNm5jVitLWSw3TWMkTiZJXUtCYGltVllYRGZsMDpFTExgbVZFNy9tSERuRjMtbDpXbDtnXDtRLFgnXCdZREJNaj9ZZlBQLDBrP0AnRVU4Tz9EViVUTjwrWFZkLjNnXUFcZls5IjIpQkNqZFBbQ0ZxNGwpRjUyc3VVMzxeVT5MUHA/aStBYmEqajBnK2I5RkNgNGNwNzs7VWJwLlEyTitGOVRMbU5aKCxdW2UkTlNaQU1eJ0FAOV5vZlVsSD9oamomKzQ0JEExTF0+NkAhWzpPcSRIRjF1R0AoNSpXYlthYzlGP1NnOTgkb0I3QiZjPDFObyZraVVhWDA4NStxOG1bYVsnaGlOUXQhP2FqNGNaUlBuTTtCSTojUGZKVjZnWiZFPigua1RiX2U9bmw4OCYjPS9xYmhmRCNyT01LTipiZkVtUzoyLWc4VVJrYmoncipobWInQGVZZz4jYlRuOmgmK29sU2M+Pk9CWUdJSUhQOkUiKiddO15yaUpTPlU2N0hqQG9cTXIkNDFvJUhtdUkmSTtXaEYhYSJDSSlVIS4sWlJmRTEuPmxyRltCLlo7Xy5HIiVkV0xlTi5AK20vU10/LSpMUVAhKC5sOWJSNHEpS3BSXGg7LFY6KCdyS1UhNSgqODxGQCNcQyhqRCgmPSY/OCVpZig1UERZbGUiRUlUPF9QVkdBZTYsITpdWVJXRGVNPE0zO210Y2AhJmNtLihaKCpsQ1A1NWNFaS5MYzBabmFAMiU5LzBSMzxAXGhET2EwM09WZmJmUUhBJVJITTZIMSslTGZqPW9lPzphLyZ0dT0lJ05jZD8mWVtdZyxMZTZTYEgoST8kY0ZhTC8zYzhNPXReLUhoTGxsIWVJalRdN1wsQXVJcmhFT1pSSCMvVWQzajxvOVEtQEFtSCpSOGpGSmNlXkdIaSteYTZGTzh1XWNMMSxIMEZcSUhnZmg0MSRwKDUlKjFkb1d0JmFaaFQlSjA8XS1oRkR0M1xBWjQ/Ij1AQ15tN1wsRUIiM2NxRkJVQnFyTnBwVDdtQSQzQSgmITxRVl8qVW1hYFdAWSpiJVgtTVRVaUFPT2U8PHFoZFtqJSNXYUozaGgkTnN1czAqbiotWlhiJ21kR1M+ZWdbYFlMRjNqXVVIZldyKVIzJCsibnNTS0lLV1ovVkZLRm9KZjB1IUVJO0tiN0EmNjJfP0AuNSEhVmsxP1JnckFxLWZZV3ElSlwzRm5Zc2FgTWwjUmRsN090cm4hcWAsIWxNT1pQSm91Mz0lSjxJZVNrdDcsbkc1TDVIQE0vMyxQZ1xIWSc8ZF1kI0VRNDg8JkxyPiU2JWhDXlhlZlhRWHFUJT0/Rz9dLztHWUpkNDVDY2pWPl4/UlEqZ2JzblttUUNOOUM6KmtdUEwjUWs/PzwpIXJhQ1pILVdcY0A0PVg+YSRKQTFIRlNrcD1vc0Q8a3I2TV9HPDhnJEVlKV1UXlhWJ0ZGRF9dXWVxU1UmRS9ebmhcIjRgPk1DR0RqVyw+RG83JTVIVkVGayk3U1NyYCtTPyNFQVwtKURQbFMuP0YqUHFTVFtmQlsjQWInLG5YTipgWEhyVjFdYV1tMlFrJUFCQS8iJmNnJVRaNDZGXyFqWmZSWF44MVhaZHE/VjtiXFs9Qi5kLkVjbkQ+KzpZQD4wbGU0bk8mZkJqcm5tanVxJDNNTmY7WWRpVyQrPiZXMmZAJztKXlVpY1Q9YD5gMCUiVGpXQFs8XT0jMlw7ZjlzN01xPl0hVk1BSGkyZzQkT21UIjxhI287TG45dEMnVjg1NUgxJnR1IScuMy86JklJJ2VTfj5lbmRzdHJlYW0KZW5kb2JqCjIwIDAgb2JqCjw8Ci9GaWx0ZXIgWyAvQVNDSUk4NURlY29kZSAvRmxhdGVEZWNvZGUgXSAvTGVuZ3RoIDIyOTAKPj4Kc3RyZWFtCkdiIi8oRCxdMVkmSDl0WWZJcmQ9U2JUX0RsKl1DZzBGOGEqYCJwZ0YtPTtGS2BYOSQ0OGh1JnBJc2RtO1MpbiNZOFNCS0ZfMTZyWFgxZDgjcFwqOSUkZlpEZm8pRWV0b1pGKUY2VUFSM0luJTpjLU1iXD1ub3QpZ0A9aF5kQ0NsXWJGMUZsZDInJFJbUFszXSZBRCwzIyRyO3UuRC5adFs2YClCJGxadDAkYmJAZVltLG9COTRbVzxdNiw8K1AxZy1bWj8hOVRVWFsqRy0wcz1ZU01JJy9gWUZXSUs0X0MuYzlFJ05kclIoK2Y3T091JE9hZlA8SD5kMiMpQkJsak5kXVYnKnEsXkMmLGpzczFONU1xTlRwLTNkRD4jTXEmZF1YPWpPbyhjZlU1cUYvM0FsZys6ajtRTWVaUGRwZ2BcVi1LTV9CV0snXVhISi9BPSw+OydyQTlwMlRoOjFqTHA7ITxVIVoyPDs2ZTouLW4vLF1UX2dpUT5vV1dHO1psP08kWGlbbyxtWFNhRStgWWVCPkxEZ2ZwVWU+IWhhaFUyQiNYVjJOdFJYK0UwNEFmIlNINjxXRTA9MixaPWVtYjNEKiZKTEp0Zyw3PEsrUCktKzViZ1o0UVRFYCMkPTNxNmQ9dTVFLlsmPT1PTVJ1RDZGPi1XQzpjOzhGXyRoMGx1R1xcOFo4ci0jYS1sNi91YjNnRXAuVUYvNjwjTl8qdShoSk4hKClySSxPbE1fY09PKkFsPUtWU2NmTmglLGpXKDNqNiUhQTw1X01hJnEkWkB0cU5NKk5URDQtVV1PaDUhSSU7bUJWc1M9YztbYSspbVxZMGVtcylwVXFaUidpcGxIWjQlK0g2X1pzUkguQ3FXajlpaFI7NGxcISxGc1VYa2dIYyklRkxMLXI3MF0tJWVxNj9EazRhWXRfUmonJGg5LzVtMk83akdMcXBYc0FjaVpPSSRBQk4zOGpUaFgrNShrYEM9JTtGOVYyR3FhXmEkQj9LQFRSSzI0JjkhZ2dKY2whJGExZTNgYjEnXC9WJVlLbUNlP245PD1ATDdSbU1oQC5OSVBbbjFLPCtFPm5jMiVdaV03UWxfXkoqb3VUUzgnKz0nLk4oK2paSXVxKzw9NDAzNmttWjFlZVQ/L1FDQUVALWljLkJWRi5iLXF1KXQkOlIva1tRRmBGLmF0cjInZUgrLFcxbyRvbE82Kz4oJWtnN0g6J3RhKE1RYUIkZUIqZjluckJmOC0yP1E6R21EXCR0bCZFXkQrdWwzMT0uU1gqRCRDQldfRS0pbFpAN0JHP0NQLmBlSy5SL1c0WzstYD1pTWQmZipLam4iRVxeSy5mTlk4anAjLWYvRikqWjluPD5PSyNCU0tZKGEnajpYY3FSS2BPWk5iVUUoYFdzUDQxWTdicFMkYG9fVExVS1NTTk5PJS5VUiFpQV9aPyM2IUhcVlc8QS5Ua2FIY1ZKJGMsYCdFdD1BY0hQRVZWUUQlbTxQOGtpMzspV2NWcmNqInEkX3FYbltzcUQva1cqPzgqYEwqam1sIXI0WlRXXCZKb01TQlw4bCROPlMjPFVrQFMiO1NrMktFNSJQOXRpNWVwUSRkaTgmanJkRVU5YCpKcUNDUW42aylGVmFBJ1U9RXBFVCdRbFk8PVJgcWw5OU5LZEEiKFw3cmBHTkA3c1xSODdsZGtAI01GQ1ksQkV1QjMpdGhiXEJOOj5IXFF0OCZLdSxwc25WSkkuM2NZI19wTj0uPzEyb2ZPKitEPU9ZKUc4P1BiaFtlOEtiO3VZYEpfMy5qTjJhOGRHRGxsblNgYzhtZjNEK2hfJDYwNkNxUDVfRGtHTj0wUVVgYltLPiEwbzomW0lST0c7LnQ7M0clRC9lTVE3XDpRVjVNSWlzOTRwZGg6V3IjLSVsLTIjYiYtZVlFRFZHQT1la0xZKU9KdE5HMGlTM3U4cUU8KjssYlxrWEM0MVE9ZzksNi9DR2BSTC1sbENHV0RIXVQrcW9fKllsUVtJXXRBKFJFQjZAai9FTUU/J2RHXTw+PlZJJjY1WWhiNWQ0Z1xrJ2cnNz9DMVRBU0k2W3EpMU07Y2c4PDgpbyR1cC9KJXVKTS1iNTJwZltZMGlEcD0/RD5ZTF5PXzAxRHBIWyNmMmIvV2U6IVNjW3FXJVVUYWRHXkQlKE5KIkFrP3BpQThtRC8qIWFaYF42XDxeYW0/SmI2LTw6YzF1RVFDQD42XSVMNGY9Pmc+TycsRzUrMy9NU1VyUkJeJ0VwaDEoLVA6JXVENUJOJzopNlIqN0QwKWMjRCU4UjMlZmE1QEw0VT5yX15OYD1gJSNnbkooZ1gwRjYocEJmMSFsWlllX3VaWlFoMDU4JFYkbGthNCxKSDxPPyxpIkxRQ2NoY3BjKzckJi81Qm9ZalswQDBEUihiO0U0JyRRWVEobGlQJ0FUQFA1RXFqaC84SmIjb1xpOTNkME5GSyFGViU9Py5MMHI4LSg4NF5KL0hOPGIsOTpxWSUjJ1o2VCdqRDwoZ0Y1azwjS3RxVE4xWitJWltnTW51T1phOVdlOGZKXyhbLDBFQk9LYFQqP2UjZnNSOk01Oy0qV0ElMEQ8ODRURCo/XCYvXmRJLidXaiRfZ0lDTFBbZWdFQzI1Uyw/Z1wsc1hlZURtI0kyM1RLXWQudDcyY2NaOl1DZT5WWFptbD80bTVcRjpKSjc2SkhpMGcubUY8NnBtMDJkb3FZP1ktL2w6I11EOU9jNm4/TGtmREhjRkRpSkZrVUk8S0QjSSEtUk1YWUFIPmdtLCwjVXFEclE+cCpsJVhnP3FqImZKMUFoMjsnYkgtU0NKXXQmR2dNXVl0YzdRNkhEcHFfMFwnJD1uV1o2XGxEaUU1UVU9JD04ZDInTG5KdGAxWC5HJzlsal5rTzdmYjxNPmo7S3QhXi9aWixvc1kxMiRNJmUtWkNCOFtoTV48OyZaVl9WKWw5XEspNEEncidNOioubjtoWlNLYiJ1JlVoOUlWcWglSSFSQyVhal40SnRSWyxGOjw8KWNJT3JyQ1FvXy5pfj5lbmRzdHJlYW0KZW5kb2JqCjIxIDAgb2JqCjw8Ci9GaWx0ZXIgWyAvQVNDSUk4NURlY29kZSAvRmxhdGVEZWNvZGUgXSAvTGVuZ3RoIDE5OTEKPj4Kc3RyZWFtCkdiIi8naGMmOSEmOldmR2ZMST0uTEpCby9hcFxkalFwPTwlQSZQMjFuMDFMMTxbc1hbOF1EcCdJRDp0VmZhXGtJLUJoIzdsaUM4I110TjA9cFwqPlYtTmReXnMsU3EwUU4/SW9FVC87Sz0yWTdVJ1YqVCpmUWs2TFw3J2BVOF4mcjtjT2UjV2k+VC4jYFYjNjhnTDYrXHFPQltjQERbMW0mZnRcV2tCZ19wUmdNX2djWmJjPFMoci9uIWw/bWhhVkhkVkJhc2FALUZvNVdccGg3PlQoNyZTaCNhYkIxRWVsQUpyRyNsRTpCPE5ZRDsvJWk4VTlqZF9zIVo0Pz5NQiNCVlhaNGgqSGwiRD9jVl5yPytnOVdwJ0QlWXJAWUdYb1NrXWByUCthKUYyL0EoZGBfYzE0UU9bUVpFPWZaXlhUQVphMlFDb2Q/bz1DbEtsNGpJaTwlV1pdV2ApOVQsUXQjNlU5PmFGPThNcjBjNnJnTmhHXk5CMkZXN2QkVj9QUE8ybyhyMVtfUFUmQCg3Llsoa3BTKWA3YlE6Ji0wbGtOayc3Y2xTLUw6OWEmYXJecmZgZWtRREdeTC45PC9BcEJAI2c7TE1nR1lYMSg1bk5AdG1HaycwZjtOaHBZaUo3b1F0QC8jaDYraDZRQFRJWWJtYEd0XCdUOzQsaGc+Qk9tIVl1U14iNGddVjZPPVBdWVQ6RWtuaj8xOzguRUBEK1NmOW1hUjNLNUU8Zk48YUYsPFdeKDFOQSpLIz5TQilhQ0NwZGtOLS0sIVlEZSthaVA6b3JYcWc6RD1XQCl1PD8odDs9SEFKdEtBY0UxRjllODJJUzJaaS5YV2FNO24hak9jIUJRSVVBI3RUQ0NYIUkpKW1xPk5zQ2RpVlZaO1YwQmBLSWlnWmFmJGM1MiwxOS1MQmRBbklKUWIyTyRjSiVRdWM5NzIsZkE1SHBjPForJmhoM0BhM2xcTUkyNDNQZDViakMwYFxBTFhDLExsN2tbOS1aM1JrTyhVIS5uLz5QTSVdbCckKCFRSGVsZkZlPS1OWT1bYTk/XGFIVEpUPjhmS0EjUl5cPl85QE5YRV9CcT0zLm1vPCNpWm0qSFpaTiE/ND5nTFtKX0YoWkJZMlg+PVEvWzo9OVlCLGYnZ0BOcDhuZD9yPDdDYUt1K10uVClQYysrSFEyPUtOUFJOKmNWOnFPZ2YyRjA5OSgoLSIxLzdBWklPPSljVCdhcy5gciE6J3FeQEFNR0lkQWZCJjJtVVM+JV0zVSNcMkpPVGdJKFE2T1BNLyZbblMmNFJENkdyQ2RlQXVqL2RSSnA5PSg8QkJtVkNDaE5JKEtPWT9oJDkxX0o/L2wuXGUyQ14halZiNHNDUj9OKkFkN0d1PCtiZSJIXlchSyo1TFhDciNda3BTIickNS05I1xzT2hsUGE3Plw/Zz5PIycuazUqKlJwJ05qL2lQbydPTG1ZaT8nOVkhZnVBU0k1Wks0NTRqUk9BZjtqNix1R15RZG1SSldSLj9ZNSI8b2prMWVVMzRuRyMyIkomVTxXWGJoKXJDJ1dfKT0/bF1mQUsuJGFWPVM4RWIjWmBrMklOVU4yYDtdci8lSU5vXTUhXjVuJW1AMkMyRlovOTVWYTpDQk0oXiJzMlJtMkJtaCVdWDwnRGlpUTJII2QhIUJYXEEpS2gpSEIsZy1QcCJRQExPcStwLlQyIzlgJDhfcjVOVTtxQlE9YTJUYTwzOkdMRUtWQzthcW1rdU5eVkluQy8xYmM8ZVZdNUNWRUBWbVtjT1tmazlncG1JblpxTC81JUkoTVgycypSUGhmTC9DIlRKUE46cSphdFQlWDwzIzghZygjbyJSImJyMmA/XkRHQWJncDFBaD9xV0E7LT1dYFBkUS02SWQ/cCEvWjY/IzZoJl1DNDdlOUUwQUFBYGtDVHNrYnVTL11jYTRUUE5qXVVyXk1sNU01JHNYQGheK3BrI2JxOThsQEshWCNzVTtSUjRIYko2THA7ayZLbCZVSl4/PCVib1E3LXV1Ji0pSlxHaEYvVDE0NzVgVVsuNjdyaUAmRFtcOyI8Yz1XMkFhM1BeZlU/Li10RWM6dT10OjQmLS4kMHVhUiJWcWtSQHIxPkVhJFVvTEY3R0FTak5XZ1E3RU88dGwhckIkTWpvRmE1WnJiOjdbST9QKmJELkh0O102KnM/b1wvYVJ1dCczUj4zaDxdaydbIys1aFw4XG9hVV5vWDdIKVNDJC4tSiIzMGNsKWQmMS1VV0IlJSNvTSdMLkdpLmtkJjVeVDI/Ty1QSFxeKUJUWjdnRGJQcm0wXk5Bc0tcMF85anFYMEZqRS1kPUk1IkI1V0NlcSYpKEdnc2Y8NkIwPVBoVz4nXSFiIS80RThyPipUN2tWV2FCOGtHVCJNLHVvKj4lUGdYUihsVWRVcDUyVUVNJENYQ2xWJ0YsOzRfPnNgRCpdMmVHMCFUL3NOOmRPWj4rcT1oYDhFJkFaXiJadCFfJjY4IjEwZW9dWD05LnFUJj5hImQnWkU5RjRxbFpbYl8nXnFiPEptQXMmWEhWbU0wQFlAXTghS1M/RzIyVyNlbTZhNCc5b2ZTQltrMEVSN1JiWTxSa21QTl1MJmxrXjVIME1ObCZtUEk9LTQ5IzlyYFpTSX4+ZW5kc3RyZWFtCmVuZG9iagoyMiAwIG9iago8PAovRmlsdGVyIFsgL0FTQ0lJODVEZWNvZGUgL0ZsYXRlRGVjb2RlIF0gL0xlbmd0aCAxOTE3Cj4+CnN0cmVhbQpHYiEjXD4+czk7JjpXZURsbShtSGBmX24rbVRVIylEMi9sNmsrJTRUQD9lXUVnY0RsWi8oIjRrWmdwUCkrOl51XFI1bmVLN1tDXVJuKFYsXjdEUW5SLkRKQS9KOU0jNiVnV15SXyQjUigzPXFdSjU8L0ZcP2tKbFQqWC5KVF4xVE44SCZjWl0rN2VrKiQjajtaVERBW1E+P0RATy9pWG9XNE88YlA9cmQpRS1FZHEyayM5LSZeXWZhOlVFbzhIUGJmW2pDKzZbJihBN08zO0xEKU9xaHRVLm8uQSNRNDojUDwpImAwSVRgOyFAb2NeaVUjLlVNLikjQW0kYERsbWNeJTdHV28zUUJVZVArYidwVE5OQWsvMXA1J2EtYERHY2Mqalh0T1ZDNlsnQkZeMzdccE4zYyNsM1NcKiFAO1AyWmVtPUpVXU9KZicqWy5AWS1ZWT5tYGFQU2MpNUg8Q0wmTlhJLDtoLjQ2X19GW184ZUsnZl8yIy5STW87MzFyJ2A+OUhZI21ZaF4kLTAnMmc9R1k+cGolIlJJTDVvVjpZQDUxJXMjMHRBQy0hL2tWJFNbKkk2PHE+PVc7OVJMX1Y/JkQpZlYyR3BCViE9XG9vTkRNJ11GTV5uYDsuTkUqYkQyN05pVGVKbEZwXCJpb004Q1djLSwmckVAb21eVWdZIT09RFw9UTtsSEJHMFQ5bzlcS1s8SCFDaGtyL0lnRU9UKEwtYlVLPWImNCRiYlo8OHBCQGlKLlUrYjFTP3I6M188cTxtPi9TQCE9Q1QtaD5aUmZ1PEpWOGdfWGMjMDctLG5QOFZGPUhCYURWZTtYNlNuSyJjcVJCcTVPMnItUDAoXDxVKmgxVyZBQmhoViIvUFQ3UD4oKGRHSGRZQHRYOzVHMCRvRHRcXl5xOylZYFxSUSNkbmwoQiovNjR1JGAuRlQiMUJDMFdMcD4uSmZwO2FpbHQ2JTwpS3NVNC11aUkkXEUqJiEjXCNCNzArWCRXQXQjIV1eSCI1UCklY08xbDMlIilKaFh0cnNzZGlhcUtdYkZPbCJhRmBwJDNbWUgyU0IkOVxbOyUyKDxLXF8pcFk8OTdbbFdQZzFNRDdeP0Q5cTM0Y1pcSCluLzU4QWdbRT5vOjBrMWtRTnBlZSJeJjJcVy9MSTtcRj4vIyVuKTRTSDRbaGQmIVFEQilRMSIzKjNsQXE9Rk9DbSZAYj9sRV1yQ0lmISEwZWZNM1ZsUCdGWi5bIWUsX0ZpRiY5ZSF0Q1M9aUBibG82NGJgRlhBdTNHPkFNKF1WKjokOC9LbFFOS2lDNmpDM1tiM0s0aHJRLUU9LDdgTFBzLl9NKjkyKFRGTWRlbzZRYStcbytpMEolZVIhUCQyZW1BJEZjO1tUNVdiM28jbFBMbyhUKFZvVC5VR1BIVTlSJGxJUWkpXFVHUm8kVVhZTzc7JmovYjw5RTQiT05CaENuLjtRSlM+XFJMbGdIRT1WZ2w6M0VVW11VLlRGYldnYjZJMVpVRmpqYTVVPFVqSy04X2I8LV5BS1ZDUnVUXnAuOUJaMkphcWRMQTFYJCgsUGNecmRRayM6JlhqJkQkSHBpdElWSzErIU9LQUU1RWtjUi48VEdfclwiJC06JnBbcUxjbj0wKHFxdS9eZ1QiPnJOS1FpUjVbYztadFMmcCV0QjhqNDJVSkdwOGQzUVc/OlxVXXU1RWVyTFNmVVA1QEBoMyoyTl1WXj50RSInYCtJJCJaUj1kR0AxcV9EQEtBVXNAZT9KM0YlV0FHNlRTQjRvZlVSKi0uMUVHNE9cXHUvRGNFTzE/LEJPKTMwcEQjbzw2SyJDaVVJQERlQGMzcitZcmtxJW4iM0QxRjZmKl1eMm9pSmgzW19UZyVMJS9hajlvbnFFL0NuTy5xMihUOC5xY2FeUCpqL10kXE1UMUFrIyVYUis0SkxBTTZMN0FbcnRDVUhCTnFHXyRVOFs7VGs+YHBjUjVJSko3TE81X21XPTFSNVhcaFJWRElrIShTak1QUlZcKm50I1JiKkktQ2k1S2U+OmFmPzwucFtoZmY9ZTYpOi00ZyVhPUZdWEklWC5LLCs+N3I0VScoQy89UyJrKFFFP1F0OCRaJ1tcc1tsXmsnOGVjcElGZSNoaG9VIi09MGlEclwjRW9Ia3RXMHQrc1VCb1Y3cCxpZyhNN1VUPDpaOE9HX1QmPC1LOzMlUVpeJkY3VGU0SGstWD03bjRgLiM1L0E3XVU8MDxtO2MhV1FYKishV19rS1RaZm1xaEdQLSdiOi9wKCFrQi9HUmNcUi1OdW1KIzBpKlxdWU1RP3RlZCRcTT5HU0Q6QChWcFtgS1tvbVJIXCk4Ll1dLzVrcyI2ZFFXWXM1aVhnN0MmV29EQGBYO0FdPEVhajRkWFJsXz9tc2ZUJ1M/RV9gSVNaUm0uWzRfbjhQLDMuKzpNMEEiUzsjZiY5OGVJcm1ObTNcPjhsMURwbnRdMCgxcCwmUlcyX1cyKl1LOGtjTl5yMiUrLUl0MkknRi1kLXVQIlp1Py9nXGsvR0JXbztsQ1FCRmVWfj5lbmRzdHJlYW0KZW5kb2JqCjIzIDAgb2JqCjw8Ci9GaWx0ZXIgWyAvQVNDSUk4NURlY29kZSAvRmxhdGVEZWNvZGUgXSAvTGVuZ3RoIDE3NTAKPj4Kc3RyZWFtCkdhdUhLPyEjYz8mOk5fQ2JmY1NGPjdkKVAtWytBcUtKJVcqViQxcjZWKF1cZExsNixIUTQ5Pl5vbTghN2A3WTMvKy11IUtfcFczZnBXZj43YmZSYmxdQzMqUEhDKiIrKSg0aU5aNlYmaVRdPzIsUC5iZFxOLWV0SXE4PD1mTl1dVFkmcCNeYldQNzJoLiVJUEZtKVBWP0RvUDEpUyEvWGZNa1cwVFQ3cDVwPi8maic2MSIyXjosITZhIz5fJCFpUUhPZEA9PVReKDMvQHUtcThLc15HM01kTU8+I1E2cUt1SWFsPCg/L050ZD5jXWRaRlUrXFwzZSlLYFxpXEkza2l0IU5oKy0pUENiQDBFLEMybGk2WUtvdVxZOjAzPWFfTWlKYy9ZM05OclVPNXJSZXVFciNjRkkiJiI6dSNYbztAQEpyIzRyXExKU2M/Ujo8IipMPz1BWSxtJGFecCRvcWY+cipXbTcqYmQhPTA/XSMqc0U7LFttIVZrdGgiRVo4RG04JS0zXTp1S1RCW2RabEYuW2onVUkiaFdVJ2YxPjFgSSxbV1JJPEwmM3NPR0VLamxsaEo0KTZjazkyUUYmZzhWLClaY1dtVkVLT2E4RkBXUjNkKltMRjM+bShTMXNuPVFLLCtya2ViKz5tcXI6TmVMYD0pYj0mT01hMkdcLmRXJ0ZgWCZOWVBWSVwwLGIzWWUwWVdoZnJocj41MWBqdGgjSUtAcDZAJ1ZNQigoL3A4KCIiLyRHaltwZ2kkUyNmWCw0T1oqamFib2FeYkA7SHVeQlprVkpoL1AiWTxuV2FBO2swRFtNI1ozVSE6RnFKOEhdNys7XihqQUVmVFIrQCtdWU0ybCM2ciJQZCZrcyg+WnJLX3FmLXFbOUxDNT04dTU3MlQvUl9jPys3NitjMXRhYigjXmU0YEk9UTUnW2ssQmRgbU5wSV51VltRQW0pcGRMUik3KWgib2c9bENURCRIOzUnLlE3NyJMVi1iZW43R2MvcTUoQUYlIjJvJk9ZOFkhZnJvMTZPI0NCOiVbdTAzSCQqPT4uYmFONGotR2U7O1wnX0A5SyYnXWVMRm9hPDYtIV5CNkc1InI0R3U3PV83R1xJNCtKOHBIL3BtUU1dXTdRUCxmLihUTUElNWwhaSMubD0oQSQsVUc/bGE7bkFhLUVbXVAwRT84VU1GJSk2YmA7bGtMK0FKTy9obGdaOHEtc1BMWHRyTGtpYVkrbixWcFwyX15uTD8tJUpkSisyQFtNcE85REZuSVdySDpGM2UmXk9PaiJ0JnA5YzRRYkksLGBWJUonNkVgRkFoXTpqaSRQYEpfSzJnLVhHTFkxZzFHcCNeT2NPNSEsRzUyXiYlVy9CLj1GT1k/RWxEODs4Zm1xZzwxVDUpV0Q1YmpkMHFdbnRuMkNBUGBxI2xzUjI2OSMiWzduXFZFMDVWPVItVUtBXGVrWTgjRm48P0tySDwzQGxdT29GP2YyKW8+Rz9lYyhkK105SjtXKEApayJwKU1WJnI1KXEyNzxpIyE3PWUoM1NuR1dlLkI8b2M8TW8lKlk1aT5MRVs7a106b2AsPDZgRGtFXVFLMjlbO2xCN24jWkJnZ3NbU2ZxMT5KUy42XFo9KTtIN1tUPVBuI1NyUi8lIigsQFQlKkFoUjdiX3VRO2xfQ1NaRT4tOUJAb2VVQVwsMkciWjlnXlFhWSkqa0JQJTxyQykhLWdtNSxeRC84bGtjNTQ5SlksWUUzJHRzVDtEWnQmVXEmKVIvRXFQJk5IUlVlOSQ/aHQ5ZXFIQC43XCU1WFxpXEVsVSZDZ1cyRDZoI2Y0OjA3M2VFWCNEK2wyPWdAZnBLVi5jVy44bVRrXjk2T29kY25zKExwa0Eway1TN1RNRkQ/MFpNKFswVlRaOC0mcTdQRW1gUjhqQ2NgV21WWGsiJ0s9Zm9sQjcoWkpiQ0pgc2NKbShNNFhvZCQrUCNZdG8xSWUhVW4mbVNLXVxOU1Asb0lFOWFEN0tMPkk9LltmVWU4N0tzXEciYVtDZCZENEIzQGBwK1pASSF0UyxKLCtPKHBgQEhIPVpMYmBfLj5vNkRUXEdER1dXaCJgLEsyVkxhKlpESl0tdWhmUXNwZlxdTClMKjJkYXRSbmhwX1IpNFxzMTR1Vzk2TDVnLXJCP2Z0RjkhK2RCODldKSInbW4/InVsZlJFP2ZuZD8kZGUvay4vTVUoM1cyOigzWzgvWDtxamoiTk5XYmo+XzVIJ2kuaSJjWSkzRW1fRiltPzVAW3RgPStDXkpwRylUa1s8YFdITk9GSTRiISVDKlFGXDltYDgxTnJyUEVQY0BRfj5lbmRzdHJlYW0KZW5kb2JqCjI0IDAgb2JqCjw8Ci9GaWx0ZXIgWyAvQVNDSUk4NURlY29kZSAvRmxhdGVEZWNvZGUgXSAvTGVuZ3RoIDE3MjkKPj4Kc3RyZWFtCkdhdUhLOWxKY0cmQUA3LmJnQlhmPl5oS2xSJSdRcGgoRmtmRlZIQTZscFwmQDZzXEo8LSldR3FxXS9TMTlaOW9yIWw2M3MqSTI2Vm8sY2VKOC1UY1hSSm0wTylXND0iXlJtO2kqOmFpS0xkWz4zNWFKJGk1OVohLjIhJHQqPEBOb1hVZXNJVEsnKWM7IiM7NC5pZWcjb0BoUW1DSkxHKFQ5aVZPajg4J2ldP0NfWSQzME9aQTZfbC01LFU4Ll1SMidPQSVMTXVAP0tJQDBcJzNDUy1WLi0oVSpyX1o/YytHQGsqTTA4QXJIRVpicio7byoidFxfSVhcXUdpRzxzX0cmb0NhWTg1dTZGLkZvQGg5R2krZmwpdCVLRF8iVjVuWHBdLFhqW1pFYi9YVD5ZK0FmPFs8TmBPVXNUVjgjJ1A2VEchM2ZQVkVSMlhQVSYkVjs/JTNVO0cmdSFuZ2E5am4+QyVwUkE6JjJZY3I+WCRbPEU+TjpONkQja24nLj1sSzdKMG9tXTRyMVVHT3MlWGknUyk3I1xfaThpLTZoUmxLZW1dI20/TldWIzhDIUxHcC0lRDVLRlomTEBMOjskTCQjXXFcZ1A7RWlFPmI3alhwMlFiNkMyP1BKO0skaThlIihWdEU7N2c+OCZfP25zMDByJEkuaGooNW9dSWdRMTAnXzNeQ0llLyxGbjpaIzZNPj8mXjk7Vz8rTW85Imo/RTtlT2QlT2hwRitdVG49QEprQD8icl9WRyo0dUBLbGA6OVVcIU9FN0paWWkkTk5DMUxZYkUuZV5dTG1aSUYjayRjYFVXaT1UWCRURzpxcGwqVSE4biEyNSUvbWFuZltmclZsNGNaRGxBWU8+Rl1IdFFqbFI+bSg3IWAtTVsjS2Q6QkcvdDxPSyVgUTVbTCQ8SzZtczlMYUUuQzM4PWBTa1dyMmNISzA9Ni5AOWxEdEsqcklWQUkzW2ciLzNnUTZpVFc+UUBLOWttVkg7PUIlaFVvJyZbJ1AvM1M2aXBkUDoxTjglYVdfViRQOjxFVD8+SixJYS5aO29hK05zU2BOQUpqSTIjQ0dVUG9qNS0tRDVtcjlRSyI3NEM4NTFhamExI0AxbTRDciVUWFVQJlkmKzRyInA4M0RyUjRHXHVLJHNWOSlEUi1faDVKMGRFPzRwTm8iXykpXFtfMiMiQF5DYSM+akZzIVolcydOYkolNjw1TysjOTNoOGw3LC1mYSswJkxRTDlrRytrK19LWkk+Z2U8WWczVz85aVI4QiZndVZwUGdoKDBdb0x1czRgJV9KXTw6bU1zPjssTDZcJmNTbURJXm03OyJrYWpoWDxGWDdEXVdebikqayxPP0xOZl1zSDMmcCZuXzZlTUhLKjE3TzxvQUsrPDBxZ1MpLFhXKHA1IStTaUZhTXFWMDpYXDMyKGsldGMtMmEmYkNnOyVNRUg8STkvO2BKLkNpa0E6a09WLGtRa05QZ1YkKE0yKWxRVCc5dWs6RDVCXiFLOzdHWWFTUk5qOTZVbF9QalBwOC0+UjZOLERPdXUwbCNCZGNgLUhNc0EtXGJaZiVNOUw6O3Q2YmUlcGRFO2dHbSUoVzQ0Q3FTVF81WU1YV1pxUlFCZHFCUEZIZUgrVUsjaCRdXWtPZzdRVGVrXGpFXWJtQD0mOS1PVWM3JUY9XU5pOWRCaTVeVUIpPW1AOzFsNklha1VdbSFpTl8nbSo8Wz5JWkpSZT5tKWBgcmtQR05NYl9fZG46KXI9NGBSdVdONUAmb0VbM1ByZV5aaDlqU1NPbidNIWIqdTNEPmR1Sl5UaTdhVzVCVjohXUMjQmk8TiVAQU06UEBvVWQjTzA5Nzw+Qzk6JipwSEM5WFlqPElzPlBeam81O0o+Xj8kSjU+I0UjNUxdTElbSnE9Qi1PY0YwR1hBdEdHcHFoU0gsYkU1T0BgZzB0VVowbS9RZTFhbTU9WVcyYkxzZSRmPUdvRjw5MUFRPUpfPUVnVENLM05rOl8ncC1BSWY1LVJJbzUhIiNIYiVkTDtjTlZjKWtpVmY2W0JhOlMwOTpYNz5FOEVMNz8rWVIxN19YXDhDODQyNHMwSUBHRyVaRmVHalZNKjpLRmUxMkFjOUpyLCk5aF1DMVZXKixrJU5WMGItLUMmRitgPCJGbGNLRU1ZbTpOZUVELjQsSiYtUGYnP2RMaV8/Y1VNKVdgYm9GS2Q5TjVGbS5aSSUqXkBvbCJLWlAtbD1TamNPIXJSUV1JQj8wW11tbDArL2NKMGNaSywsLXVKOUVAaE44ZjVuZzRiYWohLl1sMyhdfj5lbmRzdHJlYW0KZW5kb2JqCjI1IDAgb2JqCjw8Ci9GaWx0ZXIgWyAvQVNDSUk4NURlY29kZSAvRmxhdGVEZWNvZGUgXSAvTGVuZ3RoIDI2NjkKPj4Kc3RyZWFtCkdhdG09PkFyOSsmcTgwMVIkUm09RFFTYEVJPVlrZC0+bFRxb2QzQlEvL0lGVyxMX1tdXSFyQz9YOk5VOzU9OCY7VXRDamplLVQ8NmljJE8tPlc8ckEwXyhMLnMyK3V0X1tKLl0mZy5tIyRRdWxkX3NAYilBbk8/UiR0OzkzOlZqOVpeYy0qYUkrcEhKITpvNVMkQkFvMyE9XT4wVkpGaEVsW2VGOl90TzZUVzhVImVASV9PL0AwTWxUKlskIlNSKW1DUypUU00sLidYSUtVZF9nWyxudXU3OGo9b0NvKWxuPUkzMyYtU0JpUEIuODZWJmdYITUnNCtNNWAiaUtFXWE2Vkl0PmBRUihoTD9FaFkmRVdjcW4ncyVJKEs/KjIwZlM5SXBodS5QW1NmZkNPLzE1QGxaQi1CKTBxc1hDbC51TmFYclZBTW4pNWZJSEcpWCI3XWtUK0dTYEFYNHNDM0RXKV5AYXBvbzBNLUwxTTAvaWs7by8mPis1W21JRCp1J1IuVVtcJEpEb29uSlBfJDhvSyJKV1lVJ09oLS9nP1k1XmdNR1s0PUFrWVpzZFRFJm4sXVk4Z2FbP2laVC0uMk5FQUdIJ2JVNW9lTCMvIzVtKTEoRVhXKEY/WWlpbjdeMjlHTnBvTFNgUS9YQVRKVGksPG1ta2lmSU8+blZ1RFo1IiM4Ql9MJiMnUmtnQV4+TSJJNk9rWjxfbCNJRSRDNVRsIShbTDQ8aEkhIzMyU3V0XEg+OGY1VjVcYVFxS1NHPj1yWyxCbWxEZ2xRZW9pSiNvRTgtUSI7T05pIm5QRSEiSGdAK1o5S1tNIWdRSyQickw+IilydEQmVS9hTFZQN1Q2ZEEhPjs6PmQ0NTRUMVZOdWw5ZlluKGxeZ25RaWxdZEMtMzhpZTNcJTcsVUFFc1VaYEsuVTRFOGYlX0RRJnFUZzU0M1BEYGZFQ2w0Zi0pOikiTnNNRjgxcUZdS2AnZm0zNnEkRSdoWzFJcCcoN0gqOWJzQFwiW2YjcG9TPU0mZDglPS42Olk+QzldXj5aRSlqQVRiXmprPWU5SGdLPytDbUFdQnQnaW9JS2xVMTEvNEdoTClEdGJAKT9yci1SMCY5PCo2V0RILVVOREoyNkZNRStgQSxSQTxIUmIvPFFAOmYjMGpTLElfXz85XmExYGgwKCxUXCNMbVtVJWlcPkJXZiltayQ2ZGZ0TlhOIW0xK2o8XlJrcy5MYHBhI3JYJkc5NlVmUGFmaFtjKVBTTV9TNkpJTDoyT2NvSElib0dZayE5WC84JytiWj5NS09pQzhsZTZ0YCQoYVAjOzEpQ1VvPTgrZzZWI1dFdE1ZUlBJZVpfPDVkN0RYLEZhXyM4VUk2MFtaZF08RUlmSlVzc2lVaGFCbyErIyc/SzFHNFB1UjdhXEtwMjdkJ1s0VHFmNUkvPERtWkwrJyVVMmtvPScnKm4sbkstQ1BZUFwnT2VIS085ViQkPWpKaF9tOURlXlBYVWM8NG1ZJSltIlA0JCdlLyMrI0dfdTFpXyliRDUrbmdLJi51VCpFSEhbbHVXUEJgOl1FZTsmQnU4LSVgQlkzbTVPZFBwXXROcSZWX11scjpWJkRTUlRpWkJBJTVIQUFwX0deND5wRHMvV3I4VSUnKC5zckMpJlRRU2xnVkYjJURzQDA9cDJeZkEoIVhbNmUqPTdsYlUjZCJQQGVKazs3XWJWWGxWKXRMWHAidGFDZTJCcmFhX2VfKXArOiMvI0tjQjBtcztJUFtyZCNQMElhJFFmMzo6clZbN2dcXCpSc1tHPU5FMUJNJVQ1Py4/N1RbPnRFLFFbUUMiRkloSDpnP3JDQHFxS25UVCYjXVYwMkZlbE1QWHIsalFNW0BNKyVxKWZxWClaOyRVPSVecjo4M109cFRPJGpSIj9TQGBgX29cYC9jbiRwXmBrXihkVS11XSZnXVk8O3VJZmpMaVY5NGQ6UFk4JWhnZXBAYiteYXRlKkxVJSg8STRmPUJTNGUuKiQyT0JiNjYsRWpeU20yPSxcUHAjMFwsS1hSW2RVMWs/Q2Y8Sj9eNUEmOllVS2dyOGtMbTc0dCNjWDpOXG5UMURta0AsSj8zJDFUcig8PksvPFptOCdOLW5PV2JIPzsiXVVmLT42RjpsUTUzN1U7cUknSmxIQjI6aiMoOi0jU0BpcmRtLGJILzUoWEtwLDdZUjVcXiV0IktMZFVGdVZYQzFdc1ZGJ2hEV0dPIztoP1l1VWFLUT5VcVJXLTVpayJOaUpxIk91NztaazFSXGBCSk9SZTVzTDNdK1dmbDRAU0tzSFwrU2c+WFtnU2VzR3BWVzA2UCFAb0RqZiknWkBdIltrPFVXNF8vWy1zSUthOD5RUl1kRjcrJGlxJV47Nj9SKUI7ZlJHTlFNVGwvPkNja2hVLWNqbmZNazZZaVY1TDljTFMpdTcqUExNLWhqaGBXTTpUQTE4WWlBK2MoXnA/VXNjaixHJUVZKiwuJHVxTkR0VDhrWFhjO0dTMVNqWGxWJEZHV1InQiQjcVBKbD8nbzhhT3FTYGY0ZkdpSiVbN21TcG1XcWh0KDdVRltHLWNRUlp1bFU6Tkg5KDgxKXBfVWwxKEFnXjMvL1xdVktdNHI3VF5kLWJoRnFxKV5iT20oZ05TMSsmS1QlIlA3OjtCTm9XUVQwVHI3LG9HWGMrKUQqJkNaY0kydVlfLCtPMS0laltna2RScGI4NkJiL2JiT1c+ZDVeNmIsQWBgYXI7KDNLKXBUWm5yVFZeMFJNZGYxQzorRmRLZHJtYlouM1U5VDViOV0/RUEwJG0qdGRBRWNxXz1PKmx1WjR0PlY8LXNTIVVIIjJFSTxmL0BWTEtEWENSJWBjXnAoPywhI2AtKTtWTShWU25FMmIuQm44WjgoYm9RPVZgPE9MQFtOMyglOjQxJl0lVUo1J3U0LXAvSik/bV85WFhsVTVdbzxvbS88OEonbFQvXGZHMUFeU2p0RVhnaSMtSmhiMFc0dGZIaThUVDddWCtoNTIyXj1fWVBRc2EtMzdFNT1iN09mN1RPPGFdWVdTKT0oZXFwI0xVYDhGNG5APGsjVCQ/ZDxPTFptTjlkQHJGUzFkbUkjTVtiZ15aNENOJjAwRHFVXCw+OyNTTHMsMlNePHJrOXVbPD9NYz9Oa1EkcERTQnVTOCxlRytIO1RxLm9OXyVfaVxLLihFKmchJklTdVRpRGUzLmJ1YSpCVTYkOVdoRTFANjJOXTRnbW9POV0wXkpaWnJQTW9SRk11L2dobDMwSEwwX29hSF1wcj0oQT5MSUUwIVEqck09OUxhNE1TSitZTzFqQD81NjRpYjs3akZmXzY8a2RSaVxXaUViKz1wK1JlOj5IMVEhQGMoVCYoW2RAQSRUZzhbMSV0JU9bTU1vPWRaKjxgUC1yZSlnVjNHYVtNUSpjSj4yVitMVCM5Ij1uMDJRZzF1W2w9UjpwUUJIOl4sWVAuRlRobWNZLGxeLSZsMFJrdW1EN1QwRlNmIk9nPUFUbGM6XidSJUw0Y14qSjpxMCghMUZnSW41IUdpV34+ZW5kc3RyZWFtCmVuZG9iagp4cmVmCjAgMjYKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDYxIDAwMDAwIG4gCjAwMDAwMDAxMzMgMDAwMDAgbiAKMDAwMDAwMDI0MCAwMDAwMCBuIAowMDAwMDAwMzUyIDAwMDAwIG4gCjAwMDAwMDA1NTcgMDAwMDAgbiAKMDAwMDAwMDY0MCAwMDAwMCBuIAowMDAwMDAwODQ1IDAwMDAwIG4gCjAwMDAwMDA5NjAgMDAwMDAgbiAKMDAwMDAwMTE2NSAwMDAwMCBuIAowMDAwMDAxMzcwIDAwMDAwIG4gCjAwMDAwMDE0NzYgMDAwMDAgbiAKMDAwMDAwMTY4MiAwMDAwMCBuIAowMDAwMDAxODg4IDAwMDAwIG4gCjAwMDAwMDIwOTQgMDAwMDAgbiAKMDAwMDAwMjMwMCAwMDAwMCBuIAowMDAwMDAyMzcwIDAwMDAwIG4gCjAwMDAwMDI2NTEgMDAwMDAgbiAKMDAwMDAwMjc1NyAwMDAwMCBuIAowMDAwMDA0NTI1IDAwMDAwIG4gCjAwMDAwMDc0MTQgMDAwMDAgbiAKMDAwMDAwOTc5NiAwMDAwMCBuIAowMDAwMDExODc5IDAwMDAwIG4gCjAwMDAwMTM4ODggMDAwMDAgbiAKMDAwMDAxNTczMCAwMDAwMCBuIAowMDAwMDE3NTUxIDAwMDAwIG4gCnRyYWlsZXIKPDwKL0lEIApbPDk5NWVjYmUyYjY3Y2M3YTdhMTAyMzI2NDYyNzE1NmFlPjw5OTVlY2JlMmI2N2NjN2E3YTEwMjMyNjQ2MjcxNTZhZT5dCiUgUmVwb3J0TGFiIGdlbmVyYXRlZCBQREYgZG9jdW1lbnQgLS0gZGlnZXN0IChvcGVuc291cmNlKQoKL0luZm8gMTYgMCBSCi9Sb290IDE1IDAgUgovU2l6ZSAyNgo+PgpzdGFydHhyZWYKMjAzMTIKJSVFT0YK</template>
-
-<!-- Floating User Guide Button -->
-<button class="guide-fab" onclick="openGuide()" title="Open User Guide PDF">
-  <span>📖</span> User Guide
-</button>
-
-</body></html>`;
+</body>
+<!-- Guide floating button — outside all script blocks -->
+<button class="guide-fab" onclick="openGuide()" title="Open User Guide PDF" style="position:fixed;bottom:24px;right:24px;background:#0A1628;color:#fff;border:none;border-radius:50px;padding:12px 20px;font-family:sans-serif;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,0.25);z-index:500;display:flex;align-items:center;gap:8px;transition:all .2s">📖 User Guide</button>
+</html>`;
 
   // Try modern ClipboardItem (HTTPS/localhost only)
   let copied=false;
@@ -1147,6 +1746,7 @@ function clearAll(){
   });
   document.getElementById('rawTableWrap').style.display='none';
   document.getElementById('rawToggle').textContent='Show ▼';
+  const frb=document.getElementById('fullReportBtn');if(frb)frb.innerHTML='📋 Export Full Report PDF';
   document.getElementById('anomalyBar').classList.remove('has-alerts');
   document.getElementById('progressWrap').classList.remove('active');
   setProgress(0,'');
@@ -1598,6 +2198,31 @@ async function _exportSummaryCapture(action, fileName, dateLabel){
   }catch(err){
     document.body.removeChild(wrap);
     showToast('Capture failed: '+err.message,'#dc2626');
+  }
+}
+
+
+function sortHeatmap(col){
+  tabSort.heatmap={col:col, dir:col==='name'?1:-1};
+  renderHeatmap();
+}
+
+
+function jumpToDateText(raw){
+  // Parse DD-MM-YYYY or DD/MM/YYYY
+  if(!raw) return;
+  const m=raw.match(/^(\d{1,2})[-./](\d{1,2})[-./](\d{4})$/);
+  if(!m){ showToast('Enter date as DD-MM-YYYY','#d97706'); return; }
+  const key=`${m[3]}-${m[1].padStart(2,'0')}-${m[2].padStart(2,'0')}`;
+  jumpToDate(key);
+}
+
+function populateDatePickerText(shiftKey){
+  // Populate the text datePicker with DD-MM-YYYY when a date is selected
+  const el=document.getElementById('datePicker');
+  if(el && shiftKey){
+    const r=allData.find(x=>x.shiftDateKey===shiftKey);
+    if(r) el.value=r.shiftDateDisplay; // Already in DD-MMM-YYYY, just show
   }
 }
 
@@ -2156,7 +2781,7 @@ function renderHeatmap(){
     });
   }
   el.innerHTML=`
-    <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center"><span style="font-size:11px;color:var(--dim);font-family:var(--mono)">Sort rows:</span><button onclick="tabSort.heatmap={col:'name',dir:1};renderHeatmap()" class="exec-btn" style="padding:4px 10px;font-size:11px">A→Z</button><button onclick="tabSort.heatmap={col:'rate',dir:-1};renderHeatmap()" class="exec-btn" style="padding:4px 10px;font-size:11px">Best Rate First</button></div>
+    <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center"><span style="font-size:11px;color:var(--dim);font-family:var(--mono)">Sort rows:</span><button onclick="sortHeatmap('name')" class="exec-btn" style="padding:4px 10px;font-size:11px">A→Z</button><button onclick="sortHeatmap('rate')" class="exec-btn" style="padding:4px 10px;font-size:11px">Best Rate First</button></div>
     <div class="heatmap-wrap">
       <table class="heatmap-table">
         <thead><tr><th style="min-width:180px;border-right:2px solid var(--border)"></th>${headerCells}</tr></thead>
@@ -2648,9 +3273,262 @@ function renderDialPattern(){
 
 
 // ── Embedded PDF Guide ──────────────────────────────────────────────────
+
+// ═══════════════════════════════════════════════════════════════════════
+// EXPORT FULL REPORT PDF — all tabs + data in one PDF
+// ═══════════════════════════════════════════════════════════════════════
+async function exportFullReport(){
+  const btn = document.getElementById('fullReportBtn');
+  if(!btn) return;
+  const origText = btn.innerHTML;
+  btn.innerHTML = '⏳ Building report…';
+  btn.disabled = true;
+
+  const selDates = getSelected('msDateDropdown');
+  const dateLabel = selDates.length===allShiftDates.length ? 'All Dates' :
+    selDates.map(k=>allData.find(r=>r.shiftDateKey===k)?.shiftDateDisplay||k).join(', ');
+
+  if(!window.jspdf?.jsPDF){ showToast('jsPDF not loaded','#dc2626'); btn.innerHTML=origText; btn.disabled=false; return; }
+  const {jsPDF} = window.jspdf;
+  const pdf = new jsPDF('landscape','mm','a4');
+  const PW = pdf.internal.pageSize.getWidth();   // 297mm
+  const PH = pdf.internal.pageSize.getHeight();  // 210mm
+  const ML=12, MR=12, MT=18, MB=14;
+  const CW = PW - ML - MR;  // content width
+
+  function addPageHeader(title, pageNum){
+    // Navy header bar
+    pdf.setFillColor(10,22,40);
+    pdf.rect(0,0,PW,12,'F');
+    pdf.setFont('helvetica','bold'); pdf.setFontSize(10);
+    pdf.setTextColor(255,255,255);
+    pdf.text('TEAM EMERITUS  ·  EFFORT CALCULATOR',ML,8);
+    pdf.setFont('helvetica','normal'); pdf.setFontSize(9);
+    pdf.setTextColor(147,197,253);
+    pdf.text(dateLabel, PW-MR, 8, {align:'right'});
+    // Section title
+    pdf.setFont('helvetica','bold'); pdf.setFontSize(13);
+    pdf.setTextColor(27,79,216);
+    pdf.text(title, ML, MT);
+    // Footer
+    pdf.setFillColor(203,213,225);
+    pdf.rect(ML, PH-MB+4, CW, 0.5,'F');
+    pdf.setFont('helvetica','normal'); pdf.setFontSize(8);
+    pdf.setTextColor(100,116,139);
+    pdf.text('Confidential — Emeritus Internal Use', ML, PH-MB+9);
+    pdf.text(`Page ${pageNum}`, PW-MR, PH-MB+9, {align:'right'});
+  }
+
+  async function captureElement(el, scale=2.5){
+    return await html2canvas(el, {
+      scale, backgroundColor:'#ffffff', useCORS:true, allowTaint:true, logging:false
+    });
+  }
+
+  function addImageToPage(canvas, yStart, maxH){
+    const imgW = CW;
+    const ratio = canvas.height / canvas.width;
+    const imgH = Math.min(imgW * ratio, maxH);
+    const imgData = canvas.toDataURL('image/jpeg', 0.92);
+    pdf.addImage(imgData,'JPEG', ML, yStart, imgW, imgH);
+    return imgH;
+  }
+
+  async function captureTab(tabId){
+    switchOutTab(tabId);
+    await new Promise(r=>setTimeout(r,400));
+    const bodyMap={
+      leaderboard:'leaderboardBody', shifts:'shiftsBody', trends:'trendsBody',
+      heatmap:'heatmapBody', wow:'wowBody', dialpattern:'dialPatternBody'
+    };
+    return document.getElementById(bodyMap[tabId]||('panel-'+tabId));
+  }
+
+  let pageNum = 1;
+
+  try{
+    // ── PAGE 1: COVER + EXECUTIVE SUMMARY ─────────────────────────────
+    addPageHeader('Report Overview', pageNum);
+
+    // Date + stats summary box
+    const map={};
+    for(const r of filteredData){
+      const adv=r.advisor&&r.advisor!=='undefined'?String(r.advisor).trim():null;
+      if(!adv) continue;
+      if(!map[adv]) map[adv]={total:0,connected:0,talk:0};
+      map[adv].total++;map[adv].connected+=r.connected;map[adv].talk+=r.pureTalk;
+    }
+    const advRows = Object.entries(map).filter(([k])=>k&&k!=='undefined').map(([k,v])=>({advisor:k,...v,rate:v.total>0?v.connected/v.total*100:0}));
+    const gt = advRows.reduce((s,r)=>({total:s.total+r.total,connected:s.connected+r.connected,talk:s.talk+r.talk}),{total:0,connected:0,talk:0});
+    const teamRate = gt.total>0?(gt.connected/gt.total*100).toFixed(1):'0';
+    const avgTalk = gt.connected>0?(gt.talk/gt.connected).toFixed(2):'0';
+    const topAdv = [...advRows].sort((a,b)=>b.rate-a.rate)[0];
+    const zeroAdvisors = advRows.filter(r=>r.connected===0).length;
+
+    // Stats grid
+    const statY = MT+8;
+    const statW = (CW-9)/4;
+    const stats = [
+      {label:'Total Calls',      val:gt.total.toLocaleString(), color:[27,79,216]},
+      {label:'Connected Calls',  val:gt.connected.toLocaleString(), color:[5,150,105]},
+      {label:'Connection Rate',  val:teamRate+'%', color:[217,119,6]},
+      {label:'Avg Talk Time',    val:avgTalk+' min', color:[124,58,237]},
+    ];
+    stats.forEach((s,i)=>{
+      const x=ML+i*(statW+3);
+      pdf.setFillColor(240,244,255); pdf.roundedRect(x,statY,statW,22,2,2,'F');
+      pdf.setFillColor(27,79,216); pdf.rect(x,statY,statW,2,'F');
+      pdf.setFont('helvetica','normal'); pdf.setFontSize(7.5);
+      pdf.setTextColor(100,116,139);
+      pdf.text(s.label.toUpperCase(), x+statW/2, statY+9, {align:'center'});
+      pdf.setFont('helvetica','bold'); pdf.setFontSize(16);
+      pdf.setTextColor(...s.color);
+      pdf.text(s.val, x+statW/2, statY+19, {align:'center'});
+    });
+
+    // Executive summary text
+    let ey = statY+30;
+    pdf.setFillColor(248,250,255); pdf.roundedRect(ML,ey,CW,28,2,2,'F');
+    pdf.setFillColor(27,79,216); pdf.rect(ML,ey,2,28,'F');
+    pdf.setFont('helvetica','bold'); pdf.setFontSize(9); pdf.setTextColor(27,79,216);
+    pdf.text('Executive Summary', ML+5, ey+7);
+    pdf.setFont('helvetica','normal'); pdf.setFontSize(8.5); pdf.setTextColor(51,65,85);
+    const execLines = pdf.splitTextToSize(
+      `On ${dateLabel}, the team dialled ${gt.total.toLocaleString()} calls with a ${teamRate}% connection rate (${gt.connected} connected). ` +
+      `Total talk time: ${gt.talk.toFixed(0)} minutes, averaging ${avgTalk} min per connected call. ` +
+      (topAdv ? `Top performer: ${topAdv.advisor} (${topAdv.rate.toFixed(1)}% rate, ${topAdv.connected} connected from ${topAdv.total} calls). ` : '') +
+      (zeroAdvisors>0 ? `${zeroAdvisors} advisor${zeroAdvisors>1?'s':''} had zero connections this period.` : 'All advisors recorded at least one connection.'),
+      CW-8);
+    pdf.text(execLines, ML+5, ey+14);
+
+    // Advisor count and dates info
+    let iy = ey + 35;
+    pdf.setFont('helvetica','bold'); pdf.setFontSize(9); pdf.setTextColor(10,22,40);
+    pdf.text('Report Contents', ML, iy);
+    pdf.setFillColor(203,213,225); pdf.rect(ML,iy+2,CW,0.3,'F');
+    iy += 7;
+    const contents = [
+      ['Page 2', 'Summary Table', `${advRows.length} advisors · sorted by connection rate`],
+      ['Page 3', 'Leaderboard', 'Rankings with gold/silver/bronze podium'],
+      ['Page 4', 'Shift Split', '3 time windows: 10AM-6PM · 6PM-2AM · 2AM-10AM'],
+      ['Page 5', 'Trend Chart', 'Daily performance over time (all advisors)'],
+      ['Page 6', 'Heatmap', 'Hour × Advisor connection rate grid'],
+      ['Page 7', 'Week vs Week', 'Period comparison with change indicators'],
+      ['Page 8', 'Dial Pattern', 'Hourly calling analysis with insights'],
+    ];
+    contents.forEach(([pg,sec,desc],i)=>{
+      if(i%2===0){ pdf.setFillColor(248,250,255); pdf.rect(ML,iy-2,CW,6,'F'); }
+      pdf.setFont('helvetica','bold'); pdf.setFontSize(8); pdf.setTextColor(27,79,216);
+      pdf.text(pg, ML+2, iy+3);
+      pdf.setFont('helvetica','bold'); pdf.setFontSize(8.5); pdf.setTextColor(10,22,40);
+      pdf.text(sec, ML+20, iy+3);
+      pdf.setFont('helvetica','normal'); pdf.setFontSize(8); pdf.setTextColor(100,116,139);
+      pdf.text(desc, ML+75, iy+3);
+      iy+=7;
+    });
+
+    // ── PAGE 2: SUMMARY TABLE ──────────────────────────────────────────
+    pdf.addPage(); pageNum++;
+    addPageHeader('📊 Output Summary — Per Advisor', pageNum);
+    btn.innerHTML = '⏳ Capturing Summary…';
+
+    // Build summary table natively in PDF
+    const sorted = [...advRows].sort((a,b)=>b.rate-a.rate||b.connected-a.connected);
+    const cols = [{w:65,label:'Advisor'},{w:35,label:'Total Calls'},{w:38,label:'Connected'},{w:35,label:'Not Conn.'},{w:35,label:'Talk Time'},{w:32,label:'Rate %'},{w:30,label:'Avg Talk'}];
+    const totalW = cols.reduce((s,c)=>s+c.w,0);
+    const scaleF = CW/totalW;
+    const scaledCols = cols.map(c=>({...c,w:c.w*scaleF}));
+
+    let ty = MT+8;
+    // Header
+    pdf.setFillColor(10,22,40);
+    pdf.rect(ML,ty,CW,8,'F');
+    let cx=ML;
+    scaledCols.forEach(col=>{
+      pdf.setFont('helvetica','bold'); pdf.setFontSize(7.5); pdf.setTextColor(255,255,255);
+      pdf.text(col.label, cx+col.w/2, ty+5.5, {align:'center'});
+      cx+=col.w;
+    });
+    ty+=8;
+
+    // Data rows
+    sorted.forEach((r,i)=>{
+      const rowH=7;
+      if(i%2===0){pdf.setFillColor(255,255,255);}else{pdf.setFillColor(240,244,255);}
+      pdf.rect(ML,ty,CW,rowH,'F');
+      const notConn=r.total-r.connected;
+      const avg=r.connected>0?(r.talk/r.connected).toFixed(2):'—';
+      const rateCol = r.rate>=20?[5,150,105]:r.rate>=10?[217,119,6]:[220,38,38];
+      const rowData=[r.advisor, r.total, r.connected, notConn, r.talk.toFixed(2), r.rate.toFixed(1)+'%', avg];
+      let rx=ML;
+      scaledCols.forEach((col,ci)=>{
+        pdf.setFont('helvetica', ci===0?'normal':'bold'); pdf.setFontSize(7.5);
+        if(ci===5){pdf.setTextColor(...rateCol);}
+        else if(ci===2){pdf.setTextColor(5,150,105);}
+        else if(ci===3){pdf.setTextColor(220,38,38);}
+        else{pdf.setTextColor(51,65,85);}
+        const txt=String(rowData[ci]);
+        pdf.text(txt.length>20?txt.substring(0,19)+'…':txt, ci===0?rx+2:rx+col.w/2, ty+5, {align:ci===0?'left':'center'});
+        rx+=col.w;
+      });
+      ty+=rowH;
+      if(ty>PH-MB-15 && i<sorted.length-1){
+        pdf.addPage(); pageNum++;
+        addPageHeader('📊 Output Summary (continued)', pageNum);
+        ty=MT+8;
+      }
+    });
+
+    // Grand Total row
+    pdf.setFillColor(10,22,40); pdf.rect(ML,ty,CW,8,'F');
+    const gtRow=['Grand Total',gt.total,gt.connected,(gt.total-gt.connected),gt.talk.toFixed(2),teamRate+'%',(gt.connected>0?(gt.talk/gt.connected).toFixed(2):'—')];
+    let gx=ML;
+    scaledCols.forEach((col,ci)=>{
+      pdf.setFont('helvetica','bold'); pdf.setFontSize(8); pdf.setTextColor(255,255,255);
+      pdf.text(String(gtRow[ci]), ci===0?gx+2:gx+col.w/2, ty+5.5, {align:ci===0?'left':'center'});
+      gx+=col.w;
+    });
+
+    // ── PAGES 3-8: VISUAL TABS ─────────────────────────────────────────
+    const tabPages = [
+      {id:'leaderboard', title:'🏆 Leaderboard — Connection Rate Rankings'},
+      {id:'shifts',      title:'🔄 Shift Split — Performance by Time Window'},
+      {id:'trends',      title:'📈 Trends — Daily Performance Over Time'},
+      {id:'heatmap',     title:'🔥 Heatmap — Hour × Advisor Connection Grid'},
+      {id:'wow',         title:'🔁 Week vs Week — Period Comparison'},
+      {id:'dialpattern', title:'📞 Dial Pattern — Hourly Analysis & Insights'},
+    ];
+
+    for(const {id, title} of tabPages){
+      btn.innerHTML = `⏳ Capturing ${title.split('—')[0].trim()}…`;
+      const el = await captureTab(id);
+      if(!el) continue;
+      const canvas = await captureElement(el, 2);
+      pdf.addPage(); pageNum++;
+      addPageHeader(title, pageNum);
+      const maxH = PH - MT - MB - 12;
+      addImageToPage(canvas, MT+8, maxH);
+    }
+
+    // Save
+    const fname = `Team_Effort_Full_Report_${dateLabel.replace(/[^a-z0-9]/gi,'_')}.pdf`;
+    pdf.save(fname);
+    showToast(`✓ Full Report PDF saved — ${pageNum} pages`);
+
+  } catch(err){
+    showToast('Report failed: '+err.message,'#dc2626');
+    console.error(err);
+  }
+
+  btn.innerHTML = origText;
+  btn.disabled = false;
+  // Return to summary tab
+  switchOutTab('summary');
+}
+
+
 function _getPdfData(){
-  const t=document.getElementById('pdfGuideData');
-  return t?'data:application/pdf;base64,'+t.innerHTML.trim():'';
+  return typeof _PDF_B64!=='undefined'?'data:application/pdf;base64,'+_PDF_B64:'';
 }
 function openGuide(){
   const data=_getPdfData(); if(!data) return;
