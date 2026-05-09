@@ -4,6 +4,8 @@
 <title>Team Emeritus — Effort Calculator</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <style>
 :root{--navy:#0d1b3e;--navy2:#142250;--navy3:#1a2d6b;--blue:#1e40af;--blue2:#2563eb;--sky:#3b82f6;--gold:#d97706;--gold2:#f59e0b;--gold3:#fbbf24;--green:#059669;--green2:#10b981;--red:#dc2626;--white:#ffffff;--off:#f8fafc;--light:#f1f5f9;--mid:#e2e8f0;--border:#cbd5e1;--dim:#94a3b8;--body:#334155;--head:#0f172a;--mono:'Inter',system-ui,sans-serif;--sans:'Plus Jakarta Sans',sans-serif}
@@ -161,6 +163,153 @@ tbody tr:last-child td{border-bottom:none}
 .raw-section td{font-size:11px;font-family:var(--mono)}
 .toast{position:fixed;bottom:24px;right:24px;background:var(--navy);color:var(--white);border-left:4px solid var(--gold2);padding:12px 20px;border-radius:8px;font-size:13px;font-weight:600;transform:translateY(80px);opacity:0;transition:all .3s;z-index:999;box-shadow:0 8px 24px rgba(0,0,0,.2)}
 .toast.show{transform:translateY(0);opacity:1}
+
+/* ── Output Tabs ── */
+
+/* ── Executive Summary Card ── */
+.exec-card{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:18px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.exec-head{background:linear-gradient(135deg,var(--navy),var(--navy3));padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.exec-title{color:var(--white);font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px}
+.exec-body{padding:18px 20px}
+.exec-text{font-size:14px;line-height:1.8;color:var(--head);font-family:var(--sans)}
+.exec-text .hl{font-weight:700;color:var(--navy)}
+.exec-text .hl-green{font-weight:700;color:var(--green)}
+.exec-text .hl-red{font-weight:700;color:var(--red)}
+.exec-text .hl-gold{font-weight:700;color:var(--gold)}
+.exec-actions{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.exec-btn{padding:7px 16px;border-radius:7px;font-family:var(--mono);font-size:11px;font-weight:600;cursor:pointer;border:1.5px solid var(--border);background:var(--off);color:var(--body);transition:all .15s}
+.exec-btn:hover{border-color:var(--blue2);color:var(--blue2)}
+
+/* ── Anomaly Alerts ── */
+.anomaly-bar{margin-bottom:16px;display:none}
+.anomaly-bar.has-alerts{display:block}
+.anomaly-head{background:#fff7ed;border:1px solid #fed7aa;border-radius:10px 10px 0 0;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer}
+.anomaly-head-title{font-size:12px;font-weight:700;color:#9a3412;display:flex;align-items:center;gap:8px}
+.anomaly-list{background:#fffbf5;border:1px solid #fed7aa;border-top:none;border-radius:0 0 10px 10px;padding:10px 16px;display:none}
+.anomaly-list.open{display:block}
+.anomaly-item{padding:7px 0;border-bottom:1px solid #fde8cc;font-size:12px;color:#7c2d12;display:flex;align-items:flex-start;gap:8px}
+.anomaly-item:last-child{border-bottom:none}
+.anomaly-icon{font-size:14px;flex-shrink:0;margin-top:1px}
+
+/* ── Heatmap ── */
+.heatmap-wrap{overflow-x:auto;padding:4px;cursor:grab;user-select:none;-webkit-overflow-scrolling:touch;scrollbar-width:thick;scrollbar-color:var(--blue2) var(--light)}
+.heatmap-wrap::-webkit-scrollbar{height:12px}
+.heatmap-wrap::-webkit-scrollbar-track{background:var(--light);border-radius:6px}
+.heatmap-wrap::-webkit-scrollbar-thumb{background:var(--blue2);border-radius:6px}
+.hm-scroll-hint{font-size:11px;color:var(--dim);font-family:var(--mono);margin-top:6px;text-align:center}
+.heatmap-table{border-collapse:collapse;font-family:var(--mono);font-size:11px;white-space:nowrap}
+.hm-advisor{padding:6px 14px 6px 4px;font-family:var(--sans);font-size:12px;font-weight:600;color:var(--head);text-align:right;min-width:180px;border-right:2px solid var(--border)}
+.hm-hour-head{padding:5px 3px;text-align:center;font-size:10px;color:var(--dim);font-weight:700;min-width:36px}
+.hm-cell{width:36px;height:30px;text-align:center;vertical-align:middle;font-size:10px;font-weight:700;border:1px solid rgba(255,255,255,0.3);cursor:default;transition:transform .1s;position:relative}
+.hm-cell:hover{transform:scale(1.15);z-index:10;box-shadow:0 2px 8px rgba(0,0,0,0.2)}
+.hm-legend{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:11px;color:var(--dim);font-family:var(--mono)}
+.hm-legend-bar{display:flex;border-radius:4px;overflow:hidden;height:12px;width:150px}
+
+/* ── Week-on-Week ── */
+.wow-table{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.wow-table th{padding:10px 16px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);border-bottom:2px solid var(--border);background:var(--off);text-align:left}
+.wow-table td{padding:10px 16px;border-bottom:1px solid var(--light);font-size:13px}
+.wow-table tbody tr:hover{background:var(--off)}
+.wow-up{color:var(--green);font-weight:700}
+.wow-down{color:var(--red);font-weight:700}
+.wow-flat{color:var(--dim)}
+.wow-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:700;font-family:var(--mono)}
+.wow-badge.up{background:#d1fae5;color:#065f46}
+.wow-badge.down{background:#fee2e2;color:#991b1b}
+.wow-badge.flat{background:var(--light);color:var(--dim)}
+
+
+/* ── Tab Info Banners ── */
+.tab-info{display:flex;align-items:flex-start;gap:10px;background:#f0f6ff;border:1px solid #bfdbfe;border-radius:8px;padding:10px 14px;margin:14px 18px 0;font-size:12px;color:#1e40af;line-height:1.6}
+.tab-info-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.tab-info-text{flex:1}
+.tab-info-text strong{font-weight:700;display:block;margin-bottom:2px}
+.tab-info-close{cursor:pointer;color:#93c5fd;font-size:14px;flex-shrink:0;line-height:1;padding:0 2px}
+.tab-info-close:hover{color:#1e40af}
+
+.out-tab-bar{display:flex;gap:8px;padding:12px 16px;border-bottom:1px solid var(--border);flex-wrap:wrap;align-items:center;background:var(--white)}
+.out-tab{padding:7px 16px;border-radius:7px;font-family:var(--mono);font-size:11px;font-weight:700;color:var(--dim);cursor:pointer;transition:all .15s;text-transform:uppercase;letter-spacing:.5px;border:1.5px solid transparent}
+.out-tab:hover{color:var(--head);background:var(--light)}
+.out-tab.active{background:var(--navy);color:var(--white);border-color:var(--navy)}
+.out-panel{display:none}.out-panel.active{display:block}
+
+/* ── Advisor Modal ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:1000;display:none;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto}
+.modal-overlay.open{display:flex}
+.modal-box{background:var(--off);border-radius:16px;overflow:hidden;width:100%;max-width:860px;box-shadow:0 24px 80px rgba(0,0,0,0.3)}
+.modal-head{background:var(--navy);padding:16px 22px;display:flex;align-items:center;justify-content:space-between}
+.modal-title{color:var(--white);font-size:15px;font-weight:700}
+.modal-close{color:rgba(255,255,255,0.6);font-size:22px;cursor:pointer;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:6px}
+.modal-close:hover{background:rgba(255,255,255,0.15);color:var(--white)}
+.modal-body{padding:20px}
+.modal-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+@media(max-width:600px){.modal-stats{grid-template-columns:repeat(2,1fr)}}
+.ms-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center}
+.ms-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:6px}
+.ms-val{font-size:22px;font-weight:800;color:var(--head);font-family:var(--mono)}
+.ms-sub{font-size:10px;color:var(--dim);margin-top:3px;font-family:var(--mono)}
+.modal-section-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin:18px 0 10px;display:flex;align-items:center;gap:8px}
+.modal-section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.hour-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px}
+.hour-row{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:10px 14px;display:flex;align-items:center;gap:10px}
+.hour-label{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--head);min-width:70px}
+.hour-bar-wrap{flex:1;background:var(--light);border-radius:3px;height:8px;overflow:hidden}
+.hour-bar{height:100%;border-radius:3px;background:var(--blue2);transition:width .3s}
+.hour-stats{font-family:var(--mono);font-size:10px;color:var(--dim);min-width:80px;text-align:right}
+
+/* ── Leaderboard ── */
+.lb-podium-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
+@media(max-width:650px){.lb-podium-row{grid-template-columns:1fr}}
+.lb-pod{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;position:relative;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.lb-pod::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+.lb-pod.gold::before{background:linear-gradient(90deg,#f59e0b,#fbbf24)}
+.lb-pod.silver::before{background:linear-gradient(90deg,#94a3b8,#cbd5e1)}
+.lb-pod.bronze::before{background:linear-gradient(90deg,#b45309,#d97706)}
+.lb-medal{font-size:30px;margin-bottom:10px}
+.lb-name{font-size:14px;font-weight:700;color:var(--head);margin-bottom:6px}
+.lb-rate{font-size:30px;font-weight:800;color:var(--navy);font-family:var(--mono)}
+.lb-detail{font-size:11px;color:var(--dim);font-family:var(--mono);margin-top:5px}
+.lb-rest{background:var(--white);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.lb-row{display:flex;align-items:center;padding:11px 16px;border-bottom:1px solid var(--light);gap:14px}
+.lb-row:last-child{border-bottom:none}
+.lb-row:hover{background:var(--off)}
+.lb-num{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--dim);min-width:28px}
+.lb-adv{flex:1;font-size:13px;font-weight:600;color:var(--head)}
+.lb-col{min-width:80px;text-align:center;font-family:var(--mono);font-size:13px;font-weight:600;color:var(--body)}
+.lb-rate-pill{display:inline-flex;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700;font-family:var(--mono)}
+.rate-h{background:#d1fae5;color:#065f46}.rate-m{background:#fef3c7;color:#92400e}.rate-l{background:#fee2e2;color:#991b1b}.rate-z{background:var(--light);color:var(--dim)}
+.lb-img-btn{float:right}
+
+/* ── Shift Comparison ── */
+.shift-3col{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:700px){.shift-3col{grid-template-columns:1fr}}
+.shift-card{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.shift-head{padding:14px 18px}
+.shift-head.day{background:#fef9c3;border-bottom:1px solid #fde047}
+.shift-head.eve{background:#ede9fe;border-bottom:1px solid #c4b5fd}
+.shift-head.night{background:#e0f2fe;border-bottom:1px solid #7dd3fc}
+.shift-icon{font-size:22px}
+.shift-title{font-size:14px;font-weight:700;color:var(--head)}
+.shift-hours{font-size:10px;color:var(--dim);font-family:var(--mono)}
+.shift-body{padding:14px 18px}
+.shift-stat{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--light)}
+.shift-stat:last-child{border-bottom:none}
+.shift-stat-l{font-size:12px;color:var(--dim)}
+.shift-stat-v{font-size:14px;font-weight:700;color:var(--head);font-family:var(--mono)}
+
+/* ── Trend Chart ── */
+.trend-ctrl{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.trend-period-btns{display:flex;gap:6px}
+.t-btn{padding:5px 14px;border-radius:6px;font-family:var(--mono);font-size:11px;font-weight:600;cursor:pointer;border:1.5px solid var(--border);background:var(--white);color:var(--dim);transition:all .15s}
+.t-btn.active,.t-btn:hover{background:var(--navy);color:var(--white);border-color:var(--navy)}
+.trend-adv-select{background:var(--off);border:1.5px solid var(--border);color:var(--head);border-radius:7px;padding:6px 10px;font-family:var(--sans);font-size:12px;outline:none}
+.trend-empty{text-align:center;padding:60px 20px;color:var(--dim);font-family:var(--mono);font-size:12px;background:var(--white);border:1px solid var(--border);border-radius:10px}
+.trend-chart-box{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:20px;position:relative}
+
+/* ── PDF btn ── */
+.btn-pdf{background:rgba(220,38,38,0.1);color:#dc2626;border:1px solid rgba(220,38,38,0.25)}
+.btn-pdf:hover{background:rgba(220,38,38,0.2)}
+
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-track{background:var(--off)}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
@@ -173,7 +322,7 @@ tbody tr:last-child td{border-bottom:none}
     <span class="topbar-name">Team <span>Emeritus</span> — Effort Calculator</span>
   </div>
   <div class="topbar-pills" style="display:flex;align-items:center;gap:8px">
-    <span class="pill gold">&gt;10AM → 10AM Shift</span>
+    <span class="pill gold">10AM → 10AM Shift</span>
     <span class="pill">Dialer Connected Flag</span>
   <button onclick="exportAsIndex()" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; background: rgba(251, 191, 36, 0.15); border: 1px solid rgba(251, 191, 36, 0.4); color: rgba(255, 255, 255, 0.85); border-radius: 6px; font-family: var(--sans); font-size: 11px; font-weight: 600; cursor: pointer; transition: 0.15s; letter-spacing: 0.3px;" onmouseover="this.style.background='rgba(251,191,36,0.15)';this.style.borderColor='rgba(251,191,36,0.4)'" onmouseout="this.style.background='rgba(255,255,255,0.08)';this.style.borderColor='rgba(255,255,255,0.2)'">⬇ Export index.html</button>
   </div>
@@ -231,8 +380,8 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
           <div class="rule-box">
             <div class="rule-label">Shift Date Logic</div>
             <div class="rule-line">
-              <span class="tag">Hour &gt; 10</span> → Shift = <b>Created Date</b> (same day)<br>
-              <span class="tag">Hour ≤ 10</span> → Shift = <b>Created Date − 1</b> (prev day)
+              <span class="tag">Hour ≥ 10</span> → Shift = <b>Created Date</b> (same day)<br>
+              <span class="tag">Hour &lt; 10</span> → Shift = <b>Created Date − 1</b> (prev day)
             </div>
           </div>
           <div class="rule-box">
@@ -247,7 +396,7 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
             <div class="rule-label">Column Mapping</div>
             <div class="rule-line" style="font-size:11px;color:var(--body)">
               <b>A</b> Duration &nbsp;|&nbsp; <b>B</b> Type &nbsp;|&nbsp; <b>C</b> Dialer Flag<br>
-              <b>D</b> Created Date &nbsp;|&nbsp; <b>E</b> Advisor &nbsp;|&nbsp; <b>F</b> Hour
+              <b>D</b> Created Date &nbsp;|&nbsp; <b>E</b> Advisor / <b>Assigned</b> &nbsp;|&nbsp; <b>F</b> Hour<br><span style="color:var(--green2);font-size:10px;font-weight:600">✓ Column names auto-detected from header row</span>
             </div>
           </div>
         </div>
@@ -302,7 +451,6 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
     <div class="filter-right">
       <button class="btn btn-green" onclick="copyOutput()">⎘ Copy for Teams / Excel</button>
       <button class="btn btn-outline" onclick="copyRawFiltered()">⎘ Copy Raw</button>
-      <button class="btn" id="imgBtn" onclick="exportAsImage()" style="background:#7c3aed;color:#fff;font-size:12px" title="Export table as PNG image">📸 Export Image</button>
     </div>
   </div>
 
@@ -312,11 +460,34 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
   &nbsp;&nbsp;<span style="color:var(--dim)">|</span>&nbsp;&nbsp;
   <span id="shiftRowBreakdown" style="color:var(--blue2)"></span>
 </div>
+<div id="execCardWrap" style="display: none;">
+  <div class="exec-card" id="execCard">
+    <div class="exec-head">
+      <span class="exec-title">✍️ Executive Summary</span>
+      <div style="display:flex;gap:8px">
+        <button class="exec-btn" onclick="copyExecSummary('plain')" style="color:rgba(255,255,255,0.8);border-color:rgba(255,255,255,0.2);background:rgba(255,255,255,0.1)">📋 Copy Text</button>
+        <button class="exec-btn" onclick="copyExecSummary('teams')" style="color:rgba(255,255,255,0.8);border-color:rgba(255,255,255,0.2);background:rgba(255,255,255,0.1)">💬 Copy for Teams</button>
+      </div>
+    </div>
+    <div class="exec-body">
+      <div class="exec-text" id="execText">On <span class="hl">the selected period</span>, the team dialed <span class="hl">1,552 calls</span> with a <span class="hl">8.8% connection rate</span> (136 connected). Total pure talk time was <span class="hl">996 minutes</span>, averaging <span class="hl-green">7.32 minutes per connected call</span>.<br><br>Top performer was <span class="hl-green">Ghanshyam Shankerlal Yadav</span> with a <span class="hl-green">17.0% connection rate</span> (15 connected from 88 calls). <span class="hl-red">1 advisor</span> had zero connections (Samson Rebello).</div>
+    </div>
+  </div>
+</div>
+
+<div class="anomaly-bar" id="anomalyBar">
+  <div class="anomaly-head" onclick="toggleAnomalies()">
+    <span class="anomaly-head-title">⚠️ <span id="anomalyCount">7</span> Anomalies Detected — click to expand</span>
+    <span style="font-size:11px;color:#9a3412;font-family:var(--mono)" id="anomalyToggleText">Hide ▲</span>
+  </div>
+  <div class="anomaly-list open" id="anomalyList"><div class="anomaly-item"><span class="anomaly-icon">⏱</span><span><strong>Nandini Nandu Borade</strong>'s avg talk time (13.0 min) is ↑ <strong>134%</strong> vs usual (5.6 min).</span></div><div class="anomaly-item"><span class="anomaly-icon">🟠</span><span><strong>Nandita N</strong> has a very low connection rate of <strong>2.0%</strong> (2/100 calls).</span></div><div class="anomaly-item"><span class="anomaly-icon">📉</span><span><strong>Nandita N</strong>'s connection rate (2.0%) is <strong>20% below</strong> their 14-day average (21.8%).</span></div><div class="anomaly-item"><span class="anomaly-icon">🟠</span><span><strong>Raunak Narvekar</strong> has a very low connection rate of <strong>3.5%</strong> (4/113 calls).</span></div><div class="anomaly-item"><span class="anomaly-icon">🟠</span><span><strong>Sadanand Patel</strong> has a very low connection rate of <strong>1.6%</strong> (2/123 calls).</span></div><div class="anomaly-item"><span class="anomaly-icon">🟠</span><span><strong>Shubhi Mishra</strong> has a very low connection rate of <strong>4.8%</strong> (6/126 calls).</span></div><div class="anomaly-item"><span class="anomaly-icon">⏱</span><span><strong>Shubhi Mishra</strong>'s avg talk time (3.3 min) is ↓ <strong>60%</strong> vs usual (8.4 min).</span></div></div>
+</div>
+
 <div class="stat-row" id="summaryRow" style="display: none;">
-    <div class="stat-card s-blue"><div class="stat-label">Total Calls</div><div class="stat-value" id="sTotal">1,023</div><div class="stat-sub" id="sAdvisors">16 advisors</div></div>
-    <div class="stat-card s-green"><div class="stat-label">Connected</div><div class="stat-value" id="sConnected">102</div><div class="stat-sub" id="sRate">10.0% connection rate</div></div>
-    <div class="stat-card s-gold"><div class="stat-label">Pure Talk Time</div><div class="stat-value" id="sTalk">739.06</div><div class="stat-sub">minutes total</div></div>
-    <div class="stat-card s-navy"><div class="stat-label">Avg Talk / Connected</div><div class="stat-value" id="sAvg">7.25</div><div class="stat-sub">min per connected call</div></div>
+    <div class="stat-card s-blue"><div class="stat-label">Total Calls</div><div class="stat-value" id="sTotal">1,552</div><div class="stat-sub" id="sAdvisors">16 advisors</div></div>
+    <div class="stat-card s-green"><div class="stat-label">Connected</div><div class="stat-value" id="sConnected">136</div><div class="stat-sub" id="sRate">8.8% connection rate</div></div>
+    <div class="stat-card s-gold"><div class="stat-label">Pure Talk Time</div><div class="stat-value" id="sTalk">995.81</div><div class="stat-sub">minutes total</div></div>
+    <div class="stat-card s-navy"><div class="stat-label">Avg Talk / Connected</div><div class="stat-value" id="sAvg">7.32</div><div class="stat-sub">min per connected call</div></div>
   </div>
 
   <div class="best-time-bar" id="bestTimeBar" style="display: none;">
@@ -326,35 +497,690 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
   <div class="bt-card gold" id="bt1" style="opacity: 1;"><div class="bt-rank">🥇 Best Hour</div><div class="bt-time" id="bt1time">01:00 PM</div><div class="bt-rate" id="bt1rate"><span style="color:var(--green2);font-weight:700">20.7%</span> connect rate</div><div class="bt-calls" id="bt1calls" style="margin-top:4px;font-size:10px;color:var(--dim)">☀️ Day &nbsp;|&nbsp; 6/29 calls</div></div>
   <div class="bt-card silver" id="bt2" style="opacity: 1;"><div class="bt-rank">🥈 2nd Hour</div><div class="bt-time" id="bt2time">06:00 PM</div><div class="bt-rate" id="bt2rate"><span style="color:var(--green2);font-weight:700">17.3%</span> connect rate</div><div class="bt-calls" id="bt2calls" style="margin-top:4px;font-size:10px;color:var(--dim)">🌆 Evening &nbsp;|&nbsp; 9/52 calls</div></div>
   <div class="bt-card bronze" id="bt3" style="opacity: 1;"><div class="bt-rank">🥉 3rd Hour</div><div class="bt-time" id="bt3time">03:00 PM</div><div class="bt-rate" id="bt3rate"><span style="color:var(--green2);font-weight:700">14.7%</span> connect rate</div><div class="bt-calls" id="bt3calls" style="margin-top:4px;font-size:10px;color:var(--dim)">☀️ Day &nbsp;|&nbsp; 5/34 calls</div></div>
-  <div class="bt-card" id="bt4" style="opacity: 1;"><div class="bt-rank">4th Hour</div><div class="bt-time" id="bt4time">12:00 PM</div><div class="bt-rate" id="bt4rate"><span style="color:var(--green2);font-weight:700">14.3%</span> connect rate</div><div class="bt-calls" id="bt4calls" style="margin-top:4px;font-size:10px;color:var(--dim)">☀️ Day &nbsp;|&nbsp; 2/14 calls</div></div>
-  <div class="bt-card" id="bt5" style="opacity: 1;"><div class="bt-rank">5th Hour</div><div class="bt-time" id="bt5time">08:00 PM</div><div class="bt-rate" id="bt5rate"><span style="color:var(--green2);font-weight:700">13.7%</span> connect rate</div><div class="bt-calls" id="bt5calls" style="margin-top:4px;font-size:10px;color:var(--dim)">🌆 Evening &nbsp;|&nbsp; 21/153 calls</div></div>
+  <div class="bt-card" id="bt4" style="opacity: 1;"><div class="bt-rank">4th Hour</div><div class="bt-time" id="bt4time">08:00 PM</div><div class="bt-rate" id="bt4rate"><span style="color:var(--green2);font-weight:700">13.7%</span> connect rate</div><div class="bt-calls" id="bt4calls" style="margin-top:4px;font-size:10px;color:var(--dim)">🌆 Evening &nbsp;|&nbsp; 21/153 calls</div></div>
+  <div class="bt-card" id="bt5" style="opacity: 1;"><div class="bt-rank">5th Hour</div><div class="bt-time" id="bt5time">09:00 PM</div><div class="bt-rate" id="bt5rate"><span style="color:var(--green2);font-weight:700">11.8%</span> connect rate</div><div class="bt-calls" id="bt5calls" style="margin-top:4px;font-size:10px;color:var(--dim)">🌆 Evening &nbsp;|&nbsp; 18/152 calls</div></div>
 </div>
 <div id="outputSection" style="display: none;">
     <div class="sec-label" style="margin-bottom:12px"><div class="bar" style="background:var(--green)"></div><h2>Output Summary</h2></div>
     <div class="out-card">
-      <div class="out-head">
-        <div class="out-head-title"><span class="dot"></span>By Advisor — <span id="headDateLabel" style="color:var(--gold3);font-size:12px;margin-left:4px">08-May-2026, 09-May-2026</span></div>
-        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-          <div class="search-wrap">
-            <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke="rgba(255,255,255,0.4)" stroke-width="2"></circle><path d="m21 21-4.35-4.35" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round"></path></svg>
-            <input type="text" class="search-input" id="searchBox" placeholder="Search advisor…" oninput="renderTable()">
+      <!-- Tab bar -->
+      <div class="out-tab-bar">
+        <div style="display:flex;gap:4px;flex:1;flex-wrap:wrap">
+          <div class="out-tab active" id="tab-summary" onclick="switchOutTab('summary')">📊 Summary</div>
+          <div class="out-tab" id="tab-leaderboard" onclick="switchOutTab('leaderboard')">🏆 Leaderboard</div>
+          <div class="out-tab" id="tab-shifts" onclick="switchOutTab('shifts')">🔄 Shift Split</div>
+          <div class="out-tab" id="tab-trends" onclick="switchOutTab('trends')">📈 Trends</div>
+          <div class="out-tab" id="tab-heatmap" onclick="switchOutTab('heatmap')">🔥 Heatmap</div>
+          <div class="out-tab" id="tab-wow" onclick="switchOutTab('wow')">🔁 Week vs Week</div>
+          <div class="out-tab" id="tab-dialpattern" onclick="switchOutTab('dialpattern')">📞 Dial Pattern</div>
+        </div>
+        <!-- Action buttons — always visible on every tab -->
+
+      </div>
+
+      <!-- Summary Panel -->
+      <div class="out-panel active" id="panel-summary">
+        <div class="out-head" style="background:var(--navy);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+          <div class="out-head-title"><span class="dot"></span>By Advisor — <span id="headDateLabel" style="color:var(--gold3);font-size:12px;margin-left:4px">08-May-2026, 09-May-2026</span></div>
+          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+            <div class="search-wrap">
+              <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke="rgba(255,255,255,0.4)" stroke-width="2"></circle><path d="m21 21-4.35-4.35" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round"></path></svg>
+              <input type="text" class="search-input" id="searchBox" placeholder="Search advisor…" oninput="renderTable()">
+            </div>
+        <div class="tab-info" id="info-panel-summary">
+          <span class="tab-info-icon">📊</span>
+          <span class="tab-info-text"><strong>Output Summary — Per Advisor</strong>Shows total calls dialled, connected calls, and pure talk time for each advisor in the selected date range. <b>Click any advisor name</b> to see their hourly drilldown. Click column headers to sort. Use the search box to filter by name.</span>
+          <span class="tab-info-close" onclick="this.closest('.tab-info').style.display='none'" title="Dismiss">✕</span>
+        </div>
+            <span class="row-count" id="rowCount">16 advisors</span>
           </div>
-          <span class="row-count" id="rowCount">16 advisors</span>
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            <button onclick="captureTab('summary','copy')" class="btn btn-green" style="font-size:10px;padding:5px 12px">💬 Teams</button>
+            <button onclick="captureTab('summary','export')" class="btn" style="background:#7c3aed;color:#fff;font-size:10px;padding:5px 12px">📸 Export</button>
+            <button onclick="captureTab('summary','pdf')" class="btn btn-pdf" style="font-size:10px;padding:5px 12px">📄 PDF</button>
+          </div>
+        </div>
+        <div style="overflow-x:auto">
+          <table id="outputTable">
+            <thead><tr>
+              <th onclick="sortBy('advisor')" class="">Row Labels</th>
+              <th onclick="sortBy('total')" class="">Sum of Total Calls</th>
+              <th onclick="sortBy('connected')">Sum of Connected Calls</th>
+              <th onclick="sortBy('talk')" class="sort-desc">Sum of Pure Talk Time</th>
+              <th onclick="sortBy('rate')" class="">Conn. Rate</th>
+              <th onclick="sortBy('avg')">Avg Talk / Connected</th>
+            </tr></thead>
+            <tbody id="outputBody"></tbody>
+          </table>
         </div>
       </div>
-      <div style="overflow-x:auto">
-        <table id="outputTable">
-          <thead><tr>
-            <th onclick="sortBy('advisor')">Row Labels</th>
-            <th onclick="sortBy('total')" class="">Sum of Total Calls</th>
-            <th onclick="sortBy('connected')">Sum of Connected Calls</th>
-            <th onclick="sortBy('talk')" class="sort-desc">Sum of Pure Talk Time</th>
-            <th onclick="sortBy('rate')">Conn. Rate</th>
-            <th onclick="sortBy('avg')">Avg Talk / Connected</th>
-          </tr></thead>
-          <tbody id="outputBody"></tbody>
-        </table>
+
+      <!-- Leaderboard Panel -->
+      <div class="out-panel" id="panel-leaderboard">
+        <div class="out-head" style="background:var(--navy);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+          <div class="out-head-title"><span class="dot" style="background:var(--gold2)"></span>Connection Rate Leaderboard
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            <button onclick="captureTab('leaderboard','copy')" class="btn btn-green" style="font-size:10px;padding:5px 12px">💬 Teams</button>
+            <button onclick="captureTab('leaderboard','export')" class="btn" style="background:#7c3aed;color:#fff;font-size:10px;padding:5px 12px">📸 Export</button>
+            <button onclick="captureTab('leaderboard','pdf')" class="btn btn-pdf" style="font-size:10px;padding:5px 12px">📄 PDF</button>
+          </div>
+        </div>
+          <button class="btn btn-green" onclick="exportLeaderboardImage()" style="font-size:11px;padding:7px 14px">📸 Export Current View</button>
+        </div>
+        <div class="tab-info" id="info-panel-leaderboard">
+          <span class="tab-info-icon">🏆</span>
+          <span class="tab-info-text"><strong>Connection Rate Leaderboard</strong>Ranks all advisors by connection rate (connected ÷ total calls × 100%). The podium shows the top 3 performers. <b>Click any advisor name</b> for a detailed drilldown. Use <em>Export Image</em> to share with the team.</span>
+          <span class="tab-info-close" onclick="this.closest('.tab-info').style.display='none'" title="Dismiss">✕</span>
+        </div>
+        <div style="padding:20px" id="leaderboardBody">
+    <div class="lb-podium-row">
+    <div class="lb-pod gold">
+      <div class="lb-medal">🥇</div>
+      <div class="lb-name">Ghanshyam Shankerlal Yadav</div>
+      <div class="lb-rate">17.0%</div>
+      <div class="lb-detail">15 connected / 88 calls</div>
+      <div class="lb-detail">164.66 min talk time</div>
+    </div>
+    <div class="lb-pod silver">
+      <div class="lb-medal">🥈</div>
+      <div class="lb-name">Pushpanjli Mani Singh</div>
+      <div class="lb-rate">16.1%</div>
+      <div class="lb-detail">15 connected / 93 calls</div>
+      <div class="lb-detail">81.86 min talk time</div>
+    </div>
+    <div class="lb-pod bronze">
+      <div class="lb-medal">🥉</div>
+      <div class="lb-name">Priya Chaudhary</div>
+      <div class="lb-rate">15.2%</div>
+      <div class="lb-detail">16 connected / 105 calls</div>
+      <div class="lb-detail">88.51 min talk time</div>
+    </div></div>
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;overflow:hidden">
+      <div class="lb-row" style="background:var(--off)">
+        <span class="lb-num">#</span>
+        <span class="lb-adv" onclick="sortTabBy('leaderboard','advisor')" style="cursor:pointer;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim)">Advisor <span style="color:var(--dim);opacity:0.4">↕</span></span>
+        <span class="lb-col" onclick="sortTabBy('leaderboard','total')" style="cursor:pointer;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim)">Total <span style="color:var(--dim);opacity:0.4">↕</span></span>
+        <span class="lb-col" onclick="sortTabBy('leaderboard','connected')" style="cursor:pointer;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim)">Connected <span style="color:var(--dim);opacity:0.4">↕</span></span>
+        <span class="lb-col" onclick="sortTabBy('leaderboard','talk')" style="cursor:pointer;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim)">Talk <span style="color:var(--dim);opacity:0.4">↕</span></span>
+        <span class="lb-col" onclick="sortTabBy('leaderboard','rate')" style="cursor:pointer;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim)">Rate <span style="color:var(--gold2)">↓</span></span>
       </div>
+      
+    <div class="lb-row">
+      <span class="lb-num">🥇</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Ghanshyam Shankerlal Yadav">Ghanshyam Shankerlal Yadav</span>
+      <span class="lb-col">88</span>
+      <span class="lb-col">15</span>
+      <span class="lb-col">164.66</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-m">17.0%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">🥈</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Pushpanjli Mani Singh">Pushpanjli Mani Singh</span>
+      <span class="lb-col">93</span>
+      <span class="lb-col">15</span>
+      <span class="lb-col">81.86</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-m">16.1%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">🥉</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Priya Chaudhary">Priya Chaudhary</span>
+      <span class="lb-col">105</span>
+      <span class="lb-col">16</span>
+      <span class="lb-col">88.51</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-m">15.2%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">4</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Joel Fernandes">Joel Fernandes</span>
+      <span class="lb-col">100</span>
+      <span class="lb-col">14</span>
+      <span class="lb-col">97.08</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-m">14.0%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">5</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Sonal Braganza">Sonal Braganza</span>
+      <span class="lb-col">111</span>
+      <span class="lb-col">15</span>
+      <span class="lb-col">144.84</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-m">13.5%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">6</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Rakshith Gaikwad">Rakshith Gaikwad</span>
+      <span class="lb-col">110</span>
+      <span class="lb-col">11</span>
+      <span class="lb-col">74.50</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-m">10.0%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">7</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Melroy Mascarenhas">Melroy Mascarenhas</span>
+      <span class="lb-col">112</span>
+      <span class="lb-col">10</span>
+      <span class="lb-col">79.22</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-l">8.9%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">8</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Subhash Madhavan">Subhash Madhavan</span>
+      <span class="lb-col">127</span>
+      <span class="lb-col">10</span>
+      <span class="lb-col">57.56</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-l">7.9%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">9</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Jaydeep Parmar">Jaydeep Parmar</span>
+      <span class="lb-col">51</span>
+      <span class="lb-col">4</span>
+      <span class="lb-col">28.77</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-l">7.8%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">10</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Aasheesh Ahluwalia">Aasheesh Ahluwalia</span>
+      <span class="lb-col">127</span>
+      <span class="lb-col">8</span>
+      <span class="lb-col">37.51</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-l">6.3%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">11</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Nandini Nandu Borade">Nandini Nandu Borade</span>
+      <span class="lb-col">65</span>
+      <span class="lb-col">4</span>
+      <span class="lb-col">52.13</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-l">6.2%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">12</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Shubhi Mishra">Shubhi Mishra</span>
+      <span class="lb-col">126</span>
+      <span class="lb-col">6</span>
+      <span class="lb-col">19.95</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-l">4.8%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">13</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Raunak Narvekar">Raunak Narvekar</span>
+      <span class="lb-col">113</span>
+      <span class="lb-col">4</span>
+      <span class="lb-col">45.86</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-l">3.5%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">14</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Nandita N">Nandita N</span>
+      <span class="lb-col">100</span>
+      <span class="lb-col">2</span>
+      <span class="lb-col">18.00</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-l">2.0%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">15</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Sadanand Patel">Sadanand Patel</span>
+      <span class="lb-col">123</span>
+      <span class="lb-col">2</span>
+      <span class="lb-col">5.36</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-l">1.6%</span></span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-num">16</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Samson Rebello">Samson Rebello</span>
+      <span class="lb-col">1</span>
+      <span class="lb-col">0</span>
+      <span class="lb-col">0.00</span>
+      <span class="lb-col"><span class="lb-rate-pill rate-z">0.0%</span></span>
+    </div>
+    </div></div>
+      </div>
+
+      <!-- Shift Split Panel -->
+      <div class="out-panel" id="panel-shifts">
+        <div class="out-head" style="background:var(--navy);padding:14px 20px">
+          <div class="out-head-title"><span class="dot" style="background:var(--accent2)"></span>Performance by Shift
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            <button onclick="captureTab('shifts','copy')" class="btn btn-green" style="font-size:10px;padding:5px 12px">💬 Teams</button>
+            <button onclick="captureTab('shifts','export')" class="btn" style="background:#7c3aed;color:#fff;font-size:10px;padding:5px 12px">📸 Export</button>
+            <button onclick="captureTab('shifts','pdf')" class="btn btn-pdf" style="font-size:10px;padding:5px 12px">📄 PDF</button>
+          </div>
+        </div>
+        </div>
+        <div class="tab-info" id="info-panel-shifts">
+          <span class="tab-info-icon">🕐</span>
+          <span class="tab-info-text"><strong>Performance by Time Window</strong>Groups calls into three <b>non-overlapping</b> 8-hour windows. Every call falls into exactly one window. ☀️ 10AM–6PM · 🌆 6PM–2AM · 🌙 2AM–10AM. Together they cover the full 24-hour shift. Use this to identify which time window drives the best connection rates for your team.</span>
+          <span class="tab-info-close" onclick="this.closest('.tab-info').style.display='none'" title="Dismiss">✕</span>
+        </div>
+        <div style="padding:20px" id="shiftsBody"><div class="shift-3col"><div class="shift-card">
+      <div class="shift-head day">
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="shift-icon">☀️</span>
+          <div><div class="shift-title">10AM – 6PM</div><div class="shift-hours">Hours 10:00 to 17:59</div></div>
+        </div>
+      </div>
+      <div class="shift-body">
+        <div class="shift-stat"><span class="shift-stat-l">Total Calls</span><span class="shift-stat-v">208</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Connected</span><span class="shift-stat-v" style="color:var(--green)">24</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Not Connected</span><span class="shift-stat-v" style="color:var(--red)">184</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Talk Time</span><span class="shift-stat-v">276.18 min</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Conn. Rate</span><span class="shift-stat-v" style="color:var(--blue2)">11.5%</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Avg Talk</span><span class="shift-stat-v">11.51 min</span></div>
+      </div>
+    </div><div class="shift-card">
+      <div class="shift-head eve">
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="shift-icon">🌆</span>
+          <div><div class="shift-title">6PM – 2AM</div><div class="shift-hours">Hours 18:00 to 01:59</div></div>
+        </div>
+      </div>
+      <div class="shift-body">
+        <div class="shift-stat"><span class="shift-stat-l">Total Calls</span><span class="shift-stat-v">953</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Connected</span><span class="shift-stat-v" style="color:var(--green)">87</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Not Connected</span><span class="shift-stat-v" style="color:var(--red)">866</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Talk Time</span><span class="shift-stat-v">518.67 min</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Conn. Rate</span><span class="shift-stat-v" style="color:var(--blue2)">9.1%</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Avg Talk</span><span class="shift-stat-v">5.96 min</span></div>
+      </div>
+    </div><div class="shift-card">
+      <div class="shift-head night">
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="shift-icon">🌙</span>
+          <div><div class="shift-title">2AM – 10AM</div><div class="shift-hours">Hours 02:00 to 09:59</div></div>
+        </div>
+      </div>
+      <div class="shift-body">
+        <div class="shift-stat"><span class="shift-stat-l">Total Calls</span><span class="shift-stat-v">391</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Connected</span><span class="shift-stat-v" style="color:var(--green)">25</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Not Connected</span><span class="shift-stat-v" style="color:var(--red)">366</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Talk Time</span><span class="shift-stat-v">200.96 min</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Conn. Rate</span><span class="shift-stat-v" style="color:var(--blue2)">6.4%</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Avg Talk</span><span class="shift-stat-v">8.04 min</span></div>
+      </div>
+    </div></div>
+    <p style="font-size:11px;color:var(--dim);font-family:var(--mono);margin-top:12px">ℹ Three non-overlapping 8-hour windows. Every call falls into exactly one window — totals across all three equal your actual call volume.</p></div>
+      </div>
+
+      <!-- Trends Panel -->
+      <div class="out-panel" id="panel-trends">
+        <div class="out-head" style="background:var(--navy);padding:14px 20px">
+          <div class="out-head-title"><span class="dot" style="background:var(--green2)"></span>Daily Trend
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            <button onclick="captureTab('trends','copy')" class="btn btn-green" style="font-size:10px;padding:5px 12px">💬 Teams</button>
+            <button onclick="captureTab('trends','export')" class="btn" style="background:#7c3aed;color:#fff;font-size:10px;padding:5px 12px">📸 Export</button>
+            <button onclick="captureTab('trends','pdf')" class="btn btn-pdf" style="font-size:10px;padding:5px 12px">📄 PDF</button>
+          </div>
+        </div>
+        </div>
+        <div class="tab-info" id="info-panel-trends">
+          <span class="tab-info-icon">📈</span>
+          <span class="tab-info-text"><strong>Daily Performance Trend</strong><br>
+📌 <b>How this works:</b> Every time you upload and process a day's data, it gets saved automatically. Come back tomorrow, upload tomorrow's file, and a new point appears on the chart.<br>
+📌 <b>To use:</b> Pick an advisor from the dropdown (or "All Advisors" for team total) → choose 7 / 14 / 30 days → the chart shows calls and connection rate over time.<br>
+📌 <b>Right now:</b> If the chart is empty, it means you've only processed one day so far. Upload a second day's file and the trend line will appear.</span>
+          <span class="tab-info-close" onclick="this.closest('.tab-info').style.display='none'" title="Dismiss">✕</span>
+        </div>
+        <div style="padding:20px" id="trendsBody">
+    <div class="trend-ctrl">
+      <select id="trendAdvisor" class="trend-adv-select" onchange="drawTrendChart()">
+        <option value="ALL">All Advisors (Team Total)</option>
+        <option value="Aasheesh Ahluwalia">Aasheesh Ahluwalia</option><option value="Ghanshyam Shankerlal Yadav">Ghanshyam Shankerlal Yadav</option><option value="Jaydeep Parmar">Jaydeep Parmar</option><option value="Joel Fernandes">Joel Fernandes</option><option value="Melroy Mascarenhas">Melroy Mascarenhas</option><option value="Nandini Nandu Borade">Nandini Nandu Borade</option><option value="Nandita N">Nandita N</option><option value="Priya Chaudhary">Priya Chaudhary</option><option value="Pushpanjli Mani Singh">Pushpanjli Mani Singh</option><option value="Rakshith Gaikwad">Rakshith Gaikwad</option><option value="Raunak Narvekar">Raunak Narvekar</option><option value="Sadanand Patel">Sadanand Patel</option><option value="Samson Rebello">Samson Rebello</option><option value="Shubhi Mishra">Shubhi Mishra</option><option value="Sonal Braganza">Sonal Braganza</option><option value="Subhash Madhavan">Subhash Madhavan</option>
+      </select>
+      <div class="trend-period-btns">
+        <button class="t-btn" onclick="setTrendDays(7,this)">7 Days</button>
+        <button class="t-btn active" onclick="setTrendDays(14,this)">14 Days</button>
+        <button class="t-btn" onclick="setTrendDays(30,this)">30 Days</button>
+      </div>
+    </div>
+    <div class="trend-chart-box"><canvas id="trendCanvas" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div></div>
+      </div>
+    </div>
+  </div>
+
+        <!-- Dial Pattern Panel -->
+      <div class="out-panel" id="panel-dialpattern">
+        <div class="out-head" style="background:var(--navy);padding:14px 20px">
+          <div class="out-head-title"><span class="dot" style="background:#f59e0b"></span>Hourly Dial Pattern by Advisor
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            <button onclick="captureTab('dialpattern','copy')" class="btn btn-green" style="font-size:10px;padding:5px 12px">💬 Teams</button>
+            <button onclick="captureTab('dialpattern','export')" class="btn" style="background:#7c3aed;color:#fff;font-size:10px;padding:5px 12px">📸 Export</button>
+            <button onclick="captureTab('dialpattern','pdf')" class="btn btn-pdf" style="font-size:10px;padding:5px 12px">📄 PDF</button>
+          </div>
+        </div>
+        </div>
+        <div class="tab-info" id="info-panel-dialpattern">
+          <span class="tab-info-icon">📞</span>
+          <span class="tab-info-text"><strong>Hourly Dial Pattern</strong>Shows when each advisor makes calls and connects, hour by hour. Select an advisor to see their personal pattern. Taller bars = more calls. The line shows connection rate at each hour.</span>
+          <span class="tab-info-close" onclick="this.closest('.tab-info').style.display='none'">✕</span>
+        </div>
+        <div style="padding:20px" id="dialPatternBody">
+    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-bottom:16px;background:var(--off);border:1px solid var(--border);border-radius:10px;padding:14px">
+      <div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:5px">Advisor</div>
+        <select id="dialAdvisor" class="trend-adv-select" onchange="renderDialPattern()">
+          <option value="ALL">All Advisors (Team)</option>
+          <option value="Aasheesh Ahluwalia">Aasheesh Ahluwalia</option><option value="Ghanshyam Shankerlal Yadav">Ghanshyam Shankerlal Yadav</option><option value="Jaydeep Parmar">Jaydeep Parmar</option><option value="Joel Fernandes">Joel Fernandes</option><option value="Melroy Mascarenhas">Melroy Mascarenhas</option><option value="Nandini Nandu Borade">Nandini Nandu Borade</option><option value="Nandita N">Nandita N</option><option value="Priya Chaudhary">Priya Chaudhary</option><option value="Pushpanjli Mani Singh">Pushpanjli Mani Singh</option><option value="Rakshith Gaikwad">Rakshith Gaikwad</option><option value="Raunak Narvekar">Raunak Narvekar</option><option value="Sadanand Patel">Sadanand Patel</option><option value="Samson Rebello">Samson Rebello</option><option value="Shubhi Mishra">Shubhi Mishra</option><option value="Sonal Braganza">Sonal Braganza</option><option value="Subhash Madhavan">Subhash Madhavan</option>
+        </select>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#2563eb;margin-bottom:5px">📅 Date 1 (Primary)</div>
+        <select id="dialDate1" onchange="renderDialPattern()" style="background:var(--off);border:1.5px solid #2563eb;color:var(--head);border-radius:7px;padding:7px 10px;font-family:var(--mono);font-size:11px;outline:none">
+          <option value="2026-05-08">08-May-2026</option><option value="2026-05-09">09-May-2026</option>
+        </select>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#059669;margin-bottom:5px">📅 Date 2 (Compare)</div>
+        <select id="dialDate2" onchange="renderDialPattern()" style="background:var(--off);border:1.5px solid #059669;color:var(--head);border-radius:7px;padding:7px 10px;font-family:var(--mono);font-size:11px;outline:none">
+          <option value="">— None —</option>
+          <option value="2026-05-08">08-May-2026</option><option value="2026-05-09">09-May-2026</option>
+        </select>
+      </div>
+      <div style="font-size:11px;color:var(--dim);font-family:var(--mono);padding-bottom:7px">Blue bars = Date 1 · Green bars = Date 2 · Line = Connect Rate %</div>
+    </div>
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px">
+      <canvas id="dialCanvas" height="696" style="display: block; box-sizing: border-box; height: 580px; width: 1242px;" width="1490"></canvas>
+    </div>
+    <div id="dialSummaryRow" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px">
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.05)">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:6px">Peak Hour</div>
+      <div style="font-size:18px;font-weight:800;color:#2563eb;font-family:var(--mono);line-height:1.2">7PM</div>
+      <div style="font-size:11px;color:var(--dim);margin-top:3px;font-family:var(--mono)">182 calls</div>
+    </div>
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.05)">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:6px">Best Connect Hour</div>
+      <div style="font-size:18px;font-weight:800;color:#059669;font-family:var(--mono);line-height:1.2">1PM</div>
+      <div style="font-size:11px;color:var(--dim);margin-top:3px;font-family:var(--mono)">20.7% (≥3 conn)</div>
+    </div>
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.05)">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:6px">Total Calls</div>
+      <div style="font-size:18px;font-weight:800;color:#0f172a;font-family:var(--mono);line-height:1.2">1,551</div>
+      <div style="font-size:11px;color:var(--dim);margin-top:3px;font-family:var(--mono)">across all hours</div>
+    </div>
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.05)">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:6px">Overall Rate</div>
+      <div style="font-size:18px;font-weight:800;color:#f59e0b;font-family:var(--mono);line-height:1.2">8.7%</div>
+      <div style="font-size:11px;color:var(--dim);margin-top:3px;font-family:var(--mono)">135 connected</div>
+    </div></div>
+    <div id="dialInsights">
+    <div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:16px;margin-bottom:12px">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#0369a1;margin-bottom:10px">📊 Pattern Insights</div>
+      <div style="font-size:12px;color:#1e293b;margin-bottom:7px;line-height:1.6">✅ <b>High-performing hours:</b> 1PM, 6PM — connect rate above 15%</div><div style="font-size:12px;color:#1e293b;margin-bottom:7px;line-height:1.6">⚠️ <b>Zero connects with high volume:</b> 6AM — calls made but none connected</div><div style="font-size:12px;color:#1e293b;margin-bottom:7px;line-height:1.6">📊 <b>Pattern mismatch:</b> Most calls at 7PM (182 calls) but best connect rate at 1PM (20.7%)</div>
+    </div>
+    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:16px">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#166534;margin-bottom:10px">💡 Recommendations to Improve Connectivity</div>
+      <div style="font-size:12px;color:#1e293b;margin-bottom:7px;line-height:1.6"><b>1.</b> Reduce dialling during 6AM. These hours show high effort with zero returns.</div><div style="font-size:12px;color:#1e293b;margin-bottom:7px;line-height:1.6"><b>2.</b> Shift more calls to 1PM window — it has the highest connection rate but not the most volume.</div><div style="font-size:12px;color:#1e293b;margin-bottom:7px;line-height:1.6"><b>3.</b> Overall connection rate (8.7%) is below 10%. Consider reviewing the contact list quality and calling times.</div>
+    </div></div></div>
+      </div>
+
+      <!-- Heatmap Panel -->
+      <div class="out-panel" id="panel-heatmap">
+        <div class="out-head" style="background:var(--navy);padding:14px 20px">
+          <div class="out-head-title"><span class="dot" style="background:#ef4444"></span>Connection Rate Heatmap by Hour
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            <button onclick="captureTab('heatmap','copy')" class="btn btn-green" style="font-size:10px;padding:5px 12px">💬 Teams</button>
+            <button onclick="captureTab('heatmap','export')" class="btn" style="background:#7c3aed;color:#fff;font-size:10px;padding:5px 12px">📸 Export</button>
+            <button onclick="captureTab('heatmap','pdf')" class="btn btn-pdf" style="font-size:10px;padding:5px 12px">📄 PDF</button>
+          </div>
+        </div>
+        </div>
+        <div class="tab-info" id="info-panel-heatmap">
+          <span class="tab-info-icon">🔥</span>
+          <span class="tab-info-text"><strong>Hour × Advisor Connection Rate Heatmap</strong>Each cell shows the connection rate (%) for one advisor at one hour of the day. <b>Green = high rate, Red = low/zero rate, Grey = no calls.</b> Hover any cell for exact numbers. Use this to identify the best calling hours for each advisor.</span>
+          <span class="tab-info-close" onclick="this.closest('.tab-info').style.display='none'" title="Dismiss">✕</span>
+        </div>
+        <div style="padding:20px" id="heatmapBody">
+    <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center"><span style="font-size:11px;color:var(--dim);font-family:var(--mono)">Sort rows:</span><button onclick="tabSort.heatmap={col:'name',dir:1};renderHeatmap()" class="exec-btn" style="padding:4px 10px;font-size:11px">A→Z</button><button onclick="tabSort.heatmap={col:'rate',dir:-1};renderHeatmap()" class="exec-btn" style="padding:4px 10px;font-size:11px">Best Rate First</button></div>
+    <div class="heatmap-wrap">
+      <table class="heatmap-table">
+        <thead><tr><th style="min-width:180px;border-right:2px solid var(--border)"></th><th class="hm-hour-head">12 AM</th><th class="hm-hour-head">01 AM</th><th class="hm-hour-head">02 AM</th><th class="hm-hour-head">03 AM</th><th class="hm-hour-head">04 AM</th><th class="hm-hour-head">05 AM</th><th class="hm-hour-head">06 AM</th><th class="hm-hour-head">07 AM</th><th class="hm-hour-head">12 PM</th><th class="hm-hour-head">01 PM</th><th class="hm-hour-head">02 PM</th><th class="hm-hour-head">03 PM</th><th class="hm-hour-head">04 PM</th><th class="hm-hour-head">05 PM</th><th class="hm-hour-head">06 PM</th><th class="hm-hour-head">07 PM</th><th class="hm-hour-head">08 PM</th><th class="hm-hour-head">09 PM</th><th class="hm-hour-head">10 PM</th><th class="hm-hour-head">11 PM</th></tr></thead>
+        <tbody><tr><td class="hm-advisor">Aasheesh Ahluwalia</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Aasheesh Ahluwalia @ 12:00 AM: 0/16 (0%)">0%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Aasheesh Ahluwalia @ 01:00 AM: 0/1 (0%)">0%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Aasheesh Ahluwalia @ 02:00 AM: 1/6 (17%)">17%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#86efac;color:#14532d" title="Aasheesh Ahluwalia @ 06:00 PM: 2/5 (40%)">40%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Aasheesh Ahluwalia @ 07:00 PM: 1/40 (3%)">3%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Aasheesh Ahluwalia @ 08:00 PM: 0/6 (0%)">0%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Aasheesh Ahluwalia @ 09:00 PM: 3/21 (14%)">14%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Aasheesh Ahluwalia @ 10:00 PM: 1/12 (8%)">8%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Aasheesh Ahluwalia @ 11:00 PM: 0/20 (0%)">0%</td></tr><tr><td class="hm-advisor">Ghanshyam Shankerlal Yadav</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Ghanshyam Shankerlal Yadav @ 12:00 PM: 0/3 (0%)">0%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Ghanshyam Shankerlal Yadav @ 01:00 PM: 0/5 (0%)">0%</td><td class="hm-cell" style="background:#d9f99d;color:#14532d" title="Ghanshyam Shankerlal Yadav @ 02:00 PM: 1/3 (33%)">33%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Ghanshyam Shankerlal Yadav @ 03:00 PM: 1/10 (10%)">10%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Ghanshyam Shankerlal Yadav @ 04:00 PM: 1/6 (17%)">17%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Ghanshyam Shankerlal Yadav @ 05:00 PM: 2/10 (20%)">20%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Ghanshyam Shankerlal Yadav @ 06:00 PM: 2/8 (25%)">25%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Ghanshyam Shankerlal Yadav @ 07:00 PM: 2/19 (11%)">11%</td><td class="hm-cell" style="background:#86efac;color:#14532d" title="Ghanshyam Shankerlal Yadav @ 08:00 PM: 5/11 (45%)">45%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Ghanshyam Shankerlal Yadav @ 09:00 PM: 1/13 (8%)">8%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td></tr><tr><td class="hm-advisor">Jaydeep Parmar</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Jaydeep Parmar @ 12:00 AM: 1/4 (25%)">25%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Jaydeep Parmar @ 01:00 AM: 0/1 (0%)">0%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Jaydeep Parmar @ 02:00 AM: 0/16 (0%)">0%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Jaydeep Parmar @ 03:00 AM: 1/22 (5%)">5%</td><td class="hm-cell" style="background:#d9f99d;color:#14532d" title="Jaydeep Parmar @ 04:00 AM: 2/6 (33%)">33%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Jaydeep Parmar @ 10:00 PM: 0/1 (0%)">0%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Jaydeep Parmar @ 11:00 PM: 0/1 (0%)">0%</td></tr><tr><td class="hm-advisor">Joel Fernandes</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Joel Fernandes @ 12:00 PM: 2/9 (22%)">22%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Joel Fernandes @ 01:00 PM: 2/11 (18%)">18%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Joel Fernandes @ 02:00 PM: 2/16 (13%)">13%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Joel Fernandes @ 03:00 PM: 2/13 (15%)">15%</td><td class="hm-cell" style="background:#4ade80;color:#14532d" title="Joel Fernandes @ 04:00 PM: 1/2 (50%)">50%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Joel Fernandes @ 05:00 PM: 0/10 (0%)">0%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Joel Fernandes @ 06:00 PM: 0/8 (0%)">0%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Joel Fernandes @ 07:00 PM: 1/9 (11%)">11%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Joel Fernandes @ 08:00 PM: 4/20 (20%)">20%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Joel Fernandes @ 09:00 PM: 0/2 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td></tr><tr><td class="hm-advisor">Melroy Mascarenhas</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Melroy Mascarenhas @ 12:00 AM: 0/11 (0%)">0%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Melroy Mascarenhas @ 01:00 AM: 1/12 (8%)">8%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Melroy Mascarenhas @ 02:00 AM: 1/15 (7%)">7%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Melroy Mascarenhas @ 03:00 AM: 3/26 (12%)">12%</td><td class="hm-cell" style="background:#d9f99d;color:#14532d" title="Melroy Mascarenhas @ 04:00 AM: 1/3 (33%)">33%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Melroy Mascarenhas @ 06:00 PM: 0/2 (0%)">0%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Melroy Mascarenhas @ 07:00 PM: 0/10 (0%)">0%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Melroy Mascarenhas @ 08:00 PM: 1/8 (13%)">13%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Melroy Mascarenhas @ 09:00 PM: 0/4 (0%)">0%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Melroy Mascarenhas @ 10:00 PM: 1/6 (17%)">17%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Melroy Mascarenhas @ 11:00 PM: 2/15 (13%)">13%</td></tr><tr><td class="hm-advisor">Nandini Nandu Borade</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Nandini Nandu Borade @ 02:00 AM: 0/4 (0%)">0%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Nandini Nandu Borade @ 03:00 AM: 2/11 (18%)">18%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Nandini Nandu Borade @ 04:00 AM: 0/5 (0%)">0%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Nandini Nandu Borade @ 05:00 AM: 1/7 (14%)">14%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Nandini Nandu Borade @ 06:00 AM: 0/16 (0%)">0%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Nandini Nandu Borade @ 07:00 AM: 0/1 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Nandini Nandu Borade @ 09:00 PM: 0/3 (0%)">0%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Nandini Nandu Borade @ 10:00 PM: 0/6 (0%)">0%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Nandini Nandu Borade @ 11:00 PM: 1/12 (8%)">8%</td></tr><tr><td class="hm-advisor">Nandita N</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Nandita N @ 12:00 AM: 0/1 (0%)">0%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Nandita N @ 01:00 AM: 0/9 (0%)">0%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Nandita N @ 02:00 AM: 0/32 (0%)">0%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Nandita N @ 03:00 AM: 0/16 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Nandita N @ 06:00 PM: 0/3 (0%)">0%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Nandita N @ 07:00 PM: 0/19 (0%)">0%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Nandita N @ 08:00 PM: 1/5 (20%)">20%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Nandita N @ 10:00 PM: 1/5 (20%)">20%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Nandita N @ 11:00 PM: 0/10 (0%)">0%</td></tr><tr><td class="hm-advisor">Priya Chaudhary</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Priya Chaudhary @ 12:00 AM: 1/12 (8%)">8%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Priya Chaudhary @ 01:00 AM: 1/21 (5%)">5%</td><td class="hm-cell" style="background:#86efac;color:#14532d" title="Priya Chaudhary @ 02:00 AM: 2/5 (40%)">40%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Priya Chaudhary @ 03:00 AM: 2/22 (9%)">9%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Priya Chaudhary @ 06:00 PM: 1/4 (25%)">25%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Priya Chaudhary @ 07:00 PM: 2/14 (14%)">14%</td><td class="hm-cell" style="background:#4ade80;color:#14532d" title="Priya Chaudhary @ 08:00 PM: 1/2 (50%)">50%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Priya Chaudhary @ 09:00 PM: 3/12 (25%)">25%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Priya Chaudhary @ 11:00 PM: 3/13 (23%)">23%</td></tr><tr><td class="hm-advisor">Pushpanjli Mani Singh</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Pushpanjli Mani Singh @ 12:00 PM: 0/1 (0%)">0%</td><td class="hm-cell" style="background:#4ade80;color:#14532d" title="Pushpanjli Mani Singh @ 01:00 PM: 2/4 (50%)">50%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Pushpanjli Mani Singh @ 02:00 PM: 1/7 (14%)">14%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Pushpanjli Mani Singh @ 03:00 PM: 1/8 (13%)">13%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Pushpanjli Mani Singh @ 04:00 PM: 1/13 (8%)">8%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Pushpanjli Mani Singh @ 05:00 PM: 1/13 (8%)">8%</td><td class="hm-cell" style="background:#d9f99d;color:#14532d" title="Pushpanjli Mani Singh @ 06:00 PM: 3/8 (38%)">38%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Pushpanjli Mani Singh @ 07:00 PM: 0/9 (0%)">0%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Pushpanjli Mani Singh @ 08:00 PM: 2/23 (9%)">9%</td><td class="hm-cell" style="background:#4ade80;color:#14532d" title="Pushpanjli Mani Singh @ 09:00 PM: 4/7 (57%)">57%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td></tr><tr><td class="hm-advisor">Rakshith Gaikwad</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Rakshith Gaikwad @ 12:00 AM: 0/6 (0%)">0%</td><td class="hm-cell" style="background:#4ade80;color:#14532d" title="Rakshith Gaikwad @ 01:00 AM: 1/2 (50%)">50%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Rakshith Gaikwad @ 02:00 AM: 0/11 (0%)">0%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Rakshith Gaikwad @ 03:00 AM: 4/22 (18%)">18%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Rakshith Gaikwad @ 04:00 AM: 0/6 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Rakshith Gaikwad @ 06:00 PM: 0/5 (0%)">0%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Rakshith Gaikwad @ 07:00 PM: 1/8 (13%)">13%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Rakshith Gaikwad @ 08:00 PM: 0/4 (0%)">0%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Rakshith Gaikwad @ 09:00 PM: 1/18 (6%)">6%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Rakshith Gaikwad @ 10:00 PM: 1/9 (11%)">11%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Rakshith Gaikwad @ 11:00 PM: 3/19 (16%)">16%</td></tr><tr><td class="hm-advisor">Raunak Narvekar</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Raunak Narvekar @ 12:00 AM: 1/9 (11%)">11%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Raunak Narvekar @ 01:00 AM: 0/10 (0%)">0%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Raunak Narvekar @ 02:00 AM: 1/6 (17%)">17%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Raunak Narvekar @ 03:00 AM: 0/28 (0%)">0%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Raunak Narvekar @ 04:00 AM: 0/11 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Raunak Narvekar @ 06:00 PM: 0/1 (0%)">0%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Raunak Narvekar @ 07:00 PM: 0/8 (0%)">0%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Raunak Narvekar @ 08:00 PM: 0/7 (0%)">0%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Raunak Narvekar @ 09:00 PM: 0/21 (0%)">0%</td><td class="hm-cell" style="background:#4ade80;color:#14532d" title="Raunak Narvekar @ 10:00 PM: 1/2 (50%)">50%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Raunak Narvekar @ 11:00 PM: 1/10 (10%)">10%</td></tr><tr><td class="hm-advisor">Sadanand Patel</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Sadanand Patel @ 12:00 AM: 0/14 (0%)">0%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Sadanand Patel @ 01:00 AM: 1/15 (7%)">7%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Sadanand Patel @ 02:00 AM: 0/28 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Sadanand Patel @ 06:00 PM: 0/3 (0%)">0%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Sadanand Patel @ 07:00 PM: 0/10 (0%)">0%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Sadanand Patel @ 08:00 PM: 0/11 (0%)">0%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Sadanand Patel @ 09:00 PM: 0/6 (0%)">0%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Sadanand Patel @ 10:00 PM: 1/18 (6%)">6%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Sadanand Patel @ 11:00 PM: 0/18 (0%)">0%</td></tr><tr><td class="hm-advisor">Samson Rebello</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Samson Rebello @ 10:00 PM: 0/1 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td></tr><tr><td class="hm-advisor">Shubhi Mishra</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Shubhi Mishra @ 12:00 AM: 0/10 (0%)">0%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Shubhi Mishra @ 01:00 AM: 0/18 (0%)">0%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Shubhi Mishra @ 02:00 AM: 1/9 (11%)">11%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Shubhi Mishra @ 03:00 AM: 0/17 (0%)">0%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Shubhi Mishra @ 04:00 AM: 0/9 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Shubhi Mishra @ 07:00 PM: 0/15 (0%)">0%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Shubhi Mishra @ 08:00 PM: 1/17 (6%)">6%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Shubhi Mishra @ 09:00 PM: 2/14 (14%)">14%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Shubhi Mishra @ 10:00 PM: 1/6 (17%)">17%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Shubhi Mishra @ 11:00 PM: 1/11 (9%)">9%</td></tr><tr><td class="hm-advisor">Sonal Braganza</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Sonal Braganza @ 12:00 PM: 0/1 (0%)">0%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Sonal Braganza @ 01:00 PM: 2/9 (22%)">22%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Sonal Braganza @ 02:00 PM: 0/17 (0%)">0%</td><td class="hm-cell" style="background:#d9f99d;color:#14532d" title="Sonal Braganza @ 03:00 PM: 1/3 (33%)">33%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Sonal Braganza @ 04:00 PM: 0/20 (0%)">0%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Sonal Braganza @ 05:00 PM: 1/14 (7%)">7%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Sonal Braganza @ 06:00 PM: 1/4 (25%)">25%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Sonal Braganza @ 07:00 PM: 3/14 (21%)">21%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Sonal Braganza @ 08:00 PM: 5/22 (23%)">23%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Sonal Braganza @ 09:00 PM: 2/7 (29%)">29%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td></tr><tr><td class="hm-advisor">Subhash Madhavan</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Subhash Madhavan @ 12:00 AM: 0/9 (0%)">0%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Subhash Madhavan @ 01:00 AM: 2/23 (9%)">9%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Subhash Madhavan @ 02:00 AM: 2/15 (13%)">13%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Subhash Madhavan @ 03:00 AM: 1/16 (6%)">6%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Subhash Madhavan @ 06:00 PM: 0/1 (0%)">0%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Subhash Madhavan @ 07:00 PM: 1/7 (14%)">14%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Subhash Madhavan @ 08:00 PM: 1/17 (6%)">6%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Subhash Madhavan @ 09:00 PM: 2/24 (8%)">8%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Subhash Madhavan @ 10:00 PM: 1/9 (11%)">11%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Subhash Madhavan @ 11:00 PM: 0/6 (0%)">0%</td></tr></tbody>
+      </table>
+    </div>
+    <div class="hm-scroll-hint">← Scroll horizontally or drag to see all hours →</div>
+    <div class="hm-legend">
+      <span>Low</span>
+      <div class="hm-legend-bar">
+        <div style="flex:1;background:#fee2e2"></div><div style="flex:1;background:#fecaca"></div><div style="flex:1;background:#fed7aa"></div><div style="flex:1;background:#fde68a"></div><div style="flex:1;background:#d9f99d"></div><div style="flex:1;background:#86efac"></div><div style="flex:1;background:#4ade80"></div>
+      </div>
+      <span>High</span>
+      <span style="margin-left:12px;color:var(--dim)">· Hover cells for details · % = connection rate</span>
+    </div></div>
+      </div>
+      <!-- Week-on-Week Panel -->
+      <div class="out-panel" id="panel-wow">
+        <div class="out-head" style="background:var(--navy);padding:14px 20px;flex-wrap:wrap;gap:10px">
+          <div class="out-head-title"><span class="dot" style="background:#a78bfa"></span>Week-on-Week Comparison
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            <button onclick="captureTab('wow','copy')" class="btn btn-green" style="font-size:10px;padding:5px 12px">💬 Teams</button>
+            <button onclick="captureTab('wow','export')" class="btn" style="background:#7c3aed;color:#fff;font-size:10px;padding:5px 12px">📸 Export</button>
+            <button onclick="captureTab('wow','pdf')" class="btn btn-pdf" style="font-size:10px;padding:5px 12px">📄 PDF</button>
+          </div>
+        </div>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+            <span style="font-size:11px;color:rgba(255,255,255,0.6);font-family:var(--mono)">Current Period:</span>
+            <input type="date" id="wowFrom" onchange="renderWoW()" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;border-radius:5px;padding:4px 8px;font-family:var(--mono);font-size:11px;outline:none">
+            <span style="color:rgba(255,255,255,0.4);font-size:11px">to</span>
+            <input type="date" id="wowTo" onchange="renderWoW()" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;border-radius:5px;padding:4px 8px;font-family:var(--mono);font-size:11px;outline:none">
+            <button onclick="wowResetDates()" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.7);border-radius:5px;padding:4px 10px;font-family:var(--mono);font-size:10px;cursor:pointer">Reset</button>
+          </div>
+        </div>
+        <div class="tab-info" id="info-panel-wow">
+          <span class="tab-info-icon">📅</span>
+          <span class="tab-info-text"><strong>Week-on-Week Comparison</strong><br>
+📌 <b>How to read it:</b> For each advisor, it shows their numbers for your <em>selected dates</em> vs the <em>same number of previous dates</em> from stored history.<br>
+📌 <b>Arrows mean:</b> ↑ Green = doing better than before · ↓ Red = doing worse · → Grey = roughly the same (within 2%)<br>
+📌 <b>Example:</b> You select 08-May. The comparison column shows 07-May's data. If Sonal had 12 connected calls on 07-May and 15 on 08-May, you'll see ↑ 25%.<br>
+📌 <b>Right now empty?</b> Upload at least 2 different days and the comparison will populate automatically.</span>
+          <span class="tab-info-close" onclick="this.closest('.tab-info').style.display='none'" title="Dismiss">✕</span>
+        </div>
+        <div style="padding:20px" id="wowBody">
+    <div style="display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap">
+      <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:10px 16px;flex:1;min-width:200px">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#1e40af;margin-bottom:4px">📅 Current Period</div>
+        <div style="font-size:13px;font-weight:600;color:var(--head)">08-May-2026, 09-May-2026</div>
+      </div>
+      <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px 16px;flex:1;min-width:200px">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#166534;margin-bottom:4px">📅 Compared Against</div>
+        <div style="font-size:13px;font-weight:600;color:var(--head)">06-May-2026, 07-May-2026</div>
+      </div>
+      <div style="background:var(--off);border:1px solid var(--border);border-radius:8px;padding:10px 16px;flex:0 0 auto">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:4px">Legend</div>
+        <div style="font-size:12px;font-family:var(--mono)"><span style="color:var(--green);font-weight:700">↑ Better</span> &nbsp; <span style="color:var(--red);font-weight:700">↓ Worse</span> &nbsp; <span style="color:var(--dim)">→ Same</span></div>
+      </div>
+    </div>
+    <table class="wow-table">
+      <thead><tr>
+        <th onclick="sortTabBy('wow','adv')" style="cursor:pointer;white-space:nowrap">Advisor <span style="color:var(--dim);opacity:0.4">↕</span></th> <th onclick="sortTabBy('wow','total')" style="cursor:pointer;white-space:nowrap">Total (Now) <span style="color:var(--gold2)">↓</span></th> <th>Total (Prev)</th> <th>Change</th>
+        <th onclick="sortTabBy('wow','connected')" style="cursor:pointer;white-space:nowrap">Connected (Now) <span style="color:var(--dim);opacity:0.4">↕</span></th> <th>Change</th>
+        <th onclick="sortTabBy('wow','rate')" style="cursor:pointer;white-space:nowrap">Rate (Now) <span style="color:var(--dim);opacity:0.4">↕</span></th> <th>Change</th>
+      </tr></thead>
+      <tbody><tr>
+    <td style="font-weight:600;color:var(--head)">Aasheesh Ahluwalia</td>
+    <td style="font-family:var(--mono);text-align:center">127</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">385</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -67.0%</span></td>
+    <td style="font-family:var(--mono);text-align:center">8</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -11.1%</span></td>
+    <td style="font-family:var(--mono);text-align:center">6.3%</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 169.5%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Subhash Madhavan</td>
+    <td style="font-family:var(--mono);text-align:center">127</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">272</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -53.3%</span></td>
+    <td style="font-family:var(--mono);text-align:center">10</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -52.4%</span></td>
+    <td style="font-family:var(--mono);text-align:center">7.9%</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 2.0%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Shubhi Mishra</td>
+    <td style="font-family:var(--mono);text-align:center">126</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">255</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -50.6%</span></td>
+    <td style="font-family:var(--mono);text-align:center">6</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -71.4%</span></td>
+    <td style="font-family:var(--mono);text-align:center">4.8%</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -42.2%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Sadanand Patel</td>
+    <td style="font-family:var(--mono);text-align:center">123</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">1</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 12200.0%</span></td>
+    <td style="font-family:var(--mono);text-align:center">2</td>
+    <td style="text-align:center"><span class="wow-badge flat">—</span></td>
+    <td style="font-family:var(--mono);text-align:center">1.6%</td>
+    <td style="text-align:center"><span class="wow-badge flat">—</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Raunak Narvekar</td>
+    <td style="font-family:var(--mono);text-align:center">113</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">281</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -59.8%</span></td>
+    <td style="font-family:var(--mono);text-align:center">4</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -66.7%</span></td>
+    <td style="font-family:var(--mono);text-align:center">3.5%</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -17.1%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Melroy Mascarenhas</td>
+    <td style="font-family:var(--mono);text-align:center">112</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">260</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -56.9%</span></td>
+    <td style="font-family:var(--mono);text-align:center">10</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -33.3%</span></td>
+    <td style="font-family:var(--mono);text-align:center">8.9%</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 54.8%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Sonal Braganza</td>
+    <td style="font-family:var(--mono);text-align:center">111</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">288</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -61.5%</span></td>
+    <td style="font-family:var(--mono);text-align:center">15</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -46.4%</span></td>
+    <td style="font-family:var(--mono);text-align:center">13.5%</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 39.0%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Rakshith Gaikwad</td>
+    <td style="font-family:var(--mono);text-align:center">110</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">112</td>
+    <td style="text-align:center"><span class="wow-badge flat">→ -1.8%</span></td>
+    <td style="font-family:var(--mono);text-align:center">11</td>
+    <td style="text-align:center"><span class="wow-badge flat">→ 0.0%</span></td>
+    <td style="font-family:var(--mono);text-align:center">10.0%</td>
+    <td style="text-align:center"><span class="wow-badge flat">→ 1.8%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Priya Chaudhary</td>
+    <td style="font-family:var(--mono);text-align:center">105</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">239</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -56.1%</span></td>
+    <td style="font-family:var(--mono);text-align:center">16</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -40.7%</span></td>
+    <td style="font-family:var(--mono);text-align:center">15.2%</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 34.9%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Joel Fernandes</td>
+    <td style="font-family:var(--mono);text-align:center">100</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">204</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -51.0%</span></td>
+    <td style="font-family:var(--mono);text-align:center">14</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -53.3%</span></td>
+    <td style="font-family:var(--mono);text-align:center">14.0%</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -4.8%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Nandita N</td>
+    <td style="font-family:var(--mono);text-align:center">100</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">172</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -41.9%</span></td>
+    <td style="font-family:var(--mono);text-align:center">2</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -92.6%</span></td>
+    <td style="font-family:var(--mono);text-align:center">2.0%</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -87.3%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Pushpanjli Mani Singh</td>
+    <td style="font-family:var(--mono);text-align:center">93</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">163</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -42.9%</span></td>
+    <td style="font-family:var(--mono);text-align:center">15</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -57.1%</span></td>
+    <td style="font-family:var(--mono);text-align:center">16.1%</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -24.9%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Ghanshyam Shankerlal Yadav</td>
+    <td style="font-family:var(--mono);text-align:center">88</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">224</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -60.7%</span></td>
+    <td style="font-family:var(--mono);text-align:center">15</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -37.5%</span></td>
+    <td style="font-family:var(--mono);text-align:center">17.0%</td>
+    <td style="text-align:center"><span class="wow-badge up">↑ 59.1%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Nandini Nandu Borade</td>
+    <td style="font-family:var(--mono);text-align:center">65</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">255</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -74.5%</span></td>
+    <td style="font-family:var(--mono);text-align:center">4</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -75.0%</span></td>
+    <td style="font-family:var(--mono);text-align:center">6.2%</td>
+    <td style="text-align:center"><span class="wow-badge flat">→ -1.9%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Jaydeep Parmar</td>
+    <td style="font-family:var(--mono);text-align:center">51</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">173</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -70.5%</span></td>
+    <td style="font-family:var(--mono);text-align:center">4</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -81.8%</span></td>
+    <td style="font-family:var(--mono);text-align:center">7.8%</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -38.3%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Samson Rebello</td>
+    <td style="font-family:var(--mono);text-align:center">1</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">224</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -99.6%</span></td>
+    <td style="font-family:var(--mono);text-align:center">0</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -100.0%</span></td>
+    <td style="font-family:var(--mono);text-align:center">0.0%</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -100.0%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Haya Quadri</td>
+    <td style="font-family:var(--mono);text-align:center">0</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">198</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -100.0%</span></td>
+    <td style="font-family:var(--mono);text-align:center">0</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -100.0%</span></td>
+    <td style="font-family:var(--mono);text-align:center">0.0%</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -100.0%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Pramod Kumar</td>
+    <td style="font-family:var(--mono);text-align:center">0</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">189</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -100.0%</span></td>
+    <td style="font-family:var(--mono);text-align:center">0</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -100.0%</span></td>
+    <td style="font-family:var(--mono);text-align:center">0.0%</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -100.0%</span></td>
+  </tr><tr>
+    <td style="font-weight:600;color:var(--head)">Zuber Haque</td>
+    <td style="font-family:var(--mono);text-align:center">0</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">298</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -100.0%</span></td>
+    <td style="font-family:var(--mono);text-align:center">0</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -100.0%</span></td>
+    <td style="font-family:var(--mono);text-align:center">0.0%</td>
+    <td style="text-align:center"><span class="wow-badge down">↓ -100.0%</span></td>
+  </tr></tbody>
+    </table></div>
+      </div>
+<!-- PDF Export Button (below output) -->
+  <div id="pdfBtnWrap" style="display: none; margin-top: 12px; text-align: right;">
+    <button class="btn btn-pdf" onclick="exportPDF()">📄 Export PDF</button>
+  </div>
+
+  <!-- Advisor Drilldown Modal -->
+  <div class="modal-overlay" id="advisorModal" onclick="if(event.target===this)closeAdvisorModal()">
+    <div class="modal-box">
+      <div class="modal-head">
+        <span class="modal-title" id="modalAdvisorName">Advisor</span>
+        <span class="modal-close" onclick="closeAdvisorModal()">✕</span>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
     </div>
   </div>
 
@@ -371,7 +1197,7 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
     </div>
   </div>
 </div>
-<div class="toast" id="toast" style="border-color: var(--gold2);">✓ Image downloaded — upload to Teams as file attachment</div>
+<div class="toast" id="toast" style="border-color: var(--gold2);">✓ Copied! Paste into Teams</div>
 
 <script>
 let allData=[],filteredData=[];
@@ -423,15 +1249,40 @@ function startProcess(){
 function parseChunked(raw){
   const lines=raw.split('\n');
   const total=lines.length,CHUNK=3000,result=[];
-  // Skip header row if first cell is not a number
-  let i=isNaN(parseFloat(lines[0].split('\t')[0]))?1:0;
+
+  // ── Smart column detection ──────────────────────────────────────────
+  const firstCells=lines[0].split('\t');
+  const hasHeader=isNaN(parseFloat(firstCells[0]));
+  let i=hasHeader?1:0;
+
+  // Defaults (A=0,B=1,C=2,D=3,E=4,F=5)
+  let iDur=0,iType=1,iConn=2,iDate=3,iAdv=4,iHour=5;
+
+  if(hasHeader){
+    const h=firstCells.map(v=>String(v||'').toLowerCase().replace(/[^a-z0-9 ]/g,'').trim());
+    const find=keys=>{for(let j=0;j<h.length;j++){if(keys.some(k=>h[j].includes(k)))return j;}return -1;};
+    const d0=find(['dialer dur','duration min']);
+    const d1=find(['calls sms','callssms','type']);
+    const d2=find(['connected','dialer call conn']);
+    const d3=find(['created date','createdate','date']);
+    const d4=find(['advisor','assigned','agent name','agent']);
+    const d5=find(['hour of day','dialer call hour','hour']);
+    if(d0>=0)iDur=d0; if(d1>=0)iType=d1; if(d2>=0)iConn=d2;
+    if(d3>=0)iDate=d3; if(d4>=0)iAdv=d4; if(d5>=0)iHour=d5;
+  }
+
+  function safeStr(v){
+    if(v===undefined||v===null)return'';
+    const s=String(v).trim();
+    return(s.toLowerCase()==='undefined'||s.toLowerCase()==='null')?'':s;
+  }
 
   function parseHour(val){
-    const s=String(val||'').trim();
-    if(/^\d+$/.test(s)) return parseInt(s);                        // plain int: 10
-    if(/^(\d+):/.test(s)) return parseInt(s.match(/^(\d+)/)[1]); // time: 10:00 AM
+    const s=safeStr(val);
+    if(/^\d+$/.test(s))return parseInt(s);
+    if(/^(\d+):/.test(s))return parseInt(s.match(/^(\d+)/)[1]);
     const n=parseFloat(s);
-    if(!isNaN(n)&&n>0&&n<1) return Math.floor(n*24);               // Excel fraction
+    if(!isNaN(n)&&n>0&&n<1)return Math.floor(n*24);
     return parseInt(s)||0;
   }
 
@@ -439,30 +1290,28 @@ function parseChunked(raw){
     const end=Math.min(i+CHUNK,total);
     for(;i<end;i++){
       const line=lines[i];if(!line.trim())continue;
-      const c=line.split('\t');if(c.length<6)continue;
+      const c=line.split('\t');if(c.length<4)continue;
 
-      const duration  = parseFloat(c[0])||0;
-      const type      = (c[1]||'').trim();
-      const dialerConn= parseInt(c[2])||0;
-      const advisor   = (c[4]||'').trim();
-      const hour      = parseHour(c[5]);
+      const duration  = parseFloat(safeStr(c[iDur]))||0;
+      const type      = safeStr(c[iType]);
+      const dialerConn= parseInt(safeStr(c[iConn]))||0;
+      const advisor   = safeStr(c[iAdv]);
+      const hour      = parseHour(c[iHour]);
 
       if(!advisor)continue;
-      const cd=parseDate(c[3]);if(!cd)continue;
+      const cd=parseDate(safeStr(c[iDate]));if(!cd)continue;
 
-      // Shift: hour>10 → same day, hour<=10 → previous day
       const sd=new Date(cd.getFullYear(),cd.getMonth(),cd.getDate());
-      if(hour<=10) sd.setDate(sd.getDate()-1);
+      if(hour<10)sd.setDate(sd.getDate()-1);
 
-      const conn=dialerConn;
       result.push({
         duration,type,advisor,hour,
         createdDateDisplay:fmtDate(cd),
         shiftDateDisplay:fmtDate(sd),
         shiftDateKey:dateKey(sd),
         createdDateKey:dateKey(cd),
-        connected:conn,
-        pureTalk:conn?duration:0
+        connected:dialerConn,
+        pureTalk:dialerConn?duration:0
       });
     }
     setProgress(Math.min(Math.round((i/total)*100),99),
@@ -483,6 +1332,9 @@ function finalise(result){
   populateFilters();applyFilters();
   document.getElementById('bestTimeBar').style.display='flex';
   document.getElementById('shiftSummaryBar').style.display='block';
+  storeTrendData(allData);
+  document.getElementById('pdfBtnWrap').style.display='block';
+  document.getElementById('execCardWrap').style.display='block';
   ['filterBar','outputSection','rawSection'].forEach(id=>{document.getElementById(id).style.display=id==='filterBar'?'flex':'block';});
   document.getElementById('summaryRow').style.display='grid';
   rawBuilt=false;
@@ -494,8 +1346,12 @@ function populateFilters(){
   allAdvisors=[...new Set(allData.map(r=>r.advisor))].sort();
   document.getElementById('dateOptions').innerHTML=allShiftDates.map(k=>`<label class="ms-option"><input type="checkbox" value="${k}" checked onchange="updateLabel('msDateDropdown');applyFilters()"><span>${allData.find(r=>r.shiftDateKey===k)?.shiftDateDisplay||k}</span></label>`).join('');
   document.getElementById('advisorOptions').innerHTML=allAdvisors.map(a=>`<label class="ms-option"><input type="checkbox" value="${a}" checked onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>${a}</span></label>`).join('');
-  // Default: latest date only
-  if(allShiftDates.length>1){
+  // Default: latest date if <=3 days loaded; All dates if more (multi-week data)
+  if(allShiftDates.length>3){
+    // Keep all checked — user has uploaded a multi-day dataset
+    updateLabel('msDateDropdown');
+    showToast(`📅 ${allShiftDates.length} shift dates loaded — showing All Dates`);
+  } else if(allShiftDates.length>1){
     document.querySelectorAll('#msDateDropdown .ms-option input').forEach((cb,i)=>{cb.checked=(i===allShiftDates.length-1);});
     updateLabel('msDateDropdown');
   }
@@ -512,7 +1368,7 @@ function applyFilters(){
     dateLabel='All Dates';
   } else if(selDates.length===1){
     const d=allData.find(r=>r.shiftDateKey===selDates[0])?.shiftDateDisplay||selDates[0];
-    dateLabel=d+' (10:01 AM → 10:00 AM next day)';
+    dateLabel=d+' (10:00 AM → 09:59 AM next day)';
   } else {
     dateLabel=selDates.map(k=>allData.find(r=>r.shiftDateKey===k)?.shiftDateDisplay||k).join(', ');
   }
@@ -523,7 +1379,7 @@ function applyFilters(){
     const d=allData.find(r=>r.shiftDateKey===selDates[0])?.shiftDateDisplay||selDates[0];
     const createdDates=[...new Set(filteredData.map(r=>r.createdDateDisplay))].sort();
     document.getElementById('shiftCoverageText').textContent=
-      `10:01 AM ${d}  →  10:00 AM next day`;
+      `10:00 AM ${d}  →  09:59 AM next day`;
     document.getElementById('shiftRowBreakdown').textContent=
       `Calls from: ${createdDates.join(', ')}`;
   } else {
@@ -531,7 +1387,7 @@ function applyFilters(){
     document.getElementById('shiftRowBreakdown').textContent='';
   }
 
-  updateSummary();renderTable();updateBestTime();
+  updateSummary();renderTable();updateBestTime();renderLeaderboard();renderShiftSplit();renderTrends();renderHeatmap();renderWoW();renderDialPattern();renderExecSummary();checkAnomalies();
 }
 
 function updateSummary(){
@@ -547,16 +1403,23 @@ function updateSummary(){
 
 function renderTable(){
   const search=document.getElementById('searchBox').value.toLowerCase();
-  const map={};
-  for(const r of filteredData){if(!map[r.advisor])map[r.advisor]={advisor:r.advisor,total:0,connected:0,talk:0};map[r.advisor].total++;map[r.advisor].connected+=r.connected;map[r.advisor].talk+=r.pureTalk;}
-  let rows=Object.values(map);
+  const _tm={};
+  for(const r of filteredData){
+    const adv=r.advisor&&r.advisor!=='undefined'?r.advisor:null;
+    if(!adv) continue;
+    if(!_tm[adv]) _tm[adv]={total:0,connected:0,talk:0};
+    _tm[adv].total++;_tm[adv].connected+=r.connected;_tm[adv].talk+=r.pureTalk;
+  }
+  let rows=Object.entries(_tm)
+    .filter(([adv])=>adv&&adv!=='undefined')
+    .map(([adv,v])=>({advisor:adv,...v}));
   if(search)rows=rows.filter(r=>r.advisor.toLowerCase().includes(search));
   rows.sort((a,b)=>{const va=a[sortCol]??a.advisor,vb=b[sortCol]??b.advisor;return typeof va==='string'?va.localeCompare(vb)*sortDir:(va-vb)*sortDir;});
   const maxT=Math.max(...rows.map(r=>r.total),1);
   const parts=rows.map(r=>{
     const rate=r.total>0?(r.connected/r.total*100):0;
     const rClass=rate>=20?'rate-high':rate>=10?'rate-mid':rate>0?'rate-low':'rate-zero';
-    return`<tr><td><div class="mini-bar-wrap"><span class="col-advisor">${r.advisor}</span><span class="mini-bar" style="width:${Math.round(r.total/maxT*80)}px"></span></div></td><td class="col-total">${r.total}</td><td class="col-conn">${r.connected}</td><td class="col-talk">${r.talk.toFixed(2)}</td><td><span class="rate-pill ${rClass}">${rate.toFixed(1)}%</span></td><td class="col-avg">${r.connected>0?(r.talk/r.connected).toFixed(2):'—'}</td></tr>`;
+    return`<tr><td><div class="mini-bar-wrap"><span class="col-advisor" style="cursor:pointer;text-decoration:underline;text-decoration-style:dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="${r.advisor}">${r.advisor}</span><span class="mini-bar" style="width:${Math.round(r.total/maxT*80)}px"></span></div></td><td class="col-total">${r.total}</td><td class="col-conn">${r.connected}</td><td class="col-talk">${r.talk.toFixed(2)}</td><td><span class="rate-pill ${rClass}">${rate.toFixed(1)}%</span></td><td class="col-avg">${r.connected>0?(r.talk/r.connected).toFixed(2):'—'}</td></tr>`;
   });
   if(rows.length){
     const g=rows.reduce((s,r)=>({total:s.total+r.total,connected:s.connected+r.connected,talk:s.talk+r.talk}),{total:0,connected:0,talk:0});
@@ -574,10 +1437,17 @@ function sortBy(col){sortDir=sortCol===col?sortDir*-1:-1;sortCol=col;renderTable
 function jumpToDate(val){if(!val)return;if(!allShiftDates.includes(val)){showToast('No data for that date','#d97706');return;}document.querySelectorAll('#msDateDropdown .ms-option input').forEach(cb=>{cb.checked=(cb.value===val);});updateLabel('msDateDropdown');applyFilters();}
 
 async function copyOutput(){
-  const map={};
-  for(const r of filteredData){if(!map[r.advisor])map[r.advisor]={advisor:r.advisor,total:0,connected:0,talk:0};map[r.advisor].total++;map[r.advisor].connected+=r.connected;map[r.advisor].talk+=r.pureTalk;}
+  const _cm={};
+  for(const r of filteredData){
+    const adv=r.advisor&&r.advisor!=='undefined'?r.advisor:null;
+    if(!adv) continue;
+    if(!_cm[adv]) _cm[adv]={total:0,connected:0,talk:0};
+    _cm[adv].total++;_cm[adv].connected+=r.connected;_cm[adv].talk+=r.pureTalk;
+  }
   const search=document.getElementById('searchBox').value.toLowerCase();
-  let rows=Object.values(map);rows.sort((a,b)=>{const va=a[sortCol]??a.advisor,vb=b[sortCol]??b.advisor;return typeof va==='string'?va.localeCompare(vb)*sortDir:(va-vb)*sortDir;});
+  let rows=Object.entries(_cm)
+    .filter(([adv])=>adv&&adv!=='undefined')
+    .map(([adv,v])=>({advisor:adv,...v}));rows.sort((a,b)=>{const va=a[sortCol]??a.advisor,vb=b[sortCol]??b.advisor;return typeof va==='string'?va.localeCompare(vb)*sortDir:(va-vb)*sortDir;});
   if(search)rows=rows.filter(r=>r.advisor.toLowerCase().includes(search));
   const g=rows.reduce((s,r)=>({total:s.total+r.total,connected:s.connected+r.connected,talk:s.talk+r.talk}),{total:0,connected:0,talk:0});
   const selDates=getSelected('msDateDropdown');
@@ -646,15 +1516,37 @@ async function copyOutput(){
 </table>
 </body></html>`;
 
-  try {
+  // Try modern ClipboardItem (HTTPS/localhost only)
+  let copied=false;
+  try{
     await navigator.clipboard.write([new ClipboardItem({
-      'text/html': new Blob([html],{type:'text/html'}),
-      'text/plain': new Blob([tsv],{type:'text/plain'})
+      'text/html':new Blob([html],{type:'text/html'}),
+      'text/plain':new Blob([tsv],{type:'text/plain'})
     })]);
-    showToast('\u2713 Copied! Paste into Teams (table) or Excel (cells)');
-  } catch(e) {
-    navigator.clipboard.writeText(tsv).then(()=>showToast('\u2713 TSV copied \u2014 paste into Excel'));
+    showToast('\u2713 Copied! Paste into Teams or Excel');
+    copied=true;
+  }catch(e1){
+    // Fallback 1: writeText (works on file:// too)
+    try{
+      await navigator.clipboard.writeText(tsv);
+      showToast('\u2713 Copied as text — paste into Excel');
+      copied=true;
+    }catch(e2){
+      // Fallback 2: textarea execCommand (works everywhere)
+      try{
+        const ta=document.createElement('textarea');
+        ta.value=tsv;
+        ta.style.cssText='position:fixed;left:-9999px;top:0;opacity:0';
+        document.body.appendChild(ta);
+        ta.focus();ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast('\u2713 Copied! Paste into Excel');
+        copied=true;
+      }catch(e3){}
+    }
   }
+  if(!copied) showToast('Copy failed — try Ctrl+C manually','#dc2626');
 }
 
 function copyRawFiltered(){
@@ -695,12 +1587,13 @@ function clearAll(){
   const fi=document.querySelector('#uploadZone input[type=file]');
   if(fi) fi.value='';
   // Hide all output panels
-  ['filterBar','summaryRow','outputSection','rawSection','bestTimeBar','shiftSummaryBar'].forEach(id=>{
+  ['filterBar','summaryRow','outputSection','rawSection','bestTimeBar','shiftSummaryBar','pdfBtnWrap','execCardWrap'].forEach(id=>{
     const el=document.getElementById(id);
     if(el) el.style.display='none';
   });
   document.getElementById('rawTableWrap').style.display='none';
   document.getElementById('rawToggle').textContent='Show ▼';
+  document.getElementById('anomalyBar').classList.remove('has-alerts');
   document.getElementById('progressWrap').classList.remove('active');
   setProgress(0,'');
   // Clear best hours history
@@ -755,7 +1648,7 @@ function processFile(file){
       const rows=XLSX.utils.sheet_to_json(ws,{header:1,raw:false,dateNF:'M/D/YYYY'});
       if(!rows||rows.length<2){status.style.color='#dc2626';status.textContent='No data found in file';return;}
       // Convert to TSV for the existing pipeline
-      const tsv=rows.map(r=>r.join('\t')).join('\n');
+      const tsv=rows.map(r=>r.map(v=>v===undefined||v===null?'':v).join('\t')).join('\n');
       document.getElementById('rawInput').value=tsv;
       switchTab('paste');
       status.textContent='';
@@ -809,9 +1702,9 @@ function updateBestTime(){
     hourMap[h].total++;
     hourMap[h].connected+=r.connected;
   }
-  // No minimum threshold — show all hours that have at least 1 call
+  // Only show hours with at least 3 CONNECTED calls
   const ranked=Object.entries(hourMap)
-    .filter(([h,v])=>v.total>=1)
+    .filter(([h,v])=>v.connected>=3)
     .map(([h,v])=>({hour:+h,total:v.total,connected:v.connected,rate:v.total>0?v.connected/v.total*100:0}))
     .sort((a,b)=>b.rate-a.rate||b.connected-a.connected||b.total-a.total);
 
@@ -827,7 +1720,7 @@ function updateBestTime(){
       el.style.opacity='1';
     } else {
       document.getElementById(id+'time').textContent='—';
-      document.getElementById(id+'rate').textContent='No data';
+      document.getElementById(id+'rate').textContent='< 3 connects this hour';
       document.getElementById(id+'calls').textContent='';
       el.style.opacity='0.35';
     }
@@ -836,104 +1729,322 @@ function updateBestTime(){
 
 
 async function exportAsImage(){
-  const btn = document.getElementById('imgBtn');
-  btn.textContent = '⏳ Rendering…';
-  btn.disabled = true;
+  // Export triggered from tab bar button
+  const btn=event?.currentTarget||document.querySelector('[onclick*="exportAsImage"]')||{textContent:'',disabled:false};
 
-  // Build a clean standalone table for capture
-  const selDates = getSelected('msDateDropdown');
-  const dateLabel = selDates.length===allShiftDates.length?'All Dates':
+  // Find which tab is active
+  const tabs=['summary','leaderboard','shifts','trends','heatmap','wow'];
+  const activeTab=tabs.find(t=>document.getElementById('panel-'+t)?.classList.contains('active'))||'summary';
+
+  const selDates=getSelected('msDateDropdown');
+  const dateLabel=selDates.length===allShiftDates.length?'All Dates':
     selDates.map(k=>allData.find(r=>r.shiftDateKey===k)?.shiftDateDisplay||k).join(', ');
 
-  const map={};
-  for(const r of filteredData){
-    if(!map[r.advisor])map[r.advisor]={advisor:r.advisor,total:0,connected:0,talk:0};
-    map[r.advisor].total++;map[r.advisor].connected+=r.connected;map[r.advisor].talk+=r.pureTalk;
+  let captureEl=null;
+  let useCustomHtml=false;
+
+  if(activeTab==='summary'){
+    // Summary: use the clean custom-rendered table (best quality)
+    useCustomHtml=true;
+  } else {
+    // All other tabs: capture the live panel body div
+    const bodyIds={leaderboard:'leaderboardBody',shifts:'shiftsBody',trends:'trendsBody',heatmap:'heatmapBody',wow:'wowBody',dialpattern:'dialPatternBody'};
+    captureEl=document.getElementById(bodyIds[activeTab]||('panel-'+activeTab));
   }
-  let rows=Object.values(map);
-  rows.sort((a,b)=>{const va=a[sortCol]??a.advisor,vb=b[sortCol]??b.advisor;return typeof va==='string'?va.localeCompare(vb)*sortDir:(va-vb)*sortDir;});
-  const g=rows.reduce((s,r)=>({total:s.total+r.total,connected:s.connected+r.connected,talk:s.talk+r.talk}),{total:0,connected:0,talk:0});
 
-  const NAVY='#1F3864', W='#FFFFFF', ALT='#DEEAF1';
-
-  const dataRowsHtml = rows.map((r,i)=>`
-    <tr style="background:${i%2===0?W:ALT}">
-      <td style="padding:14px 24px;border-bottom:1px solid #e2e8f0;font-size:15px;color:#0f172a;font-weight:500">${r.advisor}</td>
-      <td style="padding:14px 24px;border-bottom:1px solid #e2e8f0;font-size:16px;font-weight:700;text-align:center;color:#1e293b">${r.total}</td>
-      <td style="padding:14px 24px;border-bottom:1px solid #e2e8f0;font-size:16px;font-weight:700;text-align:center;color:#1e293b">${r.connected}</td>
-      <td style="padding:14px 24px;border-bottom:1px solid #e2e8f0;font-size:16px;font-weight:700;text-align:center;color:#1e293b">${r.talk.toFixed(2)}</td>
-    </tr>`).join('');
-
-  const tableHtml = `
-    <div style="font-family:'Segoe UI',Calibri,Arial,sans-serif;background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.18);width:1300px;min-width:1300px">
-      <div style="background:${NAVY};padding:22px 32px;display:flex;align-items:center;justify-content:space-between">
-        <div style="color:${W};font-size:20px;font-weight:800;letter-spacing:0.3px">&#128202;&nbsp; Team Effort Summary</div>
-        <div style="color:#93c5fd;font-size:16px;font-weight:600">&#128197;&nbsp; Shift Date: ${dateLabel}</div>
-      </div>
-      <table style="width:100%;border-collapse:collapse">
-        <thead>
-          <tr style="background:#f0f4ff">
+  try{
+    let canvas;
+    if(useCustomHtml){
+      // Build clean summary table for capture
+      const map={};
+      for(const r of filteredData){
+        const adv=r.advisor&&r.advisor!=='undefined'?String(r.advisor).trim():null;
+        if(!adv) continue;
+        if(!map[adv]) map[adv]={total:0,connected:0,talk:0};
+        map[adv].total++;map[adv].connected+=r.connected;map[adv].talk+=r.pureTalk;
+      }
+      let rows=Object.entries(map).filter(([k])=>k&&k!=='undefined').map(([k,v])=>({advisor:k,...v}));
+      rows.sort((a,b)=>{const va=a[sortCol]??a.advisor,vb=b[sortCol]??b.advisor;return typeof va==='string'?va.localeCompare(vb)*sortDir:(va-vb)*sortDir;});
+      const g=rows.reduce((s,r)=>({total:s.total+r.total,connected:s.connected+r.connected,talk:s.talk+r.talk}),{total:0,connected:0,talk:0});
+      const NAVY='#1F3864',W='#FFFFFF',ALT='#DEEAF1';
+      const dataRowsHtml=rows.map((r,i)=>`
+        <tr style="background:${i%2===0?W:ALT}">
+          <td style="padding:14px 24px;border-bottom:1px solid #e2e8f0;font-size:15px;color:#0f172a;font-weight:500">${r.advisor}</td>
+          <td style="padding:14px 24px;border-bottom:1px solid #e2e8f0;font-size:16px;font-weight:700;text-align:center;color:#1e293b">${r.total}</td>
+          <td style="padding:14px 24px;border-bottom:1px solid #e2e8f0;font-size:16px;font-weight:700;text-align:center;color:#1e293b">${r.connected}</td>
+          <td style="padding:14px 24px;border-bottom:1px solid #e2e8f0;font-size:16px;font-weight:700;text-align:center;color:#1e293b">${r.talk.toFixed(2)}</td>
+        </tr>`).join('');
+      const tableHtml=`<div style="font-family:'Segoe UI',Calibri,Arial,sans-serif;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.18);width:1300px;min-width:1300px">
+        <div style="background:${NAVY};padding:22px 32px;display:flex;align-items:center;justify-content:space-between">
+          <div style="color:${W};font-size:20px;font-weight:800">📊 Team Effort Summary</div>
+          <div style="color:#93c5fd;font-size:16px;font-weight:600">📅 Shift Date: ${dateLabel}</div>
+        </div>
+        <table style="width:100%;border-collapse:collapse">
+          <thead><tr style="background:#f0f4ff">
             <th style="padding:16px 24px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:#1e40af;text-align:left;border-bottom:3px solid #c7d7f5;min-width:280px">Row Labels</th>
             <th style="padding:16px 24px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:#1e40af;text-align:center;border-bottom:3px solid #c7d7f5">Sum of Total Calls</th>
             <th style="padding:16px 24px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:#1e40af;text-align:center;border-bottom:3px solid #c7d7f5">Sum of Connected Calls</th>
             <th style="padding:16px 24px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:#1e40af;text-align:center;border-bottom:3px solid #c7d7f5">Sum of Pure Talk Time</th>
-          </tr>
-        </thead>
-        <tbody>${dataRowsHtml}</tbody>
-        <tfoot>
-          <tr style="background:${NAVY}">
+          </tr></thead>
+          <tbody>${dataRowsHtml}</tbody>
+          <tfoot><tr style="background:${NAVY}">
             <td style="padding:16px 24px;font-size:16px;font-weight:800;color:${W}">Grand Total</td>
             <td style="padding:16px 24px;font-size:16px;font-weight:800;color:${W};text-align:center">${g.total}</td>
             <td style="padding:16px 24px;font-size:16px;font-weight:800;color:${W};text-align:center">${g.connected}</td>
             <td style="padding:16px 24px;font-size:16px;font-weight:800;color:${W};text-align:center">${g.talk.toFixed(2)}</td>
-          </tr>
-        </tfoot>
-      </table>
-      <div style="background:#f0f4ff;padding:10px 24px;font-size:12px;color:#64748b;text-align:right;font-style:italic">Team Emeritus — Effort Calculator</div>
-    </div>`;
+          </tr></tfoot>
+        </table>
+        <div style="background:#f0f4ff;padding:10px 24px;font-size:12px;color:#64748b;text-align:right;font-style:italic">Team Emeritus — Effort Calculator</div>
+      </div>`;
+      const wrap=document.createElement('div');
+      wrap.style.cssText='position:fixed;left:-9999px;top:0;padding:40px;background:#f1f5f9;width:1400px';
+      wrap.innerHTML=tableHtml;
+      document.body.appendChild(wrap);
+      canvas=await html2canvas(wrap.firstElementChild,{scale:3,backgroundColor:'#f1f5f9',useCORS:true,logging:false,windowWidth:1600,width:1380});
+      document.body.removeChild(wrap);
+    } else {
+      // Capture the live tab panel directly
+      canvas=await html2canvas(captureEl,{scale:3,backgroundColor:'#ffffff',useCORS:true,logging:false});
+    }
 
-  // Render in hidden container
-  const wrap = document.createElement('div');
-  wrap.style.cssText = 'position:fixed;left:-9999px;top:0;padding:40px;background:#f1f5f9;width:1400px';
-  wrap.innerHTML = tableHtml;
-  document.body.appendChild(wrap);
-
-  try {
-    const canvas = await html2canvas(wrap.firstElementChild, {
-      scale: 3,
-      backgroundColor: '#f1f5f9',
-      useCORS: true,
-      logging: false,
-      windowWidth: 1600,
-      width: 1380
-    });
-    document.body.removeChild(wrap);
-
-    // Download as JPEG — most reliable for Teams upload
-    const fileName = `Team_Effort_${dateLabel.replace(/[^a-z0-9]/gi,'_')}.jpg`;
-    const jpegUrl  = canvas.toDataURL('image/jpeg', 0.95);
-
-    const a = document.createElement('a');
-    a.href = jpegUrl;
-    a.download = fileName;
+    const tabLabels={summary:'Summary',leaderboard:'Leaderboard',shifts:'ShiftSplit',trends:'Trends',heatmap:'Heatmap',wow:'WeekVsWeek'};
+    const fileName=`Team_Effort_${tabLabels[activeTab]}_${dateLabel.replace(/[^a-z0-9]/gi,'_')}.jpg`;
+    const a=document.createElement('a');
+    a.href=canvas.toDataURL('image/jpeg',0.95);
+    a.download=fileName;
     a.click();
-    showToast('\u2713 Image downloaded — upload to Teams as file attachment');
+    showToast(`✓ ${tabLabels[activeTab]} image downloaded!`);
 
-    // Also try copying to clipboard as bonus
-    try {
-      canvas.toBlob(async (blob) => {
-        try {
-          await navigator.clipboard.write([new ClipboardItem({'image/png': blob})]);
-        } catch(e){ /* clipboard not supported — download is the primary */ }
-      }, 'image/png');
-    } catch(e){}
-  } catch(err) {
-    document.body.removeChild(wrap);
-    showToast('Image export failed: '+err.message,'#dc2626');
+    // Try clipboard too
+    try{canvas.toBlob(async blob=>{try{await navigator.clipboard.write([new ClipboardItem({'image/png':blob})]);}catch(e){}},'image/png');}catch(e){}
+  }catch(err){
+    showToast('Export failed: '+err.message,'#dc2626');
+  }
+  if(btn.textContent!==undefined) btn.textContent='📸 Export View';
+  btn.disabled=false;
+}
+
+
+// ── Copy current view as PNG to clipboard (for Teams paste) ────────────
+async function copyCurrentViewAsImage(btn){
+  btn=btn||{};
+  const orig=btn.textContent;
+  btn.textContent='⏳ Capturing…';
+  btn.disabled=true;
+
+  // Determine active panel
+  const tabs=['summary','leaderboard','shifts','trends','heatmap','wow'];
+  const activeTab=tabs.find(t=>document.getElementById('panel-'+t)?.classList.contains('active'))||'summary';
+  const bodyIds={leaderboard:'leaderboardBody',shifts:'shiftsBody',trends:'trendsBody',heatmap:'heatmapBody',wow:'wowBody',dialpattern:'dialPatternBody'};
+
+  let captureEl;
+  if(activeTab==='summary'){
+    // Capture just the table area, not the nav header
+    captureEl=document.querySelector('#panel-summary [style*="overflow-x"]')||document.getElementById('outputTable')||document.getElementById('panel-summary');
+  } else {
+    captureEl=document.getElementById(bodyIds[activeTab])||document.getElementById('panel-'+activeTab);
   }
 
-  btn.textContent = '📸 Export Image';
-  btn.disabled = false;
+  try{
+    const canvas=await html2canvas(captureEl,{
+      scale:3,
+      backgroundColor:'#ffffff',
+      useCORS:true,
+      logging:false
+    });
+
+    // Try copy to clipboard first (for direct Teams paste)
+    let pasted=false;
+    try{
+      await new Promise((res,rej)=>canvas.toBlob(async blob=>{
+        try{
+          await navigator.clipboard.write([new ClipboardItem({'image/png':blob})]);
+          res();
+        }catch(e){rej(e);}
+      },'image/png'));
+      showToast('✓ Image copied! Paste (Ctrl+V) directly into Teams');
+      pasted=true;
+    }catch(e){
+      // Clipboard not available — download instead
+      const a=document.createElement('a');
+      const selDates=getSelected('msDateDropdown');
+      const dateLabel=selDates.length===allShiftDates.length?'All':selDates[0]||'';
+      a.href=canvas.toDataURL('image/jpeg',0.95);
+      a.download=`Team_Effort_${activeTab}_${dateLabel}.jpg`;
+      a.click();
+      showToast('✓ Image downloaded — attach to Teams manually');
+    }
+  }catch(err){
+    showToast('Capture failed: '+err.message,'#dc2626');
+  }
+  btn.textContent=orig;
+  btn.disabled=false;
+}
+
+
+// ── Unified tab capture function ────────────────────────────────────────
+async function captureTab(tabId, action){
+  // Switch to this tab first
+  switchOutTab(tabId);
+  await new Promise(r=>setTimeout(r,300)); // let chart/DOM render
+
+  const selDates=getSelected('msDateDropdown');
+  const dateLabel=selDates.length===allShiftDates.length?'All':
+    selDates.map(k=>allData.find(r=>r.shiftDateKey===k)?.shiftDateDisplay||k).join(', ');
+
+  const tabNames={summary:'Summary',leaderboard:'Leaderboard',shifts:'ShiftSplit',
+    trends:'Trends',heatmap:'Heatmap',wow:'WeekVsWeek',dialpattern:'DialPattern'};
+  const fileName=`Team_Effort_${tabNames[tabId]||tabId}_${dateLabel.replace(/[^a-z0-9]/gi,'_')}.jpg`;
+
+  let captureEl;
+  if(tabId==='summary'){
+    // Build clean custom summary image
+    await _exportSummaryCapture(action, fileName, dateLabel);
+    return;
+  }
+
+  const bodyMap={
+    leaderboard:'leaderboardBody', shifts:'shiftsBody', trends:'trendsBody',
+    heatmap:'heatmapBody', wow:'wowBody', dialpattern:'dialPatternBody'
+  };
+  captureEl=document.getElementById(bodyMap[tabId])||document.getElementById('panel-'+tabId);
+
+  if(!captureEl){showToast('Nothing to capture yet — process data first','#d97706');return;}
+
+  try{
+    const canvas=await html2canvas(captureEl,{
+      scale:3,backgroundColor:'#ffffff',useCORS:true,allowTaint:true,logging:false
+    });
+
+    if(action==='copy'){
+      try{
+        await new Promise((res,rej)=>canvas.toBlob(async blob=>{
+          try{await navigator.clipboard.write([new ClipboardItem({'image/png':blob})]);res();}
+          catch(e){rej(e);}
+        },'image/png'));
+        showToast('✓ Copied! Paste into Teams');
+      }catch(e){
+        // Fallback download
+        const a=document.createElement('a');
+        a.href=canvas.toDataURL('image/jpeg',0.95);
+        a.download=fileName; a.click();
+        showToast('✓ Saved — attach to Teams');
+      }
+    } else if(action==='export'){
+      const a=document.createElement('a');
+      a.href=canvas.toDataURL('image/jpeg',0.95);
+      a.download=fileName; a.click();
+      showToast(`✓ ${tabNames[tabId]} exported!`);
+    } else if(action==='pdf'){
+      if(window.jspdf?.jsPDF){
+        const {jsPDF}=window.jspdf;
+        const pdf=new jsPDF('landscape','mm','a4');
+        const pw=pdf.internal.pageSize.getWidth()-20;
+        const ph=Math.min(pw*(canvas.height/canvas.width), pdf.internal.pageSize.getHeight()-25);
+        pdf.setFont('helvetica','bold');pdf.setFontSize(12);
+        pdf.text(`Team Effort — ${tabNames[tabId]} — ${dateLabel}`,10,10);
+        pdf.addImage(canvas.toDataURL('image/jpeg',0.95),'JPEG',10,16,pw,ph);
+        pdf.save(`Team_Effort_${tabNames[tabId]}.pdf`);
+        showToast('✓ PDF downloaded!');
+      } else {
+        const win=window.open('');
+        win.document.write(`<html><head><title>${tabNames[tabId]}</title></head><body style="margin:0"><img src="${canvas.toDataURL('image/jpeg',0.95)}" style="width:100%"/></body></html>`);
+        win.document.close(); setTimeout(()=>win.print(),600);
+      }
+    }
+  }catch(err){
+    showToast('Capture failed: '+err.message,'#dc2626');
+  }
+}
+
+// Summary tab — custom clean render
+async function _exportSummaryCapture(action, fileName, dateLabel){
+  const map={};
+  for(const r of filteredData){
+    const adv=r.advisor&&r.advisor!=='undefined'?String(r.advisor).trim():null;
+    if(!adv) continue;
+    if(!map[adv]) map[adv]={total:0,connected:0,talk:0};
+    map[adv].total++;map[adv].connected+=r.connected;map[adv].talk+=r.pureTalk;
+  }
+  let rows=Object.entries(map).filter(([k])=>k&&k!=='undefined').map(([k,v])=>({advisor:k,...v}));
+  rows.sort((a,b)=>{const va=a[sortCol]??a.advisor,vb=b[sortCol]??b.advisor;return typeof va==='string'?va.localeCompare(vb)*sortDir:(va-vb)*sortDir;});
+  const g=rows.reduce((s,r)=>({total:s.total+r.total,connected:s.connected+r.connected,talk:s.talk+r.talk}),{total:0,connected:0,talk:0});
+  const NAVY='#1F3864',W='#FFFFFF',ALT='#DEEAF1';
+
+  const dataRowsHtml=rows.map((r,i)=>`<tr style="background:${i%2===0?W:ALT}">
+    <td style="padding:14px 24px;border-bottom:1px solid #e2e8f0;font-size:15px;color:#0f172a;font-weight:500">${r.advisor}</td>
+    <td style="padding:14px 24px;border-bottom:1px solid #e2e8f0;font-size:16px;font-weight:700;text-align:center">${r.total}</td>
+    <td style="padding:14px 24px;border-bottom:1px solid #e2e8f0;font-size:16px;font-weight:700;text-align:center">${r.connected}</td>
+    <td style="padding:14px 24px;border-bottom:1px solid #e2e8f0;font-size:16px;font-weight:700;text-align:center">${r.talk.toFixed(2)}</td>
+  </tr>`).join('');
+
+  const tableHtml=`<div style="font-family:'Segoe UI',Calibri,Arial,sans-serif;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.18);width:1300px">
+    <div style="background:${NAVY};padding:22px 32px;display:flex;align-items:center;justify-content:space-between">
+      <div style="color:${W};font-size:20px;font-weight:800">📊 Team Effort Summary</div>
+      <div style="color:#93c5fd;font-size:16px;font-weight:600">📅 ${dateLabel}</div>
+    </div>
+    <table style="width:100%;border-collapse:collapse">
+      <thead><tr style="background:#f0f4ff">
+        <th style="padding:16px 24px;font-size:13px;font-weight:800;text-transform:uppercase;color:#1e40af;text-align:left;border-bottom:3px solid #c7d7f5;min-width:280px">Row Labels</th>
+        <th style="padding:16px 24px;font-size:13px;font-weight:800;text-transform:uppercase;color:#1e40af;text-align:center;border-bottom:3px solid #c7d7f5">Sum of Total Calls</th>
+        <th style="padding:16px 24px;font-size:13px;font-weight:800;text-transform:uppercase;color:#1e40af;text-align:center;border-bottom:3px solid #c7d7f5">Sum of Connected Calls</th>
+        <th style="padding:16px 24px;font-size:13px;font-weight:800;text-transform:uppercase;color:#1e40af;text-align:center;border-bottom:3px solid #c7d7f5">Sum of Pure Talk Time</th>
+      </tr></thead>
+      <tbody>${dataRowsHtml}</tbody>
+      <tfoot><tr style="background:${NAVY}">
+        <td style="padding:16px 24px;font-size:16px;font-weight:800;color:${W}">Grand Total</td>
+        <td style="padding:16px 24px;font-size:16px;font-weight:800;color:${W};text-align:center">${g.total}</td>
+        <td style="padding:16px 24px;font-size:16px;font-weight:800;color:${W};text-align:center">${g.connected}</td>
+        <td style="padding:16px 24px;font-size:16px;font-weight:800;color:${W};text-align:center">${g.talk.toFixed(2)}</td>
+      </tr></tfoot>
+    </table>
+    <div style="background:#f0f4ff;padding:10px 24px;font-size:12px;color:#64748b;text-align:right;font-style:italic">Team Emeritus — Effort Calculator</div>
+  </div>`;
+
+  const wrap=document.createElement('div');
+  wrap.style.cssText='position:fixed;left:-9999px;top:0;padding:40px;background:#f1f5f9;width:1400px';
+  wrap.innerHTML=tableHtml;
+  document.body.appendChild(wrap);
+
+  try{
+    const canvas=await html2canvas(wrap.firstElementChild,{scale:3,backgroundColor:'#f1f5f9',useCORS:true,logging:false,windowWidth:1600,width:1380});
+    document.body.removeChild(wrap);
+
+    if(action==='copy'){
+      try{
+        await new Promise((res,rej)=>canvas.toBlob(async blob=>{
+          try{await navigator.clipboard.write([new ClipboardItem({'image/png':blob})]);res();}
+          catch(e){rej(e);}
+        },'image/png'));
+        showToast('✓ Summary copied — paste into Teams!');
+      }catch(e){
+        const a=document.createElement('a'); a.href=canvas.toDataURL('image/jpeg',0.95);
+        a.download=fileName; a.click(); showToast('✓ Summary saved — attach to Teams');
+      }
+    } else if(action==='export'){
+      const a=document.createElement('a'); a.href=canvas.toDataURL('image/jpeg',0.95);
+      a.download=fileName; a.click(); showToast('✓ Summary exported!');
+    } else if(action==='pdf'){
+      if(window.jspdf?.jsPDF){
+        const {jsPDF}=window.jspdf;
+        const pdf=new jsPDF('landscape','mm','a4');
+        const pw=pdf.internal.pageSize.getWidth()-20;
+        const ph=Math.min(pw*(canvas.height/canvas.width),pdf.internal.pageSize.getHeight()-25);
+        pdf.setFont('helvetica','bold');pdf.setFontSize(12);
+        pdf.text('Team Effort Summary — '+dateLabel,10,10);
+        pdf.addImage(canvas.toDataURL('image/jpeg',0.95),'JPEG',10,16,pw,ph);
+        pdf.save('Team_Effort_Summary.pdf');
+        showToast('✓ PDF downloaded!');
+      } else {
+        const win=window.open('');
+        win.document.write(`<html><head><title>Summary</title></head><body style="margin:0"><img src="${canvas.toDataURL()}" style="width:100%"/></body></html>`);
+        win.document.close(); setTimeout(()=>win.print(),600);
+      }
+    }
+  }catch(err){
+    document.body.removeChild(wrap);
+    showToast('Capture failed: '+err.message,'#dc2626');
+  }
 }
 
 function showToast(msg,color){
@@ -941,6 +2052,991 @@ function showToast(msg,color){
   if(color)t.style.borderColor=color;else t.style.borderColor='var(--gold2)';
   t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);
 }
+// ═══════════════════════════════════════════════════════════════════════
+// FEATURE ADDITIONS: Drilldown · Leaderboard · Shifts · Trends · PDF
+// ═══════════════════════════════════════════════════════════════════════
+
+// ── Tab Switcher ────────────────────────────────────────────────────────
+function switchOutTab(name){
+  ['summary','leaderboard','shifts','trends','heatmap','wow','dialpattern'].forEach(t=>{
+    const tab=document.getElementById('tab-'+t);
+    const pan=document.getElementById('panel-'+t);
+    if(tab) tab.classList.toggle('active',t===name);
+    if(pan) pan.classList.toggle('active',t===name);
+  });
+}
+
+// ── Trend Storage ────────────────────────────────────────────────────────
+const TREND_KEY='emeritus_trend_v2';
+function loadTrend(){try{return JSON.parse(localStorage.getItem(TREND_KEY)||'{}')}catch(e){return{}}}
+function saveTrend(d){try{localStorage.setItem(TREND_KEY,JSON.stringify(d))}catch(e){}}
+
+function storeTrendData(data){
+  const store=loadTrend();
+  const byDate={};
+  data.forEach(r=>{
+    if(!byDate[r.shiftDateKey]) byDate[r.shiftDateKey]={};
+    const a=byDate[r.shiftDateKey];
+    if(!a[r.advisor]) a[r.advisor]={total:0,connected:0,talk:0};
+    a[r.advisor].total++;
+    a[r.advisor].connected+=r.connected;
+    a[r.advisor].talk+=r.pureTalk;
+  });
+  Object.entries(byDate).forEach(([date,advisors])=>{
+    if(!store[date]) store[date]=advisors;
+    // Update existing date data
+    else Object.entries(advisors).forEach(([adv,v])=>{
+      store[date][adv]=v; // overwrite with fresh data
+    });
+  });
+  saveTrend(store);
+}
+
+// ── 1. ADVISOR DRILLDOWN MODAL ──────────────────────────────────────────
+function openAdvisorModal(advisor){
+  const rows=filteredData.filter(r=>r.advisor===advisor);
+  if(!rows.length) return;
+
+  const total=rows.length;
+  const connected=rows.reduce((s,r)=>s+r.connected,0);
+  const talk=rows.reduce((s,r)=>s+r.pureTalk,0);
+  const missed=total-connected;
+  const rate=total>0?(connected/total*100).toFixed(1):0;
+  const avg=connected>0?(talk/connected).toFixed(2):'—';
+
+  // Hourly breakdown
+  const hourMap={};
+  rows.forEach(r=>{
+    if(!hourMap[r.hour]) hourMap[r.hour]={total:0,connected:0,talk:0};
+    hourMap[r.hour].total++;
+    hourMap[r.hour].connected+=r.connected;
+    hourMap[r.hour].talk+=r.pureTalk;
+  });
+  const hours=Object.entries(hourMap).sort((a,b)=>+a[0]-+b[0]);
+  const maxH=Math.max(...hours.map(([,v])=>v.total),1);
+
+  const rateClass=(r)=>r>=20?'rate-h':r>=10?'rate-m':r>0?'rate-l':'rate-z';
+
+  const hourHTML=hours.map(([h,v])=>{
+    const r=v.total>0?(v.connected/v.total*100).toFixed(1):0;
+    const barW=Math.round(v.total/maxH*100);
+    const shift=getShiftLabel(+h);
+    return`<div class="hour-row">
+      <span class="hour-label">${fmtHour(+h)}</span>
+      <div class="hour-bar-wrap"><div class="hour-bar" style="width:${barW}%"></div></div>
+      <span class="hour-stats">${v.connected}/${v.total} · <span class="lb-rate-pill ${rateClass(+r)}" style="padding:1px 6px">${r}%</span></span>
+      <span style="font-size:10px;color:var(--dim);font-family:var(--mono);margin-left:4px">${shift}</span>
+    </div>`;
+  }).join('');
+
+  // Trend from localStorage
+  const store=loadTrend();
+  const trendDates=Object.keys(store).sort();
+  let trendHTML='<div class="trend-empty">No historical data yet — accumulates with each day\'s processing</div>';
+  if(trendDates.length>1){
+    const pts=trendDates.slice(-14).map(d=>{
+      const v=store[d]?.[advisor];
+      return v?{date:d,total:v.total,connected:v.connected}:null;
+    }).filter(Boolean);
+    if(pts.length>1){
+      trendHTML=`<canvas id="drilldownChart" height="120"></canvas>`;
+    }
+  }
+
+  document.getElementById('modalAdvisorName').textContent='📊 '+advisor;
+  document.getElementById('modalBody').innerHTML=`
+    <div class="modal-stats">
+      <div class="ms-card"><div class="ms-label">Total Calls</div><div class="ms-val">${total}</div></div>
+      <div class="ms-card"><div class="ms-label">Connected</div><div class="ms-val" style="color:var(--green)">${connected}</div></div>
+      <div class="ms-card"><div class="ms-label">Not Connected</div><div class="ms-val" style="color:var(--red)">${missed}</div></div>
+      <div class="ms-card"><div class="ms-label">Conn. Rate</div><div class="ms-val" style="color:var(--blue2)">${rate}%</div><div class="ms-sub">Avg ${avg} min/call</div></div>
+    </div>
+    <div class="modal-section-title">Hourly Breakdown <span style="font-size:10px;font-weight:400;color:var(--dim);text-transform:none;letter-spacing:0">(all hours shown · Best Connectivity uses ≥ 3 connects)</span></div>
+    <div class="hour-grid">${hourHTML}</div>
+    <div class="modal-section-title" style="margin-top:20px">14-Day Trend</div>
+    <div class="trend-chart-box">${trendHTML}</div>`;
+
+  document.getElementById('advisorModal').classList.add('open');
+  document.body.style.overflow='hidden';
+
+  // Render trend chart if data exists
+  if(trendDates.length>1){
+    const pts=trendDates.slice(-14).map(d=>{
+      const v=store[d]?.[advisor];
+      return v?{date:(()=>{const p=d.split('-');return p[2]+'-'+p[1];})(),total:v.total,connected:v.connected}:null;
+    }).filter(Boolean);
+    if(pts.length>1 && document.getElementById('drilldownChart')){
+      new Chart(document.getElementById('drilldownChart'),{
+        type:'line',
+        data:{
+          labels:pts.map(p=>p.date),
+          datasets:[
+            {label:'Total Calls',data:pts.map(p=>p.total),borderColor:'#3b82f6',backgroundColor:'rgba(59,130,246,0.1)',tension:.3,fill:true},
+            {label:'Connected',data:pts.map(p=>p.connected),borderColor:'#10b981',backgroundColor:'rgba(16,185,129,0.1)',tension:.3,fill:true}
+          ]
+        },
+        options:{plugins:{legend:{position:'top'}},scales:{y:{beginAtZero:true}},responsive:true}
+      });
+    }
+  }
+}
+
+function closeAdvisorModal(){
+  document.getElementById('advisorModal').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAdvisorModal();});
+
+// ── 2. LEADERBOARD ──────────────────────────────────────────────────────
+
+async function exportLeaderboardImage(){
+  const el=document.getElementById('leaderboardBody');
+  if(!el) return;
+  showToast('Rendering…','#7c3aed');
+  try {
+    const canvas=await html2canvas(el,{scale:3,backgroundColor:'#f8fafc',useCORS:true,logging:false});
+    const a=document.createElement('a');
+    a.href=canvas.toDataURL('image/jpeg',0.95);
+    a.download='Leaderboard.jpg';
+    a.click();
+    showToast('✓ Leaderboard image downloaded!');
+  } catch(e) {
+    showToast('Image export failed: '+e.message,'#dc2626');
+  }
+}
+
+// ── 3. SHIFT COMPARISON ─────────────────────────────────────────────────
+function renderShiftSplit(){
+  const el=document.getElementById('shiftsBody');
+  if(!el||!filteredData.length) return;
+
+  const shifts={
+    day:  {name:'10AM – 6PM',  icon:'☀️', hours:'Hours 10:00 to 17:59', cls:'day',   test:h=>h>=10&&h<=17, data:{total:0,connected:0,talk:0}},
+    eve:  {name:'6PM – 2AM',   icon:'🌆', hours:'Hours 18:00 to 01:59', cls:'eve',   test:h=>h>=18||h<=1,  data:{total:0,connected:0,talk:0}},
+    night:{name:'2AM – 10AM',  icon:'🌙', hours:'Hours 02:00 to 09:59', cls:'night', test:h=>h>=2&&h<=9,   data:{total:0,connected:0,talk:0}}
+  };
+
+  filteredData.forEach(r=>{
+    Object.values(shifts).forEach(s=>{
+      if(s.test(r.hour)){s.data.total++;s.data.connected+=r.connected;s.data.talk+=r.pureTalk;}
+    });
+  });
+
+  const cardHTML=Object.values(shifts).map(s=>{
+    const rate=s.data.total>0?(s.data.connected/s.data.total*100).toFixed(1):'0.0';
+    const avg=s.data.connected>0?(s.data.talk/s.data.connected).toFixed(2):'—';
+    return`<div class="shift-card">
+      <div class="shift-head ${s.cls}">
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="shift-icon">${s.icon}</span>
+          <div><div class="shift-title">${s.name}</div><div class="shift-hours">${s.hours}</div></div>
+        </div>
+      </div>
+      <div class="shift-body">
+        <div class="shift-stat"><span class="shift-stat-l">Total Calls</span><span class="shift-stat-v">${s.data.total}</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Connected</span><span class="shift-stat-v" style="color:var(--green)">${s.data.connected}</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Not Connected</span><span class="shift-stat-v" style="color:var(--red)">${s.data.total-s.data.connected}</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Talk Time</span><span class="shift-stat-v">${s.data.talk.toFixed(2)} min</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Conn. Rate</span><span class="shift-stat-v" style="color:var(--blue2)">${rate}%</span></div>
+        <div class="shift-stat"><span class="shift-stat-l">Avg Talk</span><span class="shift-stat-v">${avg} min</span></div>
+      </div>
+    </div>`;
+  }).join('');
+
+  el.innerHTML=`<div class="shift-3col">${cardHTML}</div>
+    <p style="font-size:11px;color:var(--dim);font-family:var(--mono);margin-top:12px">ℹ Three non-overlapping 8-hour windows. Every call falls into exactly one window — totals across all three equal your actual call volume.</p>`;
+}
+
+// ── 4. TREND CHART ──────────────────────────────────────────────────────
+let trendChartInstance=null;
+let trendDays=14;
+
+function renderTrends(){
+  const el=document.getElementById('trendsBody');
+  if(!el) return;
+  const store=loadTrend();
+  const dates=Object.keys(store).sort();
+  if(dates.length<2){
+    el.innerHTML=`<div class="trend-empty" style="text-align:center;padding:40px 20px">
+      <div style="font-size:32px;margin-bottom:12px">📈</div>
+      <div style="font-size:14px;font-weight:700;color:var(--head);margin-bottom:8px">Not enough data yet</div>
+      <div style="font-size:12px;color:var(--dim);line-height:1.8;max-width:400px;margin:0 auto">
+        Trends need at least <b>2 days</b> of data.<br>
+        <b>Step 1:</b> Upload today's dialer file → Process → it saves automatically<br>
+        <b>Step 2:</b> Tomorrow, upload tomorrow's file → Process<br>
+        <b>Step 3:</b> Come back here — the trend line appears ✓
+      </div>
+    </div>`;
+    return;
+  }
+  const advisors=[...new Set(filteredData.map(r=>r.advisor))].sort();
+
+  // Preserve existing selections if controls already rendered
+  const existingAdv=document.getElementById('trendAdvisor')?.value||'ALL';
+  const existingDays=trendDays;
+
+  el.innerHTML=`
+    <div class="trend-ctrl">
+      <select id="trendAdvisor" class="trend-adv-select" onchange="drawTrendChart()">
+        <option value="ALL">All Advisors (Team Total)</option>
+        ${advisors.map(a=>`<option value="${a.replace(/"/g,'&quot;')}">${a.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</option>`).join('')}
+      </select>
+      <div class="trend-period-btns">
+        <button class="t-btn${existingDays===7?' active':''}" onclick="setTrendDays(7,this)">7 Days</button>
+        <button class="t-btn${existingDays===14?' active':''}" onclick="setTrendDays(14,this)">14 Days</button>
+        <button class="t-btn${existingDays===30?' active':''}" onclick="setTrendDays(30,this)">30 Days</button>
+      </div>
+    </div>
+    <div class="trend-chart-box"><canvas id="trendCanvas" height="120"></canvas></div>`;
+
+  // Restore previously selected advisor
+  const sel=document.getElementById('trendAdvisor');
+  if(sel&&advisors.includes(existingAdv)) sel.value=existingAdv;
+  drawTrendChart();
+}
+
+function setTrendDays(n,btn){
+  trendDays=n;
+  document.querySelectorAll('.t-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  drawTrendChart();
+}
+
+function drawTrendChart(){
+  const store=loadTrend();
+  const dates=Object.keys(store).sort().slice(-trendDays);
+  const adv=document.getElementById('trendAdvisor')?.value||'ALL';
+  const canvas=document.getElementById('trendCanvas');
+  if(!canvas) return;
+  if(trendChartInstance){trendChartInstance.destroy();trendChartInstance=null;}
+
+  const totals=dates.map(d=>{
+    if(adv==='ALL') return Object.values(store[d]||{}).reduce((s,v)=>s+v.total,0);
+    return store[d]?.[adv]?.total||0;
+  });
+  const connected=dates.map(d=>{
+    if(adv==='ALL') return Object.values(store[d]||{}).reduce((s,v)=>s+v.connected,0);
+    return store[d]?.[adv]?.connected||0;
+  });
+  const rates=dates.map((d,i)=>totals[i]>0?(connected[i]/totals[i]*100).toFixed(1):0);
+
+  trendChartInstance=new Chart(canvas,{
+    type:'line',
+    data:{
+      labels:dates.map(d=>{const p=d.split('-');return p[2]+'-'+p[1];}),
+      datasets:[
+        {label:'Total Calls',data:totals,borderColor:'#3b82f6',backgroundColor:'rgba(59,130,246,0.08)',tension:.35,fill:true,yAxisID:'y'},
+        {label:'Connected',data:connected,borderColor:'#10b981',backgroundColor:'rgba(16,185,129,0.08)',tension:.35,fill:true,yAxisID:'y'},
+        {label:'Conn. Rate %',data:rates,borderColor:'#f59e0b',backgroundColor:'transparent',tension:.35,borderDash:[5,3],yAxisID:'y2'}
+      ]
+    },
+    options:{
+      responsive:true,
+      interaction:{mode:'index',intersect:false},
+      plugins:{legend:{position:'top'}},
+      scales:{
+        y:{beginAtZero:true,title:{display:true,text:'Calls'}},
+        y2:{beginAtZero:true,position:'right',title:{display:true,text:'Rate %'},grid:{drawOnChartArea:false}}
+      }
+    }
+  });
+}
+
+// ── 5. PDF EXPORT ───────────────────────────────────────────────────────
+async function exportPDF(){
+  showToast('Rendering PDF…','#7c3aed');
+
+  // Ensure summary panel is visible for capture
+  const wasActive = document.getElementById('panel-summary').classList.contains('active');
+  if(!wasActive) switchOutTab('summary');
+
+  await new Promise(r=>setTimeout(r,150)); // let DOM settle
+
+  try{
+    // Capture whichever tab is active
+    const tabs2=['summary','leaderboard','shifts','trends','heatmap','wow'];
+    const activeTab2=tabs2.find(t=>document.getElementById('panel-'+t)?.classList.contains('active'))||'summary';
+    const bodyIds2={leaderboard:'leaderboardBody',shifts:'shiftsBody',trends:'trendsBody',heatmap:'heatmapBody',wow:'wowBody'};
+    const captureTarget=activeTab2==='summary'?document.getElementById('panel-summary'):document.getElementById(bodyIds2[activeTab2]||('panel-'+activeTab2));
+    const el=captureTarget||document.getElementById('panel-summary');
+    const canvas=await html2canvas(el,{
+      scale:2,
+      backgroundColor:'#ffffff',
+      useCORS:true,
+      allowTaint:true,
+      logging:false,
+      windowWidth:document.documentElement.scrollWidth
+    });
+
+    const imgData=canvas.toDataURL('image/jpeg',0.95);
+    const selDates=getSelected('msDateDropdown');
+    const dateLabel=selDates.length===allShiftDates.length?'All Dates':
+      selDates.map(k=>allData.find(r=>r.shiftDateKey===k)?.shiftDateDisplay||k).join(', ');
+
+    // Try jsPDF first
+    if(window.jspdf && window.jspdf.jsPDF){
+      const {jsPDF}=window.jspdf;
+      const pdf=new jsPDF('landscape','mm','a4');
+      const pw=pdf.internal.pageSize.getWidth()-20;
+      const imgH=canvas.height*(pw/canvas.width);
+      pdf.setFont('helvetica','bold');
+      pdf.setFontSize(13);
+      pdf.text('Team Effort Summary  —  '+dateLabel,10,10);
+      pdf.addImage(imgData,'JPEG',10,16,pw,imgH);
+      pdf.save('Team_Effort_Summary.pdf');
+      showToast('✓ PDF downloaded!');
+    } else {
+      // Fallback: open in new tab for browser print-to-PDF
+      const win=window.open('');
+      win.document.write('<html><head><title>Team Effort Summary</title></head><body style="margin:0"><img src="'+imgData+'" style="width:100%;display:block"/></body></html>');
+      win.document.close();
+      win.focus();
+      setTimeout(()=>win.print(),800);
+      showToast('✓ Print dialog opened — save as PDF');
+    }
+  }catch(e){
+    showToast('PDF error: '+e.message,'#dc2626');
+  }
+
+  if(!wasActive) switchOutTab('summary');
+}
+
+
+
+// ═══════════════════════════════════════════════════════════════════════
+// FEATURES: Executive Summary · Anomaly Alerts · Heatmap · Week-on-Week
+// ═══════════════════════════════════════════════════════════════════════
+
+// ── EXECUTIVE SUMMARY CARD ─────────────────────────────────────────────
+function renderExecSummary(){
+  const el=document.getElementById('execText');
+  if(!el||!filteredData.length) return;
+
+  const map={};
+  filteredData.forEach(r=>{
+    const adv=r.advisor&&r.advisor!=='undefined'?String(r.advisor).trim():null;
+    if(!adv) return;
+    if(!map[adv]) map[adv]={advisor:adv,total:0,connected:0,talk:0};
+    map[adv].total++;map[adv].connected+=r.connected;map[adv].talk+=r.pureTalk;
+  });
+  const rows=Object.entries(map)
+    .filter(([k])=>k&&k!=='undefined')
+    .map(([k,v])=>({advisor:k,...v}));
+  const total=rows.reduce((s,r)=>s+r.total,0);
+  const connected=rows.reduce((s,r)=>s+r.connected,0);
+  const talk=rows.reduce((s,r)=>s+r.talk,0);
+  const rate=total>0?(connected/total*100).toFixed(1):0;
+  const avgTalk=connected>0?(talk/connected).toFixed(2):0;
+
+  const sorted=[...rows].sort((a,b)=>(b.connected/b.total)-(a.connected/a.total));
+  const top=sorted[0];
+  const topRate=top.total>0?(top.connected/top.total*100).toFixed(1):0;
+  const zeroConn=rows.filter(r=>r.connected===0);
+  const highEffort=rows.filter(r=>r.total>=50&&r.connected===0);
+
+  const selDates=getSelected('msDateDropdown');
+  const dateLabel=selDates.length===1?(allData.find(r=>r.shiftDateKey===selDates[0])?.shiftDateDisplay||selDates[0]):'the selected period';
+
+  // Build the paragraph
+  let summary=`On <span class="hl">${dateLabel}</span>, the team dialed <span class="hl">${total.toLocaleString()} calls</span> with a <span class="hl">${rate}% connection rate</span> (${connected} connected). Total pure talk time was <span class="hl">${talk.toFixed(0)} minutes</span>, averaging <span class="hl-green">${avgTalk} minutes per connected call</span>.<br><br>`;
+
+  summary+=`Top performer was <span class="hl-green">${top.advisor}</span> with a <span class="hl-green">${topRate}% connection rate</span> (${top.connected} connected from ${top.total} calls).`;
+
+  if(zeroConn.length>0){
+    summary+=` <span class="hl-red">${zeroConn.length} advisor${zeroConn.length>1?'s':''}</span> had zero connections`;
+    if(zeroConn.length<=3) summary+=` (${zeroConn.map(r=>r.advisor).join(', ')})`;
+    summary+='.';
+  }
+
+  const highConn=rows.filter(r=>r.connected/r.total>0.25&&r.total>=10);
+  if(highConn.length>0){
+    summary+=`<br><br><span class="hl-green">${highConn.length} advisor${highConn.length>1?'s':''}</span> exceeded 25% connection rate: ${highConn.map(r=>`${r.advisor} (${(r.connected/r.total*100).toFixed(0)}%)`).join(', ')}.`;
+  }
+
+  el.innerHTML=summary;
+}
+
+function copyExecSummary(mode){
+  const el=document.getElementById('execText');
+  if(!el) return;
+
+  // Strip HTML tags for plain text
+  const plain=el.innerText;
+  const selDates=getSelected('msDateDropdown');
+  const dateLabel=selDates.length===1?(allData.find(r=>r.shiftDateKey===selDates[0])?.shiftDateDisplay||''):selDates.join(', ');
+
+  if(mode==='teams'){
+    const teamsMsg=`📊 *Team Effort Update — ${dateLabel}*\n\n${plain}`;
+    navigator.clipboard.writeText(teamsMsg).then(()=>showToast('✓ Copied for Teams!'));
+  } else {
+    navigator.clipboard.writeText(plain).then(()=>showToast('✓ Summary copied!'));
+  }
+}
+
+// ── ANOMALY ALERTS ─────────────────────────────────────────────────────
+function checkAnomalies(){
+  const bar=document.getElementById('anomalyBar');
+  const list=document.getElementById('anomalyList');
+  if(!bar||!filteredData.length) return;
+
+  const map={};
+  filteredData.forEach(r=>{
+    const adv=r.advisor&&r.advisor!=='undefined'?String(r.advisor).trim():null;
+    if(!adv) return;
+    if(!map[adv]) map[adv]={advisor:adv,total:0,connected:0,talk:0};
+    map[adv].total++;map[adv].connected+=r.connected;map[adv].talk+=r.pureTalk;
+  });
+  const rows=Object.entries(map)
+    .filter(([k])=>k&&k!=='undefined')
+    .map(([k,v])=>({advisor:k,...v}));
+  const store=loadTrend();
+  const dates=Object.keys(store).sort();
+  const alerts=[];
+
+  rows.forEach(r=>{
+    const rate=r.total>0?r.connected/r.total*100:0;
+
+    // High calls, zero connections
+    if(r.total>=20&&r.connected===0)
+      alerts.push({icon:'🔴',msg:`<strong>${r.advisor}</strong> made ${r.total} calls with <strong>zero connections</strong>.`});
+
+    // Very low rate with significant volume
+    if(r.total>=15&&rate>0&&rate<5)
+      alerts.push({icon:'🟠',msg:`<strong>${r.advisor}</strong> has a very low connection rate of <strong>${rate.toFixed(1)}%</strong> (${r.connected}/${r.total} calls).`});
+
+    // Compare to personal historical average
+    if(dates.length>=5){
+      const hist=dates.slice(-14).map(d=>store[d]?.[r.advisor]).filter(Boolean);
+      if(hist.length>=3){
+        const avgRate=hist.reduce((s,v)=>s+(v.total>0?v.connected/v.total*100:0),0)/hist.length;
+        const drop=avgRate-rate;
+        if(drop>15&&r.total>=10)
+          alerts.push({icon:'📉',msg:`<strong>${r.advisor}</strong>'s connection rate (${rate.toFixed(1)}%) is <strong>${drop.toFixed(0)}% below</strong> their 14-day average (${avgRate.toFixed(1)}%).`});
+
+        const avgTalk=hist.reduce((s,v)=>s+(v.connected>0?v.talk/v.connected:0),0)/hist.length;
+        const currTalk=r.connected>0?r.talk/r.connected:0;
+        if(avgTalk>0&&currTalk>0&&Math.abs(currTalk-avgTalk)/avgTalk>0.4&&r.connected>=3)
+          alerts.push({icon:'⏱',msg:`<strong>${r.advisor}</strong>'s avg talk time (${currTalk.toFixed(1)} min) is ${currTalk>avgTalk?'↑':'↓'} <strong>${Math.abs(((currTalk-avgTalk)/avgTalk)*100).toFixed(0)}%</strong> vs usual (${avgTalk.toFixed(1)} min).`});
+      }
+    }
+  });
+
+  // Team-level: very low overall rate
+  const total=rows.reduce((s,r)=>s+r.total,0);
+  const conn=rows.reduce((s,r)=>s+r.connected,0);
+  const teamRate=total>0?conn/total*100:0;
+  if(teamRate<8&&total>=50)
+    alerts.push({icon:'⚠️',msg:`Team connection rate is <strong>${teamRate.toFixed(1)}%</strong> — this is below the 8% threshold.`});
+
+  if(alerts.length===0){
+    bar.classList.remove('has-alerts');
+    return;
+  }
+
+  bar.classList.add('has-alerts');
+  document.getElementById('anomalyCount').textContent=alerts.length;
+  list.innerHTML=alerts.map(a=>`<div class="anomaly-item"><span class="anomaly-icon">${a.icon}</span><span>${a.msg}</span></div>`).join('');
+}
+
+function toggleAnomalies(){
+  const list=document.getElementById('anomalyList');
+  const btn=document.getElementById('anomalyToggleText');
+  const isOpen=list.classList.toggle('open');
+  btn.textContent=isOpen?'Hide ▲':'Show ▼';
+}
+
+// ── HEATMAP ────────────────────────────────────────────────────────────
+function renderHeatmap(){
+  const el=document.getElementById('heatmapBody');
+  if(!el||!filteredData.length) return;
+
+  // Build hour×advisor matrix
+  const advisors=[...new Set(filteredData.map(r=>r.advisor))].sort();
+  const hours=[...new Set(filteredData.map(r=>r.hour))].sort((a,b)=>a-b);
+
+  const matrix={};
+  filteredData.forEach(r=>{
+    const key=r.advisor+'|'+r.hour;
+    if(!matrix[key]) matrix[key]={total:0,connected:0};
+    matrix[key].total++;matrix[key].connected+=r.connected;
+  });
+
+  function heatColor(rate,total){
+    if(total===0) return '#f1f5f9';
+    if(rate===0)  return '#fee2e2';
+    if(rate<10)   return '#fecaca';
+    if(rate<20)   return '#fed7aa';
+    if(rate<30)   return '#fde68a';
+    if(rate<40)   return '#d9f99d';
+    if(rate<50)   return '#86efac';
+    return '#4ade80';
+  }
+  function textColor(rate,total){
+    if(total===0) return '#94a3b8';
+    if(rate<20)   return '#7f1d1d';
+    return '#14532d';
+  }
+
+  const headerCells=hours.map(h=>`<th class="hm-hour-head">${fmtHour(h).replace(':00','')}</th>`).join('');
+
+  const bodyRows=advisors.map(adv=>{
+    const cells=hours.map(h=>{
+      const v=matrix[adv+'|'+h]||{total:0,connected:0};
+      const rate=v.total>0?(v.connected/v.total*100):0;
+      const bg=heatColor(rate,v.total);
+      const fc=textColor(rate,v.total);
+      const title=v.total>0?`${adv} @ ${fmtHour(h)}: ${v.connected}/${v.total} (${rate.toFixed(0)}%)`:'No calls';
+      return`<td class="hm-cell" style="background:${bg};color:${fc}" title="${title}">${v.total>0?rate.toFixed(0)+'%':''}</td>`;
+    }).join('');
+    return`<tr><td class="hm-advisor">${adv}</td>${cells}</tr>`;
+  }).join('');
+
+  // Sort advisors for heatmap
+  const hmSort=tabSort.heatmap||{col:'name',dir:1};
+  if(hmSort.col==='name') advisors.sort((a,b)=>a.localeCompare(b)*hmSort.dir);
+  else if(hmSort.col==='rate'){
+    advisors.sort((a,b)=>{
+      const rateA=hours.reduce((s,h)=>{const v=matrix[a+'|'+h];return s+(v?v.connected/v.total*100:0)},0)/(hours.length||1);
+      const rateB=hours.reduce((s,h)=>{const v=matrix[b+'|'+h];return s+(v?v.connected/v.total*100:0)},0)/(hours.length||1);
+      return(rateB-rateA)*hmSort.dir;
+    });
+  }
+  el.innerHTML=`
+    <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center"><span style="font-size:11px;color:var(--dim);font-family:var(--mono)">Sort rows:</span><button onclick="tabSort.heatmap={col:'name',dir:1};renderHeatmap()" class="exec-btn" style="padding:4px 10px;font-size:11px">A→Z</button><button onclick="tabSort.heatmap={col:'rate',dir:-1};renderHeatmap()" class="exec-btn" style="padding:4px 10px;font-size:11px">Best Rate First</button></div>
+    <div class="heatmap-wrap">
+      <table class="heatmap-table">
+        <thead><tr><th style="min-width:180px;border-right:2px solid var(--border)"></th>${headerCells}</tr></thead>
+        <tbody>${bodyRows}</tbody>
+      </table>
+    </div>
+    <div class="hm-scroll-hint">← Scroll horizontally or drag to see all hours →</div>
+    <div class="hm-legend">
+      <span>Low</span>
+      <div class="hm-legend-bar">
+        ${['#fee2e2','#fecaca','#fed7aa','#fde68a','#d9f99d','#86efac','#4ade80'].map(c=>`<div style="flex:1;background:${c}"></div>`).join('')}
+      </div>
+      <span>High</span>
+      <span style="margin-left:12px;color:var(--dim)">· Hover cells for details · % = connection rate</span>
+    </div>`;
+  // Drag-to-scroll on heatmap
+  const hw=el.querySelector('.heatmap-wrap');
+  if(hw&&!hw._drag){
+    hw._drag=true;let isDown=false,sx,sl;
+    hw.addEventListener('mousedown',e=>{isDown=true;hw.style.cursor='grabbing';sx=e.pageX-hw.offsetLeft;sl=hw.scrollLeft;});
+    hw.addEventListener('mouseleave',()=>{isDown=false;hw.style.cursor='grab';});
+    hw.addEventListener('mouseup',()=>{isDown=false;hw.style.cursor='grab';});
+    hw.addEventListener('mousemove',e=>{if(!isDown)return;e.preventDefault();hw.scrollLeft=sl-(e.pageX-hw.offsetLeft-sx);});
+  }
+}
+
+// ── WEEK-ON-WEEK COMPARISON ────────────────────────────────────────────
+
+
+
+// ═══════════════════════════════════════════════════════════════════════
+// NEW FEATURES: Sort on all tabs · WoW date range · Dial Pattern tab
+// ═══════════════════════════════════════════════════════════════════════
+
+// ── Sort state for each tab ─────────────────────────────────────────────
+const tabSort = {
+  leaderboard: {col:'rate', dir:-1},
+  wow:         {col:'total', dir:-1},
+  dialpattern: {col:'hour', dir:1},
+  heatmap:     {col:'name', dir:1}
+};
+
+function sortTabBy(tab, col){
+  if(tabSort[tab].col===col) tabSort[tab].dir*=-1;
+  else { tabSort[tab].col=col; tabSort[tab].dir=-1; }
+  if(tab==='leaderboard') renderLeaderboard();
+  if(tab==='wow')         renderWoW();
+  if(tab==='dialpattern') renderDialPattern();
+}
+
+function sortArrow(tab, col){
+  const s=tabSort[tab];
+  if(s.col!==col) return '<span style="color:var(--dim);opacity:0.4">↕</span>';
+  return s.dir===-1?'<span style="color:var(--gold2)">↓</span>':'<span style="color:var(--gold2)">↑</span>';
+}
+
+// ── Patch renderLeaderboard to support sorting ──────────────────────────
+renderLeaderboard=function(){
+  const el=document.getElementById('leaderboardBody');
+  if(!el||!filteredData.length) return;
+  const map={};
+  filteredData.forEach(r=>{
+    const adv=r.advisor&&r.advisor!=='undefined'?String(r.advisor).trim():null;
+    if(!adv) return;
+    if(!map[adv]) map[adv]={advisor:adv,total:0,connected:0,talk:0};
+    map[adv].total++;map[adv].connected+=r.connected;map[adv].talk+=r.pureTalk;
+  });
+  let rows=Object.entries(map).filter(([k])=>k&&k!=='undefined').map(([k,v])=>({advisor:k,...v,rate:v.total>0?v.connected/v.total*100:0}));
+
+  const {col,dir}=tabSort.leaderboard;
+  rows.sort((a,b)=>{
+    const va=col==='advisor'?a.advisor:a[col], vb=col==='advisor'?b.advisor:b[col];
+    return typeof va==='string'?va.localeCompare(vb)*dir:(va-vb)*dir;
+  });
+
+  const medals=['🥇','🥈','🥉'];
+  const podClasses=['gold','silver','bronze'];
+  const top3=rows.slice(0,3);
+  const podHTML=top3.map((r,i)=>`
+    <div class="lb-pod ${podClasses[i]}">
+      <div class="lb-medal">${medals[i]}</div>
+      <div class="lb-name">${r.advisor}</div>
+      <div class="lb-rate">${r.rate.toFixed(1)}%</div>
+      <div class="lb-detail">${r.connected} connected / ${r.total} calls</div>
+      <div class="lb-detail">${r.talk.toFixed(2)} min talk time</div>
+    </div>`).join('');
+
+  const rateClass=(r)=>r>=20?'rate-h':r>=10?'rate-m':r>0?'rate-l':'rate-z';
+  const thStyle='padding:8px 16px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);cursor:pointer;user-select:none;white-space:nowrap;border-bottom:2px solid var(--border)';
+  const restHTML=rows.map((r,i)=>`
+    <div class="lb-row">
+      <span class="lb-num">${i<3?medals[i]:i+1}</span>
+      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="${r.advisor}">${r.advisor}</span>
+      <span class="lb-col">${r.total}</span>
+      <span class="lb-col">${r.connected}</span>
+      <span class="lb-col">${r.talk.toFixed(2)}</span>
+      <span class="lb-col"><span class="lb-rate-pill ${rateClass(r.rate)}">${r.rate.toFixed(1)}%</span></span>
+    </div>`).join('');
+
+  el.innerHTML=`
+    <div class="lb-podium-row">${podHTML}</div>
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;overflow:hidden">
+      <div class="lb-row" style="background:var(--off)">
+        <span class="lb-num">#</span>
+        <span class="lb-adv" onclick="sortTabBy('leaderboard','advisor')" style="cursor:pointer;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim)">Advisor ${sortArrow('leaderboard','advisor')}</span>
+        <span class="lb-col" onclick="sortTabBy('leaderboard','total')" style="cursor:pointer;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim)">Total ${sortArrow('leaderboard','total')}</span>
+        <span class="lb-col" onclick="sortTabBy('leaderboard','connected')" style="cursor:pointer;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim)">Connected ${sortArrow('leaderboard','connected')}</span>
+        <span class="lb-col" onclick="sortTabBy('leaderboard','talk')" style="cursor:pointer;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim)">Talk ${sortArrow('leaderboard','talk')}</span>
+        <span class="lb-col" onclick="sortTabBy('leaderboard','rate')" style="cursor:pointer;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim)">Rate ${sortArrow('leaderboard','rate')}</span>
+      </div>
+      ${restHTML}
+    </div>`;
+};
+
+// ── WoW date range picker helper ────────────────────────────────────────
+function wowResetDates(){
+  const f=document.getElementById('wowFrom');
+  const t=document.getElementById('wowTo');
+  if(f) f.value='';
+  if(t) t.value='';
+  renderWoW();
+}
+
+// ── Patch renderWoW to support date pickers + sort ─────────────────────
+renderWoW=function(){
+  const el=document.getElementById('wowBody');
+  if(!el) return;
+  const store=loadTrend();
+  const allDates=Object.keys(store).sort();
+  if(allDates.length<2){
+    el.innerHTML=`<div class="trend-empty" style="text-align:center;padding:40px 20px">
+      <div style="font-size:32px;margin-bottom:12px">📊</div>
+      <div style="font-size:14px;font-weight:700;color:var(--head);margin-bottom:8px">No comparison data yet</div>
+      <div style="font-size:12px;color:var(--dim);line-height:1.8;max-width:400px;margin:0 auto">
+        Each day you process and export → the data is stored.<br>
+        Once you have 2+ days, this table shows how each advisor's numbers changed.
+      </div>
+    </div>`;
+    return;
+  }
+
+  // Date range from pickers or default to selected dates
+  const fromVal=document.getElementById('wowFrom')?.value;
+  const toVal=document.getElementById('wowTo')?.value;
+  const selDates=getSelected('msDateDropdown');
+
+  let thisPeriod;
+  if(fromVal&&toVal){
+    thisPeriod=allDates.filter(d=>d>=fromVal&&d<=toVal);
+  } else {
+    thisPeriod=allDates.filter(d=>selDates.includes(d));
+  }
+  if(!thisPeriod.length) thisPeriod=[allDates[allDates.length-1]];
+
+  const periodDays=thisPeriod.length;
+  const prevEnd=allDates.indexOf(thisPeriod[0]);
+  const prevPeriod=allDates.slice(Math.max(0,prevEnd-periodDays),prevEnd);
+
+  if(!prevPeriod.length){
+    el.innerHTML='<div class="trend-empty" style="padding:30px;text-align:center;color:var(--dim)">No previous period to compare against. Process more days of data.</div>';
+    return;
+  }
+
+  function periodStats(dates){
+    const m={};
+    dates.forEach(d=>{Object.entries(store[d]||{}).forEach(([adv,v])=>{
+      if(!m[adv])m[adv]={total:0,connected:0,talk:0};
+      m[adv].total+=v.total;m[adv].connected+=v.connected;m[adv].talk+=v.talk;
+    });});
+    return m;
+  }
+
+  const curr=periodStats(thisPeriod);
+  const prev=periodStats(prevPeriod);
+  const allAdvisors=[...new Set([...Object.keys(curr),...Object.keys(prev)])].sort();
+
+  function pct(a,b){if(!b)return null;return((a-b)/b*100).toFixed(1);}
+  function badge(val){
+    if(val===null)return'<span class="wow-badge flat">—</span>';
+    const n=parseFloat(val);
+    if(Math.abs(n)<2)return`<span class="wow-badge flat">→ ${val}%</span>`;
+    if(n>0)return`<span class="wow-badge up">↑ ${val}%</span>`;
+    return`<span class="wow-badge down">↓ ${val}%</span>`;
+  }
+
+  // Sort
+  const {col,dir}=tabSort.wow;
+  const rowData=allAdvisors.map(adv=>{
+    const c=curr[adv]||{total:0,connected:0,talk:0};
+    const p=prev[adv]||{total:0,connected:0,talk:0};
+    return{adv,cTotal:c.total,pTotal:p.total,cConn:c.connected,pConn:p.connected,
+      cRate:c.total>0?(c.connected/c.total*100):0,pRate:p.total>0?(p.connected/p.total*100):0};
+  });
+  rowData.sort((a,b)=>{
+    const va=col==='adv'?a.adv:a['c'+col.charAt(0).toUpperCase()+col.slice(1)]||a['cTotal'];
+    const vb=col==='adv'?b.adv:b['c'+col.charAt(0).toUpperCase()+col.slice(1)]||b['cTotal'];
+    return typeof va==='string'?va.localeCompare(vb)*dir:(va-vb)*dir;
+  });
+
+  const fmtPeriod=arr=>arr.map(k=>{const r=allData.find(x=>x.shiftDateKey===k);return r?r.shiftDateDisplay:k;}).join(', ');
+
+  const rows=rowData.map(r=>`<tr>
+    <td style="font-weight:600;color:var(--head)">${r.adv}</td>
+    <td style="font-family:var(--mono);text-align:center">${r.cTotal}</td>
+    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">${r.pTotal||'—'}</td>
+    <td style="text-align:center">${badge(pct(r.cTotal,r.pTotal))}</td>
+    <td style="font-family:var(--mono);text-align:center">${r.cConn}</td>
+    <td style="text-align:center">${badge(pct(r.cConn,r.pConn))}</td>
+    <td style="font-family:var(--mono);text-align:center">${r.cRate.toFixed(1)}%</td>
+    <td style="text-align:center">${badge(pct(r.cRate,r.pRate))}</td>
+  </tr>`).join('');
+
+  function th(label,col2){return`<th onclick="sortTabBy('wow','${col2}')" style="cursor:pointer;white-space:nowrap">${label} ${sortArrow('wow',col2)}</th>`;}
+
+  el.innerHTML=`
+    <div style="display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap">
+      <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:10px 16px;flex:1;min-width:200px">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#1e40af;margin-bottom:4px">📅 Current Period</div>
+        <div style="font-size:13px;font-weight:600;color:var(--head)">${fmtPeriod(thisPeriod)||'Selected dates'}</div>
+      </div>
+      <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px 16px;flex:1;min-width:200px">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#166534;margin-bottom:4px">📅 Compared Against</div>
+        <div style="font-size:13px;font-weight:600;color:var(--head)">${fmtPeriod(prevPeriod)||'Previous period'}</div>
+      </div>
+      <div style="background:var(--off);border:1px solid var(--border);border-radius:8px;padding:10px 16px;flex:0 0 auto">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:4px">Legend</div>
+        <div style="font-size:12px;font-family:var(--mono)"><span style="color:var(--green);font-weight:700">↑ Better</span> &nbsp; <span style="color:var(--red);font-weight:700">↓ Worse</span> &nbsp; <span style="color:var(--dim)">→ Same</span></div>
+      </div>
+    </div>
+    <table class="wow-table">
+      <thead><tr>
+        ${th('Advisor','adv')} ${th('Total (Now)','total')} <th>Total (Prev)</th> <th>Change</th>
+        ${th('Connected (Now)','connected')} <th>Change</th>
+        ${th('Rate (Now)','rate')} <th>Change</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+};
+
+// ── HOURLY DIAL PATTERN ─────────────────────────────────────────────────
+let dialChartInstance=null;
+
+function renderDialPattern(){
+  const el=document.getElementById('dialPatternBody');
+  if(!el||!filteredData.length) return;
+
+  const advisors=[...new Set(filteredData.map(r=>r.advisor&&r.advisor!=='undefined'?r.advisor:null).filter(Boolean))].sort();
+  const allShiftKeys=[...new Set(filteredData.map(r=>r.shiftDateKey))].sort();
+
+  // Preserve selections
+  const prevAdv=document.getElementById('dialAdvisor')?.value||'ALL';
+  const prevDate1=document.getElementById('dialDate1')?.value||allShiftKeys[allShiftKeys.length-1]||'';
+  const prevDate2=document.getElementById('dialDate2')?.value||'';
+
+  el.innerHTML=`
+    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-bottom:16px;background:var(--off);border:1px solid var(--border);border-radius:10px;padding:14px">
+      <div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:5px">Advisor</div>
+        <select id="dialAdvisor" class="trend-adv-select" onchange="renderDialPattern()">
+          <option value="ALL">All Advisors (Team)</option>
+          ${advisors.map(a=>`<option value="${a.replace(/"/g,'&quot;')}">${a}</option>`).join('')}
+        </select>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#2563eb;margin-bottom:5px">📅 Date 1 (Primary)</div>
+        <select id="dialDate1" onchange="renderDialPattern()" style="background:var(--off);border:1.5px solid #2563eb;color:var(--head);border-radius:7px;padding:7px 10px;font-family:var(--mono);font-size:11px;outline:none">
+          ${allShiftKeys.map(k=>{const d=filteredData.find(r=>r.shiftDateKey===k);return`<option value="${k}">${d?d.shiftDateDisplay:k}</option>`;}).join('')}
+        </select>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#059669;margin-bottom:5px">📅 Date 2 (Compare)</div>
+        <select id="dialDate2" onchange="renderDialPattern()" style="background:var(--off);border:1.5px solid #059669;color:var(--head);border-radius:7px;padding:7px 10px;font-family:var(--mono);font-size:11px;outline:none">
+          <option value="">— None —</option>
+          ${allShiftKeys.map(k=>{const d=filteredData.find(r=>r.shiftDateKey===k);return`<option value="${k}">${d?d.shiftDateDisplay:k}</option>`;}).join('')}
+        </select>
+      </div>
+      <div style="font-size:11px;color:var(--dim);font-family:var(--mono);padding-bottom:7px">Blue bars = Date 1 · Green bars = Date 2 · Line = Connect Rate %</div>
+    </div>
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px">
+      <canvas id="dialCanvas" height="140"></canvas>
+    </div>
+    <div id="dialSummaryRow" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px"></div>
+    <div id="dialInsights"></div>`;
+
+  // Restore selections
+  const advSel=document.getElementById('dialAdvisor');
+  if(advSel&&(advisors.includes(prevAdv)||prevAdv==='ALL')) advSel.value=prevAdv;
+  const d1Sel=document.getElementById('dialDate1');
+  if(d1Sel&&allShiftKeys.includes(prevDate1)) d1Sel.value=prevDate1;
+  const d2Sel=document.getElementById('dialDate2');
+  if(d2Sel) d2Sel.value=allShiftKeys.includes(prevDate2)?prevDate2:'';
+
+  const chosenAdv=document.getElementById('dialAdvisor')?.value||'ALL';
+  const date1=document.getElementById('dialDate1')?.value||'';
+  const date2=document.getElementById('dialDate2')?.value||'';
+
+  function buildHourMap(dateKey){
+    const map={};
+    filteredData.forEach(r=>{
+      if(chosenAdv!=='ALL'&&r.advisor!==chosenAdv) return;
+      if(dateKey&&r.shiftDateKey!==dateKey) return;
+      const h=r.hour;
+      if(!map[h]) map[h]={total:0,connected:0,talk:0};
+      map[h].total++;map[h].connected+=r.connected;map[h].talk+=r.pureTalk;
+    });
+    return map;
+  }
+
+  const hm1=buildHourMap(date1);
+  const hm2=date2?buildHourMap(date2):null;
+  const hours=Array.from({length:24},(_,i)=>i);
+  const labels=hours.map(h=>{const s=h>=12?'PM':'AM';const hr=h===0?12:h>12?h-12:h;return`${hr}${s}`;});
+
+  const t1=hours.map(h=>hm1[h]?.total||0);
+  const c1=hours.map(h=>hm1[h]?.connected||0);
+  const r1=hours.map(h=>hm1[h]?.total>0?(hm1[h].connected/hm1[h].total*100):null);
+  const t2=hm2?hours.map(h=>hm2[h]?.total||0):null;
+  const c2=hm2?hours.map(h=>hm2[h]?.connected||0):null;
+  const r2=hm2?hours.map(h=>hm2[h]?.total>0?(hm2[h].connected/hm2[h].total*100):null):null;
+
+  if(dialChartInstance){dialChartInstance.destroy();dialChartInstance=null;}
+  const datasets=[
+    {type:'bar',label:`Calls (Date1)`,data:t1,backgroundColor:'rgba(37,99,235,0.5)',borderColor:'#2563eb',borderWidth:1,yAxisID:'y'},
+    {type:'bar',label:`Connected (Date1)`,data:c1,backgroundColor:'rgba(37,99,235,0.8)',borderColor:'#1e40af',borderWidth:1,yAxisID:'y'},
+    {type:'line',label:`Rate% (Date1)`,data:r1,borderColor:'#f59e0b',backgroundColor:'transparent',tension:.35,pointRadius:3,yAxisID:'y2',spanGaps:false}
+  ];
+  if(hm2){
+    datasets.push({type:'bar',label:`Calls (Date2)`,data:t2,backgroundColor:'rgba(5,150,105,0.4)',borderColor:'#059669',borderWidth:1,yAxisID:'y'});
+    datasets.push({type:'bar',label:`Connected (Date2)`,data:c2,backgroundColor:'rgba(5,150,105,0.7)',borderColor:'#047857',borderWidth:1,yAxisID:'y'});
+    datasets.push({type:'line',label:`Rate% (Date2)`,data:r2,borderColor:'#a78bfa',backgroundColor:'transparent',tension:.35,pointRadius:3,borderDash:[5,3],yAxisID:'y2',spanGaps:false});
+  }
+
+  dialChartInstance=new Chart(document.getElementById('dialCanvas'),{
+    data:{labels,datasets},
+    options:{
+      responsive:true,
+      interaction:{mode:'index',intersect:false},
+      plugins:{legend:{position:'top'}},
+      scales:{
+        y:{beginAtZero:true,title:{display:true,text:'Calls'},stacked:false},
+        y2:{beginAtZero:true,max:100,title:{display:true,text:'Rate %'},position:'right',grid:{drawOnChartArea:false}}
+      }
+    }
+  });
+
+  // Summary cards for Date1
+  const total1=t1.reduce((s,v)=>s+v,0);
+  const conn1=c1.reduce((s,v)=>s+v,0);
+  const peak1=hours.reduce((b,h)=>t1[h]>t1[b]?h:b,0);
+  const best1=hours.filter(h=>c1[h]>=3).reduce((b,h)=>b===null||r1[h]>r1[b]?h:b,null);
+
+  let summaryCards=[
+    {label:'Peak Hour',val:labels[peak1],sub:`${t1[peak1]} calls`,color:'#2563eb'},
+    {label:'Best Connect Hour',val:best1!==null?labels[best1]:'—',sub:best1!==null?r1[best1].toFixed(1)+'% (≥3 conn)':'Need ≥3 conn',color:'#059669'},
+    {label:'Total Calls',val:total1.toLocaleString(),sub:'across all hours',color:'#0f172a'},
+    {label:'Overall Rate',val:total1>0?(conn1/total1*100).toFixed(1)+'%':'—',sub:conn1+' connected',color:'#f59e0b'}
+  ];
+
+  if(hm2){
+    const total2=t2.reduce((s,v)=>s+v,0);
+    const conn2=c2.reduce((s,v)=>s+v,0);
+    const rate1=total1>0?(conn1/total1*100):0;
+    const rate2=total2>0?(conn2/total2*100):0;
+    const callChg=total2>0?((total1-total2)/total2*100).toFixed(1):null;
+    const rateChg=rate2>0?((rate1-rate2)).toFixed(1):null;
+    summaryCards=[
+      {label:'Calls: D1 vs D2',val:`${total1} vs ${total2}`,sub:callChg?`${callChg>0?'↑':'↓'} ${Math.abs(callChg)}% change`:'—',color:'#2563eb'},
+      {label:'Connected: D1 vs D2',val:`${conn1} vs ${conn2}`,sub:'',color:'#059669'},
+      {label:'Rate: D1 vs D2',val:`${rate1.toFixed(1)}% vs ${rate2.toFixed(1)}%`,sub:rateChg?(parseFloat(rateChg)>0?`↑ ${rateChg}pp better`:`↓ ${Math.abs(rateChg)}pp worse`):'—',color:'#f59e0b'},
+      {label:'Best Hour (D1)',val:best1!==null?labels[best1]:'—',sub:best1!==null?r1[best1].toFixed(1)+'% rate':'',color:'#7c3aed'}
+    ];
+  }
+
+  document.getElementById('dialSummaryRow').innerHTML=summaryCards.map(s=>`
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.05)">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:6px">${s.label}</div>
+      <div style="font-size:18px;font-weight:800;color:${s.color};font-family:var(--mono);line-height:1.2">${s.val}</div>
+      <div style="font-size:11px;color:var(--dim);margin-top:3px;font-family:var(--mono)">${s.sub}</div>
+    </div>`).join('');
+
+  // ── Insights & Recommendations ──────────────────────────────────────
+  const insights=[];
+  const recommendations=[];
+
+  // Best hours for calling
+  const goodHours=hours.filter(h=>c1[h]>=3&&r1[h]>15).map(h=>labels[h]);
+  if(goodHours.length) insights.push(`✅ <b>High-performing hours:</b> ${goodHours.join(', ')} — connect rate above 15%`);
+
+  // Wasted effort hours
+  const wastedHours=hours.filter(h=>t1[h]>=10&&c1[h]===0).map(h=>labels[h]);
+  if(wastedHours.length){
+    insights.push(`⚠️ <b>Zero connects with high volume:</b> ${wastedHours.join(', ')} — calls made but none connected`);
+    recommendations.push(`Reduce dialling during ${wastedHours.join(', ')}. These hours show high effort with zero returns.`);
+  }
+
+  // Peak calling vs best connect mismatch
+  if(best1!==null && peak1!==best1){
+    insights.push(`📊 <b>Pattern mismatch:</b> Most calls at ${labels[peak1]} (${t1[peak1]} calls) but best connect rate at ${labels[best1]} (${r1[best1].toFixed(1)}%)`);
+    recommendations.push(`Shift more calls to ${labels[best1]} window — it has the highest connection rate but not the most volume.`);
+  }
+
+  // Comparison insights
+  if(hm2){
+    const improvedHours=hours.filter(h=>r1[h]!==null&&r2[h]!==null&&r1[h]-r2[h]>10).map(h=>`${labels[h]} (+${(r1[h]-r2[h]).toFixed(0)}pp)`);
+    const worseHours=hours.filter(h=>r1[h]!==null&&r2[h]!==null&&r2[h]-r1[h]>10).map(h=>`${labels[h]} (-${(r2[h]-r1[h]).toFixed(0)}pp)`);
+    if(improvedHours.length) insights.push(`🟢 <b>Improved hours vs Date 2:</b> ${improvedHours.join(', ')}`);
+    if(worseHours.length){
+      insights.push(`🔴 <b>Declined hours vs Date 2:</b> ${worseHours.join(', ')}`);
+      recommendations.push(`Hours ${worseHours.join(', ')} performed better on Date 2. Review what changed (dialler list quality, time allocation).`);
+    }
+  }
+
+  // General recommendation if low overall rate
+  const overallRate=total1>0?(conn1/total1*100):0;
+  if(overallRate<10&&total1>=20) recommendations.push(`Overall connection rate (${overallRate.toFixed(1)}%) is below 10%. Consider reviewing the contact list quality and calling times.`);
+  if(goodHours.length===0&&total1>=20) recommendations.push(`No hour has ≥3 connects with >15% rate. Focus on finding the right time window through testing.`);
+
+  const insightHtml=insights.length?`
+    <div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:16px;margin-bottom:12px">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#0369a1;margin-bottom:10px">📊 Pattern Insights</div>
+      ${insights.map(i=>`<div style="font-size:12px;color:#1e293b;margin-bottom:7px;line-height:1.6">${i}</div>`).join('')}
+    </div>`:'';
+
+  const recHtml=recommendations.length?`
+    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:16px">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#166534;margin-bottom:10px">💡 Recommendations to Improve Connectivity</div>
+      ${recommendations.map((r,i)=>`<div style="font-size:12px;color:#1e293b;margin-bottom:7px;line-height:1.6"><b>${i+1}.</b> ${r}</div>`).join('')}
+    </div>`:'';
+
+  document.getElementById('dialInsights').innerHTML=insightHtml+recHtml;
+}
+
+
+
 </script>
 
 
