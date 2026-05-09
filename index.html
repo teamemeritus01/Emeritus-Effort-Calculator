@@ -366,7 +366,7 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
               <div class="upload-icon">📊</div>
               <div class="upload-title">Drop your Excel or CSV file here</div>
               <div class="upload-sub">Supports .xlsx · .xls · .csv</div>
-              <div class="upload-status" id="uploadStatus" style="color: var(--blue2);"></div>
+              <div class="upload-status" id="uploadStatus"></div>
             </div>
           </div>
           <div class="btn-row">
@@ -414,7 +414,7 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
     </div>
   </div>
 
-  <div class="filter-bar" id="filterBar" style="display: none;">
+  <div class="filter-bar" id="filterBar" style="display:none">
     <div class="filter-group">
       <span class="filter-label">Shift Date</span>
       <div class="ms-wrap" id="msDate">
@@ -425,7 +425,7 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
             <span class="ms-action" onclick="msAll('msDateDropdown')">All</span>
             <span class="ms-action" onclick="msNone('msDateDropdown')">None</span>
           </div>
-          <div id="dateOptions"><label class="ms-option"><input type="checkbox" value="2026-05-03" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>03-May-2026</span></label><label class="ms-option"><input type="checkbox" value="2026-05-04" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>04-May-2026</span></label><label class="ms-option"><input type="checkbox" value="2026-05-05" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>05-May-2026</span></label><label class="ms-option"><input type="checkbox" value="2026-05-06" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>06-May-2026</span></label><label class="ms-option"><input type="checkbox" value="2026-05-07" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>07-May-2026</span></label><label class="ms-option"><input type="checkbox" value="2026-05-08" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>08-May-2026</span></label><label class="ms-option"><input type="checkbox" value="2026-05-09" checked="" onchange="updateLabel('msDateDropdown');applyFilters()"><span>09-May-2026</span></label></div>
+          <div id="dateOptions"></div>
         </div>
       </div>
     </div>
@@ -440,7 +440,7 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
             <span class="ms-action" onclick="msAll('msAdvisorDropdown')">All</span>
             <span class="ms-action" onclick="msNone('msAdvisorDropdown')">None</span>
           </div>
-          <div id="advisorOptions"><label class="ms-option"><input type="checkbox" value="Aasheesh Ahluwalia" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Aasheesh Ahluwalia</span></label><label class="ms-option"><input type="checkbox" value="Ghanshyam Shankerlal Yadav" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Ghanshyam Shankerlal Yadav</span></label><label class="ms-option"><input type="checkbox" value="Haya Quadri" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Haya Quadri</span></label><label class="ms-option"><input type="checkbox" value="Jaydeep Parmar" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Jaydeep Parmar</span></label><label class="ms-option"><input type="checkbox" value="Joel Fernandes" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Joel Fernandes</span></label><label class="ms-option"><input type="checkbox" value="Melroy Mascarenhas" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Melroy Mascarenhas</span></label><label class="ms-option"><input type="checkbox" value="Nandini Nandu Borade" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Nandini Nandu Borade</span></label><label class="ms-option"><input type="checkbox" value="Nandita N" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Nandita N</span></label><label class="ms-option"><input type="checkbox" value="Pramod Kumar" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Pramod Kumar</span></label><label class="ms-option"><input type="checkbox" value="Priya Chaudhary" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Priya Chaudhary</span></label><label class="ms-option"><input type="checkbox" value="Pushpanjli Mani Singh" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Pushpanjli Mani Singh</span></label><label class="ms-option"><input type="checkbox" value="Rakshith Gaikwad" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Rakshith Gaikwad</span></label><label class="ms-option"><input type="checkbox" value="Raunak Narvekar" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Raunak Narvekar</span></label><label class="ms-option"><input type="checkbox" value="Sadanand Patel" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Sadanand Patel</span></label><label class="ms-option"><input type="checkbox" value="Samson Rebello" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Samson Rebello</span></label><label class="ms-option"><input type="checkbox" value="Shubhi Mishra" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Shubhi Mishra</span></label><label class="ms-option"><input type="checkbox" value="Sonal Braganza" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Sonal Braganza</span></label><label class="ms-option"><input type="checkbox" value="Subhash Madhavan" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Subhash Madhavan</span></label><label class="ms-option"><input type="checkbox" value="Zuber Haque" checked="" onchange="updateLabel('msAdvisorDropdown');applyFilters()"><span>Zuber Haque</span></label></div>
+          <div id="advisorOptions"></div>
         </div>
       </div>
     </div>
@@ -466,13 +466,13 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
     </div>
   </div>
 
-  <div id="shiftSummaryBar" style="display: none; background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 10px 18px; margin-bottom: 14px; font-family: var(--mono); font-size: 11px; color: var(--body); box-shadow: rgba(0, 0, 0, 0.04) 0px 1px 3px;">
+  <div id="shiftSummaryBar" style="display:none;background:var(--white);border:1px solid var(--border);border-radius:10px;padding:10px 18px;margin-bottom:14px;font-family:var(--mono);font-size:11px;color:var(--body);box-shadow:0 1px 3px rgba(0,0,0,.04)">
   <span style="color:var(--dim);text-transform:uppercase;letter-spacing:1px;font-size:10px;font-weight:700">Shift Coverage</span>
-  &nbsp;&nbsp;<span id="shiftCoverageText" style="color:var(--head)">Multiple shift dates selected</span>
+  &nbsp;&nbsp;<span id="shiftCoverageText" style="color:var(--head)">—</span>
   &nbsp;&nbsp;<span style="color:var(--dim)">|</span>&nbsp;&nbsp;
-  <span id="shiftRowBreakdown" style="color:var(--blue2)"></span>
+  <span id="shiftRowBreakdown" style="color:var(--blue2)">—</span>
 </div>
-<div id="execCardWrap" style="display: none;">
+<div id="execCardWrap" style="display:none">
   <div class="exec-card" id="execCard">
     <div class="exec-head">
       <span class="exec-title">✍️ Executive Summary</span>
@@ -482,58 +482,58 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
       </div>
     </div>
     <div class="exec-body">
-      <div class="exec-text" id="execText">On <span class="hl">the selected period</span>, the team dialed <span class="hl">10,069 calls</span> with a <span class="hl">10.1% connection rate</span> (1018 connected). Total pure talk time was <span class="hl">8186 minutes</span>, averaging <span class="hl-green">8.04 minutes per connected call</span>.<br><br>Top performer was <span class="hl-green">Pushpanjli Mani Singh</span> with a <span class="hl-green">18.6% connection rate</span> (65 connected from 349 calls).</div>
+      <div class="exec-text" id="execText">Generating summary…</div>
     </div>
   </div>
 </div>
 
 <div class="anomaly-bar" id="anomalyBar">
   <div class="anomaly-head" onclick="toggleAnomalies()">
-    <span class="anomaly-head-title">⚠️ <span id="anomalyCount">1</span> Anomalies Detected — click to expand</span>
+    <span class="anomaly-head-title">⚠️ <span id="anomalyCount">0</span> Anomalies Detected — click to expand</span>
     <span style="font-size:11px;color:#9a3412;font-family:var(--mono)" id="anomalyToggleText">Show ▼</span>
   </div>
-  <div class="anomaly-list" id="anomalyList"><div class="anomaly-item"><span class="anomaly-icon">🟠</span><span><strong>Aasheesh Ahluwalia</strong> has a very low connection rate of <strong>3.7%</strong> (30/816 calls).</span></div></div>
+  <div class="anomaly-list" id="anomalyList"></div>
 </div>
 
-<div class="stat-row" id="summaryRow" style="display: none;">
-    <div class="stat-card s-blue"><div class="stat-label">Total Calls</div><div class="stat-value" id="sTotal">10,069</div><div class="stat-sub" id="sAdvisors">19 advisors</div></div>
-    <div class="stat-card s-green"><div class="stat-label">Connected</div><div class="stat-value" id="sConnected">1,018</div><div class="stat-sub" id="sRate">10.1% connection rate</div></div>
-    <div class="stat-card s-gold"><div class="stat-label">Pure Talk Time</div><div class="stat-value" id="sTalk">8185.90</div><div class="stat-sub">minutes total</div></div>
-    <div class="stat-card s-navy"><div class="stat-label">Avg Talk / Connected</div><div class="stat-value" id="sAvg">8.04</div><div class="stat-sub">min per connected call</div></div>
+<div class="stat-row" id="summaryRow" style="display:none">
+    <div class="stat-card s-blue"><div class="stat-label">Total Calls</div><div class="stat-value" id="sTotal">0</div><div class="stat-sub" id="sAdvisors">0 advisors</div></div>
+    <div class="stat-card s-green"><div class="stat-label">Connected</div><div class="stat-value" id="sConnected">0</div><div class="stat-sub" id="sRate">0.0% rate</div></div>
+    <div class="stat-card s-gold"><div class="stat-label">Pure Talk Time</div><div class="stat-value" id="sTalk">0</div><div class="stat-sub">minutes total</div></div>
+    <div class="stat-card s-navy"><div class="stat-label">Avg Talk / Connected</div><div class="stat-value" id="sAvg">0</div><div class="stat-sub">min per connected call</div></div>
   </div>
 
-  <div class="best-time-bar" id="bestTimeBar" style="display: none;">
+  <div class="best-time-bar" id="bestTimeBar" style="display:none">
   <div style="display:flex;align-items:center;gap:10px;width:100%;margin-bottom:4px">
     <div class="sec-label" style="margin:0"><div class="bar" style="background:var(--gold2)"></div><h2>Best Connectivity Hours</h2><span id="btSubtitle">All shifts · sorted by connection rate</span></div>
   </div>
-  <div class="bt-card gold" id="bt1" style="opacity: 1;"><div class="bt-rank">🥇 Best Hour</div><div class="bt-time" id="bt1time">11:00 AM</div><div class="bt-rate" id="bt1rate"><span style="color:var(--green2);font-weight:700">33.3%</span> connect rate</div><div class="bt-calls" id="bt1calls" style="margin-top:4px;font-size:10px;color:var(--dim)">🌅 Early &nbsp;|&nbsp; 8/24 calls</div></div>
-  <div class="bt-card silver" id="bt2" style="opacity: 1;"><div class="bt-rank">🥈 2nd Hour</div><div class="bt-time" id="bt2time">01:00 PM</div><div class="bt-rate" id="bt2rate"><span style="color:var(--green2);font-weight:700">14.2%</span> connect rate</div><div class="bt-calls" id="bt2calls" style="margin-top:4px;font-size:10px;color:var(--dim)">☀️ Day &nbsp;|&nbsp; 40/282 calls</div></div>
-  <div class="bt-card bronze" id="bt3" style="opacity: 1;"><div class="bt-rank">🥉 3rd Hour</div><div class="bt-time" id="bt3time">02:00 PM</div><div class="bt-rate" id="bt3rate"><span style="color:var(--green2);font-weight:700">13.3%</span> connect rate</div><div class="bt-calls" id="bt3calls" style="margin-top:4px;font-size:10px;color:var(--dim)">☀️ Day &nbsp;|&nbsp; 46/345 calls</div></div>
-  <div class="bt-card" id="bt4" style="opacity: 1;"><div class="bt-rank">4th Hour</div><div class="bt-time" id="bt4time">12:00 PM</div><div class="bt-rate" id="bt4rate"><span style="color:var(--green2);font-weight:700">13.3%</span> connect rate</div><div class="bt-calls" id="bt4calls" style="margin-top:4px;font-size:10px;color:var(--dim)">☀️ Day &nbsp;|&nbsp; 19/143 calls</div></div>
-  <div class="bt-card" id="bt5" style="opacity: 1;"><div class="bt-rank">5th Hour</div><div class="bt-time" id="bt5time">08:00 AM</div><div class="bt-rate" id="bt5rate"><span style="color:var(--green2);font-weight:700">13.0%</span> connect rate</div><div class="bt-calls" id="bt5calls" style="margin-top:4px;font-size:10px;color:var(--dim)">🌅 Early &nbsp;|&nbsp; 3/23 calls</div></div>
+  <div class="bt-card gold" id="bt1"><div class="bt-rank">🥇 Best Hour</div><div class="bt-time" id="bt1time">—</div><div class="bt-rate" id="bt1rate">—</div><div class="bt-calls" id="bt1calls" style="margin-top:4px;font-size:10px;color:var(--dim)">—</div></div>
+  <div class="bt-card silver" id="bt2"><div class="bt-rank">🥈 2nd Hour</div><div class="bt-time" id="bt2time">—</div><div class="bt-rate" id="bt2rate">—</div><div class="bt-calls" id="bt2calls" style="margin-top:4px;font-size:10px;color:var(--dim)">—</div></div>
+  <div class="bt-card bronze" id="bt3"><div class="bt-rank">🥉 3rd Hour</div><div class="bt-time" id="bt3time">—</div><div class="bt-rate" id="bt3rate">—</div><div class="bt-calls" id="bt3calls" style="margin-top:4px;font-size:10px;color:var(--dim)">—</div></div>
+  <div class="bt-card" id="bt4"><div class="bt-rank">4th Hour</div><div class="bt-time" id="bt4time">—</div><div class="bt-rate" id="bt4rate">—</div><div class="bt-calls" id="bt4calls" style="margin-top:4px;font-size:10px;color:var(--dim)">—</div></div>
+  <div class="bt-card" id="bt5"><div class="bt-rank">5th Hour</div><div class="bt-time" id="bt5time">—</div><div class="bt-rate" id="bt5rate">—</div><div class="bt-calls" id="bt5calls" style="margin-top:4px;font-size:10px;color:var(--dim)">—</div></div>
 </div>
-<div id="outputSection" style="display: none;">
+<div id="outputSection" style="display:none">
     <div class="sec-label" style="margin-bottom:12px"><div class="bar" style="background:var(--green)"></div><h2>Output Summary</h2></div>
     <div class="out-card">
       <!-- Tab bar -->
       <div class="out-tab-bar">
         <div style="display:flex;gap:4px;flex:1;flex-wrap:wrap">
-          <div class="out-tab" id="tab-summary" onclick="switchOutTab('summary')">📊 Summary</div>
+          <div class="out-tab active" id="tab-summary" onclick="switchOutTab('summary')">📊 Summary</div>
           <div class="out-tab" id="tab-leaderboard" onclick="switchOutTab('leaderboard')">🏆 Leaderboard</div>
           <div class="out-tab" id="tab-shifts" onclick="switchOutTab('shifts')">🔄 Shift Split</div>
           <div class="out-tab" id="tab-trends" onclick="switchOutTab('trends')">📈 Trends</div>
           <div class="out-tab" id="tab-heatmap" onclick="switchOutTab('heatmap')">🔥 Heatmap</div>
           <div class="out-tab" id="tab-wow" onclick="switchOutTab('wow')">🔁 Week vs Week</div>
-          <div class="out-tab active" id="tab-dialpattern" onclick="switchOutTab('dialpattern')">📞 Dial Pattern</div>
+          <div class="out-tab" id="tab-dialpattern" onclick="switchOutTab('dialpattern')">📞 Dial Pattern</div>
         </div>
         <!-- Action buttons — always visible on every tab -->
 
       </div>
 
       <!-- Summary Panel -->
-      <div class="out-panel" id="panel-summary">
+      <div class="out-panel active" id="panel-summary">
         <div class="out-head" style="background:var(--navy);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
-          <div class="out-head-title"><span class="dot"></span>By Advisor — <span id="headDateLabel" style="color:var(--gold3);font-size:12px;margin-left:4px">All Dates</span></div>
+          <div class="out-head-title"><span class="dot"></span>By Advisor — <span id="headDateLabel" style="color:var(--gold3);font-size:12px;margin-left:4px"></span></div>
           <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
             <div class="search-wrap">
               <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke="rgba(255,255,255,0.4)" stroke-width="2"></circle><path d="m21 21-4.35-4.35" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round"></path></svg>
@@ -544,7 +544,7 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
           <span class="tab-info-text"><strong>Output Summary — Per Advisor</strong>Shows total calls dialled, connected calls, and pure talk time for each advisor in the selected date range. <b>Click any advisor name</b> to see their hourly drilldown. Click column headers to sort. Use the search box to filter by name.</span>
           <span class="tab-info-close" onclick="this.closest('.tab-info').style.display='none'" title="Dismiss">✕</span>
         </div>
-            <span class="row-count" id="rowCount">19 advisors</span>
+            <span class="row-count" id="rowCount">—</span>
           </div>
           <div style="display:flex;gap:6px;flex-wrap:wrap">
             <button onclick="captureTab('summary','copy')" class="btn btn-green" style="font-size:10px;padding:5px 12px">💬 Teams</button>
@@ -556,9 +556,9 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
           <table id="outputTable">
             <thead><tr>
               <th onclick="sortBy('advisor')">Row Labels</th>
-              <th onclick="sortBy('total')" class="">Sum of Total Calls</th>
+              <th onclick="sortBy('total')">Sum of Total Calls</th>
               <th onclick="sortBy('connected')">Sum of Connected Calls</th>
-              <th onclick="sortBy('talk')" class="sort-desc">Sum of Pure Talk Time</th>
+              <th onclick="sortBy('talk')">Sum of Pure Talk Time</th>
               <th onclick="sortBy('rate')">Conn. Rate</th>
               <th onclick="sortBy('avg')">Avg Talk / Connected</th>
             </tr></thead>
@@ -585,191 +585,8 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
           <span class="tab-info-close" onclick="this.closest('.tab-info').style.display='none'" title="Dismiss">✕</span>
         </div>
         <div style="padding:20px" id="leaderboardBody">
-    <div class="lb-podium-row">
-    <div class="lb-pod gold">
-      <div class="lb-medal">🥇</div>
-      <div class="lb-name">Pushpanjli Mani Singh</div>
-      <div class="lb-rate">18.6%</div>
-      <div class="lb-detail">65 connected / 349 calls</div>
-      <div class="lb-detail">494.53 min talk time</div>
-    </div>
-    <div class="lb-pod silver">
-      <div class="lb-medal">🥈</div>
-      <div class="lb-name">Pramod Kumar</div>
-      <div class="lb-rate">17.5%</div>
-      <div class="lb-detail">66 connected / 377 calls</div>
-      <div class="lb-detail">597.61 min talk time</div>
-    </div>
-    <div class="lb-pod bronze">
-      <div class="lb-medal">🥉</div>
-      <div class="lb-name">Joel Fernandes</div>
-      <div class="lb-rate">13.8%</div>
-      <div class="lb-detail">74 connected / 537 calls</div>
-      <div class="lb-detail">619.22 min talk time</div>
-    </div></div>
-    <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;overflow:hidden">
-      <div class="lb-row" style="background:var(--off)">
-        <span class="lb-num">#</span>
-        <span class="lb-adv" onclick="sortTabBy('leaderboard','advisor')" style="cursor:pointer;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim)">Advisor <span style="color:var(--dim);opacity:0.4">↕</span></span>
-        <span class="lb-col" onclick="sortTabBy('leaderboard','total')" style="cursor:pointer;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim)">Total <span style="color:var(--dim);opacity:0.4">↕</span></span>
-        <span class="lb-col" onclick="sortTabBy('leaderboard','connected')" style="cursor:pointer;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim)">Connected <span style="color:var(--dim);opacity:0.4">↕</span></span>
-        <span class="lb-col" onclick="sortTabBy('leaderboard','talk')" style="cursor:pointer;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim)">Talk <span style="color:var(--dim);opacity:0.4">↕</span></span>
-        <span class="lb-col" onclick="sortTabBy('leaderboard','rate')" style="cursor:pointer;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim)">Rate <span style="color:var(--gold2)">↓</span></span>
-      </div>
-      
-    <div class="lb-row">
-      <span class="lb-num">🥇</span>
-      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Pushpanjli Mani Singh">Pushpanjli Mani Singh</span>
-      <span class="lb-col">349</span>
-      <span class="lb-col">65</span>
-      <span class="lb-col">494.53</span>
-      <span class="lb-col"><span class="lb-rate-pill rate-m">18.6%</span></span>
-    </div>
-    <div class="lb-row">
-      <span class="lb-num">🥈</span>
-      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Pramod Kumar">Pramod Kumar</span>
-      <span class="lb-col">377</span>
-      <span class="lb-col">66</span>
-      <span class="lb-col">597.61</span>
-      <span class="lb-col"><span class="lb-rate-pill rate-m">17.5%</span></span>
-    </div>
-    <div class="lb-row">
-      <span class="lb-num">🥉</span>
-      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Joel Fernandes">Joel Fernandes</span>
-      <span class="lb-col">537</span>
-      <span class="lb-col">74</span>
-      <span class="lb-col">619.22</span>
-      <span class="lb-col"><span class="lb-rate-pill rate-m">13.8%</span></span>
-    </div>
-    <div class="lb-row">
-      <span class="lb-num">4</span>
-      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Haya Quadri">Haya Quadri</span>
-      <span class="lb-col">421</span>
-      <span class="lb-col">58</span>
-      <span class="lb-col">740.03</span>
-      <span class="lb-col"><span class="lb-rate-pill rate-m">13.8%</span></span>
-    </div>
-    <div class="lb-row">
-      <span class="lb-num">5</span>
-      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Nandita N">Nandita N</span>
-      <span class="lb-col">460</span>
-      <span class="lb-col">63</span>
-      <span class="lb-col">466.53</span>
-      <span class="lb-col"><span class="lb-rate-pill rate-m">13.7%</span></span>
-    </div>
-    <div class="lb-row">
-      <span class="lb-num">6</span>
-      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Priya Chaudhary">Priya Chaudhary</span>
-      <span class="lb-col">558</span>
-      <span class="lb-col">73</span>
-      <span class="lb-col">427.33</span>
-      <span class="lb-col"><span class="lb-rate-pill rate-m">13.1%</span></span>
-    </div>
-    <div class="lb-row">
-      <span class="lb-num">7</span>
-      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Ghanshyam Shankerlal Yadav">Ghanshyam Shankerlal Yadav</span>
-      <span class="lb-col">524</span>
-      <span class="lb-col">68</span>
-      <span class="lb-col">559.89</span>
-      <span class="lb-col"><span class="lb-rate-pill rate-m">13.0%</span></span>
-    </div>
-    <div class="lb-row">
-      <span class="lb-num">8</span>
-      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Rakshith Gaikwad">Rakshith Gaikwad</span>
-      <span class="lb-col">432</span>
-      <span class="lb-col">51</span>
-      <span class="lb-col">396.68</span>
-      <span class="lb-col"><span class="lb-rate-pill rate-m">11.8%</span></span>
-    </div>
-    <div class="lb-row">
-      <span class="lb-num">9</span>
-      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Samson Rebello">Samson Rebello</span>
-      <span class="lb-col">462</span>
-      <span class="lb-col">53</span>
-      <span class="lb-col">438.47</span>
-      <span class="lb-col"><span class="lb-rate-pill rate-m">11.5%</span></span>
-    </div>
-    <div class="lb-row">
-      <span class="lb-num">10</span>
-      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Sadanand Patel">Sadanand Patel</span>
-      <span class="lb-col">363</span>
-      <span class="lb-col">39</span>
-      <span class="lb-col">172.92</span>
-      <span class="lb-col"><span class="lb-rate-pill rate-m">10.7%</span></span>
-    </div>
-    <div class="lb-row">
-      <span class="lb-num">11</span>
-      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Sonal Braganza">Sonal Braganza</span>
-      <span class="lb-col">671</span>
-      <span class="lb-col">71</span>
-      <span class="lb-col">680.41</span>
-      <span class="lb-col"><span class="lb-rate-pill rate-m">10.6%</span></span>
-    </div>
-    <div class="lb-row">
-      <span class="lb-num">12</span>
-      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Subhash Madhavan">Subhash Madhavan</span>
-      <span class="lb-col">609</span>
-      <span class="lb-col">57</span>
-      <span class="lb-col">430.07</span>
-      <span class="lb-col"><span class="lb-rate-pill rate-l">9.4%</span></span>
-    </div>
-    <div class="lb-row">
-      <span class="lb-num">13</span>
-      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Jaydeep Parmar">Jaydeep Parmar</span>
-      <span class="lb-col">507</span>
-      <span class="lb-col">45</span>
-      <span class="lb-col">331.82</span>
-      <span class="lb-col"><span class="lb-rate-pill rate-l">8.9%</span></span>
-    </div>
-    <div class="lb-row">
-      <span class="lb-num">14</span>
-      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Nandini Nandu Borade">Nandini Nandu Borade</span>
-      <span class="lb-col">554</span>
-      <span class="lb-col">47</span>
-      <span class="lb-col">268.40</span>
-      <span class="lb-col"><span class="lb-rate-pill rate-l">8.5%</span></span>
-    </div>
-    <div class="lb-row">
-      <span class="lb-num">15</span>
-      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Melroy Mascarenhas">Melroy Mascarenhas</span>
-      <span class="lb-col">576</span>
-      <span class="lb-col">48</span>
-      <span class="lb-col">389.23</span>
-      <span class="lb-col"><span class="lb-rate-pill rate-l">8.3%</span></span>
-    </div>
-    <div class="lb-row">
-      <span class="lb-num">16</span>
-      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Shubhi Mishra">Shubhi Mishra</span>
-      <span class="lb-col">665</span>
-      <span class="lb-col">43</span>
-      <span class="lb-col">338.39</span>
-      <span class="lb-col"><span class="lb-rate-pill rate-l">6.5%</span></span>
-    </div>
-    <div class="lb-row">
-      <span class="lb-num">17</span>
-      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Zuber Haque">Zuber Haque</span>
-      <span class="lb-col">548</span>
-      <span class="lb-col">33</span>
-      <span class="lb-col">382.58</span>
-      <span class="lb-col"><span class="lb-rate-pill rate-l">6.0%</span></span>
-    </div>
-    <div class="lb-row">
-      <span class="lb-num">18</span>
-      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Raunak Narvekar">Raunak Narvekar</span>
-      <span class="lb-col">640</span>
-      <span class="lb-col">34</span>
-      <span class="lb-col">313.51</span>
-      <span class="lb-col"><span class="lb-rate-pill rate-l">5.3%</span></span>
-    </div>
-    <div class="lb-row">
-      <span class="lb-num">19</span>
-      <span class="lb-adv" style="cursor:pointer;text-decoration:underline dotted" onclick="openAdvisorModal(this.dataset.a)" data-a="Aasheesh Ahluwalia">Aasheesh Ahluwalia</span>
-      <span class="lb-col">816</span>
-      <span class="lb-col">30</span>
-      <span class="lb-col">138.28</span>
-      <span class="lb-col"><span class="lb-rate-pill rate-l">3.7%</span></span>
-    </div>
-    </div></div>
+          <div class="trend-empty">Process data to see leaderboard</div>
+        </div>
       </div>
 
       <!-- Shift Split Panel -->
@@ -788,53 +605,9 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
           <span class="tab-info-text"><strong>Performance by Time Window</strong>Groups calls into three <b>non-overlapping</b> 8-hour windows. Every call falls into exactly one window. ☀️ 10AM–6PM · 🌆 6PM–2AM · 🌙 2AM–10AM. Together they cover the full 24-hour shift. Use this to identify which time window drives the best connection rates for your team.</span>
           <span class="tab-info-close" onclick="this.closest('.tab-info').style.display='none'" title="Dismiss">✕</span>
         </div>
-        <div style="padding:20px" id="shiftsBody"><div class="shift-3col"><div class="shift-card">
-      <div class="shift-head day">
-        <div style="display:flex;align-items:center;gap:10px">
-          <span class="shift-icon">☀️</span>
-          <div><div class="shift-title">10AM – 6PM</div><div class="shift-hours">Hours 10:00 to 17:59</div></div>
+        <div style="padding:20px" id="shiftsBody">
+          <div class="trend-empty">Process data to see shift comparison</div>
         </div>
-      </div>
-      <div class="shift-body">
-        <div class="shift-stat"><span class="shift-stat-l">Total Calls</span><span class="shift-stat-v">1694</span></div>
-        <div class="shift-stat"><span class="shift-stat-l">Connected</span><span class="shift-stat-v" style="color:var(--green)">223</span></div>
-        <div class="shift-stat"><span class="shift-stat-l">Not Connected</span><span class="shift-stat-v" style="color:var(--red)">1471</span></div>
-        <div class="shift-stat"><span class="shift-stat-l">Talk Time</span><span class="shift-stat-v">2436.26 min</span></div>
-        <div class="shift-stat"><span class="shift-stat-l">Conn. Rate</span><span class="shift-stat-v" style="color:var(--blue2)">13.2%</span></div>
-        <div class="shift-stat"><span class="shift-stat-l">Avg Talk</span><span class="shift-stat-v">10.92 min</span></div>
-      </div>
-    </div><div class="shift-card">
-      <div class="shift-head eve">
-        <div style="display:flex;align-items:center;gap:10px">
-          <span class="shift-icon">🌆</span>
-          <div><div class="shift-title">6PM – 2AM</div><div class="shift-hours">Hours 18:00 to 01:59</div></div>
-        </div>
-      </div>
-      <div class="shift-body">
-        <div class="shift-stat"><span class="shift-stat-l">Total Calls</span><span class="shift-stat-v">5526</span></div>
-        <div class="shift-stat"><span class="shift-stat-l">Connected</span><span class="shift-stat-v" style="color:var(--green)">566</span></div>
-        <div class="shift-stat"><span class="shift-stat-l">Not Connected</span><span class="shift-stat-v" style="color:var(--red)">4960</span></div>
-        <div class="shift-stat"><span class="shift-stat-l">Talk Time</span><span class="shift-stat-v">4354.17 min</span></div>
-        <div class="shift-stat"><span class="shift-stat-l">Conn. Rate</span><span class="shift-stat-v" style="color:var(--blue2)">10.2%</span></div>
-        <div class="shift-stat"><span class="shift-stat-l">Avg Talk</span><span class="shift-stat-v">7.69 min</span></div>
-      </div>
-    </div><div class="shift-card">
-      <div class="shift-head night">
-        <div style="display:flex;align-items:center;gap:10px">
-          <span class="shift-icon">🌙</span>
-          <div><div class="shift-title">2AM – 10AM</div><div class="shift-hours">Hours 02:00 to 09:59</div></div>
-        </div>
-      </div>
-      <div class="shift-body">
-        <div class="shift-stat"><span class="shift-stat-l">Total Calls</span><span class="shift-stat-v">2849</span></div>
-        <div class="shift-stat"><span class="shift-stat-l">Connected</span><span class="shift-stat-v" style="color:var(--green)">229</span></div>
-        <div class="shift-stat"><span class="shift-stat-l">Not Connected</span><span class="shift-stat-v" style="color:var(--red)">2620</span></div>
-        <div class="shift-stat"><span class="shift-stat-l">Talk Time</span><span class="shift-stat-v">1395.47 min</span></div>
-        <div class="shift-stat"><span class="shift-stat-l">Conn. Rate</span><span class="shift-stat-v" style="color:var(--blue2)">8.0%</span></div>
-        <div class="shift-stat"><span class="shift-stat-l">Avg Talk</span><span class="shift-stat-v">6.09 min</span></div>
-      </div>
-    </div></div>
-    <p style="font-size:11px;color:var(--dim);font-family:var(--mono);margin-top:12px">ℹ Three non-overlapping 8-hour windows. Every call falls into exactly one window — totals across all three equal your actual call volume.</p></div>
       </div>
 
       <!-- Trends Panel -->
@@ -857,24 +630,14 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
           <span class="tab-info-close" onclick="this.closest('.tab-info').style.display='none'" title="Dismiss">✕</span>
         </div>
         <div style="padding:20px" id="trendsBody">
-    <div class="trend-ctrl">
-      <select id="trendAdvisor" class="trend-adv-select" onchange="drawTrendChart()">
-        <option value="ALL">All Advisors (Team Total)</option>
-        <option value="Aasheesh Ahluwalia">Aasheesh Ahluwalia</option><option value="Ghanshyam Shankerlal Yadav">Ghanshyam Shankerlal Yadav</option><option value="Haya Quadri">Haya Quadri</option><option value="Jaydeep Parmar">Jaydeep Parmar</option><option value="Joel Fernandes">Joel Fernandes</option><option value="Melroy Mascarenhas">Melroy Mascarenhas</option><option value="Nandini Nandu Borade">Nandini Nandu Borade</option><option value="Nandita N">Nandita N</option><option value="Pramod Kumar">Pramod Kumar</option><option value="Priya Chaudhary">Priya Chaudhary</option><option value="Pushpanjli Mani Singh">Pushpanjli Mani Singh</option><option value="Rakshith Gaikwad">Rakshith Gaikwad</option><option value="Raunak Narvekar">Raunak Narvekar</option><option value="Sadanand Patel">Sadanand Patel</option><option value="Samson Rebello">Samson Rebello</option><option value="Shubhi Mishra">Shubhi Mishra</option><option value="Sonal Braganza">Sonal Braganza</option><option value="Subhash Madhavan">Subhash Madhavan</option><option value="Zuber Haque">Zuber Haque</option>
-      </select>
-      <div class="trend-period-btns">
-        <button class="t-btn" onclick="setTrendDays(7,this)">7 Days</button>
-        <button class="t-btn active" onclick="setTrendDays(14,this)">14 Days</button>
-        <button class="t-btn" onclick="setTrendDays(30,this)">30 Days</button>
-      </div>
-    </div>
-    <div class="trend-chart-box"><canvas id="trendCanvas" height="685" style="box-sizing: border-box; display: block; height: 457px; width: 1142px;" width="1713"></canvas></div></div>
+          <div class="trend-empty">Trends accumulate as you process data each day</div>
+        </div>
       </div>
     </div>
   </div>
 
         <!-- Dial Pattern Panel -->
-      <div class="out-panel active" id="panel-dialpattern">
+      <div class="out-panel" id="panel-dialpattern">
         <div class="out-head" style="background:var(--navy);padding:14px 20px">
           <div class="out-head-title"><span class="dot" style="background:#f59e0b"></span>Hourly Dial Pattern by Advisor
           <div style="display:flex;gap:6px;flex-wrap:wrap">
@@ -890,156 +653,8 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
           <span class="tab-info-close" onclick="this.closest('.tab-info').style.display='none'">✕</span>
         </div>
         <div style="padding:20px" id="dialPatternBody">
-    <!-- Controls -->
-    <div style="background:var(--off);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:16px">
-      <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end">
-        <div>
-          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:5px">Advisor</div>
-          <select id="dialAdvisor" class="trend-adv-select" onchange="renderDialPattern()">
-            <option value="ALL">All Advisors (Team)</option>
-            <option value="Aasheesh Ahluwalia">Aasheesh Ahluwalia</option><option value="Ghanshyam Shankerlal Yadav">Ghanshyam Shankerlal Yadav</option><option value="Haya Quadri">Haya Quadri</option><option value="Jaydeep Parmar">Jaydeep Parmar</option><option value="Joel Fernandes">Joel Fernandes</option><option value="Melroy Mascarenhas">Melroy Mascarenhas</option><option value="Nandini Nandu Borade">Nandini Nandu Borade</option><option value="Nandita N">Nandita N</option><option value="Pramod Kumar">Pramod Kumar</option><option value="Priya Chaudhary">Priya Chaudhary</option><option value="Pushpanjli Mani Singh">Pushpanjli Mani Singh</option><option value="Rakshith Gaikwad">Rakshith Gaikwad</option><option value="Raunak Narvekar">Raunak Narvekar</option><option value="Sadanand Patel">Sadanand Patel</option><option value="Samson Rebello">Samson Rebello</option><option value="Shubhi Mishra">Shubhi Mishra</option><option value="Sonal Braganza">Sonal Braganza</option><option value="Subhash Madhavan">Subhash Madhavan</option><option value="Zuber Haque">Zuber Haque</option>
-          </select>
+          <div class="trend-empty">Process data to see dial patterns</div>
         </div>
-        <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:10px 14px">
-          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#1e40af;margin-bottom:6px">📅 Period 1 (Blue)</div>
-          <div style="display:flex;align-items:center;gap:6px">
-            <select id="dialFrom1" onchange="renderDialPattern()" style="background:var(--white);border:1.5px solid #3b82f6;color:var(--head);border-radius:6px;padding:5px 8px;font-family:var(--mono);font-size:11px;outline:none"><option value="2026-05-03">03-May-2026</option><option value="2026-05-04">04-May-2026</option><option value="2026-05-05">05-May-2026</option><option value="2026-05-06">06-May-2026</option><option value="2026-05-07">07-May-2026</option><option value="2026-05-08">08-May-2026</option><option value="2026-05-09">09-May-2026</option></select>
-            <span style="font-size:11px;color:#3b82f6;font-weight:700">to</span>
-            <select id="dialTo1" onchange="renderDialPattern()" style="background:var(--white);border:1.5px solid #3b82f6;color:var(--head);border-radius:6px;padding:5px 8px;font-family:var(--mono);font-size:11px;outline:none"><option value="2026-05-03">03-May-2026</option><option value="2026-05-04">04-May-2026</option><option value="2026-05-05">05-May-2026</option><option value="2026-05-06">06-May-2026</option><option value="2026-05-07">07-May-2026</option><option value="2026-05-08">08-May-2026</option><option value="2026-05-09">09-May-2026</option></select>
-          </div>
-        </div>
-        <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px 14px">
-          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#166534;margin-bottom:6px">📅 Period 2 (Green) — optional</div>
-          <div style="display:flex;align-items:center;gap:6px">
-            <select id="dialFrom2" onchange="renderDialPattern()" style="background:var(--white);border:1.5px solid #10b981;color:var(--head);border-radius:6px;padding:5px 8px;font-family:var(--mono);font-size:11px;outline:none">
-              <option value="">— None —</option><option value="2026-05-03">03-May-2026</option><option value="2026-05-04">04-May-2026</option><option value="2026-05-05">05-May-2026</option><option value="2026-05-06">06-May-2026</option><option value="2026-05-07">07-May-2026</option><option value="2026-05-08">08-May-2026</option><option value="2026-05-09">09-May-2026</option>
-            </select>
-            <span style="font-size:11px;color:#10b981;font-weight:700">to</span>
-            <select id="dialTo2" onchange="renderDialPattern()" style="background:var(--white);border:1.5px solid #10b981;color:var(--head);border-radius:6px;padding:5px 8px;font-family:var(--mono);font-size:11px;outline:none">
-              <option value="">— None —</option><option value="2026-05-03">03-May-2026</option><option value="2026-05-04">04-May-2026</option><option value="2026-05-05">05-May-2026</option><option value="2026-05-06">06-May-2026</option><option value="2026-05-07">07-May-2026</option><option value="2026-05-08">08-May-2026</option><option value="2026-05-09">09-May-2026</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Chart 1: Hourly Bar + Rate Line -->
-    <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px">
-      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:10px">📊 Chart 1 — Hourly Call Volume &amp; Connection Rate</div>
-      <div style="font-size:11px;color:var(--dim);margin-bottom:10px;font-family:var(--mono)">Bars = Total Calls (solid = Connected) · Dashed line = Connect Rate %</div>
-      <canvas id="dialCanvas" height="750" style="display: block; box-sizing: border-box; height: 500px; width: 1154px;" width="1731"></canvas>
-    </div>
-
-    <!-- Chart 2: Time Window Breakdown (layman-friendly) -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
-      <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px">
-        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:10px">📊 Chart 2 — Where Are Calls Being Made?</div>
-        <div style="font-size:11px;color:var(--dim);margin-bottom:10px;font-family:var(--mono)">Call distribution across 3 time windows</div>
-        <canvas id="dialDonutCanvas" height="829" width="829" style="display: block; box-sizing: border-box; height: 553px; width: 553px;"></canvas>
-      </div>
-      <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px">
-        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:10px">🌡️ Chart 3 — Hour-by-Hour Heat Score</div>
-        <div style="font-size:11px;color:var(--dim);margin-bottom:10px;font-family:var(--mono)">Green = high connect rate · Red = low rate · Grey = no calls</div>
-        <div id="dialHeatGrid" style="display:flex;flex-wrap:wrap;gap:4px;align-items:center"><div title="12AM: 63/616 = 10.2%" style="width:38px;height:38px;border-radius:6px;background:#fde68a;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
-        <span style="font-size:9px;font-weight:700;color:#92400e">12a</span>
-        <span style="font-size:9px;color:#92400e">10%</span>
-      </div><div title="1AM: 47/652 = 7.2%" style="width:38px;height:38px;border-radius:6px;background:#fca5a5;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
-        <span style="font-size:9px;font-weight:700;color:#991b1b">1a</span>
-        <span style="font-size:9px;color:#991b1b">7%</span>
-      </div><div title="2AM: 81/888 = 9.1%" style="width:38px;height:38px;border-radius:6px;background:#fca5a5;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
-        <span style="font-size:9px;font-weight:700;color:#991b1b">2a</span>
-        <span style="font-size:9px;color:#991b1b">9%</span>
-      </div><div title="3AM: 68/904 = 7.5%" style="width:38px;height:38px;border-radius:6px;background:#fca5a5;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
-        <span style="font-size:9px;font-weight:700;color:#991b1b">3a</span>
-        <span style="font-size:9px;color:#991b1b">8%</span>
-      </div><div title="4AM: 37/503 = 7.4%" style="width:38px;height:38px;border-radius:6px;background:#fca5a5;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
-        <span style="font-size:9px;font-weight:700;color:#991b1b">4a</span>
-        <span style="font-size:9px;color:#991b1b">7%</span>
-      </div><div title="5AM: 19/291 = 6.5%" style="width:38px;height:38px;border-radius:6px;background:#fca5a5;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
-        <span style="font-size:9px;font-weight:700;color:#991b1b">5a</span>
-        <span style="font-size:9px;color:#991b1b">7%</span>
-      </div><div title="6AM: 17/151 = 11.3%" style="width:38px;height:38px;border-radius:6px;background:#fde68a;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
-        <span style="font-size:9px;font-weight:700;color:#92400e">6a</span>
-        <span style="font-size:9px;color:#92400e">11%</span>
-      </div><div title="7AM: 4/89 = 4.5%" style="width:38px;height:38px;border-radius:6px;background:#fca5a5;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
-        <span style="font-size:9px;font-weight:700;color:#991b1b">7a</span>
-        <span style="font-size:9px;color:#991b1b">4%</span>
-      </div><div title="8AM: 3/23 = 13.0%" style="width:38px;height:38px;border-radius:6px;background:#fde68a;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
-        <span style="font-size:9px;font-weight:700;color:#92400e">8a</span>
-        <span style="font-size:9px;color:#92400e">13%</span>
-      </div><div title="9AM: No calls" style="width:38px;height:38px;border-radius:6px;background:#e2e8f0;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
-        <span style="font-size:9px;font-weight:700;color:#94a3b8">9a</span>
-        <span style="font-size:9px;color:#94a3b8"></span>
-      </div><div title="10AM: 1/4 = 25.0%" style="width:38px;height:38px;border-radius:6px;background:#86efac;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
-        <span style="font-size:9px;font-weight:700;color:#166534">10a</span>
-        <span style="font-size:9px;color:#166534">25%</span>
-      </div><div title="11AM: 8/24 = 33.3%" style="width:38px;height:38px;border-radius:6px;background:#4ade80;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
-        <span style="font-size:9px;font-weight:700;color:#14532d">11a</span>
-        <span style="font-size:9px;color:#14532d">33%</span>
-      </div><div title="12PM: 19/143 = 13.3%" style="width:38px;height:38px;border-radius:6px;background:#fde68a;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
-        <span style="font-size:9px;font-weight:700;color:#92400e">12p</span>
-        <span style="font-size:9px;color:#92400e">13%</span>
-      </div><div title="1PM: 40/282 = 14.2%" style="width:38px;height:38px;border-radius:6px;background:#fde68a;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
-        <span style="font-size:9px;font-weight:700;color:#92400e">1p</span>
-        <span style="font-size:9px;color:#92400e">14%</span>
-      </div><div title="2PM: 46/345 = 13.3%" style="width:38px;height:38px;border-radius:6px;background:#fde68a;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
-        <span style="font-size:9px;font-weight:700;color:#92400e">2p</span>
-        <span style="font-size:9px;color:#92400e">13%</span>
-      </div><div title="3PM: 35/270 = 13.0%" style="width:38px;height:38px;border-radius:6px;background:#fde68a;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
-        <span style="font-size:9px;font-weight:700;color:#92400e">3p</span>
-        <span style="font-size:9px;color:#92400e">13%</span>
-      </div><div title="4PM: 31/295 = 10.5%" style="width:38px;height:38px;border-radius:6px;background:#fde68a;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
-        <span style="font-size:9px;font-weight:700;color:#92400e">4p</span>
-        <span style="font-size:9px;color:#92400e">11%</span>
-      </div><div title="5PM: 43/331 = 13.0%" style="width:38px;height:38px;border-radius:6px;background:#fde68a;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
-        <span style="font-size:9px;font-weight:700;color:#92400e">5p</span>
-        <span style="font-size:9px;color:#92400e">13%</span>
-      </div><div title="6PM: 62/503 = 12.3%" style="width:38px;height:38px;border-radius:6px;background:#fde68a;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
-        <span style="font-size:9px;font-weight:700;color:#92400e">6p</span>
-        <span style="font-size:9px;color:#92400e">12%</span>
-      </div><div title="7PM: 104/869 = 12.0%" style="width:38px;height:38px;border-radius:6px;background:#fde68a;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
-        <span style="font-size:9px;font-weight:700;color:#92400e">7p</span>
-        <span style="font-size:9px;color:#92400e">12%</span>
-      </div><div title="8PM: 110/932 = 11.8%" style="width:38px;height:38px;border-radius:6px;background:#fde68a;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
-        <span style="font-size:9px;font-weight:700;color:#92400e">8p</span>
-        <span style="font-size:9px;color:#92400e">12%</span>
-      </div><div title="9PM: 83/766 = 10.8%" style="width:38px;height:38px;border-radius:6px;background:#fde68a;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
-        <span style="font-size:9px;font-weight:700;color:#92400e">9p</span>
-        <span style="font-size:9px;color:#92400e">11%</span>
-      </div><div title="10PM: 50/515 = 9.7%" style="width:38px;height:38px;border-radius:6px;background:#fca5a5;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
-        <span style="font-size:9px;font-weight:700;color:#991b1b">10p</span>
-        <span style="font-size:9px;color:#991b1b">10%</span>
-      </div><div title="11PM: 47/673 = 7.0%" style="width:38px;height:38px;border-radius:6px;background:#fca5a5;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;font-family:var(--mono);border:1px solid rgba(0,0,0,0.1)">
-        <span style="font-size:9px;font-weight:700;color:#991b1b">11p</span>
-        <span style="font-size:9px;color:#991b1b">7%</span>
-      </div></div>
-      </div>
-    </div>
-
-    <!-- Summary Cards -->
-    <div id="dialSummaryRow" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px">
-    <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.05)">
-      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:6px">Peak Calling Hour</div>
-      <div style="font-size:18px;font-weight:800;color:#2563eb;font-family:var(--mono);line-height:1.2">8PM</div>
-      <div style="font-size:11px;color:var(--dim);margin-top:3px;font-family:var(--mono)">932 calls</div>
-    </div>
-    <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.05)">
-      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:6px">Best Connect Hour</div>
-      <div style="font-size:18px;font-weight:800;color:#059669;font-family:var(--mono);line-height:1.2">11AM</div>
-      <div style="font-size:11px;color:var(--dim);margin-top:3px;font-family:var(--mono)">33.3% (≥3 conn)</div>
-    </div>
-    <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.05)">
-      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:6px">Total Calls</div>
-      <div style="font-size:18px;font-weight:800;color:#0f172a;font-family:var(--mono);line-height:1.2">10,069</div>
-      <div style="font-size:11px;color:var(--dim);margin-top:3px;font-family:var(--mono)">across all hours</div>
-    </div>
-    <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.05)">
-      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:6px">Overall Rate</div>
-      <div style="font-size:18px;font-weight:800;color:#f59e0b;font-family:var(--mono);line-height:1.2">10.1%</div>
-      <div style="font-size:11px;color:var(--dim);margin-top:3px;font-family:var(--mono)">1018 connected</div>
-    </div></div>
-    <!-- Insights -->
-    <div id="dialInsights"><div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:16px;margin-bottom:12px"><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#0369a1;margin-bottom:10px">📊 Pattern Insights</div><div style="font-size:12px;color:#1e293b;margin-bottom:7px;line-height:1.6">✅ <b>High-performing hours:</b> 11AM — connection rate above 15%</div><div style="font-size:12px;color:#1e293b;margin-bottom:7px;line-height:1.6">📊 <b>Mismatch:</b> Most calls at 8PM (932) but best rate at 11AM (33.3%)</div><div style="font-size:12px;color:#1e293b;margin-bottom:7px;line-height:1.6">📊 <b>Strongest time window:</b> ☀️ 10AM–6PM — 223 connected from 1694 calls (13.2% rate)</div></div><div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:16px"><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#166534;margin-bottom:10px">💡 Recommendations</div><div style="font-size:12px;color:#1e293b;margin-bottom:7px;line-height:1.6"><b>1.</b> Shift more volume to 11AM — best connect hour but not highest volume.</div></div></div></div>
       </div>
 
       <!-- Heatmap Panel -->
@@ -1058,23 +673,7 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
           <span class="tab-info-text"><strong>Hour × Advisor Connection Rate Heatmap</strong>Each cell shows the connection rate (%) for one advisor at one hour of the day. <b>Green = high rate, Red = low/zero rate, Grey = no calls.</b> Hover any cell for exact numbers. Use this to identify the best calling hours for each advisor.</span>
           <span class="tab-info-close" onclick="this.closest('.tab-info').style.display='none'" title="Dismiss">✕</span>
         </div>
-        <div style="padding:20px" id="heatmapBody">
-    <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center"><span style="font-size:11px;color:var(--dim);font-family:var(--mono)">Sort rows:</span><button onclick="sortHeatmap('name')" class="exec-btn" style="padding:4px 10px;font-size:11px">A→Z</button><button onclick="sortHeatmap('rate')" class="exec-btn" style="padding:4px 10px;font-size:11px">Best Rate First</button></div>
-    <div class="heatmap-wrap" style="cursor: grab;">
-      <table class="heatmap-table">
-        <thead><tr><th style="min-width:180px;border-right:2px solid var(--border)"></th><th class="hm-hour-head">12 AM</th><th class="hm-hour-head">01 AM</th><th class="hm-hour-head">02 AM</th><th class="hm-hour-head">03 AM</th><th class="hm-hour-head">04 AM</th><th class="hm-hour-head">05 AM</th><th class="hm-hour-head">06 AM</th><th class="hm-hour-head">07 AM</th><th class="hm-hour-head">08 AM</th><th class="hm-hour-head">10 AM</th><th class="hm-hour-head">11 AM</th><th class="hm-hour-head">12 PM</th><th class="hm-hour-head">01 PM</th><th class="hm-hour-head">02 PM</th><th class="hm-hour-head">03 PM</th><th class="hm-hour-head">04 PM</th><th class="hm-hour-head">05 PM</th><th class="hm-hour-head">06 PM</th><th class="hm-hour-head">07 PM</th><th class="hm-hour-head">08 PM</th><th class="hm-hour-head">09 PM</th><th class="hm-hour-head">10 PM</th><th class="hm-hour-head">11 PM</th></tr></thead>
-        <tbody><tr><td class="hm-advisor">Aasheesh Ahluwalia</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Aasheesh Ahluwalia @ 12:00 AM: 1/67 (1%)">1%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Aasheesh Ahluwalia @ 01:00 AM: 2/44 (5%)">5%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Aasheesh Ahluwalia @ 02:00 AM: 1/43 (2%)">2%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Aasheesh Ahluwalia @ 03:00 AM: 0/2 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Aasheesh Ahluwalia @ 06:00 AM: 0/1 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Aasheesh Ahluwalia @ 05:00 PM: 0/3 (0%)">0%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Aasheesh Ahluwalia @ 06:00 PM: 5/83 (6%)">6%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Aasheesh Ahluwalia @ 07:00 PM: 6/135 (4%)">4%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Aasheesh Ahluwalia @ 08:00 PM: 1/131 (1%)">1%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Aasheesh Ahluwalia @ 09:00 PM: 8/105 (8%)">8%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Aasheesh Ahluwalia @ 10:00 PM: 3/93 (3%)">3%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Aasheesh Ahluwalia @ 11:00 PM: 3/109 (3%)">3%</td></tr><tr><td class="hm-advisor">Ghanshyam Shankerlal Yadav</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Ghanshyam Shankerlal Yadav @ 12:00 PM: 2/13 (15%)">15%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Ghanshyam Shankerlal Yadav @ 01:00 PM: 6/45 (13%)">13%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Ghanshyam Shankerlal Yadav @ 02:00 PM: 8/42 (19%)">19%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Ghanshyam Shankerlal Yadav @ 03:00 PM: 5/41 (12%)">12%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Ghanshyam Shankerlal Yadav @ 04:00 PM: 6/41 (15%)">15%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Ghanshyam Shankerlal Yadav @ 05:00 PM: 4/41 (10%)">10%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Ghanshyam Shankerlal Yadav @ 06:00 PM: 7/35 (20%)">20%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Ghanshyam Shankerlal Yadav @ 07:00 PM: 10/77 (13%)">13%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Ghanshyam Shankerlal Yadav @ 08:00 PM: 11/67 (16%)">16%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Ghanshyam Shankerlal Yadav @ 09:00 PM: 6/103 (6%)">6%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Ghanshyam Shankerlal Yadav @ 10:00 PM: 3/19 (16%)">16%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td></tr><tr><td class="hm-advisor">Haya Quadri</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Haya Quadri @ 12:00 AM: 0/1 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Haya Quadri @ 10:00 AM: 1/4 (25%)">25%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Haya Quadri @ 11:00 AM: 3/13 (23%)">23%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Haya Quadri @ 12:00 PM: 7/32 (22%)">22%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Haya Quadri @ 01:00 PM: 4/53 (8%)">8%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Haya Quadri @ 02:00 PM: 10/55 (18%)">18%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Haya Quadri @ 03:00 PM: 6/33 (18%)">18%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Haya Quadri @ 04:00 PM: 2/40 (5%)">5%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Haya Quadri @ 05:00 PM: 6/47 (13%)">13%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Haya Quadri @ 06:00 PM: 6/29 (21%)">21%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Haya Quadri @ 07:00 PM: 6/41 (15%)">15%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Haya Quadri @ 08:00 PM: 3/35 (9%)">9%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Haya Quadri @ 09:00 PM: 4/38 (11%)">11%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td></tr><tr><td class="hm-advisor">Jaydeep Parmar</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Jaydeep Parmar @ 12:00 AM: 5/41 (12%)">12%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Jaydeep Parmar @ 01:00 AM: 1/35 (3%)">3%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Jaydeep Parmar @ 02:00 AM: 4/65 (6%)">6%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Jaydeep Parmar @ 03:00 AM: 6/61 (10%)">10%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Jaydeep Parmar @ 04:00 AM: 6/71 (8%)">8%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Jaydeep Parmar @ 05:00 AM: 5/81 (6%)">6%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Jaydeep Parmar @ 06:00 AM: 9/53 (17%)">17%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Jaydeep Parmar @ 07:00 AM: 2/13 (15%)">15%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Jaydeep Parmar @ 08:00 AM: 0/10 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Jaydeep Parmar @ 08:00 PM: 0/1 (0%)">0%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Jaydeep Parmar @ 09:00 PM: 1/8 (13%)">13%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Jaydeep Parmar @ 10:00 PM: 4/39 (10%)">10%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Jaydeep Parmar @ 11:00 PM: 2/29 (7%)">7%</td></tr><tr><td class="hm-advisor">Joel Fernandes</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Joel Fernandes @ 11:00 AM: 1/5 (20%)">20%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Joel Fernandes @ 12:00 PM: 5/48 (10%)">10%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Joel Fernandes @ 01:00 PM: 11/53 (21%)">21%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Joel Fernandes @ 02:00 PM: 12/80 (15%)">15%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Joel Fernandes @ 03:00 PM: 6/59 (10%)">10%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Joel Fernandes @ 04:00 PM: 6/49 (12%)">12%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Joel Fernandes @ 05:00 PM: 6/64 (9%)">9%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Joel Fernandes @ 06:00 PM: 5/44 (11%)">11%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Joel Fernandes @ 07:00 PM: 10/54 (19%)">19%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Joel Fernandes @ 08:00 PM: 12/78 (15%)">15%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Joel Fernandes @ 09:00 PM: 0/3 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td></tr><tr><td class="hm-advisor">Melroy Mascarenhas</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Melroy Mascarenhas @ 12:00 AM: 8/69 (12%)">12%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Melroy Mascarenhas @ 01:00 AM: 4/62 (6%)">6%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Melroy Mascarenhas @ 02:00 AM: 6/92 (7%)">7%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Melroy Mascarenhas @ 03:00 AM: 7/93 (8%)">8%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Melroy Mascarenhas @ 04:00 AM: 3/42 (7%)">7%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Melroy Mascarenhas @ 06:00 PM: 2/19 (11%)">11%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Melroy Mascarenhas @ 07:00 PM: 3/35 (9%)">9%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Melroy Mascarenhas @ 08:00 PM: 5/39 (13%)">13%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Melroy Mascarenhas @ 09:00 PM: 3/27 (11%)">11%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Melroy Mascarenhas @ 10:00 PM: 4/39 (10%)">10%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Melroy Mascarenhas @ 11:00 PM: 3/59 (5%)">5%</td></tr><tr><td class="hm-advisor">Nandini Nandu Borade</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Nandini Nandu Borade @ 12:00 AM: 4/52 (8%)">8%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Nandini Nandu Borade @ 01:00 AM: 2/21 (10%)">10%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Nandini Nandu Borade @ 02:00 AM: 7/49 (14%)">14%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Nandini Nandu Borade @ 03:00 AM: 5/63 (8%)">8%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Nandini Nandu Borade @ 04:00 AM: 4/54 (7%)">7%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Nandini Nandu Borade @ 05:00 AM: 2/56 (4%)">4%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Nandini Nandu Borade @ 06:00 AM: 8/86 (9%)">9%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Nandini Nandu Borade @ 07:00 AM: 2/75 (3%)">3%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Nandini Nandu Borade @ 08:00 AM: 3/12 (25%)">25%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Nandini Nandu Borade @ 11:00 AM: 0/1 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#86efac;color:#14532d" title="Nandini Nandu Borade @ 08:00 PM: 2/5 (40%)">40%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Nandini Nandu Borade @ 09:00 PM: 2/17 (12%)">12%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Nandini Nandu Borade @ 10:00 PM: 3/32 (9%)">9%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Nandini Nandu Borade @ 11:00 PM: 3/31 (10%)">10%</td></tr><tr><td class="hm-advisor">Nandita N</td><td class="hm-cell" style="background:#d9f99d;color:#14532d" title="Nandita N @ 12:00 AM: 10/29 (34%)">34%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Nandita N @ 01:00 AM: 2/41 (5%)">5%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Nandita N @ 02:00 AM: 5/74 (7%)">7%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Nandita N @ 03:00 AM: 8/67 (12%)">12%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Nandita N @ 04:00 AM: 11/46 (24%)">24%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Nandita N @ 05:00 AM: 7/27 (26%)">26%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Nandita N @ 06:00 PM: 1/7 (14%)">14%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Nandita N @ 07:00 PM: 1/47 (2%)">2%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Nandita N @ 08:00 PM: 5/40 (13%)">13%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Nandita N @ 09:00 PM: 7/25 (28%)">28%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Nandita N @ 10:00 PM: 4/20 (20%)">20%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Nandita N @ 11:00 PM: 2/37 (5%)">5%</td></tr><tr><td class="hm-advisor">Pramod Kumar</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#4ade80;color:#14532d" title="Pramod Kumar @ 11:00 AM: 3/4 (75%)">75%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Pramod Kumar @ 12:00 PM: 2/16 (13%)">13%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Pramod Kumar @ 01:00 PM: 3/38 (8%)">8%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Pramod Kumar @ 02:00 PM: 5/61 (8%)">8%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Pramod Kumar @ 03:00 PM: 6/46 (13%)">13%</td><td class="hm-cell" style="background:#d9f99d;color:#14532d" title="Pramod Kumar @ 04:00 PM: 7/20 (35%)">35%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Pramod Kumar @ 05:00 PM: 9/40 (23%)">23%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Pramod Kumar @ 06:00 PM: 7/34 (21%)">21%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Pramod Kumar @ 07:00 PM: 9/42 (21%)">21%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Pramod Kumar @ 08:00 PM: 8/38 (21%)">21%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Pramod Kumar @ 09:00 PM: 7/38 (18%)">18%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td></tr><tr><td class="hm-advisor">Priya Chaudhary</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Priya Chaudhary @ 12:00 AM: 7/51 (14%)">14%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Priya Chaudhary @ 01:00 AM: 11/57 (19%)">19%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Priya Chaudhary @ 02:00 AM: 13/111 (12%)">12%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Priya Chaudhary @ 03:00 AM: 6/84 (7%)">7%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Priya Chaudhary @ 05:00 AM: 0/1 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#86efac;color:#14532d" title="Priya Chaudhary @ 06:00 PM: 2/5 (40%)">40%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Priya Chaudhary @ 07:00 PM: 7/54 (13%)">13%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Priya Chaudhary @ 08:00 PM: 8/45 (18%)">18%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Priya Chaudhary @ 09:00 PM: 5/47 (11%)">11%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Priya Chaudhary @ 10:00 PM: 3/27 (11%)">11%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Priya Chaudhary @ 11:00 PM: 11/76 (14%)">14%</td></tr><tr><td class="hm-advisor">Pushpanjli Mani Singh</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Pushpanjli Mani Singh @ 07:00 AM: 0/1 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#4ade80;color:#14532d" title="Pushpanjli Mani Singh @ 11:00 AM: 1/1 (100%)">100%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Pushpanjli Mani Singh @ 12:00 PM: 1/12 (8%)">8%</td><td class="hm-cell" style="background:#d9f99d;color:#14532d" title="Pushpanjli Mani Singh @ 01:00 PM: 10/28 (36%)">36%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Pushpanjli Mani Singh @ 02:00 PM: 3/33 (9%)">9%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Pushpanjli Mani Singh @ 03:00 PM: 3/20 (15%)">15%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Pushpanjli Mani Singh @ 04:00 PM: 2/45 (4%)">4%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Pushpanjli Mani Singh @ 05:00 PM: 8/37 (22%)">22%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Pushpanjli Mani Singh @ 06:00 PM: 5/33 (15%)">15%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Pushpanjli Mani Singh @ 07:00 PM: 10/52 (19%)">19%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Pushpanjli Mani Singh @ 08:00 PM: 14/72 (19%)">19%</td><td class="hm-cell" style="background:#4ade80;color:#14532d" title="Pushpanjli Mani Singh @ 09:00 PM: 8/15 (53%)">53%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td></tr><tr><td class="hm-advisor">Rakshith Gaikwad</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Rakshith Gaikwad @ 12:00 AM: 5/37 (14%)">14%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Rakshith Gaikwad @ 01:00 AM: 4/38 (11%)">11%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Rakshith Gaikwad @ 02:00 AM: 8/54 (15%)">15%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Rakshith Gaikwad @ 03:00 AM: 12/61 (20%)">20%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Rakshith Gaikwad @ 04:00 AM: 0/8 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Rakshith Gaikwad @ 06:00 AM: 0/1 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Rakshith Gaikwad @ 06:00 PM: 3/21 (14%)">14%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Rakshith Gaikwad @ 07:00 PM: 3/48 (6%)">6%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Rakshith Gaikwad @ 08:00 PM: 3/24 (13%)">13%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Rakshith Gaikwad @ 09:00 PM: 3/51 (6%)">6%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Rakshith Gaikwad @ 10:00 PM: 3/30 (10%)">10%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Rakshith Gaikwad @ 11:00 PM: 7/59 (12%)">12%</td></tr><tr><td class="hm-advisor">Raunak Narvekar</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Raunak Narvekar @ 12:00 AM: 4/46 (9%)">9%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Raunak Narvekar @ 01:00 AM: 1/63 (2%)">2%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Raunak Narvekar @ 02:00 AM: 5/51 (10%)">10%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Raunak Narvekar @ 03:00 AM: 5/119 (4%)">4%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Raunak Narvekar @ 04:00 AM: 5/69 (7%)">7%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Raunak Narvekar @ 05:00 AM: 2/56 (4%)">4%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Raunak Narvekar @ 06:00 PM: 0/9 (0%)">0%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Raunak Narvekar @ 07:00 PM: 2/29 (7%)">7%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Raunak Narvekar @ 08:00 PM: 4/41 (10%)">10%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Raunak Narvekar @ 09:00 PM: 2/60 (3%)">3%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Raunak Narvekar @ 10:00 PM: 3/44 (7%)">7%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Raunak Narvekar @ 11:00 PM: 1/53 (2%)">2%</td></tr><tr><td class="hm-advisor">Sadanand Patel</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Sadanand Patel @ 12:00 AM: 6/57 (11%)">11%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Sadanand Patel @ 01:00 AM: 4/38 (11%)">11%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Sadanand Patel @ 02:00 AM: 6/55 (11%)">11%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Sadanand Patel @ 03:00 AM: 3/23 (13%)">13%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Sadanand Patel @ 06:00 PM: 2/12 (17%)">17%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Sadanand Patel @ 07:00 PM: 4/32 (13%)">13%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Sadanand Patel @ 08:00 PM: 4/39 (10%)">10%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Sadanand Patel @ 09:00 PM: 1/24 (4%)">4%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Sadanand Patel @ 10:00 PM: 5/39 (13%)">13%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Sadanand Patel @ 11:00 PM: 4/44 (9%)">9%</td></tr><tr><td class="hm-advisor">Samson Rebello</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Samson Rebello @ 12:00 AM: 7/46 (15%)">15%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Samson Rebello @ 01:00 AM: 5/63 (8%)">8%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Samson Rebello @ 02:00 AM: 4/71 (6%)">6%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Samson Rebello @ 03:00 AM: 3/68 (4%)">4%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Samson Rebello @ 04:00 AM: 0/1 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Samson Rebello @ 05:00 PM: 1/4 (25%)">25%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Samson Rebello @ 06:00 PM: 5/18 (28%)">28%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Samson Rebello @ 07:00 PM: 8/32 (25%)">25%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Samson Rebello @ 08:00 PM: 4/40 (10%)">10%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Samson Rebello @ 09:00 PM: 5/34 (15%)">15%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Samson Rebello @ 10:00 PM: 5/30 (17%)">17%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Samson Rebello @ 11:00 PM: 6/55 (11%)">11%</td></tr><tr><td class="hm-advisor">Shubhi Mishra</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Shubhi Mishra @ 12:00 AM: 1/43 (2%)">2%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Shubhi Mishra @ 01:00 AM: 2/85 (2%)">2%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Shubhi Mishra @ 02:00 AM: 8/73 (11%)">11%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Shubhi Mishra @ 03:00 AM: 4/119 (3%)">3%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Shubhi Mishra @ 04:00 AM: 3/52 (6%)">6%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Shubhi Mishra @ 05:00 PM: 0/1 (0%)">0%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Shubhi Mishra @ 06:00 PM: 3/40 (8%)">8%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Shubhi Mishra @ 07:00 PM: 6/54 (11%)">11%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Shubhi Mishra @ 08:00 PM: 5/53 (9%)">9%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Shubhi Mishra @ 09:00 PM: 8/60 (13%)">13%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Shubhi Mishra @ 10:00 PM: 2/42 (5%)">5%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Shubhi Mishra @ 11:00 PM: 1/43 (2%)">2%</td></tr><tr><td class="hm-advisor">Sonal Braganza</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Sonal Braganza @ 01:00 AM: 0/1 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Sonal Braganza @ 12:00 PM: 2/22 (9%)">9%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Sonal Braganza @ 01:00 PM: 6/65 (9%)">9%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Sonal Braganza @ 02:00 PM: 8/74 (11%)">11%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Sonal Braganza @ 03:00 PM: 9/71 (13%)">13%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Sonal Braganza @ 04:00 PM: 8/100 (8%)">8%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Sonal Braganza @ 05:00 PM: 9/94 (10%)">10%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Sonal Braganza @ 06:00 PM: 5/73 (7%)">7%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Sonal Braganza @ 07:00 PM: 9/65 (14%)">14%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Sonal Braganza @ 08:00 PM: 10/88 (11%)">11%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Sonal Braganza @ 09:00 PM: 5/18 (28%)">28%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td></tr><tr><td class="hm-advisor">Subhash Madhavan</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Subhash Madhavan @ 12:00 AM: 3/46 (7%)">7%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Subhash Madhavan @ 01:00 AM: 4/65 (6%)">6%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Subhash Madhavan @ 02:00 AM: 9/54 (17%)">17%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Subhash Madhavan @ 03:00 AM: 8/88 (9%)">9%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Subhash Madhavan @ 04:00 AM: 3/74 (4%)">4%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Subhash Madhavan @ 05:00 AM: 0/12 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Subhash Madhavan @ 06:00 PM: 3/20 (15%)">15%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Subhash Madhavan @ 07:00 PM: 8/41 (20%)">20%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Subhash Madhavan @ 08:00 PM: 7/52 (13%)">13%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Subhash Madhavan @ 09:00 PM: 6/68 (9%)">9%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Subhash Madhavan @ 10:00 PM: 4/42 (10%)">10%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Subhash Madhavan @ 11:00 PM: 2/47 (4%)">4%</td></tr><tr><td class="hm-advisor">Zuber Haque</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Zuber Haque @ 12:00 AM: 2/31 (6%)">6%</td><td class="hm-cell" style="background:#fed7aa;color:#7f1d1d" title="Zuber Haque @ 01:00 AM: 5/39 (13%)">13%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Zuber Haque @ 02:00 AM: 5/96 (5%)">5%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Zuber Haque @ 03:00 AM: 1/56 (2%)">2%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Zuber Haque @ 04:00 AM: 2/86 (2%)">2%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Zuber Haque @ 05:00 AM: 3/58 (5%)">5%</td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Zuber Haque @ 06:00 AM: 0/10 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fee2e2;color:#7f1d1d" title="Zuber Haque @ 08:00 AM: 0/1 (0%)">0%</td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#f1f5f9;color:#94a3b8" title="No calls"></td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Zuber Haque @ 06:00 PM: 1/21 (5%)">5%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Zuber Haque @ 07:00 PM: 2/31 (6%)">6%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Zuber Haque @ 08:00 PM: 4/44 (9%)">9%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Zuber Haque @ 09:00 PM: 2/25 (8%)">8%</td><td class="hm-cell" style="background:#fde68a;color:#14532d" title="Zuber Haque @ 10:00 PM: 4/19 (21%)">21%</td><td class="hm-cell" style="background:#fecaca;color:#7f1d1d" title="Zuber Haque @ 11:00 PM: 2/31 (6%)">6%</td></tr></tbody>
-      </table>
-    </div>
-    <div class="hm-scroll-hint">← Scroll horizontally or drag to see all hours →</div>
-    <div class="hm-legend">
-      <span>Low</span>
-      <div class="hm-legend-bar">
-        <div style="flex:1;background:#fee2e2"></div><div style="flex:1;background:#fecaca"></div><div style="flex:1;background:#fed7aa"></div><div style="flex:1;background:#fde68a"></div><div style="flex:1;background:#d9f99d"></div><div style="flex:1;background:#86efac"></div><div style="flex:1;background:#4ade80"></div>
-      </div>
-      <span>High</span>
-      <span style="margin-left:12px;color:var(--dim)">· Hover cells for details · % = connection rate</span>
-    </div></div>
+        <div style="padding:20px" id="heatmapBody"><div class="trend-empty">Process data to see heatmap</div></div>
       </div>
       <!-- Week-on-Week Panel -->
       <div class="out-panel" id="panel-wow">
@@ -1103,203 +702,10 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
 📌 <b>Right now empty?</b> Upload at least 2 different days and the comparison will populate automatically.</span>
           <span class="tab-info-close" onclick="this.closest('.tab-info').style.display='none'" title="Dismiss">✕</span>
         </div>
-        <div style="padding:20px" id="wowBody">
-    <div style="display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap">
-      <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:10px 16px;flex:1;min-width:200px">
-        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#1e40af;margin-bottom:4px">📅 Current Period</div>
-        <div style="font-size:13px;font-weight:600;color:var(--head)">03-May-2026, 04-May-2026, 05-May-2026, 06-May-2026, 07-May-2026, 08-May-2026, 09-May-2026</div>
-      </div>
-      <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px 16px;flex:1;min-width:200px">
-        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#166534;margin-bottom:4px">📅 Compared Against</div>
-        <div style="font-size:13px;font-weight:600;color:var(--head)">2026-04-27, 2026-04-28, 2026-04-29, 2026-04-30, 2026-05-01</div>
-      </div>
-      <div style="background:var(--off);border:1px solid var(--border);border-radius:8px;padding:10px 16px;flex:0 0 auto">
-        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:4px">Legend</div>
-        <div style="font-size:12px;font-family:var(--mono)"><span style="color:var(--green);font-weight:700">↑ Better</span> &nbsp; <span style="color:var(--red);font-weight:700">↓ Worse</span> &nbsp; <span style="color:var(--dim)">→ Same</span></div>
-      </div>
-    </div>
-    <table class="wow-table">
-      <thead><tr>
-        <th onclick="sortTabBy('wow','adv')" style="cursor:pointer;white-space:nowrap">Advisor <span style="color:var(--dim);opacity:0.4">↕</span></th> <th onclick="sortTabBy('wow','total')" style="cursor:pointer;white-space:nowrap">Total (Now) <span style="color:var(--dim);opacity:0.4">↕</span></th> <th>Total (Prev)</th> <th>Change</th>
-        <th onclick="sortTabBy('wow','connected')" style="cursor:pointer;white-space:nowrap">Connected (Now) <span style="color:var(--gold2)">↑</span></th> <th>Change</th>
-        <th onclick="sortTabBy('wow','rate')" style="cursor:pointer;white-space:nowrap">Rate (Now) <span style="color:var(--dim);opacity:0.4">↕</span></th> <th>Change</th>
-      </tr></thead>
-      <tbody><tr>
-    <td style="font-weight:600;color:var(--head)">Pushpanjli Mani Singh</td>
-    <td style="font-family:var(--mono);text-align:center">349</td>
-    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">522</td>
-    <td style="text-align:center"><span class="wow-badge down">↓ -33.1%</span></td>
-    <td style="font-family:var(--mono);text-align:center">65</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 44.4%</span></td>
-    <td style="font-family:var(--mono);text-align:center">18.6%</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 116.0%</span></td>
-  </tr><tr>
-    <td style="font-weight:600;color:var(--head)">Sadanand Patel</td>
-    <td style="font-family:var(--mono);text-align:center">363</td>
-    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">524</td>
-    <td style="text-align:center"><span class="wow-badge down">↓ -30.7%</span></td>
-    <td style="font-family:var(--mono);text-align:center">39</td>
-    <td style="text-align:center"><span class="wow-badge down">↓ -49.4%</span></td>
-    <td style="font-family:var(--mono);text-align:center">10.7%</td>
-    <td style="text-align:center"><span class="wow-badge down">↓ -26.9%</span></td>
-  </tr><tr>
-    <td style="font-weight:600;color:var(--head)">Pramod Kumar</td>
-    <td style="font-family:var(--mono);text-align:center">377</td>
-    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">494</td>
-    <td style="text-align:center"><span class="wow-badge down">↓ -23.7%</span></td>
-    <td style="font-family:var(--mono);text-align:center">66</td>
-    <td style="text-align:center"><span class="wow-badge down">↓ -4.3%</span></td>
-    <td style="font-family:var(--mono);text-align:center">17.5%</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 25.3%</span></td>
-  </tr><tr>
-    <td style="font-weight:600;color:var(--head)">Haya Quadri</td>
-    <td style="font-family:var(--mono);text-align:center">425</td>
-    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">496</td>
-    <td style="text-align:center"><span class="wow-badge down">↓ -14.3%</span></td>
-    <td style="font-family:var(--mono);text-align:center">59</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 37.2%</span></td>
-    <td style="font-family:var(--mono);text-align:center">13.9%</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 60.1%</span></td>
-  </tr><tr>
-    <td style="font-weight:600;color:var(--head)">Rakshith Gaikwad</td>
-    <td style="font-family:var(--mono);text-align:center">432</td>
-    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">335</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 29.0%</span></td>
-    <td style="font-family:var(--mono);text-align:center">51</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 37.8%</span></td>
-    <td style="font-family:var(--mono);text-align:center">11.8%</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 6.9%</span></td>
-  </tr><tr>
-    <td style="font-weight:600;color:var(--head)">Nandita N</td>
-    <td style="font-family:var(--mono);text-align:center">460</td>
-    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">378</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 21.7%</span></td>
-    <td style="font-family:var(--mono);text-align:center">63</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 28.6%</span></td>
-    <td style="font-family:var(--mono);text-align:center">13.7%</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 5.7%</span></td>
-  </tr><tr>
-    <td style="font-weight:600;color:var(--head)">Samson Rebello</td>
-    <td style="font-family:var(--mono);text-align:center">462</td>
-    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">465</td>
-    <td style="text-align:center"><span class="wow-badge flat">→ -0.6%</span></td>
-    <td style="font-family:var(--mono);text-align:center">53</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 20.5%</span></td>
-    <td style="font-family:var(--mono);text-align:center">11.5%</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 21.2%</span></td>
-  </tr><tr>
-    <td style="font-weight:600;color:var(--head)">Jaydeep Parmar</td>
-    <td style="font-family:var(--mono);text-align:center">507</td>
-    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">354</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 43.2%</span></td>
-    <td style="font-family:var(--mono);text-align:center">45</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 87.5%</span></td>
-    <td style="font-family:var(--mono);text-align:center">8.9%</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 30.9%</span></td>
-  </tr><tr>
-    <td style="font-weight:600;color:var(--head)">Ghanshyam Shankerlal Yadav</td>
-    <td style="font-family:var(--mono);text-align:center">524</td>
-    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">402</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 30.3%</span></td>
-    <td style="font-family:var(--mono);text-align:center">68</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 36.0%</span></td>
-    <td style="font-family:var(--mono);text-align:center">13.0%</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 4.3%</span></td>
-  </tr><tr>
-    <td style="font-weight:600;color:var(--head)">Joel Fernandes</td>
-    <td style="font-family:var(--mono);text-align:center">537</td>
-    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">469</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 14.5%</span></td>
-    <td style="font-family:var(--mono);text-align:center">74</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 54.2%</span></td>
-    <td style="font-family:var(--mono);text-align:center">13.8%</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 34.6%</span></td>
-  </tr><tr>
-    <td style="font-weight:600;color:var(--head)">Zuber Haque</td>
-    <td style="font-family:var(--mono);text-align:center">548</td>
-    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">492</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 11.4%</span></td>
-    <td style="font-family:var(--mono);text-align:center">33</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 65.0%</span></td>
-    <td style="font-family:var(--mono);text-align:center">6.0%</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 48.1%</span></td>
-  </tr><tr>
-    <td style="font-weight:600;color:var(--head)">Nandini Nandu Borade</td>
-    <td style="font-family:var(--mono);text-align:center">554</td>
-    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">231</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 139.8%</span></td>
-    <td style="font-family:var(--mono);text-align:center">47</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 34.3%</span></td>
-    <td style="font-family:var(--mono);text-align:center">8.5%</td>
-    <td style="text-align:center"><span class="wow-badge down">↓ -44.0%</span></td>
-  </tr><tr>
-    <td style="font-weight:600;color:var(--head)">Priya Chaudhary</td>
-    <td style="font-family:var(--mono);text-align:center">558</td>
-    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">482</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 15.8%</span></td>
-    <td style="font-family:var(--mono);text-align:center">73</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 58.7%</span></td>
-    <td style="font-family:var(--mono);text-align:center">13.1%</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 37.1%</span></td>
-  </tr><tr>
-    <td style="font-weight:600;color:var(--head)">Melroy Mascarenhas</td>
-    <td style="font-family:var(--mono);text-align:center">576</td>
-    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">397</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 45.1%</span></td>
-    <td style="font-family:var(--mono);text-align:center">48</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 14.3%</span></td>
-    <td style="font-family:var(--mono);text-align:center">8.3%</td>
-    <td style="text-align:center"><span class="wow-badge down">↓ -21.2%</span></td>
-  </tr><tr>
-    <td style="font-weight:600;color:var(--head)">Subhash Madhavan</td>
-    <td style="font-family:var(--mono);text-align:center">609</td>
-    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">400</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 52.3%</span></td>
-    <td style="font-family:var(--mono);text-align:center">57</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 67.6%</span></td>
-    <td style="font-family:var(--mono);text-align:center">9.4%</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 10.1%</span></td>
-  </tr><tr>
-    <td style="font-weight:600;color:var(--head)">Raunak Narvekar</td>
-    <td style="font-family:var(--mono);text-align:center">640</td>
-    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">329</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 94.5%</span></td>
-    <td style="font-family:var(--mono);text-align:center">34</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 36.0%</span></td>
-    <td style="font-family:var(--mono);text-align:center">5.3%</td>
-    <td style="text-align:center"><span class="wow-badge down">↓ -30.1%</span></td>
-  </tr><tr>
-    <td style="font-weight:600;color:var(--head)">Shubhi Mishra</td>
-    <td style="font-family:var(--mono);text-align:center">665</td>
-    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">503</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 32.2%</span></td>
-    <td style="font-family:var(--mono);text-align:center">43</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 22.9%</span></td>
-    <td style="font-family:var(--mono);text-align:center">6.5%</td>
-    <td style="text-align:center"><span class="wow-badge down">↓ -7.1%</span></td>
-  </tr><tr>
-    <td style="font-weight:600;color:var(--head)">Sonal Braganza</td>
-    <td style="font-family:var(--mono);text-align:center">671</td>
-    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">366</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 83.3%</span></td>
-    <td style="font-family:var(--mono);text-align:center">71</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 115.2%</span></td>
-    <td style="font-family:var(--mono);text-align:center">10.6%</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 17.4%</span></td>
-  </tr><tr>
-    <td style="font-weight:600;color:var(--head)">Aasheesh Ahluwalia</td>
-    <td style="font-family:var(--mono);text-align:center">816</td>
-    <td style="font-family:var(--mono);text-align:center;color:var(--dim)">284</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 187.3%</span></td>
-    <td style="font-family:var(--mono);text-align:center">30</td>
-    <td style="text-align:center"><span class="wow-badge up">↑ 76.5%</span></td>
-    <td style="font-family:var(--mono);text-align:center">3.7%</td>
-    <td style="text-align:center"><span class="wow-badge down">↓ -38.6%</span></td>
-  </tr></tbody>
-    </table></div>
+        <div style="padding:20px" id="wowBody"><div class="trend-empty">Accumulates as you process multiple days of data</div></div>
       </div>
 <!-- PDF Export Button (below output) -->
-  <div id="pdfBtnWrap" style="display: none; margin-top: 12px; flex-flow: wrap; gap: 10px; justify-content: flex-end;">
+  <div id="pdfBtnWrap" style="display:none;margin-top:12px;flex-direction:row;gap:10px;justify-content:flex-end;flex-wrap:wrap">
     <button class="btn btn-pdf" onclick="exportPDF()">📄 Current Tab PDF</button>
     <button onclick="exportFullReport()" id="fullReportBtn" style="background:linear-gradient(135deg,#1F3864,#1B4FD8);color:#fff;border:none;border-radius:8px;
              padding:10px 20px;font-family:var(--sans);font-size:13px;font-weight:700;cursor:pointer;
@@ -1317,7 +723,7 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
     </div>
   </div>
 
-  <div id="rawSection" class="raw-section" style="display: none; margin-top: 20px;">
+  <div id="rawSection" class="raw-section" style="display:none;margin-top:20px">
     <div class="out-head" style="background:var(--navy2)">
       <div class="out-head-title" style="font-size:12px"><span class="dot" style="background:var(--sky)"></span>Processed Raw Data</div>
       <button class="btn btn-ghost" onclick="toggleRaw()" id="rawToggle" style="color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.15)">Show ▼</button>
@@ -1330,7 +736,7 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
     </div>
   </div>
 </div>
-<div class="toast" id="toast" style="border-color: var(--gold2);">✓ Trends exported!</div>
+<div class="toast" id="toast" style="border-color: var(--gold2);">✓ Guide downloaded!</div>
 
 <script>
 // Embedded PDF Guide (base64)
