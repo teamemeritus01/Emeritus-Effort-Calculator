@@ -1,4 +1,6 @@
-<html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Team Emeritus — Effort Calculator</title>
@@ -6,7 +8,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--navy:#0d1b3e;--navy2:#142250;--navy3:#1a2d6b;--blue:#1e40af;--blue2:#2563eb;--sky:#3b82f6;--gold:#d97706;--gold2:#f59e0b;--gold3:#fbbf24;--green:#059669;--green2:#10b981;--red:#dc2626;--white:#ffffff;--off:#f8fafc;--light:#f1f5f9;--mid:#e2e8f0;--border:#cbd5e1;--dim:#94a3b8;--body:#334155;--head:#0f172a;--mono:'Inter',system-ui,sans-serif;--sans:'Plus Jakarta Sans',sans-serif}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -333,7 +335,7 @@ tbody tr:last-child td{border-bottom:none}
   <div class="topbar-pills" style="display:flex;align-items:center;gap:8px">
     <span class="pill gold">10AM → 10AM Shift</span>
     <span class="pill">Dialer Connected Flag</span>
-  <button onclick="exportAsIndex()" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; background: rgba(251, 191, 36, 0.15); border: 1px solid rgba(251, 191, 36, 0.4); color: rgba(255, 255, 255, 0.85); border-radius: 6px; font-family: var(--sans); font-size: 11px; font-weight: 600; cursor: pointer; transition: 0.15s; letter-spacing: 0.3px;" onmouseover="this.style.background='rgba(251,191,36,0.15)';this.style.borderColor='rgba(251,191,36,0.4)'" onmouseout="this.style.background='rgba(255,255,255,0.08)';this.style.borderColor='rgba(255,255,255,0.2)'">⬇ Export index.html</button>
+  <button onclick="exportAsIndex()" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.85);border-radius:6px;font-family:var(--sans);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;letter-spacing:.3px" onmouseover="this.style.background='rgba(251,191,36,0.15)';this.style.borderColor='rgba(251,191,36,0.4)'" onmouseout="this.style.background='rgba(255,255,255,0.08)';this.style.borderColor='rgba(255,255,255,0.2)'">⬇ Export index.html</button>
   </div>
 </div>
 
@@ -349,15 +351,7 @@ tbody tr:last-child td{border-bottom:none}
             <div class="input-tab" id="tabUpload" onclick="switchTab('upload')">📂 Upload File</div>
           </div>
           <div class="tab-panel active" id="panelPaste">
-            <textarea class="paste-area" id="rawInput" placeholder="Paste your Excel data here (Ctrl+A → Ctrl+C from Excel, then Ctrl+V)...
-
-Expected columns:
-A - Dialer Duration (min)
-B - Calls/SMS
-C - Dialer Call Connected
-D - Created Date
-E - Advisor
-F - Dialer Call Hour Of Day (Agent)"></textarea>
+            <textarea class="paste-area" id="rawInput" placeholder="Paste your Excel data here (Ctrl+A → Ctrl+C from Excel, then Ctrl+V)...&#10;&#10;Expected columns:&#10;A - Dialer Duration (min)&#10;B - Calls/SMS&#10;C - Dialer Call Connected&#10;D - Created Date&#10;E - Advisor&#10;F - Dialer Call Hour Of Day (Agent)"></textarea>
             <div class="hint"><b>Tip:</b> Copy directly from Excel with or without header row.</div>
           </div>
           <div class="tab-panel" id="panelUpload">
@@ -376,8 +370,8 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
             <button class="btn btn-ghost" onclick="loadSample()">Load Sample</button>
           </div>
           <div class="progress-wrap" id="progressWrap">
-            <div class="progress-track"><div class="progress-fill" id="progressFill" style="width: 0%;"></div></div>
-            <span class="progress-text" id="progressText"></span>
+            <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+            <span class="progress-text" id="progressText">Processing…</span>
           </div>
         </div>
       </div>
@@ -447,7 +441,8 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
     <div class="filter-divider"></div>
     <div class="filter-group" style="flex-direction:column;gap:6px">
       <span class="filter-label">Inactive Advisors</span>
-      <button id="toggleInactiveBtn" onclick="toggleInactiveAdvisors()" style="background:#f1f5f9;border:1.5px solid #e2e8f0;color:#64748b;border-radius:7px;
+      <button id="toggleInactiveBtn" onclick="toggleInactiveAdvisors()"
+        style="background:#f1f5f9;border:1.5px solid #e2e8f0;color:#64748b;border-radius:7px;
                padding:7px 14px;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;
                font-family:var(--sans);white-space:nowrap">
         👁 Show Inactive
@@ -465,9 +460,13 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
     <div class="filter-divider"></div>
     <div class="filter-group">
       <span class="filter-label">Jump to Date</span>
-      <input type="date" id="datePicker" style="background:var(--off);border:1.5px solid var(--border);color:var(--head);border-radius:7px;
+      <input type="date" id="datePicker"
+      style="background:var(--off);border:1.5px solid var(--border);color:var(--head);border-radius:7px;
              padding:8px 12px;font-family:var(--mono);font-size:12px;outline:none;cursor:pointer;
-             transition:border-color .2s" onfocus="this.style.borderColor='var(--blue2)'" onblur="this.style.borderColor='var(--border)'" onchange="jumpToDate(this.value)">
+             transition:border-color .2s"
+      onfocus="this.style.borderColor='var(--blue2)'"
+      onblur="this.style.borderColor='var(--border)'"
+      onchange="jumpToDate(this.value)">
     </div>
     <div class="filter-right">
       <button class="btn btn-green" onclick="copyOutput()">⎘ Copy for Teams / Excel</button>
@@ -536,15 +535,15 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
       <!-- Tab bar -->
       <div class="out-tab-bar">
         <div style="display:flex;gap:4px;flex:1;flex-wrap:wrap">
-          <div class="out-tab active" id="tab-summary" onclick="switchOutTab('summary')">📊 Summary</div>
-          <div class="out-tab" id="tab-leaderboard" onclick="switchOutTab('leaderboard')">🏆 Leaderboard</div>
-          <div class="out-tab" id="tab-shifts" onclick="switchOutTab('shifts')">🔄 Shift Split</div>
-                    <div class="out-tab" id="tab-heatmap" onclick="switchOutTab('heatmap')">🔥 Heatmap</div>
-          <div class="out-tab" id="tab-wow" onclick="switchOutTab('wow')">🔁 Week vs Week</div>
-          <div class="out-tab" id="tab-dialpattern" onclick="switchOutTab('dialpattern')">📞 Dial Pattern</div>
-          <div class="out-tab" id="tab-deadhours" onclick="switchOutTab('deadhours')">💤 Underutilized</div>
-          <div class="out-tab" id="tab-talktime" onclick="switchOutTab('talktime')">🗣 Talk Time</div>
-                              <div class="out-tab" id="tab-workforce" onclick="switchOutTab('workforce')">🧠 Workforce Intel</div>
+          <div class="out-tab active" id="tab-summary"   onclick="switchOutTab('summary')">📊 Summary</div>
+          <div class="out-tab"        id="tab-leaderboard" onclick="switchOutTab('leaderboard')">🏆 Leaderboard</div>
+          <div class="out-tab"        id="tab-shifts"    onclick="switchOutTab('shifts')">🔄 Shift Split</div>
+                    <div class="out-tab"        id="tab-heatmap"   onclick="switchOutTab('heatmap')">🔥 Heatmap</div>
+          <div class="out-tab"        id="tab-wow"       onclick="switchOutTab('wow')">🔁 Week vs Week</div>
+          <div class="out-tab"        id="tab-dialpattern" onclick="switchOutTab('dialpattern')">📞 Dial Pattern</div>
+          <div class="out-tab" id="tab-deadhours"   onclick="switchOutTab('deadhours')">💤 Underutilized</div>
+          <div class="out-tab" id="tab-talktime"    onclick="switchOutTab('talktime')">🗣 Talk Time</div>
+                              <div class="out-tab" id="tab-workforce"  onclick="switchOutTab('workforce')">🧠 Workforce Intel</div>
         </div>
         <!-- Action buttons — always visible on every tab -->
 
@@ -556,7 +555,7 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
           <div class="out-head-title"><span class="dot"></span>By Advisor — <span id="headDateLabel" style="color:var(--gold3);font-size:12px;margin-left:4px"></span></div>
           <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
             <div class="search-wrap">
-              <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke="rgba(255,255,255,0.4)" stroke-width="2"></circle><path d="m21 21-4.35-4.35" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round"></path></svg>
+              <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke="rgba(255,255,255,0.4)" stroke-width="2"/><path d="m21 21-4.35-4.35" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round"/></svg>
               <input type="text" class="search-input" id="searchBox" placeholder="Search advisor…" oninput="renderTable()">
             </div>
         <div class="tab-info" id="info-panel-summary">
@@ -716,9 +715,12 @@ F - Dialer Call Hour Of Day (Agent)"></textarea>
 <!-- PDF Export Button (below output) -->
   <div id="pdfBtnWrap" style="display:none;margin-top:12px;flex-direction:row;gap:10px;justify-content:flex-end;flex-wrap:wrap">
     <button class="btn btn-pdf" onclick="exportPDF()">📄 Current Tab PDF</button>
-    <button onclick="exportFullReport()" id="fullReportBtn" style="background:linear-gradient(135deg,#1F3864,#1B4FD8);color:#fff;border:none;border-radius:8px;
+    <button onclick="exportFullReport()" id="fullReportBtn"
+      style="background:linear-gradient(135deg,#1F3864,#1B4FD8);color:#fff;border:none;border-radius:8px;
              padding:10px 20px;font-family:var(--sans);font-size:13px;font-weight:700;cursor:pointer;
-             box-shadow:0 2px 12px rgba(27,79,216,0.35);display:flex;align-items:center;gap:8px;transition:all .2s">📋 Export Full Report PDF</button>
+             box-shadow:0 2px 12px rgba(27,79,216,0.35);display:flex;align-items:center;gap:8px;transition:all .2s">
+      📋 Export Full Report PDF
+    </button>
   </div>
 
 
@@ -4075,6 +4077,5 @@ function toggleWFDetail(id){
 }
 
 </script>
-
-
-</body></html>
+</body>
+</html>
