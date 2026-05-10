@@ -926,6 +926,8 @@ function setProgress(p,t){document.getElementById('progressFill').style.width=p+
 
 function finalise(result){
   allData=result;
+  loadRoster();
+  saveRoster(); // persist all advisors from this upload
   document.getElementById('processBtn').disabled=false;
   document.getElementById('progressWrap').classList.remove('active');
   if(!allData.length){showToast('No valid rows. Check column order.','#dc2626');return;}
@@ -1022,13 +1024,15 @@ function applyFilters(){
   updateSummary();renderTable();updateBestTime();renderLeaderboard();renderShiftSplit();
   renderExecSummary();checkAnomalies();
   // Defer heavy renders to keep UI responsive
+  // Run absence init immediately — must not be deferred or it may silently fail
+  try{renderAbsenceDetectorInit();}catch(e){console.warn('Absence init:',e);}
+  // Defer heavy chart renders to keep UI responsive
   requestAnimationFrame(()=>{
     renderHeatmap();renderWoW();renderDialPattern();
     requestAnimationFrame(()=>{
       [renderDeadHours,renderTalkTime,renderWorkforce].forEach(fn=>{
         try{fn();}catch(e){console.warn('Render error:',fn.name,e);}
       });
-      try{renderAbsenceDetectorInit();}catch(e){console.warn('Absence init error:',e);}
     });
   });
   // Inject quick filters into all existing tab panels
@@ -3082,6 +3086,31 @@ function downloadGuide(){
 // ABSENCE MANAGEMENT + TAB-LOCAL FILTERS
 // ═══════════════════════════════════════════════════════════════════════
 const ABSENCE_KEY='emeritus_absence_v1';
+
+// ── Persistent Advisor Roster ─────────────────────────────────────────
+const ROSTER_KEY='emeritus_advisor_roster_v1';
+var advisorRoster=new Set(); // grows over time, never shrinks
+
+function loadRoster(){
+  try{
+    const s=localStorage.getItem(ROSTER_KEY);
+    if(s) JSON.parse(s).forEach(a=>advisorRoster.add(a));
+  }catch(e){}
+}
+
+function saveRoster(){
+  try{
+    // Add all current advisors to roster
+    allData.forEach(r=>{if(r.advisor&&r.advisor!=='undefined') advisorRoster.add(r.advisor);});
+    localStorage.setItem(ROSTER_KEY,JSON.stringify([...advisorRoster]));
+  }catch(e){}
+}
+
+function clearRoster(){
+  advisorRoster.clear();
+  try{localStorage.removeItem(ROSTER_KEY);}catch(e){}
+}
+
 let absenceData={};
 
 function absKey(adv,dk){return adv+'||'+dk;}
@@ -3283,7 +3312,11 @@ function renderAbsenceDetector(){
   const el=document.getElementById('absenceDetector');
   if(!el||!allData.length)return;
 
-  const allAdvisors=[...new Set(allData.filter(r=>r.advisor&&r.advisor!=='undefined').map(r=>r.advisor))].sort();
+  // Use roster for full advisor list — catches advisors missing entirely from current upload
+  loadRoster();
+  const dataAdvisors=new Set(allData.filter(r=>r.advisor&&r.advisor!=='undefined').map(r=>r.advisor));
+  // Merge: current data advisors + roster (advisors seen in previous uploads)
+  const allAdvisors=[...new Set([...dataAdvisors,...advisorRoster])].sort();
   const allDates=[...new Set(allData.map(r=>r.shiftDateKey))].sort();
   const fmtD=k=>{const r=allData.find(x=>x.shiftDateKey===k);return r?r.shiftDateDisplay:k;};
 
@@ -3351,38 +3384,58 @@ function renderAbsenceDetector(){
   
   el.innerHTML=`
     <!-- Manual multi-day absence entry -->
-    <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:12px 14px;margin-bottom:12px">
-      <div style="font-size:11px;font-weight:700;color:#1e40af;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px">📅 Mark Advisor Absent for Multiple Days</div>
-      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-start">
+    <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:14px 16px;margin-bottom:14px">
+      <div style="font-size:11px;font-weight:700;color:#1e40af;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px">📅 Mark Advisor Absent for Multiple Days</div>
+      <div style="display:grid;grid-template-columns:220px 1fr auto;gap:16px;align-items:start">
+
+        <!-- Advisor list -->
         <div>
-          <div style="font-size:10px;font-weight:700;color:#64748b;margin-bottom:4px;text-transform:uppercase">Advisors (select multiple)</div>
-          <div style="border:1.5px solid #3b82f6;border-radius:6px;background:#fff;max-height:120px;overflow-y:auto;min-width:200px;padding:4px">
-            ${allAdvisors.map(a=>`<label style="display:flex;align-items:center;gap:6px;padding:3px 6px;cursor:pointer;border-radius:4px;font-size:11px;color:var(--head)" onmouseover="this.style.background='#eff6ff'" onmouseout="this.style.background='transparent'">
-              <input type="checkbox" class="abs-adv-cb" value="${a.replace(/"/g,'&quot;')}" style="cursor:pointer;accent-color:#3b82f6">
+          <div style="font-size:10px;font-weight:700;color:#64748b;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px">Advisors (select multiple)</div>
+          <div style="border:1.5px solid #3b82f6;border-radius:7px;background:#fff;max-height:150px;overflow-y:auto;padding:4px">
+            ${allAdvisors.map(a=>`<label style="display:flex;align-items:center;gap:7px;padding:4px 8px;cursor:pointer;border-radius:5px;font-size:12px;color:var(--head)" onmouseover="this.style.background='#eff6ff'" onmouseout="this.style.background='transparent'">
+              <input type="checkbox" class="abs-adv-cb" value="${a.replace(/"/g,'&quot;')}" style="cursor:pointer;accent-color:#3b82f6;width:13px;height:13px">
               <span>${a}</span>
             </label>`).join('')}
           </div>
-          <div style="display:flex;gap:6px;margin-top:5px">
-            <button onclick="document.querySelectorAll('.abs-adv-cb').forEach(c=>c.checked=true)" style="font-size:9px;padding:2px 8px;border:1px solid #bfdbfe;background:#eff6ff;color:#1e40af;border-radius:4px;cursor:pointer">All</button>
-            <button onclick="document.querySelectorAll('.abs-adv-cb').forEach(c=>c.checked=false)" style="font-size:9px;padding:2px 8px;border:1px solid #e2e8f0;background:#f8faff;color:#64748b;border-radius:4px;cursor:pointer">None</button>
+          <div style="display:flex;gap:6px;margin-top:6px">
+            <button onclick="document.querySelectorAll('.abs-adv-cb').forEach(c=>c.checked=true)" style="font-size:10px;padding:3px 10px;border:1px solid #bfdbfe;background:#eff6ff;color:#1e40af;border-radius:5px;cursor:pointer;font-weight:600">All</button>
+            <button onclick="document.querySelectorAll('.abs-adv-cb').forEach(c=>c.checked=false)" style="font-size:10px;padding:3px 10px;border:1px solid #e2e8f0;background:#f8faff;color:#64748b;border-radius:5px;cursor:pointer">None</button>
           </div>
         </div>
+
+        <!-- Date checkboxes -->
         <div>
-          <div style="font-size:10px;font-weight:700;color:#64748b;margin-bottom:4px;text-transform:uppercase">Select Dates (Ctrl+Click for multiple)</div>
-          <div style="display:flex;flex-wrap:wrap;gap:6px;max-width:500px;background:#fff;border:1px solid #bfdbfe;border-radius:6px;padding:8px;max-height:90px;overflow-y:auto">
-            ${dateCheckboxes}
+          <div style="font-size:10px;font-weight:700;color:#64748b;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px">Select Dates</div>
+          <div style="border:1.5px solid #bfdbfe;border-radius:7px;background:#fff;padding:10px 12px;max-height:150px;overflow-y:auto">
+            <div style="display:flex;flex-wrap:wrap;gap:6px 0;align-items:center">
+              ${allData.length?[...new Set(allData.map(r=>r.shiftDateKey))].sort().map(dk=>{
+                const disp=allData.find(x=>x.shiftDateKey===dk)?.shiftDateDisplay||dk;
+                return`<label style="display:flex;align-items:center;gap:5px;padding:3px 10px;cursor:pointer;font-size:12px;color:var(--head);white-space:nowrap;width:calc(25% - 4px)" onmouseover="this.style.background='#eff6ff';this.style.borderRadius='5px'" onmouseout="this.style.background='transparent'">
+                  <input type="checkbox" class="abs-date-cb" value="${dk}" style="cursor:pointer;accent-color:#3b82f6;width:13px;height:13px">
+                  <span>${disp}</span>
+                </label>`;
+              }).join(''):''}
+            </div>
           </div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:6px;justify-content:flex-end">
+
+        <!-- Action buttons -->
+        <div style="display:flex;flex-direction:column;gap:8px;padding-top:22px">
           <button onclick="applyManualAbsence()"
-            style="background:#1B4FD8;color:#fff;border:none;border-radius:6px;padding:7px 16px;font-size:12px;font-weight:700;cursor:pointer">
+            style="background:#1B4FD8;color:#fff;border:none;border-radius:7px;padding:9px 18px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap">
             ✓ Apply Absence
           </button>
           <button onclick="clearAllAbsence()"
-            style="background:#fff;color:#ef4444;border:1px solid #fca5a5;border-radius:6px;padding:5px 12px;font-size:11px;cursor:pointer">
-            ✕ Clear All
+            style="background:#fff;color:#ef4444;border:1.5px solid #fca5a5;border-radius:7px;padding:7px 14px;font-size:11px;cursor:pointer;font-weight:600">
+            ✕ Clear All Absence
+          </button>
+          <button onclick="clearRoster();renderAbsenceDetector();showToast('Advisor roster cleared')"
+            style="background:#fff;color:#64748b;border:1px solid #e2e8f0;border-radius:7px;padding:7px 14px;font-size:11px;cursor:pointer"
+            title="Remove saved advisor history">
+            🗑 Reset Roster
           </button>
         </div>
+
       </div>
     </div>
 
@@ -3393,8 +3446,19 @@ function renderAbsenceDetector(){
     </div>`:''}
 
     <!-- Auto-detected zero days -->
-    <div style="font-size:10px;font-weight:700;color:#92400e;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">
-      Auto-detected: ${zeroCombos.length} advisor-day${zeroCombos.length!==1?'s':''} with zero calls
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px">
+      <div style="font-size:10px;font-weight:700;color:#92400e;text-transform:uppercase;letter-spacing:1px">
+        Auto-detected: ${Object.keys(autoByAdv).length} advisor${Object.keys(autoByAdv).length!==1?'s':''} · ${zeroCombos.length} day${zeroCombos.length!==1?'s':''} with zero calls
+      </div>
+      ${Object.keys(autoByAdv).length>0?`
+      <button id="autoMarkAllBtn"
+        onclick="autoMarkAllAbsent()"
+        style="font-size:11px;padding:5px 14px;border-radius:6px;cursor:pointer;
+               border:1.5px solid #dc2626;background:#dc2626;color:#fff;
+               font-weight:700;white-space:nowrap;margin-left:auto">
+        🚫 Auto-Mark All Absent
+      </button>
+      <span style="font-size:10px;color:#64748b">then remove anyone who shouldn't be excluded</span>`:''}
     </div>
     <div style="border:1px solid #fde68a;border-radius:8px;overflow:hidden;max-height:180px;overflow-y:auto">${autoRows}</div>`;
 }
@@ -3409,6 +3473,37 @@ function applyManualAbsence(){
   showToast(`✓ ${selAdvs.length} advisor${selAdvs.length>1?'s':''} marked absent for ${checked.length} date${checked.length>1?'s':''}. ${count} entries excluded.`);
   document.querySelectorAll('.abs-adv-cb').forEach(cb=>cb.checked=false);
   document.querySelectorAll('.abs-date-cb').forEach(cb=>cb.checked=false);
+}
+
+function autoMarkAllAbsent(){
+  const btn=document.getElementById('autoMarkAllBtn');
+  if(btn){btn.textContent='⏳ Marking...';btn.disabled=true;}
+  // Get all zero-call combos from current auto-detected list
+  const allAdvisorsInData=[...new Set(allData.filter(r=>r.advisor&&r.advisor!=='undefined').map(r=>r.advisor))];
+  const allDatesInData=[...new Set(allData.map(r=>r.shiftDateKey))].sort();
+  const actMap={};
+  allData.forEach(r=>{
+    if(r.advisor&&r.advisor!=='undefined'){
+      const k=absKey(r.advisor,r.shiftDateKey);
+      actMap[k]=(actMap[k]||0)+1;
+    }
+  });
+  loadRoster();
+  const fullAdvisors=[...new Set([...allAdvisorsInData,...advisorRoster])].sort();
+  let count=0;
+  fullAdvisors.forEach(adv=>{
+    allDatesInData.forEach(dk=>{
+      const k=absKey(adv,dk);
+      if(!actMap[k]&&!absenceData[k]){
+        absenceData[k]=true;
+        count++;
+      }
+    });
+  });
+  try{localStorage.setItem(ABSENCE_KEY,JSON.stringify(absenceData));}catch(e){}
+  applyFilters();
+  renderAbsenceDetector();
+  showToast(`✓ ${count} advisor-days auto-marked absent. Review and remove anyone who shouldn't be excluded.`);
 }
 
 function clearAdvisorAbsence(adv,dksArg){
@@ -3779,11 +3874,14 @@ function renderAbsenceDetectorInit(){
   const wrap=document.getElementById('absenceDetectorWrap');
   if(wrap) wrap.style.display='block';
   renderAbsenceDetector();
-  // Always auto-expand on data load so zero-call advisors are visible immediately
-  const el=document.getElementById('absenceDetector');
-  const btn=document.getElementById('absenceToggleBtn');
-  if(el) el.style.display='block';
-  if(btn) btn.textContent='Hide ▲';
+  // Always auto-expand so zero-call advisors visible immediately
+  // Use setTimeout to ensure DOM is fully ready (especially on GitHub Pages)
+  setTimeout(()=>{
+    const el=document.getElementById('absenceDetector');
+    const btn=document.getElementById('absenceToggleBtn');
+    if(el) el.style.display='block';
+    if(btn) btn.textContent='Hide ▲';
+  }, 50);
 }
 
 function toggleAbsencePanel(){
